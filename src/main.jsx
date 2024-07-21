@@ -21,7 +21,16 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <StyleProvider layer>
-      <ConfigProvider wave={{ disabled: true }}>
+      <ConfigProvider
+        wave={{ disabled: true }}
+        theme={{
+          components: {
+            Input: {
+              controlOutlineWidth: 0,
+            },
+          },
+        }}
+      >
         <RouterProvider router={router} />
       </ConfigProvider>
     </StyleProvider>
