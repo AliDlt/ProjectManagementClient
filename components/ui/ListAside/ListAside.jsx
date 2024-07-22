@@ -11,7 +11,7 @@ const ListAside = () => {
   return (
     <ul className="list-none w-full flex flex-col  ">
       {pages.map(({ icon, name }) => {
-       return <li className="flex justify-start p-8 gap-5 items-center ">
+       return <li className="flex justify-start p-8 gap-5 items-center text-custom-textFaint-color ">
           <span >
             <img src={icon} alt={name} />
           </span>

@@ -9,13 +9,15 @@ function DashboardSideBar() {
   const { show, toggle } = useContext(SideBarContext);
   return (
     <aside
-      className={`lg:col-span-3 
+      className={`
+        
+        lg:col-span-3 
         overflow-y-scroll
         fixed lg:static z-50 h-full
         ${show ? "right-0" : "-right-full"}
          2xl:col-span-2 lg:row-start-1 lg:-row-end-9  lg:block shadow-custom rounded-xl bg-white`}
     >
-      <p className="m-2 left-0 text-custom-primary-color text-2xl absolute">
+      <p className="m-2 left-0 text-custom-primary-color lg:hidden text-2xl absolute">
         <IoMdClose
           onClick={() => {
             toggle(false);
