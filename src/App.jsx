@@ -48,6 +48,7 @@ function App() {
       </ConfigProvider>
     </StyleProvider>
   );
+
 }
 
 export default App;
