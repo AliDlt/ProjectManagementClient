@@ -6,7 +6,7 @@ import DashboardHeader from "../components/ui/dashboard/DashboardHeader";
 function DashboardPage() {
   return (
     <section className="lg:container grid grid-cols-1 gap-5 lg:grid-cols-12">
-      <header className="lg:col-span-9 2xl:col-span-10 rounded-br-custom rounded-bl-custom lg:rounded-custom shadow-custom border-b-4 border-custom-primary-color/50 sticky top-0 bg-white z-10 lg:top-5">
+      <header className="lg:col-span-9 2xl:col-span-10 rounded-br-custom rounded-bl-custom lg:rounded-custom shadow-custom border-b-4 border-custom-primary-color-300 sticky top-0 bg-white z-10 lg:top-5">
         <DashboardHeader />
       </header>
       <aside className="lg:col-span-3 2xl:col-span-2 lg:row-start-1 lg:-row-end-9 hidden lg:block bg-emerald-600"></aside>

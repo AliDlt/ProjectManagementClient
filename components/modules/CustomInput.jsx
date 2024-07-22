@@ -7,10 +7,9 @@ export default function CustomInput({ icon, placeholder, className }) {
     <Input
       classNames={{
         input: "placeholder:text-black/90 font-medium",
-        affixWrapper: "!outline-none",
       }}
       className={cn([
-        "rounded-custom  border-2 border-custom-primary-color ",
+        "rounded-custom border-2 border-custom-primary-color",
         className,
       ])}
       prefix={icon}
