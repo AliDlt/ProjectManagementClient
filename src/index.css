@@ -18,3 +18,7 @@
     @apply mx-auto p-5;
   }
 }
+
+body{
+  background-color: #F9F5F2;
+}

@@ -19,6 +19,9 @@ export default {
       borderRadius: {
         custom: "16px",
       },
+      fontFamily: {
+        estedad: ['estedad', 'sans-serif'],
+      },
     },
   },
   plugins: [],

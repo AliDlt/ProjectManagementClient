@@ -3,7 +3,7 @@ import CustomButton from "../../modules/CustomButton";
 
 function ReportsSection() {
   return (
-    <div className="shadow-custom p-6 flex flex-col gap-5 rounded-custom border-b-4 border-r-4 border-custom-primary-color/50 lg:p-7">
+    <div className="shadow-custom p-6 flex flex-col gap-5 rounded-custom border-b-4 border-r-4 border-custom-primary-color/50 lg:p-7 bg-white">
       <h3 className="text-lg">گزارش ها</h3>
       <div className="flex flex-col gap-3">
         <ReportItem
