@@ -42,7 +42,9 @@ const ReportItem = ({ title, desc, projectNumber }) => {
         <span className="font-bold xs:bg-red-400">{title}</span>
         <p className="text-sm truncate"> &nbsp; {desc}</p>
       </div>
-      <CustomButton className="px-2 py-1 text-xs mr-auto">مشاهده</CustomButton>
+      <CustomButton className="px-2 py-1 text-xs mr-auto mt-auto">
+        مشاهده
+      </CustomButton>
     </div>
   );
 };
