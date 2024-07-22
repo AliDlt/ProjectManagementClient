@@ -4,7 +4,7 @@ import CustomDonutChart from "../charts/CustomDonutChart";
 
 function ProjectSection() {
   return (
-    <div className="shadow-custom p-6 flex flex-col gap-5 rounded-custom border-b-4 border-l-4 border-custom-primary-color/50 lg:p-7 ">
+    <div className="shadow-custom bg-white  p-6 flex flex-col gap-5 rounded-custom border-b-4 border-l-4 border-custom-primary-color/50 lg:p-7 ">
       <h3 className="text-lg">پروژه ها</h3>
       <div>
         <div className="flex justify-between items-center">
