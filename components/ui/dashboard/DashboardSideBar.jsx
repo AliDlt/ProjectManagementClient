@@ -10,7 +10,6 @@ function DashboardSideBar() {
   return (
     <aside
       className={`
-        
         lg:col-span-3 
         overflow-y-scroll
         fixed lg:static z-50 h-full

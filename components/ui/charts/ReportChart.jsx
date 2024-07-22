@@ -27,7 +27,6 @@ const ReportChart = () => {
     },
     chart: {
       type: "bar",
-      height: 280,
     },
     xaxis: {
       type: "category",
@@ -89,7 +88,7 @@ const ReportChart = () => {
       options={options}
       series={series}
       type="bar"
-      height={380}
+      height={330}
     />
   );
 };

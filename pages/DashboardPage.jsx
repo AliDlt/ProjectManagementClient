@@ -5,6 +5,7 @@ import DashboardHeader from "../components/ui/dashboard/DashboardHeader";
 import DashboardSideBar from "../components/ui/dashboard/DashboardSideBar";
 import SideBarContextProvider from "../Context/SideBarContext";
 import ReportChartSection from "../components/ui/dashboard/ReportChartSection";
+import Messages from "../components/ui/dashboard/Messages";
 
 function DashboardPage() {
   return (
@@ -23,7 +24,7 @@ function DashboardPage() {
             <ProjectSection />
           </div>
           <div className="lg:col-span-7 xl:col-span-4 2xl:col-span-7 "><ReportChartSection /></div>
-          <div className="lg:col-span-7 xl:col-span-3 2xl:col-span-4 "></div>
+          <div className="lg:col-span-7 xl:col-span-3 2xl:col-span-4  "><Messages /></div>
         </div>
       </section>
     </SideBarContextProvider>
