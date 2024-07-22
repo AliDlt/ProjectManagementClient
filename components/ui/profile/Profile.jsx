@@ -1,6 +1,6 @@
 import React from "react";
 const profile = {
-  image: "/public/image/Ellipse 16.png",
+  image: "/image/Ellipse 16.png",
   name: "امیر محمد زارعی",
   level: 'مدیر پروژه '
 };
