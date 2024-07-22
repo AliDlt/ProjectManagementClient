@@ -11,7 +11,10 @@ export default {
     extend: {
       colors: {
         "custom-primary-color": "rgb(var(--primary-color) / <alpha-value>)",
+        "custom-primary-color-300":
+          "rgb(var(--primary-color-300) / <alpha-value>)",
         "custom-secondary-color": "rgb(var(--secondary-color) / <alpha-value>)",
+        "white-custom": "#fff",
         "custom-textFaint-color": "rgb(var(--textFaint-color) / <alpha-value>)",
       },
       boxShadow: {
@@ -20,6 +23,13 @@ export default {
       borderRadius: {
         custom: "16px",
       },
+      fontSize: {
+        32: "32px",
+        24: "24px",
+        16: "16px",
+        14: "14px",
+        12: "12px",
+        10: "10px",
       fontFamily: {
         estedad: ['estedad', 'sans-serif'],
       },

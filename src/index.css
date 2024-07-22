@@ -5,6 +5,7 @@
 
 :root {
   --primary-color: 241 162 91;
+  --primary-color-300: 255 206 163;
   --secondary-color: 21 171 255;
   --textFaint-color: 76 75 75;
 }
@@ -21,6 +22,19 @@
   }
 }
 
+/* Checkbox */
+.ant-checkbox-inner {
+  @apply !w-5 !h-5;
+}
+
+.ant-checkbox-wrapper {
+  direction: ltr;
+}
+
+/* OTP */
+.ant-otp-input {
+  @apply bg-[#d9d9d9] hover:bg-[#d9d9d9] border-0 focus:bg-[#d9d9d9] w-20 h-20 rounded-custom text-24;
+}
 body {
   background-color: #F9F5F2;
 }

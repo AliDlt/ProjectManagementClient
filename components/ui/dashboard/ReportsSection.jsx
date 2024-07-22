@@ -3,6 +3,7 @@ import CustomButton from "../../modules/CustomButton";
 
 function ReportsSection() {
   return (
+
     <div className="shadow-custom p-6 flex flex-col gap-3 rounded-custom border-b-4 border-r-4 h-[95%] border-custom-primary-color/50 lg:p-7 bg-white">
       <h3 className="text-lg">گزارش ها</h3>
       <div className="flex flex-col gap-3">
@@ -42,7 +43,9 @@ const ReportItem = ({ title, desc, projectNumber }) => {
         <span className="font-bold xs:bg-red-400">{title}</span>
         <p className="text-sm truncate"> &nbsp; {desc}</p>
       </div>
-      <CustomButton className="px-2 py-1 text-xs mr-auto">مشاهده</CustomButton>
+      <CustomButton className="px-2 py-1 text-xs mr-auto mt-auto">
+        مشاهده
+      </CustomButton>
     </div>
   );
 };

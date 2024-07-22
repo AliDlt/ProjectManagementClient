@@ -6,7 +6,7 @@ function CustomButton({ children, className, onClick }) {
   return (
     <Button
       className={cn([
-        "rounded-3xl bg-custom-primary-color text-white border-none hover:bg-custom-primary-color/80 px-4 py-[18px] ",
+        "rounded-custom bg-custom-primary-color text-white border-none hover:bg-custom-primary-color/90 px-4 py-[18px]",
         className,
       ])}
       onClick={onClick}
