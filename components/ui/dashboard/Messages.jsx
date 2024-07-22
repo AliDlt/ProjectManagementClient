@@ -25,7 +25,7 @@ const Messages = () => {
           <h3 className="text-lg">پیام ها</h3>
           <CustomButton className='' >همه پیام ها</CustomButton>
         </div>
-        <div className="flex flex-col  justify-between h-full ">
+        <div className="flex flex-col  gap-3 h-full ">
           {messages.map(({ name, message }) => {
             return <Message name={name} message={message} />;
           })}

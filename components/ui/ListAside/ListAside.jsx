@@ -1,11 +1,11 @@
 import React from "react";
 const pages = [
-  { name: "داشبورد", icon: "/public/icons/آیکون-داشبورد.svg" },
-  { name: "مدیر", icon: "/public/icons/آیکون-مدیر.svg" },
-  { name: "ناظر ها", icon: "/public/icons/آیکون-ناظرها.svg" },
-  { name: "پروژه ها", icon: "/public/icons/آیکون-پروژه ها.svg" },
-  { name: "گزارش ها", icon: "/public/icons/آیکون-گزارش ها.svg" },
-  { name: "پیام ها", icon: "/public/icons/آیکون-پیام ها.svg" },
+  { name: "داشبورد", icon: "/icons/آیکون-داشبورد.svg" },
+  { name: "مدیر", icon: "/icons/آیکون-مدیر.svg" },
+  { name: "ناظر ها", icon: "/icons/آیکون-ناظرها.svg" },
+  { name: "پروژه ها", icon: "/icons/آیکون-پروژه ها.svg" },
+  { name: "گزارش ها", icon: "/icons/آیکون-گزارش ها.svg" },
+  { name: "پیام ها", icon: "/icons/آیکون-پیام ها.svg" },
 ];
 const ListAside = () => {
   return (
