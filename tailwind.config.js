@@ -30,6 +30,8 @@ export default {
         14: "14px",
         12: "12px",
         10: "10px",
+        8: "8px",
+      },
       fontFamily: {
         estedad: ['estedad', 'sans-serif'],
       },

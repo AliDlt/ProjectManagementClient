@@ -6,10 +6,10 @@ export default function CustomInput({ icon, placeholder, className }) {
   return (
     <Input
       classNames={{
-        input: "placeholder:text-black/90 font-medium",
+        input: "placeholder:text-black/90 font-medium p-2",
       }}
       className={cn([
-        "rounded-custom border-2 border-custom-primary-color",
+        "rounded-lg border-2 border-custom-primary-color",
         className,
       ])}
       prefix={icon}
