@@ -27,7 +27,9 @@ function ReportsSection() {
           title={"متن گزارش: "}
         />
       </div>
-      <CustomButton className="self-end text-sm">همه گزارش ها</CustomButton>
+      <CustomButton className="self-end text-sm mt-auto">
+        همه گزارش ها
+      </CustomButton>
     </div>
   );
 }

@@ -7,12 +7,15 @@ import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import ForgetPasswordPage from "../pages/ForgetPasswordPage";
 import NewPasswordPage from "../pages/NewPasswordPage";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <StyleProvider>
       <ConfigProvider
-        direction="rtl"
+        form={{
+          validateMessages: true,
+        }}
         theme={{
           token: {
             controlOutlineWidth: 0,
@@ -22,6 +25,7 @@ function App() {
             Input: {
               hoverBorderColor: "rgb(var(--primary-color))",
               activeBorderColor: "rgb(var(--primary-color))",
+              colorErrorBorder: "red",
             },
             Button: {
               defaultHoverColor: "white",
@@ -38,6 +42,9 @@ function App() {
           },
         }}
       >
+        <div>
+          <Toaster />
+        </div>
         <Routes>
           {/* <Route path="/" /> */}
           <Route path="/dashboard" element={<DashboardPage />} />

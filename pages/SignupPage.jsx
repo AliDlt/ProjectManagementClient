@@ -1,30 +1,26 @@
-import React from "react";
-import CustomInput from "../components/modules/CustomInput";
-import CustomPasswordInput from "../components/modules/CustomPasswordInput";
-import CustomButton from "../components/modules/CustomButton";
+import { useState } from "react";
+import SignupForm from "../components/ui/auth/SignupForm";
+import OTPForm from "../components/ui/auth/OTPForm";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { signupSchema } from "../yup/yup";
 
 function SignupPage() {
-  return (
-    <div className="px-8 w-full mt-10 py-10">
-      <h1 className="text-32">ثبت نام </h1>
-      <form className="flex flex-col gap-7 px-2 mt-10">
-        <CustomInput
-          className="h-[60px] px-5"
-          placeholder="نام و نام خانوادگی"
-        />
-        <CustomInput className="h-[60px] px-5" placeholder="نام کاربری " />
-        <CustomInput className="h-[60px] px-5" placeholder="شماره موبایل" />
-        <CustomPasswordInput className="h-[60px] px-5" placeholder="رمز عبور" />
-        <CustomPasswordInput
-          className="h-[60px] px-5"
-          placeholder="تکرار رمز عبور"
-        />
-        <CustomButton className="h-[60px] w-48 mx-auto text-24 ">
-          <span className="text-white">ثبت نام</span>
-        </CustomButton>
-      </form>
-    </div>
-  );
+  const [step, setStep] = useState(1); // 1 => SignupForm | 2 => OTPForm
+
+  const formData = useForm({
+    mode: "onChange",
+    resolver: yupResolver(signupSchema),
+  });
+
+  switch (step) {
+    case 1:
+      return <SignupForm formData={formData} setStep={setStep} />;
+    case 2:
+      return <OTPForm />;
+    default:
+      break;
+  }
 }
 
 export default SignupPage;

@@ -8,8 +8,8 @@ const ReportChartSection = () => {
             گزارشات هفتگی     
         </h3>
         <div className='mt-5 lg:px-6'>
-            <ReportChart />
-        </div>
+        <ReportChart />
+      </div>
     </div>
   )
 }

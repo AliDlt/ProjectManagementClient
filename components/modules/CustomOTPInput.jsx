@@ -1,8 +1,8 @@
-import { Input } from "antd";
+import InputOTP from "antd/es/input/OTP";
 import React from "react";
 
 function CustomOTPInput() {
-  return <Input.OTP length={4}  />;
+  return <InputOTP length={4} autoFocus dir="ltr" />;
 }
 
 export default CustomOTPInput;
