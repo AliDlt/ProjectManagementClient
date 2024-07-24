@@ -18,6 +18,10 @@ const ReportChart = () => {
   ]);
 
   const options = {
+    dataLabels:{
+      enabled:false
+    },
+
     grid: {
         show:false
     },
@@ -26,6 +30,9 @@ const ReportChart = () => {
       colors: "#15ABFF",
     },
     chart: {
+      toolbar: {
+        show: false, // Hide the toolbar
+      },
       type: "bar",
     },
     xaxis: {

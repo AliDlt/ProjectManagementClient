@@ -24,7 +24,9 @@ function DashboardSideBar() {
         />
       </p>
       <nav className="flex flex-col items-center pt-12 w-full">
-        <Logo />
+        <div className="flex justify-center">
+          <Logo />
+        </div>
         <Profile />
         <ListAside />
       </nav>

@@ -2,14 +2,20 @@ import { Input } from "antd";
 import React from "react";
 import cn from "../../utils/cn";
 
-export default function CustomInput({ icon, placeholder, className }) {
+export default function CustomInput({
+  icon,
+  placeholder,
+  className,
+  onChange,
+}) {
   return (
     <Input
+      onChange={onChange}
       classNames={{
-        input: "placeholder:text-black/90 font-medium",
+        input: "placeholder:text-black/90 font-medium p-2",
       }}
       className={cn([
-        "rounded-custom border-2 border-custom-primary-color",
+        "rounded-lg border-2 border-custom-primary-color",
         className,
       ])}
       prefix={icon}

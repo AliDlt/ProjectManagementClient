@@ -4,6 +4,9 @@ import { ConfigProvider } from "antd";
 import { StyleProvider } from "@ant-design/cssinjs";
 import AuthContainer from "../components/ui/auth/AuthContainer";
 import SignupPage from "../pages/SignupPage";
+import LoginPage from "../pages/LoginPage";
+import ForgetPasswordPage from "../pages/ForgetPasswordPage";
+import NewPasswordPage from "../pages/NewPasswordPage";
 
 function App() {
   return (
@@ -40,15 +43,15 @@ function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/auth" element={<AuthContainer />}>
             <Route index element={<Navigate to={"/auth/login"} replace />} />
-            <Route path="login" />
+            <Route path="login" element={<LoginPage />} />
             <Route path="signup" element={<SignupPage />} />
-            <Route path="forgot-password" />
+            <Route path="new-password" element={<NewPasswordPage />} />
+            <Route path="forgot-password" element={<ForgetPasswordPage />} />
           </Route>
         </Routes>
       </ConfigProvider>
     </StyleProvider>
   );
-
 }
 
 export default App;
