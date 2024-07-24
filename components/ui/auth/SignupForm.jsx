@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomInput from "../../modules/CustomInput";
 import CustomPasswordInput from "../../modules/CustomPasswordInput";
 import CustomButton from "../../modules/CustomButton";
@@ -6,6 +6,8 @@ import { signup } from "../../../services/auth";
 import toast from "react-hot-toast";
 
 function SignupForm({ formData, setStep }) {
+  const [loading, setLoading] = useState(false);
+
   const {
     handleSubmit,
     control,
@@ -13,6 +15,7 @@ function SignupForm({ formData, setStep }) {
   } = formData;
 
   const onSubmitHandler = async (values) => {
+    setLoading(true);
     const { name, phonenumber, username, password, nationalCode } = values;
     const userData = {
       name,
@@ -29,6 +32,8 @@ function SignupForm({ formData, setStep }) {
     } catch (error) {
       toast.error(error.response.data.message);
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -84,6 +89,7 @@ function SignupForm({ formData, setStep }) {
           placeholder="تکرار رمز عبور"
         />
         <CustomButton
+          loading={loading}
           className="h-[60px] w-48 mx-auto text-20 md:w-56  md:mt-5"
           type="submit"
         >
