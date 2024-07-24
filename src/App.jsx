@@ -6,6 +6,7 @@ import AuthContainer from "../components/ui/auth/AuthContainer";
 import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import ForgetPasswordPage from "../pages/ForgetPasswordPage";
+import NewPasswordPage from "../pages/NewPasswordPage";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             <Route index element={<Navigate to={"/auth/login"} replace />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="signup" element={<SignupPage />} />
+            <Route path="new-password" element={<NewPasswordPage />} />
             <Route path="forgot-password" element={<ForgetPasswordPage />} />
           </Route>
         </Routes>

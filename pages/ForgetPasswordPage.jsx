@@ -12,7 +12,7 @@ const ForgetPasswordPage = () => {
       <form className="w-4/5 flex flex-col gap-8">
         <CustomInput placeholder="شماره موبایل" />
         <CustomButton className="w-3/5 rounded-lg m-auto p-6 ">
-          <span className="font-bold text-lg">ارسال کد بازیابی{" "}</span>
+          <span className="font-bold text-lg">ارسال کد بازیابی </span>
         </CustomButton>
       </form>
     </section>

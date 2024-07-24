@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 function AuthContainer() {
   return (
-    <section className="min-h-svh relative flex items-start justify-center">
+    <section className="min-h-screen relative flex items-start justify-center">
       <img
         className="absolute left-0 top-0 w-72 -z-10"
         src="/images/authImage2.svg"
