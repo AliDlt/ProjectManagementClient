@@ -24,8 +24,12 @@ export default {
         custom: "16px",
       },
       fontSize: {
+        48: "48px",
+        36: "36px",
         32: "32px",
         24: "24px",
+        20: "20px",
+        18: "18px",
         16: "16px",
         14: "14px",
         12: "12px",
@@ -33,9 +37,9 @@ export default {
         8: "8px",
       },
       fontFamily: {
-        estedad: ['estedad', 'sans-serif'],
+        estedad: ["estedad", "sans-serif"],
       },
     },
+    plugins: [],
   },
-  plugins: [],
 };

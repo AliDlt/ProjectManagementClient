@@ -23,7 +23,7 @@ const ReportChart = () => {
     },
 
     grid: {
-        show:false
+      show: false,
     },
 
     fill: {
@@ -91,12 +91,7 @@ const ReportChart = () => {
   }, []);
 
   return (
-    <ApexCharts
-      options={options}
-      series={series}
-      type="bar"
-      height={330}
-    />
+    <ApexCharts options={options} series={series} type="bar" height={330} />
   );
 };
 
