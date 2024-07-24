@@ -13,13 +13,13 @@ const ForgetPasswordPage = () => {
         <h3 className=" text-2xl md:text-3xl ">
           رمز عبور خود را فراموش کردید؟{" "}
         </h3>
-        <p className="w-4/5 text-2xl">
+        <p className="w-4/5 md:text-2xl">
           شماره موبایل خود را برای بازیابی رمز عبور در کادر زیر وارد کنید.{" "}
         </p>
         <form className="w-4/5 flex flex-col gap-8">
-          <CustomInput className="text-2xl px-5" placeholder="شماره موبایل" />
-          <CustomButton className="w-3/5 rounded-lg m-auto p-6 text-xl ">
-            <span className="font-bold text-lg">ارسال کد بازیابی </span>
+          <CustomInput className="md:text-2xl md:px-5" placeholder="شماره موبایل" />
+          <CustomButton className="w-3/5 rounded-lg m-auto md:p-6 md:text-xl ">
+            <span className="font-bold md:text-lg">ارسال کد بازیابی </span>
           </CustomButton>
         </form>
       </div>
