@@ -7,4 +7,23 @@ export const signup = async (userData) => {
   });
   return res.data;
 };
- 
+
+// OTP Verify
+export const otpVerify = async (data) => {
+  const res = await http.post("/otp/verify", data, {
+    withCredentials: false,
+  });
+  return res.data;
+};
+
+// Resend OTP Code
+export const resendOtpCode = async (phonenumber) => {
+  const res = await http.post(
+    "/otp/send",
+    { phonenumber },
+    {
+      withCredentials: false,
+    },
+  );
+  return res.data;
+};
