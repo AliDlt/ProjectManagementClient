@@ -7,4 +7,10 @@ export const signup = async (userData) => {
   });
   return res.data;
 };
- 
+
+export const login = async (data) => {
+  const response = await http.post("/auth/login", data, {
+    withCredentials: false,
+  });
+  return response.data
+};

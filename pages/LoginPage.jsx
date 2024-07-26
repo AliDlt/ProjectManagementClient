@@ -1,27 +1,68 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Logo from "../components/ui/Logo/Logo";
 import CustomInput from "../components/modules/CustomInput";
 import CustomButton from "../components/modules/CustomButton";
 import CustomPasswordInput from "../components/modules/CustomPasswordInput";
 import { Checkbox } from "antd";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "../yup/yup";
+import { login } from "../services/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastMessageContext } from "../Context/toast";
 
 const LoginPage = () => {
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(loginSchema),
+  });
+  const { showToast } = useContext(ToastMessageContext);
+
+  const submitLogin = async (values) => {
+    // const { username, password } = values;
+    setLoading(true);
+    try {
+      const response = await login(values);
+      console.log("موفقیت آمیز");
+    } catch (err) {
+      showToast(err.response.data.message, "error");
+      console.log(err);
+      navigate(`/auth/otp?phoneNumber=09308178083`)
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Logo />
       <h3 className="md:text-20 mt-16">به سمپ خوش آمدید</h3>
-      <form className="flex flex-col gap-6 mt-8">
+      <form
+        onSubmit={handleSubmit(submitLogin)}
+        className="flex flex-col gap-6 mt-8"
+      >
         {/* Phone number */}
         <CustomInput
+          control={control}
+          error={errors}
           // error={errors}
-          name="phonenumber"
+          name="username"
           // control={control}
           className="h-[60px] text-16 px-5 bg-transparent md:text-18"
-          placeholder="شماره موبایل"
+          placeholder="نام کاربری"
         />
         {/* Password */}
         <CustomPasswordInput
           name="password"
+          control={control}
+          error={errors}
           // control={control}
           className="h-[60px] text-16 px-5 bg-transparent md:text-18"
           placeholder="رمز عبور"
@@ -35,6 +76,7 @@ const LoginPage = () => {
         </div>
         {/* Submit button */}
         <CustomButton
+          loading={loading}
           className="h-[60px] w-48 mx-auto text-20 md:w-56 mt-7"
           type="submit"
         >
@@ -43,7 +85,9 @@ const LoginPage = () => {
       </form>
       <div className="text-center text-16 mt-16 md:text-20">
         <span>حساب کاربری ندارید؟</span>
-        <span className="text-custom-primary-color mr-1">ثبت نام</span>
+        <Link to="/auth/signup" className="text-custom-primary-color mr-1">
+          ثبت نام
+        </Link>
       </div>
     </>
   );
