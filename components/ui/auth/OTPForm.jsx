@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { ToastMessageContext } from "../../../Context/toast";
 
 function OTPForm() {
+
   const location = useLocation();
   // get phone number
 
@@ -16,17 +17,16 @@ function OTPForm() {
   const phoneNumberQuery = query.get("phoneNumber");
   const { showToast } = useContext(ToastMessageContext);
   const [otp, setOtp] = useState();
-  useEffect(() => {
-    async function sendCode() {
-      try {
-        const response = await sendOtpCode({ phonenumber: phoneNumberQuery });
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
+
+  async function sendCode() {
+    try {
+      const response = await sendOtpCode({ phonenumber: phoneNumberQuery });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
-    // sendCode();
-  }, []);
+  }
+  
   const handelOtpInput = (e) => {
     setOtp(e);
   };
@@ -61,7 +61,7 @@ function OTPForm() {
       <div className="mt-20">
         <CustomOTPInput changeOtp={handelOtpInput} />
       </div>
-      <span className="mt-10 md:text-16">ارسال دوباره کد</span>
+      <span onClick={sendCode} className="mt-10 md:text-16">ارسال دوباره کد</span>
       <CustomButton
         className="h-[60px] w-48 mx-auto mt-16 text-20 md:w-56 md:h-[50px] md:mt-5"
         type="submit"
