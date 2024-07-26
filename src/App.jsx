@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import DashboardPage from "../pages/DashboardPage";
 import { ConfigProvider } from "antd";
 import { StyleProvider } from "@ant-design/cssinjs";
@@ -7,11 +7,18 @@ import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import ForgetPasswordPage from "../pages/ForgetPasswordPage";
 import NewPasswordPage from "../pages/NewPasswordPage";
-import { Toaster } from "react-hot-toast";
 import ToastMessageProvider from "../Context/toast";
 import OtpPage from "../pages/OtpPage";
+import { useEffect } from "react";
 
 function App() {
+  const navigate = useNavigate()
+  useEffect(() => {
+    navigate('/auth')
+    
+    
+  }, [])
+  
   return (
     <ToastMessageProvider>
       <StyleProvider>
