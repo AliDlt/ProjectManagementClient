@@ -8,6 +8,9 @@ import LoginPage from "../pages/LoginPage";
 import ForgetPasswordPage from "../pages/ForgetPasswordPage";
 import NewPasswordPage from "../pages/NewPasswordPage";
 import { Toaster } from "react-hot-toast";
+import ManagersPage from "../pages/ManagersPage";
+import AppContainer from "../components/ui/AppContainer";
+import ManagerPage from "../pages/ManagerPage";
 
 function App() {
   return (
@@ -46,8 +49,19 @@ function App() {
           <Toaster />
         </div>
         <Routes>
-          {/* <Route path="/" /> */}
-          <Route path="/dashboard" element={<DashboardPage />} />
+          {/* Home */}
+          <Route path="/" element={<AppContainer />}>
+            <Route index element={<Navigate to={"/dashboard"} replace />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/managers" element={<ManagersPage />} />
+            <Route path="/managers/:managerId" element={<ManagerPage />} />
+            <Route path="/observers" element={<SignupPage />} />
+            <Route path="/contractors" element={<NewPasswordPage />} />
+            <Route path="/reports" element={<NewPasswordPage />} />
+            <Route path="/messages" element={<NewPasswordPage />} />
+            <Route path="/projects" element={<NewPasswordPage />} />
+          </Route>
+          {/* Login / Signup */}
           <Route path="/auth" element={<AuthContainer />}>
             <Route index element={<Navigate to={"/auth/login"} replace />} />
             <Route path="login" element={<LoginPage />} />

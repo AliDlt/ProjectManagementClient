@@ -9,7 +9,7 @@ export default function CustomInput({
   className,
   name,
   control,
-  error,
+  error = false,
   type,
 }) {
   return (

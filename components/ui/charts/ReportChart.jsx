@@ -18,8 +18,8 @@ const ReportChart = () => {
   ]);
 
   const options = {
-    dataLabels:{
-      enabled:false
+    dataLabels: {
+      enabled: false,
     },
 
     grid: {
@@ -30,6 +30,7 @@ const ReportChart = () => {
       colors: "#15ABFF",
     },
     chart: {
+      fontFamily: "estedad",
       toolbar: {
         show: false, // Hide the toolbar
       },
@@ -40,7 +41,7 @@ const ReportChart = () => {
       labels: {
         rotate: 0,
         style: {
-          fontSize: "12px",
+          fontSize: "10px",
         },
       },
     },
@@ -78,7 +79,6 @@ const ReportChart = () => {
             ],
           },
         ]);
-        options.xaxis.labels.style.fontSize = "12px";
       }
     };
 
