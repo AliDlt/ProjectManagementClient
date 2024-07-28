@@ -28,6 +28,7 @@ function SignupForm({ formData, setStep }) {
     try {
       const data = await signup(userData);
       toast.success(data.message);
+      setStep(2);
       console.log(data);
     } catch (error) {
       toast.error(error.response.data.message);

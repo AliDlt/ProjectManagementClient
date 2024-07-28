@@ -1,70 +1,84 @@
-import React, { useContext, useEffect, useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import CustomOTPInput from "../../modules/CustomOTPInput";
 import CustomButton from "../../modules/CustomButton";
-import { maskPhoneNumber } from "../../../utils/tools";
-import { useLocation } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { sendOtpCode, verify } from "../../../services/OTP";
+import { resendOtpCode } from "../../../services/auth";
 import toast from "react-hot-toast";
-import { ToastMessageContext } from "../../../Context/toast";
 
-function OTPForm() {
+function OTPForm({ phonenumber, onSubmitOTP, otpCodeRef, loading }) {
+  const [second, setSecond] = useState(60);
+  const [minute, setMinute] = useState(1);
 
-  const location = useLocation();
-  // get phone number
+  // Timer For Resend OTP Code
+  useEffect(() => {
+    let timer = setInterval(() => {
+      if (second === 0) {
+        setMinute((perv) => perv - 1);
+        setSecond(RESEND_SECOND_TIME);
+      }
 
-  const query = new URLSearchParams(location.search);
-  const phoneNumberQuery = query.get("phoneNumber");
-  const { showToast } = useContext(ToastMessageContext);
-  const [otp, setOtp] = useState();
-
-  async function sendCode() {
-    try {
-      const response = await sendOtpCode({ phonenumber: phoneNumberQuery });
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  
-  const handelOtpInput = (e) => {
-    setOtp(e);
-  };
-  const verifyOtpCode = async (e) => {
-    e.preventDefault();
-    const data = {
-      phonenumber: phoneNumberQuery,
-      otpCode: otp,
+      setSecond((prev) => prev - 1);
+    }, 1000);
+    second === 0 && minute === 0 && clearInterval(timer);
+    return () => {
+      clearInterval(timer);
     };
+  }, [second, minute]);
 
+  // Resend OnClick
+  const resendCodeOnClick = async () => {
     try {
-      const response = await verify(data);
-      console.log(response);
-      showToast(response.data.message, "success");
+      await resendOtpCode(phonenumber);
+      toast.success("کد جدید ارسال شد");
+      setSecond(60);
+      setMinute(1);
     } catch (error) {
-      showToast(error.response.data.message, "error");
-      console.log(error);
+      toast.error(error?.response?.data?.message);
     }
   };
 
   return (
     <form
-      onSubmit={verifyOtpCode}
+      onSubmit={onSubmitOTP}
+
       className="flex flex-col text-center h-full md:justify-evenly"
     >
       <h3 className=" text-24 md:text-32">تایید شماره موبایل</h3>
       <h4 className="mt-8 md:text-20">
-        {/* set phone number and maskPhone number */}
-        لطفا کد 4 رقمی ارسال شده به شماره{" "}
-        {phoneNumberQuery && maskPhoneNumber(phoneNumberQuery)} را وارد کنید .
+
+        لطفا کد 4 رقمی ارسال شده به شماره &nbsp;
+        <span dir="ltr">
+          {phonenumber.replace(/(\d{4})(\d{5})(\d*)/, `$1*****$3`)}
+        </span>
+        &nbsp; را وارد کنید .
       </h4>
       <div className="mt-20">
-        <CustomOTPInput changeOtp={handelOtpInput} />
+        <CustomOTPInput onChange={(code) => (otpCodeRef.current = code)} />
       </div>
-      <span onClick={sendCode} className="mt-10 md:text-16">ارسال دوباره کد</span>
+      <div className="mt-10 md:text-16">
+        {second === 0 && minute === 0 ? (
+          <span
+            className="mt-10 md:text-16 cursor-pointer"
+            onClick={resendCodeOnClick}
+          >
+            ارسال دوباره کد
+          </span>
+        ) : (
+          <>
+            <span>
+              {second.toString().padStart(2, "0")} : 0{minute}
+            </span>
+            <span className="text-pack-studio-gray-30 mr-2 ">
+              ثانیه تا ارسال مجدد کد تایید
+            </span>
+          </>
+        )}
+      </div>
+
       <CustomButton
-        className="h-[60px] w-48 mx-auto mt-16 text-20 md:w-56 md:h-[50px] md:mt-5"
+        className="h-[60px] w-48 mx-auto mt-16 text-20 md:w-56 md:h-[50px] md:mt-10"
         type="submit"
+        loading={loading}
       >
         <span className="text-white ">ثبت نام</span>
       </CustomButton>

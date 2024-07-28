@@ -1,7 +1,7 @@
 import React from "react";
 import Chart from "react-apexcharts";
 
-function CustomDonutChart({ colors, data }) {
+function CustomDonutChart({ colors, data, innerLabel = false }) {
   const { options, series } = {
     options: {
       colors,
@@ -32,6 +32,25 @@ function CustomDonutChart({ colors, data }) {
       plotOptions: {
         pie: {
           expandOnClick: false,
+          donut: {
+            labels: {
+              show: innerLabel,
+              name: {
+                show: false,
+              },
+              value: {
+                color: colors[0],
+              },
+              total: {
+                show: true,
+                showAlways: true,
+                label: "Total",
+                formatter: function (w) {
+                  return w.config.series[0];
+                },
+              },
+            },
+          },
         },
       },
     },

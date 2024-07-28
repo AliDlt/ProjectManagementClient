@@ -8,9 +8,21 @@ export const signup = async (userData) => {
   return res.data;
 };
 
-export const login = async (data) => {
-  const response = await http.post("/auth/login", data, {
+// OTP Verify
+export const otpVerify = async (data) => {
+  const res = await http.post("/otp/verify", data, {
     withCredentials: false,
   });
-  return response.data
+  return res.data;
 };
+
+// Resend OTP Code
+export const resendOtpCode = async (phonenumber) => {
+  const res = await http.post(
+    "/otp/send",
+    { phonenumber },
+    {
+      withCredentials: false,
+    },
+  );
+  return res.data;
