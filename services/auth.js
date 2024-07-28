@@ -26,4 +26,3 @@ export const resendOtpCode = async (phonenumber) => {
     },
   );
   return res.data;
-};

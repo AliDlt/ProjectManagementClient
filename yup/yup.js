@@ -33,3 +33,18 @@ export const signupSchema = Yup.object({
     "کد ملی باید 10 رقمی باشد",
   ),
 });
+
+export const loginSchema = Yup.object({
+  username: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(3, "حداقل کارکتر : 3")
+    .max(25, "حداکثر کارکتر : 25")
+    .matches(
+      /^[a-zA-Z]{1,}\d*$/,
+      "نام کاربری باید انگلیسی باشد و با حروف آغاز شود",
+    ),
+  password: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(5, "حداقل کارکتر : 5")
+    .max(25, "حداکثر کارکتر : 25"),
+});

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import CustomOTPInput from "../../modules/CustomOTPInput";
 import CustomButton from "../../modules/CustomButton";
@@ -39,10 +40,12 @@ function OTPForm({ phonenumber, onSubmitOTP, otpCodeRef, loading }) {
   return (
     <form
       onSubmit={onSubmitOTP}
+
       className="flex flex-col text-center h-full md:justify-evenly"
     >
       <h3 className=" text-24 md:text-32">تایید شماره موبایل</h3>
       <h4 className="mt-8 md:text-20">
+
         لطفا کد 4 رقمی ارسال شده به شماره &nbsp;
         <span dir="ltr">
           {phonenumber.replace(/(\d{4})(\d{5})(\d*)/, `$1*****$3`)}
@@ -71,6 +74,7 @@ function OTPForm({ phonenumber, onSubmitOTP, otpCodeRef, loading }) {
           </>
         )}
       </div>
+
       <CustomButton
         className="h-[60px] w-48 mx-auto mt-16 text-20 md:w-56 md:h-[50px] md:mt-10"
         type="submit"
