@@ -8,7 +8,12 @@ export const signup = async (userData) => {
   return res.data;
 };
 
-// OTP Verify
+export const login = async (data) => {
+  const response = await http.post("/auth/login", data);
+  return response.data
+};
+
+
 export const otpVerify = async (data) => {
   const res = await http.post("/otp/verify", data, {
     withCredentials: false,
@@ -25,4 +30,4 @@ export const resendOtpCode = async (phonenumber) => {
       withCredentials: false,
     },
   );
-  return res.data;
+  return res.data;}
