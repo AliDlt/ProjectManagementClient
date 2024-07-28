@@ -48,3 +48,14 @@ export const loginSchema = Yup.object({
     .min(5, "حداقل کارکتر : 5")
     .max(25, "حداکثر کارکتر : 25"),
 });
+
+
+
+export const forgetPasswordSchema = Yup.object({
+  phonenumber: Yup.string()
+    .required("این فیلد اجباری است.")
+    .matches(
+      /((0?9)|(\+?989))\d{2}\W?\d{3}\W?\d{4}/g,
+      "لطفا شماره تماس نامعتبر است",
+    ),
+});
