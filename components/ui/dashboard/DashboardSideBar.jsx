@@ -1,8 +1,8 @@
 import React from "react";
-import Logo from "../Logo/Logo";
-import Profile from "../profile/Profile";
+import Logo from "./Logo";
+import Profile from "./Profile";
 import { useSideBar } from "../../../Context/SideBarContext";
-import ListAside from "../ListAside/ListAside";
+import ListAside from "./ListAside";
 import { Drawer } from "antd";
 
 function DashboardSideBar() {

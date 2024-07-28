@@ -11,8 +11,7 @@ import { Toaster } from "react-hot-toast";
 import ManagersPage from "../pages/ManagersPage";
 import AppContainer from "../components/ui/AppContainer";
 import ManagerPage from "../pages/ManagerPage";
-import ToastMessageProvider from "../Context/toast";
- 
+import ToastMessageProvider from "../Context/ToastContext";
 
 function App() {
   return (
