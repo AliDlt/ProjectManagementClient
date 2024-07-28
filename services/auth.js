@@ -14,25 +14,20 @@ export const login = async (data) => {
 };
 
 
-
-export const verify = async (data) => {
-  const response = await http.post("/otp/verify", data, {
+export const otpVerify = async (data) => {
+  const res = await http.post("/otp/verify", data, {
     withCredentials: false,
   });
-  return response;
+  return res.data;
 };
 
-export const sendOtpCode = async (data) => {
-  const resp = await http.post("/otp/send", data, { withCredentials: false });
-  return resp;
-};
-
-
-export async function sendCode({phonenumber}) {
-  try {
-    const response = await sendOtpCode({ phonenumber: phonenumber });
-    return response
-  } catch (error) {
-    console.log(error);
-  }
-}
+// Resend OTP Code
+export const resendOtpCode = async (phonenumber) => {
+  const res = await http.post(
+    "/otp/send",
+    { phonenumber },
+    {
+      withCredentials: false,
+    },
+  );
+  return res.data;}

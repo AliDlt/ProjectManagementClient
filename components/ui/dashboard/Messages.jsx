@@ -23,11 +23,11 @@ const Messages = () => {
       <div className="bg-white w-full flex flex-col  align gap-8 rounded-custom p-7 h-[95%] border-custom-primary-color/50 border-l-4  border-t-4">
         <div className="flex justify-between items-center">
           <h3 className="text-lg">پیام ها</h3>
-          <CustomButton className='' >همه پیام ها</CustomButton>
+          <CustomButton className="">همه پیام ها</CustomButton>
         </div>
         <div className="flex flex-col  gap-3 h-full ">
-          {messages.map(({ name, message }) => {
-            return <Message name={name} message={message} />;
+          {messages.map(({ name, message }, index) => {
+            return <Message key={index} name={name} message={message} />;
           })}
         </div>
       </div>

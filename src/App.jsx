@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import DashboardPage from "../pages/DashboardPage";
 import { ConfigProvider } from "antd";
 import { StyleProvider } from "@ant-design/cssinjs";
@@ -7,14 +7,14 @@ import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import ForgetPasswordPage from "../pages/ForgetPasswordPage";
 import NewPasswordPage from "../pages/NewPasswordPage";
+import { Toaster } from "react-hot-toast";
+import ManagersPage from "../pages/ManagersPage";
+import AppContainer from "../components/ui/AppContainer";
+import ManagerPage from "../pages/ManagerPage";
 import ToastMessageProvider from "../Context/toast";
-import OtpPage from "../pages/OtpPage";
-import { useEffect } from "react";
+ 
 
 function App() {
-  const navigate = useNavigate()
-
-  
   return (
     <ToastMessageProvider>
       <StyleProvider>
@@ -46,18 +46,37 @@ function App() {
                 borderRadiusSM: 6,
               },
             },
+
+            Checkbox: {
+              colorPrimary: "rgb(var(--primary-color))",
+              colorPrimaryHover: "rgb(var(--primary-color) / 0.8)",
+              borderRadiusSM: 6,
+            },
           }}
         >
+          <div>
+            <Toaster />
+          </div>
           <Routes>
-            {/* <Route path="/" /> */}
-            <Route path="/dashboard" element={<DashboardPage />} />
+            {/* Home */}
+            <Route path="/" element={<AppContainer />}>
+              <Route index element={<Navigate to={"/dashboard"} replace />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/managers" element={<ManagersPage />} />
+              <Route path="/managers/:managerId" element={<ManagerPage />} />
+              <Route path="/observers" element={<SignupPage />} />
+              <Route path="/contractors" element={<NewPasswordPage />} />
+              <Route path="/reports" element={<NewPasswordPage />} />
+              <Route path="/messages" element={<NewPasswordPage />} />
+              <Route path="/projects" element={<NewPasswordPage />} />
+            </Route>
+            {/* Login / Signup */}
             <Route path="/auth" element={<AuthContainer />}>
               <Route index element={<Navigate to={"/auth/login"} replace />} />
               <Route path="login" element={<LoginPage />} />
               <Route path="signup" element={<SignupPage />} />
               <Route path="new-password" element={<NewPasswordPage />} />
               <Route path="forgot-password" element={<ForgetPasswordPage />} />
-              <Route path="otp" element={<OtpPage />} />
             </Route>
           </Routes>
         </ConfigProvider>
