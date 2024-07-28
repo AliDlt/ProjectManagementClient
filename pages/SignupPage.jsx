@@ -4,13 +4,14 @@ import OTPForm from "../components/ui/auth/OTPForm";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signupSchema } from "../yup/yup";
-import toast from "react-hot-toast";
 import { otpVerify } from "../services/auth";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "../Context/ToastContext";
 
 function SignupPage() {
   const [step, setStep] = useState(1); // 1 => SignupForm | 2 => OTPForm
   const [otpLoading, setOtpLoading] = useState(false);
+  const { showToast } = useToast();
   const otpCode = useRef("");
   const navigate = useNavigate();
 
@@ -31,10 +32,10 @@ function SignupPage() {
     };
     try {
       const data = await otpVerify(userData);
-      toast.success(data.message);
+      showToast(data.message, "success");
       navigate("/auth/login", { replace: true });
     } catch (error) {
-      toast.error(error.response.data.message);
+      showToast(error.response.data.message, "error");
     } finally {
       setOtpLoading(false);
     }

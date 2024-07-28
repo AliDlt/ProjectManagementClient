@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import Logo from "../components/ui/Logo/Logo";
+import { useState } from "react";
+import Logo from "../components/ui/dashboard/Logo";
 import CustomInput from "../components/modules/CustomInput";
 import CustomButton from "../components/modules/CustomButton";
 import CustomPasswordInput from "../components/modules/CustomPasswordInput";
@@ -8,10 +8,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../yup/yup";
 import { login } from "../services/auth";
+import { useToast } from "../Context/ToastContext";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastMessageContext } from "../Context/toast";
 
 const LoginPage = () => {
+  const { showToast } = useToast();
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -23,7 +24,6 @@ const LoginPage = () => {
     mode: "onChange",
     resolver: yupResolver(loginSchema),
   });
-  const { showToast } = useContext(ToastMessageContext);
 
   const submitLogin = async (values) => {
     // const { username, password } = values;
@@ -31,9 +31,9 @@ const LoginPage = () => {
     try {
       const response = await login(values);
       showToast(response.message, "success");
-      console.log(response)
+      console.log(response);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       showToast(err.response.data.message, "error");
     } finally {
       setLoading(false);

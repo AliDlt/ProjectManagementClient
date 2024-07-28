@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 
+// Signup Schema
 export const signupSchema = Yup.object({
   name: Yup.string()
     .required("این فیلد اجباری است.")
@@ -34,6 +35,7 @@ export const signupSchema = Yup.object({
   ),
 });
 
+// Login Schema
 export const loginSchema = Yup.object({
   username: Yup.string()
     .required("این فیلد اجباری است.")
