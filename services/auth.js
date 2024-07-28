@@ -9,8 +9,30 @@ export const signup = async (userData) => {
 };
 
 export const login = async (data) => {
-  const response = await http.post("/auth/login", data, {
-    withCredentials: false,
-  });
+  const response = await http.post("/auth/login", data);
   return response.data
 };
+
+
+
+export const verify = async (data) => {
+  const response = await http.post("/otp/verify", data, {
+    withCredentials: false,
+  });
+  return response;
+};
+
+export const sendOtpCode = async (data) => {
+  const resp = await http.post("/otp/send", data, { withCredentials: false });
+  return resp;
+};
+
+
+export async function sendCode({phonenumber}) {
+  try {
+    const response = await sendOtpCode({ phonenumber: phonenumber });
+    return response
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -13,11 +13,7 @@ import { useEffect } from "react";
 
 function App() {
   const navigate = useNavigate()
-  useEffect(() => {
-    navigate('/auth')
-    
-    
-  }, [])
+
   
   return (
     <ToastMessageProvider>

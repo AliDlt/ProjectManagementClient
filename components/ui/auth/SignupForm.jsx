@@ -2,40 +2,15 @@ import React, { useState } from "react";
 import CustomInput from "../../modules/CustomInput";
 import CustomPasswordInput from "../../modules/CustomPasswordInput";
 import CustomButton from "../../modules/CustomButton";
-import { signup } from "../../../services/auth";
+import { sendCode, sendOtpCode, signup } from "../../../services/auth";
 import toast from "react-hot-toast";
 
-function SignupForm({ formData, setStep }) {
-  const [loading, setLoading] = useState(false);
-
+function SignupForm({ formData, onSubmitHandler, loading }) {
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = formData;
-
-  const onSubmitHandler = async (values) => {
-    setLoading(true);
-    const { name, phonenumber, username, password, nationalCode } = values;
-    const userData = {
-      name,
-      phonenumber,
-      username,
-      password,
-      nationalCode,
-      userRole: 2,
-    };
-    try {
-      const data = await signup(userData);
-      toast.success(data.message);
-      console.log(data);
-    } catch (error) {
-      toast.error(error.response.data.message);
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <>

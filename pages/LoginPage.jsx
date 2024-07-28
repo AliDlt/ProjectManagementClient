@@ -30,11 +30,11 @@ const LoginPage = () => {
     setLoading(true);
     try {
       const response = await login(values);
-      console.log("موفقیت آمیز");
+      showToast(response.message, "success");
+      console.log(response)
     } catch (err) {
+      console.log(err)
       showToast(err.response.data.message, "error");
-      console.log(err);
-      navigate(`/auth/otp?phoneNumber=09308178083`)
     } finally {
       setLoading(false);
     }
