@@ -3,8 +3,6 @@ import ReportsSection from "../components/ui/dashboard/ReportsSection";
 import ProjectSection from "../components/ui/dashboard/ProjectSection";
 import ReportChartSection from "../components/ui/dashboard/ReportChartSection";
 import Messages from "../components/ui/dashboard/Messages";
-import { Badge } from "antd";
-import StatusBadge from "../components/modules/StatusBadge";
 
 function DashboardPage() {
   return (

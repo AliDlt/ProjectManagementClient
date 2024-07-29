@@ -1,20 +1,33 @@
-
 import React, { useEffect, useState } from "react";
 import CustomOTPInput from "../../modules/CustomOTPInput";
 import CustomButton from "../../modules/CustomButton";
-import { resendOtpCode } from "../../../services/auth";
-import toast from "react-hot-toast";
+import { sendOtpCode } from "../../../services/auth";
+import { useToast } from "../../../Context/ToastContext";
+import { convertToInternational, maskPhoneNumber } from "../../../utils/tools";
 
-function OTPForm({ phonenumber, onSubmitOTP, otpCodeRef, loading }) {
+function OTPForm({ phoneNumber, onSubmitOTP, otpCodeRef, loading }) {
+  const toast = useToast();
   const [second, setSecond] = useState(60);
   const [minute, setMinute] = useState(1);
 
-  // Timer For Resend OTP Code
+  // Send Code Function
+  const sendCode = async (messageToast) => {
+    try {
+      toast(messageToast, "success");
+      await sendOtpCode(convertToInternational(phoneNumber));
+      setSecond(60);
+      setMinute(1);
+    } catch (error) {
+      toast(error?.response?.data?.message, "error");
+    }
+  };
+
+  // Timer
   useEffect(() => {
     let timer = setInterval(() => {
       if (second === 0) {
         setMinute((perv) => perv - 1);
-        setSecond(RESEND_SECOND_TIME);
+        setSecond(60);
       }
 
       setSecond((prev) => prev - 1);
@@ -25,41 +38,30 @@ function OTPForm({ phonenumber, onSubmitOTP, otpCodeRef, loading }) {
     };
   }, [second, minute]);
 
-  // Resend OnClick
-  const resendCodeOnClick = async () => {
-    try {
-      await resendOtpCode(phonenumber);
-      toast.success("کد جدید ارسال شد");
-      setSecond(60);
-      setMinute(1);
-    } catch (error) {
-      toast.error(error?.response?.data?.message);
-    }
-  };
+  // Send Code
+  useEffect(() => {
+    sendCode("کد ارسال شد");
+  }, []);
 
   return (
     <form
       onSubmit={onSubmitOTP}
-
       className="flex flex-col text-center h-full md:justify-evenly"
     >
       <h3 className=" text-24 md:text-32">تایید شماره موبایل</h3>
       <h4 className="mt-8 md:text-20">
-
         لطفا کد 4 رقمی ارسال شده به شماره &nbsp;
-        <span dir="ltr">
-          {phonenumber.replace(/(\d{4})(\d{5})(\d*)/, `$1*****$3`)}
-        </span>
+        <span dir="ltr">{maskPhoneNumber(phoneNumber)}</span>
         &nbsp; را وارد کنید .
       </h4>
       <div className="mt-20">
-        <CustomOTPInput onChange={(code) => (otpCodeRef.current = code)} />
+        <CustomOTPInput changeOtp={(code) => (otpCodeRef.current = code)} />
       </div>
       <div className="mt-10 md:text-16">
         {second === 0 && minute === 0 ? (
           <span
             className="mt-10 md:text-16 cursor-pointer"
-            onClick={resendCodeOnClick}
+            onClick={() => sendCode("کد جدید ارسال شد")}
           >
             ارسال دوباره کد
           </span>
