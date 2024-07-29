@@ -61,3 +61,14 @@ export const forgetPasswordSchema = Yup.object({
     "لطفا شماره تماس نامعتبر است",
   ),
 });
+
+
+export const resetPasswordSchema = Yup.object({
+  password: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(5, "حداقل کارکتر : 5")
+    .max(25, "حداکثر کارکتر : 25"),
+  confirmPassword: Yup.string()
+    .required("این فیلد اجباری است.")
+    .oneOf([Yup.ref("password"), null], "با رمز عبور مطابقت ندارد."),
+});
