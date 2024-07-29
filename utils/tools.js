@@ -4,3 +4,11 @@ export const maskPhoneNumber = (phoneNumber) => {
     }
     return phoneNumber;
   };
+
+
+  export const convertToInternational = (phone) => {
+    if (phone.startsWith("0")) {
+      return "+98" + phone.slice(1);
+    }
+    return phone;
+  }

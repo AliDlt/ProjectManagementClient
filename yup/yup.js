@@ -54,10 +54,10 @@ export const loginSchema = Yup.object({
 
 
 export const forgetPasswordSchema = Yup.object({
-  phonenumber: Yup.string()
-    .required("این فیلد اجباری است.")
-    .matches(
-      /((0?9)|(\+?989))\d{2}\W?\d{3}\W?\d{4}/g,
-      "لطفا شماره تماس نامعتبر است",
-    ),
+  phoneNumber: Yup.string()
+  .required("این فیلد اجباری است.")
+  .matches(
+    /((0?9)|(\+?989))\d{2}\W?\d{3}\W?\d{4}/g,
+    "لطفا شماره تماس نامعتبر است",
+  ),
 });

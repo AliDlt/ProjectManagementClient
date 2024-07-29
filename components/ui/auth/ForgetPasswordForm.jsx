@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import CustomButton from "../../modules/CustomButton";
 import CustomInput from "../../modules/CustomInput";
 import { resendOtpCode } from "../../../services/auth";
+import { useToast } from "../../../Context/ToastContext";
+import { convertToInternational } from "../../../utils/tools";
 
 const ForgetPasswordForm = ({ formData, setStep, step }) => {
   const { control, handleSubmit, errors } = formData;
-
-  const submitForgetPassword =async (e) => {
-    console.log(e)
-//    const response = await resendOtpCode({});
-
+  const toast = useToast();
+  const submitForgetPassword = async ({ phoneNumber }) => {
+    try {
+      const response = await resendOtpCode(convertToInternational(phoneNumber));
+      console.log(response);
+      toast(response.message, "success");
+      setStep(2);
+    } catch (err) {
+      toast(err.response.data.message, "error");
+    }
   };
 
   return (
@@ -27,7 +34,7 @@ const ForgetPasswordForm = ({ formData, setStep, step }) => {
         <CustomInput
           control={control}
           error={errors}
-          name="phonenumber"
+          name="phoneNumber"
           className="md:text-2xl md:px-5 py-3"
           placeholder="شماره موبایل"
         />
