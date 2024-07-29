@@ -1,30 +1,72 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import CustomInput from "../components/modules/CustomInput";
 import CustomButton from "../components/modules/CustomButton";
+import { get, useForm } from "react-hook-form";
+import { forgetPasswordSchema } from "../yup/yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import ForgetPasswordForm from "../components/ui/auth/ForgetPasswordForm";
+import OTPForm from "../components/ui/auth/OTPForm";
+import { otpVerify } from "../services/auth";
+import { useToast } from "../Context/ToastContext";
+import NewPasswordPage from "./NewPasswordPage";
 
 const ForgetPasswordPage = () => {
-  return (
-    <section className="w-full h-screen flex justify-center items-center">
-      <div
-        className="w-4/5 lg:w-1/2 font-estedad rounded-custom  flex gap-8  justify-center md:gap-12  items-center flex-col text-center
-        md:shadow-custom md:h-4/6 
-      "
-      >
-        <h3 className=" text-2xl md:text-3xl ">
-          رمز عبور خود را فراموش کردید؟{" "}
-        </h3>
-        <p className="w-4/5 md:text-2xl">
-          شماره موبایل خود را برای بازیابی رمز عبور در کادر زیر وارد کنید.{" "}
-        </p>
-        <form className="w-4/5 flex flex-col gap-8">
-          <CustomInput className="md:text-2xl md:px-5" placeholder="شماره موبایل" />
-          <CustomButton className="w-3/5 rounded-lg m-auto md:p-6 md:text-xl ">
-            <span className="font-bold md:text-lg">ارسال کد بازیابی </span>
-          </CustomButton>
-        </form>
-      </div>
-    </section>
-  );
+  const [step, setStep] = useState(3);
+  const [loading, setLoading] = useState(false);
+  const otpCode = useRef("");
+
+  const {
+    handleSubmit,
+    control,
+    getValues,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(forgetPasswordSchema),
+  });
+  const toast = useToast();
+
+  const verifyOtpCode = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await otpVerify(otpCode);
+      toast(response.message, "success");
+    } catch (error) {
+      toast(error.response.data.message, "error");
+    }
+  };
+
+  const { phoneNumber } = getValues();
+
+  switch (step) {
+    case 1:
+      return (
+        <ForgetPasswordForm
+          step={step}
+          loading={loading}
+          setLoading={setLoading}
+          setStep={setStep}
+          formData={{ control, handleSubmit, errors }}
+        />
+      );
+    case 2:
+      return (
+        <OTPForm
+          otpCodeRef={otpCode}
+          loading={loading}
+          phonenumber={phoneNumber}
+          onSubmitOTP={verifyOtpCode}
+        />
+      );
+    case 3:
+      return (
+        <NewPasswordPage phoneNumber = {phoneNumber}  />
+      );
+
+    default:
+      break;
+  }
 };
 
 export default ForgetPasswordPage;

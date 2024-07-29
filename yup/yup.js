@@ -50,3 +50,25 @@ export const loginSchema = Yup.object({
     .min(5, "حداقل کارکتر : 5")
     .max(25, "حداکثر کارکتر : 25"),
 });
+
+
+
+export const forgetPasswordSchema = Yup.object({
+  phoneNumber: Yup.string()
+  .required("این فیلد اجباری است.")
+  .matches(
+    /((0?9)|(\+?989))\d{2}\W?\d{3}\W?\d{4}/g,
+    "لطفا شماره تماس نامعتبر است",
+  ),
+});
+
+
+export const resetPasswordSchema = Yup.object({
+  password: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(5, "حداقل کارکتر : 5")
+    .max(25, "حداکثر کارکتر : 25"),
+  confirmPassword: Yup.string()
+    .required("این فیلد اجباری است.")
+    .oneOf([Yup.ref("password"), null], "با رمز عبور مطابقت ندارد."),
+});

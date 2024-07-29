@@ -22,10 +22,11 @@ export const otpVerify = async (data) => {
 };
 
 // Resend OTP Code
-export const resendOtpCode = async (phonenumber) => {
+export const resendOtpCode = async (phoneNumber) => {
+  console.log(phoneNumber)
   const res = await http.post(
     "/otp/send",
-    { phonenumber },
+    { phoneNumber },
     {
       withCredentials: false,
     },

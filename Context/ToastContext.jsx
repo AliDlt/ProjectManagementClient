@@ -17,9 +17,9 @@ const ToastMessageProvider = ({ children }) => {
 export default ToastMessageProvider;
 
 export const useToast = () => {
-  const context = useContext(ToastMessageContext);
-  if (context === undefined) {
+  const { showToast } = useContext(ToastMessageContext);
+  if (showToast === undefined) {
     throw new Error("useToast must be used within a ToastMessageProvider");
   }
-  return context;
+  return showToast;
 };
