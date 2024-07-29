@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import CustomInput from "../../modules/CustomInput";
 import CustomPasswordInput from "../../modules/CustomPasswordInput";
 import CustomButton from "../../modules/CustomButton";
-import { signup } from "../../../services/auth";
-import toast from "react-hot-toast";
+import { checkSignup } from "../../../services/auth";
+import { useToast } from "../../../Context/ToastContext";
+import { convertToInternational } from "../../../utils/tools";
 
 function SignupForm({ formData, setStep }) {
+  const toast = useToast();
   const [loading, setLoading] = useState(false);
 
   const {
@@ -16,23 +18,17 @@ function SignupForm({ formData, setStep }) {
 
   const onSubmitHandler = async (values) => {
     setLoading(true);
-    const { name, phonenumber, username, password, nationalCode } = values;
+    const { phoneNumber, username, nationalCode } = values;
     const userData = {
-      name,
-      phonenumber,
+      phoneNumber: convertToInternational(phoneNumber),
       username,
-      password,
       nationalCode,
-      userRole: 2,
     };
     try {
-      const data = await signup(userData);
-      toast.success(data.message);
+      await checkSignup(userData);
       setStep(2);
-      console.log(data);
     } catch (error) {
-      toast.error(error.response.data.message);
-      console.log(error);
+      toast(error.response.data.message, "error");
     } finally {
       setLoading(false);
     }
@@ -62,7 +58,7 @@ function SignupForm({ formData, setStep }) {
         <CustomInput
           type="tel"
           error={errors}
-          name="phonenumber"
+          name="phoneNumber"
           control={control}
           className="h-[60px] text-16 px-5 bg-transparent md:text-18"
           placeholder="شماره موبایل"

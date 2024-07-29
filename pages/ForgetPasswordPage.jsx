@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import CustomInput from "../components/modules/CustomInput";
 import CustomButton from "../components/modules/CustomButton";
-import { get, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { forgetPasswordSchema } from "../yup/yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ForgetPasswordForm from "../components/ui/auth/ForgetPasswordForm";
@@ -60,9 +60,7 @@ const ForgetPasswordPage = () => {
         />
       );
     case 3:
-      return (
-        <NewPasswordPage phoneNumber = {phoneNumber}  />
-      );
+      return <NewPasswordPage phoneNumber={phoneNumber} />;
 
     default:
       break;

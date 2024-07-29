@@ -4,14 +4,15 @@ import OTPForm from "../components/ui/auth/OTPForm";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signupSchema } from "../yup/yup";
-import { otpVerify } from "../services/auth";
+import { otpVerify, signup } from "../services/auth";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../Context/ToastContext";
+import { convertToInternational } from "../utils/tools";
 
 function SignupPage() {
   const [step, setStep] = useState(1); // 1 => SignupForm | 2 => OTPForm
   const [otpLoading, setOtpLoading] = useState(false);
-  const { showToast } = useToast();
+  const toast = useToast();
   const otpCode = useRef("");
   const navigate = useNavigate();
 
@@ -19,23 +20,36 @@ function SignupPage() {
     mode: "onChange",
     resolver: yupResolver(signupSchema),
   });
-  const { getValues } = formData;
+  const { getValues, watch } = formData;
 
   // OTP Submit
   const otpSubmitHandler = async (e) => {
     e.preventDefault();
-    if (otpCode.current.length < 4) return toast.error("لطفا کد را وارد کنید");
+    if (otpCode.current.length < 4)
+      return toast("لطفا کد را وارد کنید", "error");
     setOtpLoading(true);
     const userData = {
-      phonenumber: getValues("phonenumber"),
+      phoneNumber: convertToInternational(getValues("phoneNumber")),
       otpCode: otpCode.current,
     };
+
     try {
-      const data = await otpVerify(userData);
-      showToast(data.message, "success");
+      await otpVerify(userData);
+      const { name, password, phoneNumber, username, nationalCode } = watch();
+      const userDataSignup = {
+        name,
+        password,
+        phoneNumber: convertToInternational(phoneNumber),
+        username,
+        nationalCode,
+        userRole: 0,
+      };
+      console.log(userDataSignup);
+      const data = await signup(userDataSignup);
+      toast(data.message, "success");
       navigate("/auth/login", { replace: true });
     } catch (error) {
-      showToast(error.response.data.message, "error");
+      toast(error.response.data.message, "error");
     } finally {
       setOtpLoading(false);
     }
@@ -47,7 +61,7 @@ function SignupPage() {
     case 2:
       return (
         <OTPForm
-          phonenumber={getValues("phonenumber")}
+          phoneNumber={getValues("phoneNumber")}
           onSubmitOTP={otpSubmitHandler}
           otpCodeRef={otpCode}
           loading={otpLoading}
