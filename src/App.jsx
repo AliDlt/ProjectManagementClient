@@ -25,7 +25,7 @@ function App() {
 
   return (
     <ToastMessageProvider>
-      <StyleProvider>
+      <StyleProvider layer>
         <ConfigProvider
           form={{
             validateMessages: true,
@@ -34,6 +34,7 @@ function App() {
             token: {
               controlOutlineWidth: 0,
               fontFamily: "estedad",
+              colorBorder: "rgb(var(--primary-color))",
             },
             components: {
               Input: {
@@ -53,12 +54,12 @@ function App() {
                 colorPrimaryHover: "rgb(var(--primary-color) / 0.8)",
                 borderRadiusSM: 6,
               },
-            },
-
-            Checkbox: {
-              colorPrimary: "rgb(var(--primary-color))",
-              colorPrimaryHover: "rgb(var(--primary-color) / 0.8)",
-              borderRadiusSM: 6,
+              Select: {
+                selectorBg: "transparent",
+                optionSelectedBg: "rgb(var(--primary-color) / 0.8)",
+                colorPrimary: "rgb(var(--primary-color))",
+                colorPrimaryHover: "rgb(var(--primary-color))",
+              },
             },
           }}
         >
