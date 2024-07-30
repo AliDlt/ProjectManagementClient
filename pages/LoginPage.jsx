@@ -12,7 +12,7 @@ import { useToast } from "../Context/ToastContext";
 import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const { showToast } = useToast();
+  const toast = useToast();
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -30,11 +30,11 @@ const LoginPage = () => {
     setLoading(true);
     try {
       const response = await login(values);
-      showToast(response.message, "success");
+      toast(response.message, "success");
       console.log(response);
     } catch (err) {
       console.log(err);
-      showToast(err.response.data.message, "error");
+      toast(err.response.data.message, "error");
     } finally {
       setLoading(false);
     }
