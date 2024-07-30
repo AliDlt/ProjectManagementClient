@@ -12,8 +12,17 @@ import ManagersPage from "../pages/ManagersPage";
 import AppContainer from "../components/ui/AppContainer";
 import ManagerPage from "../pages/ManagerPage";
 import ToastMessageProvider from "../Context/ToastContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
+
   return (
     <ToastMessageProvider>
       <StyleProvider>
@@ -56,28 +65,36 @@ function App() {
           <div>
             <Toaster />
           </div>
-          <Routes>
-            {/* Home */}
-            <Route path="/" element={<AppContainer />}>
-              <Route index element={<Navigate to={"/dashboard"} replace />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/managers" element={<ManagersPage />} />
-              <Route path="/managers/:managerId" element={<ManagerPage />} />
-              <Route path="/observers" element={<SignupPage />} />
-              <Route path="/contractors" element={<NewPasswordPage />} />
-              <Route path="/reports" element={<NewPasswordPage />} />
-              <Route path="/messages" element={<NewPasswordPage />} />
-              <Route path="/projects" element={<NewPasswordPage />} />
-            </Route>
-            {/* Login / Signup */}
-            <Route path="/auth" element={<AuthContainer />}>
-              <Route index element={<Navigate to={"/auth/login"} replace />} />
-              <Route path="login" element={<LoginPage />} />
-              <Route path="signup" element={<SignupPage />} />
-              <Route path="new-password" element={<NewPasswordPage />} />
-              <Route path="forgot-password" element={<ForgetPasswordPage />} />
-            </Route>
-          </Routes>
+          <QueryClientProvider client={queryClient}>
+            <Routes>
+              {/* Home */}
+              <Route path="/" element={<AppContainer />}>
+                <Route index element={<Navigate to={"/dashboard"} replace />} />
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/managers" element={<ManagersPage />} />
+                <Route path="/managers/:managerId" element={<ManagerPage />} />
+                <Route path="/observers" element={<SignupPage />} />
+                <Route path="/contractors" element={<NewPasswordPage />} />
+                <Route path="/reports" element={<NewPasswordPage />} />
+                <Route path="/messages" element={<NewPasswordPage />} />
+                <Route path="/projects" element={<NewPasswordPage />} />
+              </Route>
+              {/* Login / Signup */}
+              <Route path="/auth" element={<AuthContainer />}>
+                <Route
+                  index
+                  element={<Navigate to={"/auth/login"} replace />}
+                />
+                <Route path="login" element={<LoginPage />} />
+                <Route path="signup" element={<SignupPage />} />
+                <Route path="new-password" element={<NewPasswordPage />} />
+                <Route
+                  path="forgot-password"
+                  element={<ForgetPasswordPage />}
+                />
+              </Route>
+            </Routes>
+          </QueryClientProvider>
         </ConfigProvider>
       </StyleProvider>
     </ToastMessageProvider>
