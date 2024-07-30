@@ -53,8 +53,17 @@ body {
 }
 
 /* Checkbox */
+.ant-checkbox {
+  border: 1px solid rgb(var(--primary-color));
+}
+
 .ant-checkbox-inner {
-  @apply !w-5 !h-5;
+  @apply w-5 h-5 relative;
+}
+
+.ant-checkbox-inner::after {
+  content: url("../public/icons/tick-svgrepo-com.svg");
+  @apply rotate-0 absolute top-1;
 }
 
 .ant-checkbox-wrapper {
@@ -73,4 +82,9 @@ body {
 /* Button Loading Icon */
 .ant-btn-loading-icon {
   @apply scale-150 text-white;
+}
+
+/* Select */
+.ant-select-selection-placeholder {
+  @apply text-red-600;
 }

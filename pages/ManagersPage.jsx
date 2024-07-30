@@ -1,5 +1,5 @@
 import React from "react";
-import MembersList from "../components/ui/MembersList";
+import MembersList from "../components/ui/memberList/MembersList";
 
 const managers = [
   {
