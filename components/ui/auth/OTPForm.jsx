@@ -51,7 +51,7 @@ function OTPForm({ phoneNumber, onSubmitOTP, otpCodeRef, loading }) {
       <h3 className=" text-24 md:text-32">تایید شماره موبایل</h3>
       <h4 className="mt-8 md:text-20">
         لطفا کد 4 رقمی ارسال شده به شماره &nbsp;
-        <span dir="ltr">{maskPhoneNumber(phoneNumber)}</span>
+        <span dir="ltr">{phoneNumber}</span>
         &nbsp; را وارد کنید .
       </h4>
       <div className="mt-20">

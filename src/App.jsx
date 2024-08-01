@@ -13,6 +13,7 @@ import AppContainer from "../components/ui/AppContainer";
 import ManagerPage from "../pages/ManagerPage";
 import ToastMessageProvider from "../Context/ToastContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import UserPage from "../pages/UserPage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -70,6 +71,7 @@ function App() {
             <Routes>
               {/* Home */}
               <Route path="/" element={<AppContainer />}>
+                <Route path="/user" element={<UserPage />} />
                 <Route index element={<Navigate to={"/dashboard"} replace />} />
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/managers" element={<ManagersPage />} />
@@ -88,7 +90,6 @@ function App() {
                 />
                 <Route path="login" element={<LoginPage />} />
                 <Route path="signup" element={<SignupPage />} />
-                <Route path="new-password" element={<NewPasswordPage />} />
                 <Route
                   path="forgot-password"
                   element={<ForgetPasswordPage />}

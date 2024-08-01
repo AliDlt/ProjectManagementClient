@@ -9,9 +9,10 @@ import OTPForm from "../components/ui/auth/OTPForm";
 import { otpVerify } from "../services/auth";
 import { useToast } from "../Context/ToastContext";
 import NewPasswordPage from "./NewPasswordPage";
+import { convertToInternational } from "../utils/tools";
 
 const ForgetPasswordPage = () => {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const otpCode = useRef("");
 
@@ -25,19 +26,26 @@ const ForgetPasswordPage = () => {
     resolver: yupResolver(forgetPasswordSchema),
   });
   const toast = useToast();
+  const { phoneNumber } = getValues();
 
   const verifyOtpCode = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
-      const response = await otpVerify(otpCode);
+      const response = await otpVerify({
+        otpCode: otpCode.current,
+        phoneNumber: convertToInternational(phoneNumber),
+      });
       toast(response.message, "success");
+      setStep(3);
     } catch (error) {
+      console.log(error);
       toast(error.response.data.message, "error");
+    } finally {
+      setLoading(false);
     }
   };
-
-  const { phoneNumber } = getValues();
 
   switch (step) {
     case 1:
@@ -55,12 +63,12 @@ const ForgetPasswordPage = () => {
         <OTPForm
           otpCodeRef={otpCode}
           loading={loading}
-          phonenumber={phoneNumber}
+          phoneNumber={phoneNumber}
           onSubmitOTP={verifyOtpCode}
         />
       );
     case 3:
-      return <NewPasswordPage phoneNumber={phoneNumber} />;
+      return <NewPasswordPage phoneNumber={convertToInternational('09308178083')} />;
 
     default:
       break;

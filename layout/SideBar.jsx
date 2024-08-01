@@ -1,11 +1,11 @@
 import React from "react";
-import Logo from "./Logo";
-import Profile from "./Profile";
-import { useSideBar } from "../../../Context/SideBarContext";
-import ListAside from "./ListAside";
+import Logo from "../components/ui/dashboard/Logo";
+import Profile from "../components/ui/dashboard/Profile";
+import { useSideBar } from "../Context/SideBarContext";
+import ListAside from "../components/ui/dashboard/ListAside";
 import { Drawer } from "antd";
 
-function DashboardSideBar() {
+function SideBar() {
   const { show, setShow } = useSideBar();
 
   return (
@@ -50,4 +50,4 @@ function DashboardSideBar() {
   );
 }
 
-export default DashboardSideBar;
+export default SideBar;

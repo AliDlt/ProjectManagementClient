@@ -39,3 +39,13 @@ export const sendOtpCode = async (phoneNumber) => {
   );
   return res.data;
 };
+
+export const resetPassword = async (data) => {
+  const res = await http.post(
+    `/auth/changePassword`,data,
+    {
+      withCredentials: false,
+    },
+  );
+  return res.data;
+};

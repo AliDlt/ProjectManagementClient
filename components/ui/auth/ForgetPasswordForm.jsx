@@ -9,14 +9,7 @@ const ForgetPasswordForm = ({ formData, setStep, step }) => {
   const { control, handleSubmit, errors } = formData;
   const toast = useToast();
   const submitForgetPassword = async ({ phoneNumber }) => {
-    try {
-      const response = await sendOtpCode(convertToInternational(phoneNumber));
-      console.log(response);
-      toast(response.message, "success");
-      setStep(2);
-    } catch (err) {
-      toast(err.response.data.message, "error");
-    }
+    setStep(2)
   };
 
   return (

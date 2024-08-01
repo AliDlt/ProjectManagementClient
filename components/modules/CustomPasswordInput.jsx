@@ -6,6 +6,7 @@ import { IoEyeOff } from "react-icons/io5";
 import { Controller } from "react-hook-form";
 
 function CustomPasswordInput({ placeholder, className, name, control, error }) {
+  console.log(error)
   return (
     <Controller
       control={control}

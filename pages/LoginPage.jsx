@@ -12,7 +12,7 @@ import { useToast } from "../Context/ToastContext";
 import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const toast = useToast();
+  const toast  = useToast();
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();

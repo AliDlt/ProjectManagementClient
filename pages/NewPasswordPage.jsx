@@ -1,48 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomButton from "../components/modules/CustomButton";
 import CustomPasswordInput from "../components/modules/CustomPasswordInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { forgetPasswordSchema } from "../yup/yup";
+import { resetPasswordSchema } from "../yup/yup";
+import { resetPassword } from "../services/auth";
+import { useToast } from "../Context/ToastContext";
 
-const NewPasswordPage = () => {
+const NewPasswordPage = ({ phoneNumber }) => {
+  const [loading , setLoading] = useState(false)
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
     mode: "onChange",
-    resolver: yupResolver(forgetPasswordSchema),
+    resolver: yupResolver(resetPasswordSchema),
   });
-
-  const confirmResetPassword = (e) => {};
+  const toast = useToast();
+  const confirmResetPassword = async ({ password }) => {
+    setLoading(true)
+    try {
+      const response = await resetPassword({ phoneNumber, password });
+      toast(response.message, "success");
+    } catch (error) {
+      console.log(error);
+      toast(error.response.data.message, "error");
+    }finally{
+      setLoading(false)
+    }
+  };
 
   return (
-    <section className="flex  flex-col w-4/5 justify-center h-screen   items-center">
-      <div className="w-full md:shadow-custom p-8 rounded-custom md:w-2/3 lg:w1/2 ">
-        <h3 className="mb-10 text-2xl md:text-center md:text-4xl">
-          رمز عبور جدید
-        </h3>
-        <form onSubmit={handleSubmit()} className="flex flex-col gap-8 ">
-          <CustomPasswordInput
-            control={control}
-            name="password"
-            placeholder=" رمز عبور جدید"
-            className="md:text-2xl p-3"
-          />
-          <CustomPasswordInput
-            placeholder="تکرار رمز عبور جدید"
-            className="md:text-2xl p-3"
-            name="confirmPassword"
+    <>
+      <h3 className="mb-10 text-2xl md:text-center md:text-4xl">
+        رمز عبور جدید
+      </h3>
+      <form
+        onSubmit={handleSubmit(confirmResetPassword)}
+        className="flex flex-col gap-8 "
+      >
+        <CustomPasswordInput
+          control={control}
+          name="password"
+          error={errors}
+          placeholder=" رمز عبور جدید"
+          className="md:text-2xl p-3"
+        />
+        <CustomPasswordInput
+          placeholder="تکرار رمز عبور جدید"
+          className="md:text-2xl p-3"
+          name="passwordConfirmation"
           control={control}
           error={errors}
-          />
-          <CustomButton className=" p-6 mx-auto rounded-lg text-2xl  ">
-            ثبت تغیرات
-          </CustomButton>
-        </form>
-      </div>
-    </section>
+        />
+        <CustomButton
+          type="submit"
+          className=" p-6 mx-auto rounded-lg text-2xl  "
+        >
+          ثبت تغیرات
+        </CustomButton>
+      </form>
+    </>
   );
 };
 
