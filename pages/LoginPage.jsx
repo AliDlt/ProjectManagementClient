@@ -10,11 +10,13 @@ import { loginSchema } from "../yup/yup";
 import { login } from "../services/auth";
 import { useToast } from "../Context/ToastContext";
 import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 
 const LoginPage = () => {
-  const toast  = useToast();
-  const [loading, setLoading] = useState(false);
-
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: login,
+  });
+  const toast = useToast();
   const navigate = useNavigate();
   const {
     control,
@@ -26,17 +28,12 @@ const LoginPage = () => {
   });
 
   const submitLogin = async (values) => {
-    // const { username, password } = values;
-    setLoading(true);
     try {
-      const response = await login(values);
-      toast(response.message, "success");
-      console.log(response);
+      const { message } = await mutateAsync(values);
+      toast(message, "success");
+      navigate("/", { replace: true });
     } catch (err) {
-      console.log(err);
       toast(err.response.data.message, "error");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -76,7 +73,7 @@ const LoginPage = () => {
         </div>
         {/* Submit button */}
         <CustomButton
-          loading={loading}
+          loading={isPending}
           className="h-[60px] w-48 mx-auto text-20 md:w-56 mt-7"
           type="submit"
         >

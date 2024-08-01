@@ -26,6 +26,10 @@ body {
   background-color: #f9f5f2;
 }
 
+input:focus-visible {
+  outline: none;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -62,7 +66,7 @@ body {
 }
 
 .ant-checkbox-inner::after {
-  content: url("../public/icons/tick-svgrepo-com.svg");
+  content: url("/icons/tick-svgrepo-com.svg");
   @apply rotate-0 absolute top-1;
 }
 
@@ -85,6 +89,49 @@ body {
 }
 
 /* Select */
+.ant-select {
+  @apply border-2 border-custom-primary-color rounded-lg;
+}
+
 .ant-select-selection-placeholder {
-  @apply text-red-600;
+  @apply text-black/70;
+}
+
+/* Members Table */
+.ant-table {
+  @apply bg-transparent;
+}
+
+.ant-table-thead .ant-table-cell {
+  @apply font-extrabold text-14;
+}
+
+.ant-table-cell {
+  @apply text-center bg-transparent before:hidden;
+}
+
+.ant-table-placeholder {
+  @apply bg-transparent;
+}
+
+/* Pagination */
+.ant-pagination {
+  @apply mt-5;
+}
+
+.ant-pagination-item {
+  @apply flex justify-center items-center bg-transparent;
+}
+
+.ant-pagination-item > * {
+  @apply w-max  border-b-2 border-transparent rounded-none font-extrabold;
+}
+
+.ant-pagination-item.ant-pagination-item-active > * {
+  @apply border-custom-primary-color;
+}
+
+.ant-pagination-next,
+.ant-pagination-prev {
+  @apply flex justify-center;
 }

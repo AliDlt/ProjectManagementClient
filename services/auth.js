@@ -41,11 +41,13 @@ export const sendOtpCode = async (phoneNumber) => {
 };
 
 export const resetPassword = async (data) => {
-  const res = await http.post(
-    `/auth/changePassword`,data,
-    {
-      withCredentials: false,
-    },
-  );
-  return res.data;
+  const res = await http.post(`/auth/changePassword`, data, {
+    withCredentials: false,
+  });
+};
+
+// Get User
+export const getUser = async () => {
+  const res = await http.get("/user/getUserByToken");
+  return res.data.data;
 };

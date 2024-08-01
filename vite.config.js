@@ -8,5 +8,12 @@ export default defineConfig({
   },
   server: {
     historyApiFallback: true,
+    proxy: {
+      "/api": {
+        target: "https://projectmanagment.liara.run",
+        changeOrigin: true,
+        secure: true,
+      },
+    },
   },
 });
