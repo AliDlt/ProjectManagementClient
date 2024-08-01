@@ -15,6 +15,7 @@ export default {
           "rgb(var(--primary-color-300) / <alpha-value>)",
         "custom-secondary-color": "rgb(var(--secondary-color) / <alpha-value>)",
         "white-custom": "#fff",
+        "background": "#f9f5f2",
         "custom-textFaint-color": "rgb(var(--textFaint-color) / <alpha-value>)",
       },
       boxShadow: {
