@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-  baseURL: "https://projectmanagment.liara.run/api",
+  baseURL: "/api",
   withCredentials: true,
 });
 

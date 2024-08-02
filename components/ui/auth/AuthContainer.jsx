@@ -1,7 +1,15 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import useUser from "../../../hooks/useUser";
 
 function AuthContainer() {
+  const { isLoading, user } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoading && user) navigate("/", { replace: true });
+  }, [isLoading, user]);
+
   return (
     <section className="min-h-svh relative flex items-center justify-center  ">
       <img

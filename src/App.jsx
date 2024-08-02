@@ -14,15 +14,10 @@ import ManagerPage from "../pages/ManagerPage";
 import ToastMessageProvider from "../Context/ToastContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UserPage from "../pages/UserPage";
+import ProtectPages from "../pages/ProtectPages";
 
 function App() {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-      },
-    },
-  });
+  const queryClient = new QueryClient();
 
   return (
     <ToastMessageProvider>
@@ -70,7 +65,14 @@ function App() {
           <QueryClientProvider client={queryClient}>
             <Routes>
               {/* Home */}
-              <Route path="/" element={<AppContainer />}>
+              <Route
+                path="/"
+                element={
+                  <ProtectPages>
+                    <AppContainer />
+                  </ProtectPages>
+                }
+              >
                 <Route path="/user" element={<UserPage />} />
                 <Route index element={<Navigate to={"/dashboard"} replace />} />
                 <Route path="/dashboard" element={<DashboardPage />} />

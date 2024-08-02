@@ -1,6 +1,4 @@
 import React, { useRef, useState } from "react";
-import CustomInput from "../components/modules/CustomInput";
-import CustomButton from "../components/modules/CustomButton";
 import { useForm } from "react-hook-form";
 import { forgetPasswordSchema } from "../yup/yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,6 +13,7 @@ const ForgetPasswordPage = () => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const otpCode = useRef("");
+  const toast = useToast();
 
   const {
     handleSubmit,
@@ -25,7 +24,6 @@ const ForgetPasswordPage = () => {
     mode: "onChange",
     resolver: yupResolver(forgetPasswordSchema),
   });
-  const toast = useToast();
   const { phoneNumber } = getValues();
 
   const verifyOtpCode = async (e) => {
@@ -68,7 +66,9 @@ const ForgetPasswordPage = () => {
         />
       );
     case 3:
-      return <NewPasswordPage phoneNumber={convertToInternational('09308178083')} />;
+      return (
+        <NewPasswordPage phoneNumber={convertToInternational("09308178083")} />
+      );
 
     default:
       break;

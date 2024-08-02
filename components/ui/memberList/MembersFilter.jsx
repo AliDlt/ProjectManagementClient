@@ -1,21 +1,30 @@
 import { Select } from "antd";
 import React from "react";
-import { HiChevronDown } from "react-icons/hi2";
+import { IoChevronDown } from "react-icons/io5";
+
+const status = [
+  { value: "true", label: <span>فعال</span> },
+  { value: "false", label: <span>غیر فعال</span> },
+];
 
 function MembersFilter() {
   return (
-    <div className="flex items-center gap-5">
-      <span>فیلتر</span>
+    <div className="flex items-center gap-5 mb-5">
+      <span className="text-20">فیلتر</span>
       <Select
         placeholder="وضعیت"
-        className="flex-1"
-        suffixIcon={<HiChevronDown className="text-custom-primary-color" />}
-        options={[{ value: "sample", label: <span>sample</span> }]}
+        className="flex-1 h-9"
+        suffixIcon={
+          <IoChevronDown size={15} className="text-custom-primary-color" />
+        }
+        options={status}
       />
       <Select
         placeholder="نام"
-        className="flex-1"
-        suffixIcon={<HiChevronDown className="text-custom-primary-color" />}
+        className="flex-1 h-9"
+        suffixIcon={
+          <IoChevronDown size={15} className="text-custom-primary-color" />
+        }
         options={[{ value: "sample", label: <span>sample</span> }]}
       />
     </div>
