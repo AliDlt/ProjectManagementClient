@@ -1,7 +1,10 @@
 import React from "react";
 import ReportChart from "../charts/ReportChart";
+import useChartReportDashboard from "../../../hooks/useChartReportDashboard";
 
 const ReportChartSection = () => {
+  const resp = useChartReportDashboard()
+  
   return (
     <div className="bg-white shadow-custom p-4 lg:p-7  text-lg rounded-custom border-custom-primary-color/50 border-r-4 border-b-4 ">
       <h3>گزارشات هفتگی</h3>

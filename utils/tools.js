@@ -11,3 +11,14 @@ export const convertToInternational = (phone) => {
   }
   return phone;
 };
+
+export const userRol = (rol) => {
+  switch (rol) {
+    case 0:
+      return "پیمانکار";
+    case 1:
+      return "ناظر";
+    case 2:
+      return "ادمین";
+  }
+};

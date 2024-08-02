@@ -5,6 +5,7 @@ import CustomButton from "../../modules/CustomButton";
 import { checkSignup } from "../../../services/auth";
 import { useToast } from "../../../Context/ToastContext";
 import { convertToInternational } from "../../../utils/tools";
+import { Link } from "react-router-dom";
 
 function SignupForm({ formData, setStep }) {
   const toast = useToast();
@@ -93,6 +94,10 @@ function SignupForm({ formData, setStep }) {
           <span className="text-white">ثبت نام</span>
         </CustomButton>
       </form>
+      <div className="flex items-center gap-2 justify-center my-10 text-24">
+        <span>حساب کاربری دارید؟</span>
+        <Link className="text-custom-primary-color" to='/auth/login'>وارد شوید</Link>
+      </div>
     </>
   );
 }

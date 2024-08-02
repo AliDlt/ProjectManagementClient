@@ -67,7 +67,7 @@ const LoginPage = () => {
         {/* Remember and reset password */}
         <div className="flex gap-2 justify-between items-center text-10">
           {/* Reset password */}
-          <p className="text-base md:text-16">رمز عبور خود را فراموش کردید؟</p>
+          <Link to='/auth/forgot-password' className="text-base md:text-16">رمز عبور خود را فراموش کردید؟</Link>
           {/* Remember me */}
           <Checkbox>به خاطر بسپر </Checkbox>
         </div>

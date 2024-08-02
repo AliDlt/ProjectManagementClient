@@ -1,13 +1,12 @@
 import http from "./http";
 
-export const messagesDashboard = async (userId) => {
-  const response = await http.get(`/ticket/user/${userId}`);
+export const messagesDashboard = async () => {
+  const response = await http.get(`/ticket`);
   return response.data;
 };
 
-export const chartReports = async (user) => {
-  const response = await http.get(
-    `/api/report/getReportCountByDayOfWeek/?userId=${user}`,
-  );
+export const reportDayOfWeek = async () => {
+  const response = await http.get("/report/getReportCountByDayOfWeek");
+  console.log(response)
   return response.data;
 };
