@@ -1,7 +1,9 @@
 import React from "react";
 import CustomButton from "../../modules/CustomButton";
 
+
 const Message = ({ name, message }) => {
+
   return (
     <div className="border-custom-primary-color border-2 rounded-custom p-2  text-sm ">
       <h5 className=""> {name} </h5>
