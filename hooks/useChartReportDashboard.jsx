@@ -4,7 +4,7 @@ import { reportDayOfWeek } from "../services/dashboard";
 
 const useChartReportDashboard = () => {
   return useQuery({
-    queryKey: "chart-report",
+    queryKey: ["chart-report"],
     queryFn: reportDayOfWeek,
   });
 };

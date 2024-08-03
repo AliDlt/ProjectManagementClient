@@ -73,7 +73,7 @@ function App() {
                   </ProtectPages>
                 }
               >
-                <Route path="/user" element={<UserPage />} />
+                <Route path="/user/:id" element={<UserPage />} />
                 <Route index element={<Navigate to={"/dashboard"} replace />} />
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/managers" element={<ManagersPage />} />
