@@ -7,9 +7,12 @@ export default defineConfig({
     outDir: "dist",
   },
   server: {
-    historyApiFallback: true,
     proxy: {
-      "/api": "https://projectmanagment.liara.run",
+      "/api": {
+        target: "https://projectmanagment.liara.run",
+        changeOrigin: true,
+        secure: true,
+      },
     },
   },
 });
