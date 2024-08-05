@@ -7,6 +7,11 @@ export const signupSchema = Yup.object({
     .min(3, "حداقل کارکتر : 3")
     .max(25, "حداکثر کارکتر : 25")
     .matches(/[\u0600-\u06FF]/, "لطفا فارسی وارد کنید"),
+  surName: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(3, "حداقل کارکتر : 3")
+    .max(25, "حداکثر کارکتر : 25")
+    .matches(/[\u0600-\u06FF]/, "لطفا فارسی وارد کنید"),
   phoneNumber: Yup.string()
     .required("این فیلد اجباری است.")
     .matches(
@@ -45,10 +50,7 @@ export const loginSchema = Yup.object({
       /^[a-zA-Z]{1,}\d*$/,
       "نام کاربری باید انگلیسی باشد و با حروف آغاز شود",
     ),
-  password: Yup.string()
-    .required("این فیلد اجباری است.")
-    .min(5, "حداقل کارکتر : 5")
-    .max(25, "حداکثر کارکتر : 25"),
+  password: Yup.string().required("این فیلد اجباری است."),
 });
 
 export const forgetPasswordSchema = Yup.object({
@@ -62,11 +64,11 @@ export const forgetPasswordSchema = Yup.object({
 
 export const resetPasswordSchema = Yup.object({
   password: Yup.string()
-  .required("این فیلد اجباری است.")
-  .min(5, "حداقل کارکتر : 5")
-  .max(25, "حداکثر کارکتر : 25"),
-passwordConfirmation: Yup.string().oneOf(
-  [Yup.ref("password"), null],
-  "با رمز عبور مطابقت ندارد.",
-),
+    .required("این فیلد اجباری است.")
+    .min(5, "حداقل کارکتر : 5")
+    .max(25, "حداکثر کارکتر : 25"),
+  passwordConfirmation: Yup.string().oneOf(
+    [Yup.ref("password"), null],
+    "با رمز عبور مطابقت ندارد.",
+  ),
 });

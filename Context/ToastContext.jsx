@@ -4,8 +4,10 @@ import toast, { Toaster } from "react-hot-toast";
 export const ToastMessageContext = createContext();
 
 const ToastMessageProvider = ({ children }) => {
-  const showToast = (message, type) => {
-    toast[type](message, { position: "left-bottom" });
+  const showToast = (message, type, icon) => {
+    if (type) return toast[type](message, { position: "left-bottom" });
+
+    return toast(message, { position: "left-bottom", icon });
   };
   return (
     <ToastMessageContext.Provider value={{ showToast }}>

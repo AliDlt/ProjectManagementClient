@@ -11,11 +11,13 @@ const Profile = () => {
   return (
     <div className="w-full justify-center flex">
       <div className="flex flex-col gap-3 mt-10  items-center  ">
-        <div className="w-11/12 border-custom-primary-color border-4 flex justify-center items-center rounded-full p-3">
-          <img src={profile.image} alt="" />
-        </div>
-        <p className="text-sm lg:text-base font-medium">{user?.name}</p>
-        <p className="text-sm lg:text-base font-medium">{userRol(user?.userRole)}</p>
+        <p className="text-sm lg:text-base font-medium">
+          <span>{user?.name}</span>
+          <span> {user?.surName}</span>
+        </p>
+        <p className="text-sm lg:text-base font-medium">
+          {userRol(user?.userRole)}
+        </p>
       </div>
     </div>
   );

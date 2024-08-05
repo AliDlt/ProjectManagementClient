@@ -8,7 +8,7 @@ import { resetPassword } from "../services/auth";
 import { useToast } from "../Context/ToastContext";
 
 const NewPasswordPage = ({ phoneNumber }) => {
-  const [loading , setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const {
     control,
     handleSubmit,
@@ -19,15 +19,15 @@ const NewPasswordPage = ({ phoneNumber }) => {
   });
   const toast = useToast();
   const confirmResetPassword = async ({ password }) => {
-    setLoading(true)
+    setLoading(true);
     try {
       const response = await resetPassword({ phoneNumber, password });
       toast(response.message, "success");
     } catch (error) {
       console.log(error);
       toast(error.response.data.message, "error");
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,7 +43,7 @@ const NewPasswordPage = ({ phoneNumber }) => {
         <CustomPasswordInput
           control={control}
           name="password"
-          error={errors}
+          error={errors.password}
           placeholder=" رمز عبور جدید"
           className="md:text-2xl p-3"
         />
@@ -52,9 +52,10 @@ const NewPasswordPage = ({ phoneNumber }) => {
           className="md:text-2xl p-3"
           name="passwordConfirmation"
           control={control}
-          error={errors}
+          error={errors.passwordConfirmation}
         />
         <CustomButton
+          loading={loading}
           type="submit"
           className=" p-6 mx-auto rounded-lg text-2xl  "
         >

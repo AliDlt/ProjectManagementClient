@@ -40,7 +40,7 @@ function CustomDonutChart({ colors, data, innerLabel = false }) {
               },
               value: {
                 color: colors[0],
-                fontSize: '10px', // Set the font size for the value
+                fontSize: "10px", // Set the font size for the value
                 offsetY: 3, // Adjust the vertical alignment
                 formatter: function (val) {
                   return `${val}%`; // Add percentage sign to value
@@ -50,7 +50,7 @@ function CustomDonutChart({ colors, data, innerLabel = false }) {
                 show: true,
                 showAlways: true,
                 label: "Total",
-                fontSize: '12px', // Set the font size for the total
+                fontSize: "12px", // Set the font size for the total
                 formatter: function (w) {
                   return `${w.config.series[0]}%`; // Add percentage sign to total
                 },
@@ -65,7 +65,7 @@ function CustomDonutChart({ colors, data, innerLabel = false }) {
           breakpoint: 768,
           options: {
             chart: {
-              width: '130px',
+              width: "130px",
             },
           },
         },
@@ -75,7 +75,7 @@ function CustomDonutChart({ colors, data, innerLabel = false }) {
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%" }} className="flex justify-center items-center">
       <Chart series={series} options={options} type="donut" width="100%" />
     </div>
   );

@@ -40,7 +40,7 @@ const ProjectItems = ({
       <span className="text-xs sm:text-lg font-bold lg:text-xl xl:text-base 2xl:text-xl">
         پروژه {projectNum}
       </span>
-      <div className="w-40 sm:w-52 xl:w-44 2xl:w-48">
+      <div className="w-40 sm:w-52 xl:w-44 2xl:w-48 ">
         <CustomDonutChart colors={chartColors} data={chartData} />
       </div>
       <div className="flex flex-col items-center gap-2">
