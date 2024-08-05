@@ -37,7 +37,7 @@ function UsersTable({ users, loading }) {
   }, [showGuide]);
 
   return (
-    <div className="lg:bg-white lg:rounded-custom lg:py-8 lg:shadow-custom lg:border-b-4 lg:border-custom-primary-color-300 ">
+    <div className="lg:bg-white lg:rounded-custom lg:py-8 lg:shadow-custom lg:border-b-4 lg:border-custom-primary-color-300  lg:w-[25rem] xl:w-auto">
       <Table
         loading={loading}
         dataSource={data}
@@ -89,11 +89,12 @@ function UsersTable({ users, loading }) {
           )}
         />
         <Column
+          responsive={["lg"]}
           title="تغییرات"
           dataIndex="edit"
           key="edit"
           width={100}
-          render={(active) => (
+          render={() => (
             <div className="flex items-center justify-center gap-2">
               <MdOutlineEdit
                 className="text-custom-primary-color cursor-pointer"
@@ -109,6 +110,7 @@ function UsersTable({ users, loading }) {
           )}
         />
         <Column
+          responsive={["lg"]}
           title="تاریخ  اخرین ورود"
           dataIndex="lastLogin"
           key="lastLogin"

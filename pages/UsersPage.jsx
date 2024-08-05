@@ -17,13 +17,13 @@ export default function UsersPage() {
       </div>
       {/* Filter */}
       <div className="flex flex-col gap-5">
-        <h3 className="text-16 lg:col-span-3 hidden lg:block  ">
+        <h3 className="text-16 lg:col-span-3 hidden lg:block py-1">
           مرتب سازی بر اساس
         </h3>
         <UsersFilter />
       </div>
       {/* Table */}
-      <div className="flex-1 flex flex-col gap-5">
+      <div className="flex-1 flex flex-col gap-5 ">
         <div className="lg:flex lg:items-center lg:gap-3 hidden">
           <h3 className="text-16">لیست کاربران</h3>
           <UserRoleFilter />
