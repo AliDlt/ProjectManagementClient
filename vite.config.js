@@ -11,7 +11,7 @@ export default defineConfig({
       "/api": {
         target: "https://projectmanagment.liara.run",
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
     },
   },
