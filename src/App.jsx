@@ -14,6 +14,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UserPage from "../pages/UserPage";
 import ProtectPages from "../pages/ProtectPages";
 import UsersPage from "../pages/UsersPage";
+import ProjectsPage from "../pages/ProjectsPage";
+import ReportsPage from "../pages/ReportsPage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -81,9 +83,9 @@ function App() {
               >
                 <Route index element={<Navigate to={"/dashboard"} replace />} />
                 <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/reports" element={<NewPasswordPage />} />
+                <Route path="/reports" element={<ReportsPage />} />
                 <Route path="/messages" element={<NewPasswordPage />} />
-                <Route path="/projects" element={<NewPasswordPage />} />
+                <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="/user/:id" element={<UserPage />} />
               </Route>
