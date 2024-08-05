@@ -36,7 +36,7 @@ function SideBar() {
       <aside
         className=" hidden lg:block
         lg:col-span-3 
-        fixed md:static z-50  2xl:col-span-2 lg:row-start-1 lg:-row-end-9  shadow-custom rounded-xl bg-white md:h-max border-b-4 border-custom-primary-color-300"
+         md:static z-50  2xl:col-span-2 lg:row-start-1 lg:-row-end-9  shadow-custom rounded-xl bg-white md:h-max border-b-4 border-custom-primary-color-300 lg:!sticky lg:top-5"
       >
         <nav className="flex flex-col items-center pt-12 w-full">
           <div className="flex justify-center">

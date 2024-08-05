@@ -13,7 +13,7 @@ function AuthContainer() {
   return (
     <section className="min-h-svh relative flex items-center justify-center  ">
       <img
-        className="absolute left-0 top-0 w-60 -z-10 xl:w-96"
+        className="absolute left-0 top-0 w-60 lg:w-[30rem] -z-10 xl:w-[30rem]"
         src="/images/authImage2.svg"
         alt="auth image"
       />
@@ -23,7 +23,7 @@ function AuthContainer() {
         </div>
       </div>
       <img
-        className="absolute right-0 bottom-0 w-44 -z-10 xl:w-80"
+        className="absolute right-0 bottom-0 w-44 lg:w-[23rem] -z-10 xl:w-96"
         src="/images/authImage.svg"
         alt="auth image"
       />

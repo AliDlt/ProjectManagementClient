@@ -32,6 +32,7 @@ input:focus-visible {
 
 ::-webkit-scrollbar {
   width: 5px;
+  height: 2px;
 }
 
 /* Track */
@@ -97,13 +98,13 @@ input:focus-visible {
   @apply text-black/70;
 }
 
-/* Members Table */
+/* Users Table */
 .ant-table {
-  @apply bg-transparent;
+  @apply bg-transparent overflow-x-auto;
 }
 
 .ant-table-thead .ant-table-cell {
-  @apply font-extrabold text-14;
+  @apply font-extrabold text-14 text-nowrap;
 }
 
 .ant-table-cell {
@@ -112,6 +113,10 @@ input:focus-visible {
 
 .ant-table-placeholder {
   @apply bg-transparent;
+}
+
+.ant-table-tbody .ant-table-row .ant-table-cell:first-child {
+  cursor: pointer;
 }
 
 /* Pagination */
@@ -134,4 +139,24 @@ input:focus-visible {
 .ant-pagination-next,
 .ant-pagination-prev {
   @apply flex justify-center;
+}
+
+/* User Role Filter CheckBox */
+.user-role-filter-radio .ant-radio-button-wrapper {
+  @apply bg-transparent rounded-custom before:hidden px-2.5 hover:text-black;
+}
+
+.user-role-filter-radio
+  .ant-radio-button-wrapper.ant-radio-button-wrapper-checked {
+  @apply bg-custom-primary-color text-white;
+}
+
+/* Sort Users Radio */
+
+.sort-users .ant-radio-checked .ant-radio-inner {
+  @apply bg-custom-primary-color;
+}
+
+.sort-users .ant-radio-inner {
+  @apply bg-custom-primary-color-300/50 after:hidden !rounded-lg w-5 h-5;
 }

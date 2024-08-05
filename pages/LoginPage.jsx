@@ -48,10 +48,8 @@ const LoginPage = () => {
         {/* Phone number */}
         <CustomInput
           control={control}
-          error={errors}
-          // error={errors}
+          error={errors.username}
           name="username"
-          // control={control}
           className="h-[60px] text-16 px-5 bg-transparent md:text-18"
           placeholder="نام کاربری"
         />
@@ -59,15 +57,16 @@ const LoginPage = () => {
         <CustomPasswordInput
           name="password"
           control={control}
-          error={errors}
-          // control={control}
+          error={errors.password}
           className="h-[60px] text-16 px-5 bg-transparent md:text-18"
           placeholder="رمز عبور"
         />
         {/* Remember and reset password */}
         <div className="flex gap-2 justify-between items-center text-10">
           {/* Reset password */}
-          <Link to='/auth/forgot-password' className="text-base md:text-16">رمز عبور خود را فراموش کردید؟</Link>
+          <Link to="/auth/forgot-password" className="text-base md:text-16">
+            رمز عبور خود را فراموش کردید؟
+          </Link>
           {/* Remember me */}
           <Checkbox>به خاطر بسپر </Checkbox>
         </div>
