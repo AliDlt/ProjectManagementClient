@@ -1,3 +1,5 @@
+import moment from "moment-jalaali";
+
 export const maskPhoneNumber = (phoneNumber) => {
   if (phoneNumber.length === 11) {
     return phoneNumber.replace(/(\d{4})(\d{4})(\d{3})/, "$1****$3");
@@ -22,3 +24,13 @@ export const userRol = (rol) => {
       return "ادمین";
   }
 };
+
+export function convertDate(dateString) {
+  moment.loadPersian({ usePersianDigits: false });
+  const date = moment(dateString);
+
+  const jalaliDate = date.format("jYYYY/jM/jD");
+  const time = date.format("HH:mm");
+
+  return ` ${time} - ${jalaliDate} `;
+}

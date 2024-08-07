@@ -1,13 +1,25 @@
 import React from "react";
 import CustomButton from "../../modules/CustomButton";
 import CustomDonutChart from "../charts/CustomDonutChart";
-
+const optionChart = [
+  {
+    breakpoint: 768,
+    options: {
+      chart: {
+        width: "150px",
+        height: "150px",
+      },
+    },
+  },
+];
 function ProjectSection() {
+ 
   return (
     <div className="shadow-custom bg-white  p-6 flex flex-col gap-5 rounded-custom border-b-4 border-l-4 border-custom-primary-color/50 lg:p-7 ">
       <h3 className="text-lg">پروژه ها</h3>
       <div>
         <ProjectItems
+          option={optionChart}
           projectNum={1}
           chartColors={["#15ABFF", "#E5F6FF"]}
           chartData={72}
@@ -41,7 +53,11 @@ const ProjectItems = ({
         پروژه {projectNum}
       </span>
       <div className="w-40 sm:w-52 xl:w-44 2xl:w-48">
-        <CustomDonutChart colors={chartColors} data={chartData} />
+        <CustomDonutChart
+          option={optionChart}
+          colors={chartColors}
+          data={chartData}
+        />
       </div>
       <div className="flex flex-col items-center gap-2">
         <span

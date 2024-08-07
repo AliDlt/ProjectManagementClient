@@ -1,7 +1,7 @@
 import React from "react";
 import Chart from "react-apexcharts";
 
-function CustomDonutChart({ colors, data, innerLabel = false }) {
+function CustomDonutChart({ colors, data, innerLabel = false, option }) {
   const { options, series } = {
     options: {
       colors,
@@ -40,7 +40,7 @@ function CustomDonutChart({ colors, data, innerLabel = false }) {
               },
               value: {
                 color: colors[0],
-                fontSize: '10px', // Set the font size for the value
+                fontSize: "10px", // Set the font size for the value
                 offsetY: 3, // Adjust the vertical alignment
                 formatter: function (val) {
                   return `${val}%`; // Add percentage sign to value
@@ -50,7 +50,7 @@ function CustomDonutChart({ colors, data, innerLabel = false }) {
                 show: true,
                 showAlways: true,
                 label: "Total",
-                fontSize: '12px', // Set the font size for the total
+                fontSize: "12px", // Set the font size for the total
                 formatter: function (w) {
                   return `${w.config.series[0]}%`; // Add percentage sign to total
                 },
@@ -60,22 +60,13 @@ function CustomDonutChart({ colors, data, innerLabel = false }) {
           },
         },
       },
-      responsive: [
-        {
-          breakpoint: 768,
-          options: {
-            chart: {
-              width: '130px',
-            },
-          },
-        },
-      ],
+      responsive: option,
     },
     series: [data, 100 - data],
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div className=" lg:translate-x-2 2xl:translate-x-0 flex items-center justify-center overflow-hidden">
       <Chart series={series} options={options} type="donut" width="100%" />
     </div>
   );
