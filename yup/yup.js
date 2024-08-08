@@ -15,8 +15,8 @@ export const signupSchema = Yup.object({
   phoneNumber: Yup.string()
     .required("این فیلد اجباری است.")
     .matches(
-      /((0?9)|(\+?989))\d{2}\W?\d{3}\W?\d{4}/g,
-      "لطفا شماره تماس نامعتبر است",
+      /^((\+98|0)9\d{9})$/,
+      "لطفا شماره تلفن معتبر وارد کنید"
     ),
   username: Yup.string()
     .required("این فیلد اجباری است.")
@@ -24,7 +24,7 @@ export const signupSchema = Yup.object({
     .max(25, "حداکثر کارکتر : 25")
     .matches(
       /^[a-zA-Z]{1,}\d*$/,
-      "نام کاربری باید انگلیسی باشد و با حروف آغاز شود",
+      "نام کاربری باید انگلیسی باشد و با حروف آغاز شود"
     ),
   password: Yup.string()
     .required("این فیلد اجباری است.")
@@ -32,11 +32,11 @@ export const signupSchema = Yup.object({
     .max(25, "حداکثر کارکتر : 25"),
   passwordConfirmation: Yup.string().oneOf(
     [Yup.ref("password"), null],
-    "با رمز عبور مطابقت ندارد.",
+    "با رمز عبور مطابقت ندارد."
   ),
   nationalCode: Yup.string().matches(
     /^(?!(\d)\1{9})\d{10}$/,
-    "کد ملی باید 10 رقمی باشد",
+    "کد ملی باید 10 رقمی باشد"
   ),
 });
 
@@ -48,20 +48,22 @@ export const loginSchema = Yup.object({
     .max(25, "حداکثر کارکتر : 25")
     .matches(
       /^[a-zA-Z]{1,}\d*$/,
-      "نام کاربری باید انگلیسی باشد و با حروف آغاز شود",
+      "نام کاربری باید انگلیسی باشد و با حروف آغاز شود"
     ),
   password: Yup.string().required("این فیلد اجباری است."),
 });
 
+// Forget Password Schema
 export const forgetPasswordSchema = Yup.object({
   phoneNumber: Yup.string()
     .required("این فیلد اجباری است.")
     .matches(
-      /((0?9)|(\+?989))\d{2}\W?\d{3}\W?\d{4}/g,
-      "لطفا شماره تماس نامعتبر است",
+      /^((\+98|0)9\d{9})$/,
+      "لطفا شماره تلفن معتبر وارد کنید"
     ),
 });
 
+// Reset Password Schema
 export const resetPasswordSchema = Yup.object({
   password: Yup.string()
     .required("این فیلد اجباری است.")
@@ -69,6 +71,6 @@ export const resetPasswordSchema = Yup.object({
     .max(25, "حداکثر کارکتر : 25"),
   passwordConfirmation: Yup.string().oneOf(
     [Yup.ref("password"), null],
-    "با رمز عبور مطابقت ندارد.",
+    "با رمز عبور مطابقت ندارد."
   ),
 });

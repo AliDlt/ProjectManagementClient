@@ -1,11 +1,26 @@
-import React from 'react'
+import React from "react";
+import { Modal } from "antd";
+import { IoCloseSharp } from "react-icons/io5";
 
-const Modal = ({children}) => {
+const CustomModal = ({ title, children, open, onCancel }) => {
   return (
-    <div className='fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center bg-black bg-opacity-20 '>
-        {children}
-    </div>
-  )
-}
+    <Modal
+      closeIcon={null}
+      open={open}
+      footer={null}
+      onCancel={() => {
+        onCancel(false);
+      }}
+    >
+      <div className="flex justify-between items-center text-xl border-b pb-3 border-black border-opacity-55">
+        <h3>{title}</h3>
+        <span className="text-custom-primary-color text-24" onClick={()=>{onCancel(false)}}>
+          <IoCloseSharp />
+        </span>
+      </div>
+      <div>{children}</div>
+    </Modal>
+  );
+};
 
-export default Modal
+export default CustomModal;

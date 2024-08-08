@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import useUpdateUser from "../../../hooks/useUpdateUser";
 import { useToast } from "../../../Context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
+import CustomSelectInput from "../../modules/CustomSelectInput";
 
 const ChangeData = ({ type, value, setShow, title }) => {
   // Create a schema for the specific type
@@ -25,7 +26,11 @@ const ChangeData = ({ type, value, setShow, title }) => {
     queryClient.invalidateQueries("user", id);
     setShow(false);
   };
-
+  const role = [
+    { name: "ادمین", id: "2" },
+    { name: "پیمان کار", id: "1" },
+    { name: "ناظر", id: "0" },
+  ];
   const {
     control,
     handleSubmit,
@@ -44,26 +49,30 @@ const ChangeData = ({ type, value, setShow, title }) => {
 
   return (
     <div>
-      <div className="flex justify-between items-center text-xl border-b pb-3 border-black border-opacity-55">
-        <h3>ثبت اطلاعات کاربری</h3>
-        <span className="text-custom-primary-color text-24" onClick={setShow}>
-          <IoCloseSharp />
-        </span>
-      </div>
-
       <div className="mt-8">
         <form
           onSubmit={handleSubmit(updateData)}
           className="flex gap-4 flex-col "
         >
           <span className="pr-2">{title}</span>
-          <CustomInput
-            className="p-2"
-            placeholder={title}
-            control={control}
-            error={errors}
-            name={type}
-          />
+          {type !== "userRole" ? (
+            <>
+              <CustomInput
+                className="p-2"
+                placeholder={title}
+                control={control}
+                error={errors}
+                name={type}
+              />
+            </>
+          ) : (
+            <CustomSelectInput
+              control={control}
+              placeholder={title}
+              name={type}
+              options={role}
+            />
+          )}
           <div>
             <CustomButton loading={isPending} type="submit">
               ثبت تغیرات
