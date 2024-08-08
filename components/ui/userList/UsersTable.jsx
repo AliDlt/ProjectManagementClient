@@ -1,8 +1,8 @@
 import Table from "antd/es/table";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import StatusBadge from "../../modules/StatusBadge";
 import Column from "antd/es/table/Column";
-import { Empty, Modal } from "antd";
+import { Empty } from "antd";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import {
   convertFromInternational,
@@ -14,8 +14,6 @@ import { FaTrash } from "react-icons/fa";
 
 function UsersTable({ users, loading }) {
   const [current, setCurrent] = useState(1);
-  const [showGuide, setShowGuide] = useState(true);
-  const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
 
   const data = users?.map((user) => {
@@ -25,16 +23,6 @@ function UsersTable({ users, loading }) {
       ...rest,
     };
   });
-
-  useEffect(() => {
-    const hasSeenGuide = localStorage.getItem("hasSeenGuide");
-
-    if (!hasSeenGuide) {
-      setShowGuide(false);
-    } else {
-      localStorage.setItem("hasSeenGuide", "true");
-    }
-  }, [showGuide]);
 
   return (
     <div className="lg:bg-white lg:rounded-custom lg:py-8 lg:shadow-custom lg:border-b-4 lg:border-custom-primary-color-300  lg:w-[25rem] xl:w-auto">
@@ -115,17 +103,12 @@ function UsersTable({ users, loading }) {
           dataIndex="lastLogin"
           key="lastLogin"
           width={100}
-          render={(lastLogin) => convertToLocalDate(lastLogin)}
+          render={(lastLogin) => {
+            if (!lastLogin) return "-";
+            return convertToLocalDate(lastLogin);
+          }}
         />
       </Table>
-      {/* <Modal
-        closeIcon={null}
-        open={showGuide}
-        footer={null}
-        onCancel={() => {
-          setVisible(false);
-        }}
-      ></Modal> */}
     </div>
   );
 }

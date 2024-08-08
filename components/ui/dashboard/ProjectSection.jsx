@@ -1,6 +1,8 @@
 import React from "react";
 import CustomButton from "../../modules/CustomButton";
 import CustomDonutChart from "../charts/CustomDonutChart";
+import useProjects from "../../../hooks/useProjects";
+
 const optionChart = [
   {
     breakpoint: 768,
@@ -13,11 +15,18 @@ const optionChart = [
   },
 ];
 function ProjectSection() {
- 
+  const { projects } = useProjects();
+  console.log(projects);
+
   return (
     <div className="shadow-custom bg-white  p-6 flex flex-col gap-5 rounded-custom border-b-4 border-l-4 border-custom-primary-color/50 lg:p-7 ">
       <h3 className="text-lg">پروژه ها</h3>
-      <div>
+      {!!projects?.length || (
+        <div className="flex justify-center items-center h-[302px]">
+          پروژه ای وجود ندارد
+        </div>
+      )}
+      {/* <div>
         <ProjectItems
           option={optionChart}
           projectNum={1}
@@ -32,7 +41,7 @@ function ProjectSection() {
           chartData={69}
           projectStatus="وضعیت پروژه "
         />
-      </div>
+      </div> */}
       <CustomButton className="self-start text-sm">دیگر پروژه ها</CustomButton>
     </div>
   );

@@ -7,6 +7,7 @@
   --primary-color: 241 162 91;
   --primary-color-300: 255 206 163;
   --secondary-color: 21 171 255;
+  --secondary-color-300: 188 225 244;
   --textFaint-color: 76 75 75;
 }
 
@@ -152,11 +153,15 @@ input:focus-visible {
 }
 
 /* Sort Users Radio */
-
 .sort-users .ant-radio-checked .ant-radio-inner {
   @apply bg-custom-primary-color;
 }
 
 .sort-users .ant-radio-inner {
   @apply bg-custom-primary-color-300/50 after:hidden !rounded-lg w-5 h-5;
+}
+
+/* Sldier */
+.ant-slider-tooltip .ant-tooltip-arrow {
+  @apply after:border after:border-custom-secondary-color z-50 top-[15px];
 }

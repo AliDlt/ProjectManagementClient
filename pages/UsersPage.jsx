@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useUsers from "../hooks/useUsers";
 import UsersFilter from "../components/ui/userList/UsersFilter";
 import UsersTable from "../components/ui/userList/UsersTable";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import UserRoleFilter from "../components/ui/userList/UserRoleFilter";
+import useUser from "../hooks/useUser";
+import { useToast } from "../Context/ToastContext";
 
 export default function UsersPage() {
   const [searchParams] = useSearchParams();
-  const { users, isLoading } = useUsers(searchParams.get("userRole") || "0");
+  const userRole = searchParams.get("userRole");
+  const { users, isLoading } = useUsers(userRole || "2");
+  const { user, isLoading: userLoading } = useUser();
+  const navigate = useNavigate();
+  const toast = useToast();
+
+  useEffect(() => {
+    if (!userLoading && user && user.userRole === 2) {
+      navigate("/", { replace: true });
+      toast("شما به این صفحه دسترسی ندارید .", "error");
+    }
+  }, [userLoading, user]);
 
   return (
     <div className="container flex flex-col gap-10 col-span-1 lg:col-span-9 2xl:col-span-10 lg:flex-row-reverse">
