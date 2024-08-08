@@ -43,14 +43,21 @@ function SignupForm({ formData, setStep }) {
         className="flex flex-col gap-7 px-2 mt-10"
       >
         <CustomInput
-          error={errors}
+          error={errors.name}
           name="name"
           control={control}
           className="h-[60px] text-16 px-5 bg-transparent md:text-18"
-          placeholder="نام و نام خانوادگی"
+          placeholder="نام"
         />
         <CustomInput
-          error={errors}
+          error={errors.surName}
+          name="surName"
+          control={control}
+          className="h-[60px] text-16 px-5 bg-transparent md:text-18"
+          placeholder="نام خانوادگی"
+        />
+        <CustomInput
+          error={errors.username}
           name="username"
           control={control}
           className="h-[60px] text-16 px-5 bg-transparent md:text-18"
@@ -58,7 +65,7 @@ function SignupForm({ formData, setStep }) {
         />
         <CustomInput
           type="tel"
-          error={errors}
+          error={errors.phoneNumber}
           name="phoneNumber"
           control={control}
           className="h-[60px] text-16 px-5 bg-transparent md:text-18"
@@ -66,21 +73,21 @@ function SignupForm({ formData, setStep }) {
         />
         <CustomInput
           type="tel"
-          error={errors}
+          error={errors.nationalCode}
           name="nationalCode"
           control={control}
           className="h-[60px] text-16 px-5 bg-transparent md:text-18"
           placeholder="کد ملی"
         />
         <CustomPasswordInput
-          error={errors}
+          error={errors.password}
           name="password"
           control={control}
           className="h-[60px] text-16 px-5 bg-transparent md:text-18"
           placeholder="رمز عبور"
         />
         <CustomPasswordInput
-          error={errors}
+          error={errors.passwordConfirmation}
           name="passwordConfirmation"
           control={control}
           className="h-[60px] text-16 px-5 bg-transparent md:text-18"
@@ -94,9 +101,11 @@ function SignupForm({ formData, setStep }) {
           <span className="text-white">ثبت نام</span>
         </CustomButton>
       </form>
-      <div className="flex items-center gap-2 justify-center my-10 text-24">
+      <div className="flex items-center gap-2 justify-center my-10 text-16  md:text-20">
         <span>حساب کاربری دارید؟</span>
-        <Link className="text-custom-primary-color" to='/auth/login'>وارد شوید</Link>
+        <Link className="text-custom-primary-color" to="/auth/login">
+          وارد شوید
+        </Link>
       </div>
     </>
   );

@@ -12,6 +12,24 @@ export default function CustomInput({
   error = false,
   type,
 }) {
+  if (!control) {
+    return (
+      <Input
+        dir="rtl"
+        type={type}
+        classNames={{
+          input: "placeholder:text-black/50 font-medium",
+        }}
+        className={cn([
+          "rounded-custom border-2 border-custom-primary-color",
+          className,
+        ])}
+        prefix={icon}
+        placeholder={placeholder}
+      />
+    );
+  }
+
   return (
     <Controller
       control={control}
@@ -31,13 +49,11 @@ export default function CustomInput({
             ])}
             prefix={icon}
             placeholder={placeholder}
-            status={error[name] && "error"}
+            status={error && "error"}
           />
-          {error[name] && (
-            <p className="text-red-500 text-sm">{error[name].message}</p>
-          )}
+          {error && <p className="text-red-500 text-sm">{error.message}</p>}
         </div>
       )}
-    />  
+    />
   );
 }

@@ -30,11 +30,9 @@ function CustomPasswordInput({ placeholder, className, name, control, error }) {
               )
             }
             placeholder={placeholder}
-            status={error[name] && "error"}
+            status={error && "error"}
           />
-          {error[name] && (
-            <p className="text-red-500 text-sm">{error[name].message}</p>
-          )}
+          {error && <p className="text-red-500 text-sm">{error.message}</p>}
         </div>
       )}
     />

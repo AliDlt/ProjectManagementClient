@@ -8,16 +8,23 @@ import LoginPage from "../pages/LoginPage";
 import ForgetPasswordPage from "../pages/ForgetPasswordPage";
 import NewPasswordPage from "../pages/NewPasswordPage";
 import { Toaster } from "react-hot-toast";
-import ManagersPage from "../pages/ManagersPage";
 import AppContainer from "../components/ui/AppContainer";
-import ManagerPage from "../pages/ManagerPage";
 import ToastMessageProvider from "../Context/ToastContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UserPage from "../pages/UserPage";
 import ProtectPages from "../pages/ProtectPages";
+import UsersPage from "../pages/UsersPage";
+import ProjectsPage from "../pages/ProjectsPage";
+import ReportsPage from "../pages/ReportsPage";
 
 function App() {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
 
   return (
     <ToastMessageProvider>
@@ -53,6 +60,7 @@ function App() {
               Select: {
                 selectorBg: "transparent",
                 optionSelectedBg: "rgb(var(--primary-color) / 0.8)",
+                optionSelectedColor: "white",
                 colorPrimary: "rgb(var(--primary-color))",
                 colorPrimaryHover: "rgb(var(--primary-color))",
               },
@@ -73,16 +81,13 @@ function App() {
                   </ProtectPages>
                 }
               >
-                <Route path="/user/:id" element={<UserPage />} />
                 <Route index element={<Navigate to={"/dashboard"} replace />} />
                 <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/managers" element={<ManagersPage />} />
-                <Route path="/managers/:managerId" element={<ManagerPage />} />
-                <Route path="/observers" element={<SignupPage />} />
-                <Route path="/contractors" element={<NewPasswordPage />} />
-                <Route path="/reports" element={<NewPasswordPage />} />
+                <Route path="/reports" element={<ReportsPage />} />
                 <Route path="/messages" element={<NewPasswordPage />} />
-                <Route path="/projects" element={<NewPasswordPage />} />
+                <Route path="/projects" element={<ProjectsPage />} />
+                <Route path="/users" element={<UsersPage />} />
+                <Route path="/user/:id" element={<UserPage />} />
               </Route>
               {/* Login / Signup */}
               <Route path="/auth" element={<AuthContainer />}>

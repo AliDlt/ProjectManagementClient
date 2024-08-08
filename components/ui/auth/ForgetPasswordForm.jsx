@@ -9,7 +9,7 @@ const ForgetPasswordForm = ({ formData, setStep, step }) => {
   const { control, handleSubmit, errors } = formData;
   const toast = useToast();
   const submitForgetPassword = async ({ phoneNumber }) => {
-    setStep(2)
+    setStep(2);
   };
 
   return (
@@ -26,7 +26,7 @@ const ForgetPasswordForm = ({ formData, setStep, step }) => {
       >
         <CustomInput
           control={control}
-          error={errors}
+          error={errors.phoneNumber}
           name="phoneNumber"
           className="md:text-2xl md:px-5 py-3"
           placeholder="شماره موبایل"

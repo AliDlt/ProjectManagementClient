@@ -60,13 +60,22 @@ function CustomDonutChart({ colors, data, innerLabel = false, option }) {
           },
         },
       },
-      responsive: option,
+      responsive: [
+        {
+          breakpoint: 768,
+          options: {
+            chart: {
+              width: "130px",
+            },
+          },
+        },
+      ],
     },
     series: [data, 100 - data],
   };
 
   return (
-    <div className=" lg:translate-x-2 2xl:translate-x-0 flex items-center justify-center overflow-hidden">
+    <div style={{ width: "100%" }} className="flex justify-center items-center">
       <Chart series={series} options={options} type="donut" width="100%" />
     </div>
   );

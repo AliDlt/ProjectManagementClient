@@ -7,7 +7,6 @@ export default defineConfig({
     outDir: "dist",
   },
   server: {
-    historyApiFallback: true,
     proxy: {
       "/api": {
         target: "https://projectmanagment.liara.run",

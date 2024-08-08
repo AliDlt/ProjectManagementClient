@@ -17,11 +17,11 @@ export const convertToInternational = (phone) => {
 export const userRol = (rol) => {
   switch (rol) {
     case 0:
-      return "پیمانکار";
-    case 1:
-      return "ناظر";
-    case 2:
       return "ادمین";
+    case 1:
+      return "پیمانکار";
+    case 2:
+      return "ناظر";
   }
 };
 
@@ -34,3 +34,12 @@ export function convertDate(dateString) {
 
   return ` ${time} - ${jalaliDate} `;
 }
+export const convertFromInternational = (phone) => {
+  return "0" + phone.slice(3);
+};
+
+export const convertToLocalDate = (date) => {
+  return new Date(date).toLocaleDateString("fa", {
+    numberingSystem: "latn",
+  });
+};
