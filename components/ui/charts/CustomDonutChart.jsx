@@ -1,7 +1,7 @@
 import React from "react";
 import Chart from "react-apexcharts";
 
-function CustomDonutChart({ colors, data, innerLabel = false }) {
+function CustomDonutChart({ colors, data, innerLabel = false, option }) {
   const { options, series } = {
     options: {
       colors,

@@ -3,9 +3,9 @@ import { userInfo } from '../services/user'
 
 const useUserName = (id) => {
     return useQuery({
-        queryKey : 'username',
-        queryFn: ()=>{return userInfo(id)}
-    })
+        queryKey: ['username', id], 
+        queryFn: () => { return userInfo(id) }
+    });
 }
 
-export default useUserName
+export default useUserName;

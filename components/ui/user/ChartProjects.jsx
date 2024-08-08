@@ -1,20 +1,53 @@
 import React from "react";
 import CustomDonutChart from "../charts/CustomDonutChart";
 
-const ChartProjects = () => {
+const ChartProjects = ({ name, description, data }) => {
+  const optionsChart = [
+    {
+      breakpoint: 768,
+      options: {
+        chart: {
+          width: "98px",
+          height: "98px",
+        },
+      },
+    },
+    {
+      breakpoint: 1080,
+      options: {
+        chart: {
+          width: "140",
+          height: "140",
+        },
+      },
+    },
+    {
+      breakpoint: 2000, // New breakpoint for sizes above 768px
+      options: {
+        chart: {
+          width: "140px",
+          height: "140px",
+        },
+      },
+    },
+  ];
   return (
-    <div className="flex flex-col gap-3 items-center overflow-hidden">
-      <div className="   flex flex-col justify-center items-center">
-        <p className="text-14 font-bold">پروژه 3</p>
-        <p className="text-12 font-bold">عنوان پروژه</p>
-      </div>
-      <div className="flex items-center justify-center overflow-hidden">
+    <div className="flex  items-center justify-center">
+      <div className="flex items-center  overflow-hidden  ">
         <CustomDonutChart
           colors={["#15ABFF", "#E5F6FF"]}
-          data={72}
+          data={data ? data : 0}
           innerLabel={true}
+          option={optionsChart}
+
           projectStatus="وضعیت پروژه "
         />
+      </div>
+      <div className="   flex flex-col w-1/2 gap-2 justify-center items-center flex-nowrap ">
+        <p className="text-14 lg:text-16 font-bold">{name}</p>
+        <p className="text-8 md:text-12   font-bold text-ellipsis text-nowrap">
+          {description}
+        </p>
       </div>
     </div>
   );
