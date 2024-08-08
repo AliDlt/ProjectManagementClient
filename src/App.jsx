@@ -64,6 +64,13 @@ function App() {
                 colorPrimary: "rgb(var(--primary-color))",
                 colorPrimaryHover: "rgb(var(--primary-color))",
               },
+              Slider: {
+                trackBgDisabled: "rgba(var(--secondary-color))",
+                handleColorDisabled: "rgba(var(--secondary-color))",
+                railBg: "rgba(var(--secondary-color-300))",
+                handleLineWidth: 1,
+                handleSize: 15,
+              },
             },
           }}
         >
@@ -86,6 +93,7 @@ function App() {
                 <Route path="/reports" element={<ReportsPage />} />
                 <Route path="/messages" element={<NewPasswordPage />} />
                 <Route path="/projects" element={<ProjectsPage />} />
+                <Route path="/projects/:id" element={<ProjectsPage />} />
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="/user/:id" element={<UserPage />} />
               </Route>

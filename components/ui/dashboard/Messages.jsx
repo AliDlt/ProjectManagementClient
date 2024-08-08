@@ -23,7 +23,7 @@ const Messages = () => {
 
   return (
     <div className="flex  items-end h-full ">
-      <div className="bg-white w-full flex flex-col  align gap-8 rounded-custom p-7 h-[95%] border-custom-primary-color/50 border-l-4  border-t-4">
+      <div className="bg-white w-full flex flex-col  align gap-8 rounded-custom p-7 h-[95%] border-custom-primary-color-300 border-l-4  border-t-4 shadow-custom">
         {data?.length ? (
           <>
             <div className="flex justify-between items-center">

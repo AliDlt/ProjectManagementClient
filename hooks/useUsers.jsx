@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAllUsers } from "../services/users";
 import { useToast } from "../Context/ToastContext";
+import { useEffect } from "react";
 
 function useUsers(userRole) {
   const toast = useToast();
+
   const {
     data: users,
     isLoading,
@@ -12,10 +14,11 @@ function useUsers(userRole) {
   } = useQuery({
     queryKey: ["get-all-users", userRole],
     queryFn: () => getAllUsers(userRole),
-    throwOnError: (error) => {
-      toast(error.message, "error");
-    },
   });
+
+  useEffect(() => {
+    if (!isLoading && error) toast(error?.response?.data?.message, "error");
+  }, [error, isLoading]);
 
   return {
     users,

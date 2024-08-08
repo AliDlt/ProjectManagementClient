@@ -1,16 +1,13 @@
 import { Radio } from "antd";
 import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-
-const optionsWithDisabled = [
-  { label: "مدیران ", value: "0" },
-  { label: "پیمان کاران", value: "1" },
-  { label: "ناظران ", value: "2" },
-];
+import useUser from "../../../hooks/useUser";
 
 function UserRoleFilter() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [userRole, setUserRole] = useState(searchParams.get("userRole") || "0");
+  const userRoleParam = searchParams.get("userRole");
+  const [userRole, setUserRole] = useState(userRoleParam || "2");
+  const { user } = useUser();
 
   const radioGroupHandler = ({ target: { value } }) => {
     setSearchParams({
@@ -22,12 +19,19 @@ function UserRoleFilter() {
   return (
     <Radio.Group
       className="flex gap-1.5 items-center user-role-filter-radio mr-auto"
-      options={optionsWithDisabled}
       onChange={radioGroupHandler}
       value={userRole}
       optionType="button"
       buttonStyle="solid"
-    />
+    >
+      {user && user.userRole === 0 && (
+        <>
+          <Radio.Button value="0">مدیران</Radio.Button>
+        </>
+      )}
+      <Radio.Button value="1">پیمان کاران</Radio.Button>
+      <Radio.Button value="2">ناظران</Radio.Button>
+    </Radio.Group>
   );
 }
 

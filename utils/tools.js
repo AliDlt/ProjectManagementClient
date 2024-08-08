@@ -34,6 +34,7 @@ export function convertDate(dateString) {
 
   return ` ${time} - ${jalaliDate} `;
 }
+
 export const convertFromInternational = (phone) => {
   return "0" + phone.slice(3);
 };
