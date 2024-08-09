@@ -14,17 +14,14 @@ export const signupSchema = Yup.object({
     .matches(/[\u0600-\u06FF]/, "لطفا فارسی وارد کنید"),
   phoneNumber: Yup.string()
     .required("این فیلد اجباری است.")
-    .matches(
-      /^((\+98|0)9\d{9})$/,
-      "لطفا شماره تلفن معتبر وارد کنید"
-    ),
+    .matches(/^((\+98|0)9\d{9})$/, "لطفا شماره تلفن معتبر وارد کنید"),
   username: Yup.string()
     .required("این فیلد اجباری است.")
     .min(3, "حداقل کارکتر : 3")
     .max(25, "حداکثر کارکتر : 25")
     .matches(
       /^[a-zA-Z]{1,}\d*$/,
-      "نام کاربری باید انگلیسی باشد و با حروف آغاز شود"
+      "نام کاربری باید انگلیسی باشد و با حروف آغاز شود",
     ),
   password: Yup.string()
     .required("این فیلد اجباری است.")
@@ -32,11 +29,11 @@ export const signupSchema = Yup.object({
     .max(25, "حداکثر کارکتر : 25"),
   passwordConfirmation: Yup.string().oneOf(
     [Yup.ref("password"), null],
-    "با رمز عبور مطابقت ندارد."
+    "با رمز عبور مطابقت ندارد.",
   ),
   nationalCode: Yup.string().matches(
     /^(?!(\d)\1{9})\d{10}$/,
-    "کد ملی باید 10 رقمی باشد"
+    "کد ملی باید 10 رقمی باشد",
   ),
 });
 
@@ -48,7 +45,7 @@ export const loginSchema = Yup.object({
     .max(25, "حداکثر کارکتر : 25")
     .matches(
       /^[a-zA-Z]{1,}\d*$/,
-      "نام کاربری باید انگلیسی باشد و با حروف آغاز شود"
+      "نام کاربری باید انگلیسی باشد و با حروف آغاز شود",
     ),
   password: Yup.string().required("این فیلد اجباری است."),
 });
@@ -57,10 +54,7 @@ export const loginSchema = Yup.object({
 export const forgetPasswordSchema = Yup.object({
   phoneNumber: Yup.string()
     .required("این فیلد اجباری است.")
-    .matches(
-      /^((\+98|0)9\d{9})$/,
-      "لطفا شماره تلفن معتبر وارد کنید"
-    ),
+    .matches(/^((\+98|0)9\d{9})$/, "لطفا شماره تلفن معتبر وارد کنید"),
 });
 
 // Reset Password Schema
@@ -71,6 +65,12 @@ export const resetPasswordSchema = Yup.object({
     .max(25, "حداکثر کارکتر : 25"),
   passwordConfirmation: Yup.string().oneOf(
     [Yup.ref("password"), null],
-    "با رمز عبور مطابقت ندارد."
+    "با رمز عبور مطابقت ندارد.",
   ),
+});
+
+export const messageSchema = Yup.object({
+  messageText: Yup.string()
+  .required("پیغام نمیتونه خالی باشه .")
+  .min(5, "حداقل کارکتر : 5")
 });

@@ -10,7 +10,7 @@ const InformationBox = ({ title, children, type }) => {
   return (
     <div className="bg-background rounded-lg p-3 flex flex-col gap-4 ">
       <span>{title}</span>
-      <div className="flex justify-between px-2 items-center gap-2  p-1 rounded-custom border border-custom-primary-color">
+      <div className="flex justify-between px-2 items-center gap-2  p-1 rounded-custom border-2 border-custom-primary-color">
         <span className="text-14 text-nowrap text-ellipsis overflow-hidden rounded-md ">
           {children}
         </span>

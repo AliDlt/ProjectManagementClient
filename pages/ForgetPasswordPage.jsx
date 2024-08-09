@@ -67,7 +67,7 @@ const ForgetPasswordPage = () => {
       );
     case 3:
       return (
-        <NewPasswordPage phoneNumber={convertToInternational("09308178083")} />
+        <NewPasswordPage phoneNumber={convertToInternational(phoneNumber)} />
       );
 
     default:
