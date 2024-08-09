@@ -17,6 +17,7 @@ import UsersPage from "../pages/UsersPage";
 import ProjectsPage from "../pages/ProjectsPage";
 import ReportsPage from "../pages/ReportsPage";
 import Messages from "../pages/Messages";
+import SettingPage from "../pages/SettingPage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -91,6 +92,7 @@ function App() {
               >
                 <Route index element={<Navigate to={"/dashboard"} replace />} />
                 <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/setting" element={<SettingPage />} />
                 <Route path="/reports" element={<ReportsPage />} />
                 <Route path="/messages" element={<Messages />} />
                 <Route path="/projects" element={<ProjectsPage />} />

@@ -2,17 +2,25 @@ import React, { useState } from "react";
 import CustomButton from "../../modules/CustomButton";
 import { MdOutlineEdit } from "react-icons/md";
 import { IoAddOutline } from "react-icons/io5";
-import ChangeData from "./ChangeData";
 import CustomModal from "../../../layout/Modal";
+import ChangePassword from "./ChangePassword";
 
-const InformationBox = ({ title, children, type, userId }) => {
+const PasswordBox = ({
+  title,
+  children,
+  type,
+  userId,
+  placeholder,
+  phoneNumber,
+}) => {
   const [visible, setVisible] = useState(false);
+
   return (
     <div className="bg-background rounded-lg p-3 flex flex-col gap-4 ">
       <span>{title}</span>
       <div className="flex justify-between px-2 items-center gap-2  p-1 rounded-custom border-2 border-custom-primary-color">
         <span className="text-14 text-nowrap text-ellipsis overflow-hidden rounded-md ">
-          {children}
+          {placeholder}
         </span>
         <CustomButton
           onClick={() => setVisible(true)}
@@ -22,16 +30,11 @@ const InformationBox = ({ title, children, type, userId }) => {
         </CustomButton>
       </div>
 
-      <CustomModal
-        open={visible}
-        title="تغیر اطلاعات کاربری "
-        onCancel={setVisible}
-      >
-     
-        <ChangeData
-          userId={userId}
+      <CustomModal open={visible} title="رمز عبور جدید" onCancel={setVisible}>
+        <ChangePassword
+          phoneNumber={phoneNumber}
+          id={userId}
           type={type}
-          value={children}
           title={title}
           setShow={setVisible}
         />
@@ -40,4 +43,4 @@ const InformationBox = ({ title, children, type, userId }) => {
   );
 };
 
-export default InformationBox;
+export default PasswordBox;

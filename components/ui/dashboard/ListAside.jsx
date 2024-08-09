@@ -18,7 +18,10 @@ const ListAside = () => {
       },
       { name: "گزارش ها", icon: "/icons/آیکون-گزارش ها.svg", path: "/reports" },
       { name: "پیام ها", icon: "/icons/آیکون-پیام ها.svg", path: "/messages" },
+
+      { name: "تنظیمات", icon: "/icons/آیکون-داشبورد.svg", path: "/setting" },
     ];
+
     if (!isLoading && user && user?.userRole !== 2) {
       pagesList.push({
         name: "کاربران",

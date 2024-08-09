@@ -13,7 +13,7 @@ import { useToast } from "../../../Context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
 import CustomSelectInput from "../../modules/CustomSelectInput";
 
-const ChangeData = ({ type, value, setShow, title }) => {
+const ChangeData = ({ type, value, setShow, title, userId }) => {
   // Create a schema for the specific type
   const fieldSchema = yup.object({
     [type]: signupSchema.fields[type],
@@ -44,7 +44,8 @@ const ChangeData = ({ type, value, setShow, title }) => {
   const { mutate, isPending } = useUpdateUser();
 
   const updateData = (data) => {
-    mutate({ data, id }, { onSuccess: success });
+    const idCustom = id ? id : userId;
+    mutate({ data, id: idCustom }, { onSuccess: success });
   };
 
   return (
