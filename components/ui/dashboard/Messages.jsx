@@ -3,21 +3,6 @@ import CustomButton from "../../modules/CustomButton";
 import Message from "./Message";
 import useDashboardReports from "../../../hooks/useDashboardReports";
 
-const messages = [
-  {
-    name: "علی محمدی",
-    message: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ",
-  },
-  {
-    name: "علی محمدی",
-    message: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ",
-  },
-  {
-    name: "علی محمدی",
-    message: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ",
-  },
-];
-
 const Messages = () => {
   const { data } = useDashboardReports();
 
@@ -31,7 +16,7 @@ const Messages = () => {
               <CustomButton className="">همه پیام ها</CustomButton>
             </div>
             <div className="flex flex-col  gap-3 h-full ">
-              {data.map(({ name, message }, index) => {
+              {data?.map(({ name, message }, index) => {
                 return <Message key={index} name={name} message={message} />;
               })}
             </div>
