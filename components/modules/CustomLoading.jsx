@@ -1,10 +1,17 @@
 import React from "react";
-import { MetroSpinner } from "react-spinners-kit";
+import { PuffLoader } from "react-spinners";
 
 const CustomLoading = () => {
+
   return (
     <div className="flex p-6 justify-center items-center h-full w-full ">
-      <MetroSpinner  size={36} color="#F1A25B" loading={true} />
+      <PuffLoader
+     
+        loading={true}
+        color='#f1a25b'
+        size={60}
+        data-testid="loader"
+      />
     </div>
   );
 };

@@ -9,7 +9,7 @@ const Projects = ({ projects, error, isPending }) => {
     <div className="flex flex-col gap-4 order-1">
       <h4 className="pr-4">پروژه ها</h4>
 
-      <div className="shadow-custom bg-white border-b-2 border-l-2 flex flex-col gap-1 border-custom-primary-color rounded-custom py-3 px-2">
+      <div className="shadow-custom bg-white border-b-2 border-l-2 flex flex-col gap-3 border-custom-primary-color rounded-custom py-3 px-2">
         {isPending ? (
           <CustomLoading />
         ) : (

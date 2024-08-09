@@ -4,7 +4,7 @@ import StatusBadge from "../../modules/StatusBadge";
 import useUserName from "../../../hooks/useUserName";
 import { useParams } from "react-router-dom";
 import CustomLoading from "../../modules/CustomLoading";
-import { userRol } from "../../../utils/tools";
+import { convertFromInternational, userRol } from "../../../utils/tools";
 
 const UserInformation = ({ error, isPending, user }) => {
   console.log(user);
@@ -13,7 +13,7 @@ const UserInformation = ({ error, isPending, user }) => {
   }
 
   // Assuming data structure
-  const data2 = [
+  const customData = [
     {
       title: "نام و نام خانوادگی",
       children: user?.name,
@@ -21,7 +21,7 @@ const UserInformation = ({ error, isPending, user }) => {
     },
     {
       title: "شماره موبایل",
-      children: user?.phoneNumber,
+      children: user && convertFromInternational(user?.phoneNumber),
       type: "phoneNumber",
     },
     {
@@ -42,7 +42,7 @@ const UserInformation = ({ error, isPending, user }) => {
         <CustomLoading />
       ) : (
         <div className="p-1 gap-1 rounded-lg  grid grid-cols-1 lg:grid-cols-2">
-          {data2.map(({ title, children, type }, index) => (
+          {customData.map(({ title, children, type }, index) => (
             <InformationBox key={index} title={title} type={type}>
               {children || "N/A"}
             </InformationBox>
