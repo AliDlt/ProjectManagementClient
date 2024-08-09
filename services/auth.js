@@ -18,6 +18,7 @@ export const signup = async (userData) => {
 
 export const login = async (data) => {
   const response = await http.post("/auth/login", data);
+  
   return response.data;
 };
 
@@ -48,6 +49,11 @@ export const resetPassword = async (data) => {
 
 // Get User
 export const getUser = async () => {
+try{
   const res = await http.get("/user/getUserByToken");
+  console.log(res)
   return res.data.data;
+}catch(err){
+  console.log(err)
+}
 };
