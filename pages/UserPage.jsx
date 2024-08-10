@@ -22,7 +22,7 @@ const UserPage = () => {
         </div>
         {data?.data.user.lastLogin && (
           <div className="flex items-center flex-col gap-2   text-12">
-            <p>اخرین بازدید : </p>
+            <p>آخرین بازدید : </p>
             <span>{convertDate(data?.data.user.lastLogin)}</span>
           </div>
         )}

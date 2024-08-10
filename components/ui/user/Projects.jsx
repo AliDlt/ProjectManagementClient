@@ -28,7 +28,7 @@ const Projects = ({ projects, error, isPending }) => {
                     );
                   })}
                   <div>
-                    <CustomButton>دیگر پروژه ها</CustomButton>
+                    <CustomButton>همه پروژه ها</CustomButton>
                   </div>
                 </>
               ) : (

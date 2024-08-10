@@ -27,7 +27,7 @@ const ChangeData = ({ type, value, setShow, title }) => {
     setShow(false);
   };
   const role = [
-    { name: "ادمین", id: "2" },
+    { name: "مدیر", id: "2" },
     { name: "پیمان کار", id: "1" },
     { name: "ناظر", id: "0" },
   ];
@@ -75,7 +75,7 @@ const ChangeData = ({ type, value, setShow, title }) => {
           )}
           <div>
             <CustomButton loading={isPending} type="submit">
-              ثبت تغیرات
+              ثبت تغییرات
             </CustomButton>
           </div>
         </form>

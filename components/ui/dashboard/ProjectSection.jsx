@@ -42,7 +42,7 @@ function ProjectSection() {
           projectStatus="وضعیت پروژه "
         />
       </div> */}
-      <CustomButton className="self-start text-sm">دیگر پروژه ها</CustomButton>
+      <CustomButton className="self-start text-sm">همه پروژه ها</CustomButton>
     </div>
   );
 }
