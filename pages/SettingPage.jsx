@@ -21,7 +21,7 @@ const SettingPage = () => {
 
   return (
     <div className="container-grid">
-      <div className="w-full col-span-1 flex flex-col gap-4">
+      <div className="w-full col-span-1 flex flex-col gap-4 lg:col-span-7 lg:grid lg:grid-cols-2">
         <div>
           {user?.name && (
             <InformationBox

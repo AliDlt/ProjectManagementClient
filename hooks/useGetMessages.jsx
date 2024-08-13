@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { getMessages } from "../services/messages";
 
-const useGetMessages = () => {
-  useQuery({
-    queryKey: "get-messages",
-    queryFn: getMessages,
+const useGetMessages = ( page ) => {
+  console.log(page)
+  return useQuery({
+    queryKey: ["get-messages", page],
+    queryFn: () => getMessages(page),
+    keepPreviousData: true,
   });
 };
 

@@ -1,23 +1,32 @@
 import React from "react";
 import CustomButton from "../../modules/CustomButton";
 import Message from "./Message";
-import useDashboardReports from "../../../hooks/useDashboardReports";
+import useGetMessages from "../../../hooks/useGetMessages";
 
 const Messages = () => {
-  const { data } = useDashboardReports();
-
+  const { data } = useGetMessages();
+  // console.log();
   return (
     <div className="flex  items-end h-full ">
       <div className="bg-white w-full flex flex-col  align gap-8 rounded-custom p-7 h-[95%] border-custom-primary-color-300 border-l-4  border-t-4 shadow-custom">
-        {data?.length ? (
+        {data?.data ? (
           <>
             <div className="flex justify-between items-center">
               <h3 className="text-lg">پیام ها</h3>
               <CustomButton className="">همه پیام ها</CustomButton>
             </div>
             <div className="flex flex-col  gap-3 h-full ">
-              {data?.map(({ name, message }, index) => {
-                return <Message key={index} name={name} message={message} />;
+              {data?.data.data.tickets.map(({ _id, title, description }, index) => {
+                return (
+                  index < 4 && (
+                    <Message
+                      title={title}
+                      description={description}
+                      id={_id}
+                      key={index}
+                    />
+                  )
+                );
               })}
             </div>
           </>

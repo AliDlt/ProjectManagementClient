@@ -69,8 +69,8 @@ export const resetPasswordSchema = Yup.object({
   ),
 });
 
-export const messageSchema = Yup.object({
-  messageText: Yup.string()
+export const textAria = Yup.object({
+  text: Yup.string()
     .required("پیغام نمیتونه خالی باشه .")
     .min(5, "حداقل کارکتر : 5"),
 });
