@@ -11,7 +11,13 @@ const useReports = (count) => {
   });
 
   useEffect(() => {
-    if (!isLoading && error) toast(error?.response?.data?.message, "error");
+    if (!isLoading && error) {
+      if (error?.response?.data?.errors) {
+        toast(error?.response?.data?.errors[0], "error");
+      } else {
+        toast(error?.response?.data?.message, "error");
+      }
+    }
   }, [error, isLoading]);
 
   const reports = data?.data;

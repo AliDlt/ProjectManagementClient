@@ -6,7 +6,6 @@ import AuthContainer from "../components/ui/auth/AuthContainer";
 import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import ForgetPasswordPage from "../pages/ForgetPasswordPage";
-import NewPasswordPage from "../pages/NewPasswordPage";
 import { Toaster } from "react-hot-toast";
 import AppContainer from "../components/ui/AppContainer";
 import ToastMessageProvider from "../Context/ToastContext";
@@ -17,6 +16,9 @@ import UsersPage from "../pages/UsersPage";
 import ProjectsPage from "../pages/ProjectsPage";
 import ReportsPage from "../pages/ReportsPage";
 import Messages from "../pages/Messages";
+import SingleProjectPage from "../pages/SingleProjectPage";
+import dayjs from "dayjs";
+import jalaliday from "jalaliday";
 
 function App() {
   const queryClient = new QueryClient({
@@ -26,6 +28,10 @@ function App() {
       },
     },
   });
+
+  // Config Days JS
+  dayjs.extend(jalaliday);
+  dayjs.calendar("jalali");
 
   return (
     <ToastMessageProvider>
@@ -94,9 +100,9 @@ function App() {
                 <Route path="/reports" element={<ReportsPage />} />
                 <Route path="/messages" element={<Messages />} />
                 <Route path="/projects" element={<ProjectsPage />} />
-                <Route path="/projects/:id" element={<ProjectsPage />} />
+                <Route path="/projects/:id" element={<SingleProjectPage />} />
                 <Route path="/users" element={<UsersPage />} />
-                <Route path="/user/:id" element={<UserPage />} />
+                <Route path="/users/:id" element={<UserPage />} />
               </Route>
               {/* Login / Signup */}
               <Route path="/auth" element={<AuthContainer />}>

@@ -3,7 +3,7 @@ import CustomButton from "../../modules/CustomButton";
 import { MdOutlineEdit } from "react-icons/md";
 import { IoAddOutline } from "react-icons/io5";
 import ChangeData from "./ChangeData";
-import CustomModal from "../../../layout/Modal";
+import CustomModal from "../../modules/CustomModal";
 
 const InformationBox = ({ title, children, type }) => {
   const [visible, setVisible] = useState(false);
@@ -21,7 +21,7 @@ const InformationBox = ({ title, children, type }) => {
           {children ? <MdOutlineEdit /> : <IoAddOutline />}
         </CustomButton>
       </div>
-    
+
       <CustomModal
         open={visible}
         title="تغیر اطلاعات کاربری "

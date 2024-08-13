@@ -1,4 +1,4 @@
-import moment from "moment-jalaali";
+import dayjs from "dayjs";
 
 export const maskPhoneNumber = (phoneNumber) => {
   if (phoneNumber.length === 11) {
@@ -26,10 +26,9 @@ export const userRol = (rol) => {
 };
 
 export function convertDate(dateString) {
-  moment.loadPersian({ usePersianDigits: false });
-  const date = moment(dateString);
+  const date = dayjs(dateString);
 
-  const jalaliDate = date.format("jYYYY/jM/jD");
+  const jalaliDate = date.format("YYYY/MM/DD");
   const time = date.format("HH:mm");
 
   return ` ${time} - ${jalaliDate} `;

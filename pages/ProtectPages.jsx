@@ -11,12 +11,12 @@ export default function ProtectPages({ children }) {
   let isAuthenticated = false;
   if (user) isAuthenticated = true;
 
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      toast("لطفا وارد حساب کاربری خود شوید", false, "⚠️");
-      navigate("/auth/login", { replace: true });
-    }
-  }, [isAuthenticated, isLoading]);
+  // useEffect(() => {
+  //   if (!isLoading && !isAuthenticated) {
+  //     toast("لطفا وارد حساب کاربری خود شوید", false, "⚠️");
+  //     navigate("/auth/login", { replace: true });
+  //   }
+  // }, [isAuthenticated, isLoading]);
 
   return children;
 }

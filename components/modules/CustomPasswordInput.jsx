@@ -1,8 +1,7 @@
 import InputPassword from "antd/es/input/Password";
 import React from "react";
 import cn from "../../utils/cn";
-import { IoEye } from "react-icons/io5";
-import { IoEyeOff } from "react-icons/io5";
+import { IoEyeOff, IoEye } from "react-icons/io5";
 import { Controller } from "react-hook-form";
 
 function CustomPasswordInput({ placeholder, className, name, control, error }) {
@@ -16,18 +15,18 @@ function CustomPasswordInput({ placeholder, className, name, control, error }) {
             {...field}
             classNames={{
               input: "placeholder:text-black/50 font-medium",
-              suffix: "cursor-pointer text-custom-primary-color",
+              suffix: cn([
+                "cursor-pointer text-custom-primary-color",
+                error && "text-red-400",
+              ]),
             }}
             className={cn([
               "rounded-custom border-2 border-custom-primary-color cursor-pointer",
+              error && "border-red-400",
               className,
             ])}
             iconRender={(visible) =>
-              visible ? (
-                <IoEye className=" cursor-pointer" size={32} />
-              ) : (
-                <IoEyeOff className="cursor-pointer" size={32} />
-              )
+              visible ? <IoEye size={32} /> : <IoEyeOff size={32} />
             }
             placeholder={placeholder}
             status={error && "error"}

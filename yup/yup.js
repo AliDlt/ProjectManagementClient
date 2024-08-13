@@ -71,6 +71,11 @@ export const resetPasswordSchema = Yup.object({
 
 export const messageSchema = Yup.object({
   messageText: Yup.string()
-  .required("پیغام نمیتونه خالی باشه .")
-  .min(5, "حداقل کارکتر : 5")
+    .required("پیغام نمیتونه خالی باشه .")
+    .min(5, "حداقل کارکتر : 5"),
+});
+
+// Project Info Schema
+export const projectInfoSchema = Yup.object({
+  percentage: Yup.string().matches(/^(?:100|[1-9][0-9]?|0)$/),
 });

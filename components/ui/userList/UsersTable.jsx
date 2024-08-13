@@ -11,6 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { MdOutlineEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
+import CustomLoading from "../../modules/CustomLoading";
 
 function UsersTable({ users, loading }) {
   const [current, setCurrent] = useState(1);
@@ -27,7 +28,10 @@ function UsersTable({ users, loading }) {
   return (
     <div className="lg:bg-white lg:rounded-custom lg:py-8 lg:shadow-custom lg:border-b-4 lg:border-custom-primary-color-300  lg:w-[25rem] xl:w-auto">
       <Table
-        loading={loading}
+        loading={{
+          spinning: loading,
+          indicator: <CustomLoading />,
+        }}
         dataSource={data}
         locale={{
           emptyText: (
@@ -56,7 +60,7 @@ function UsersTable({ users, loading }) {
           width={100}
           onCell={(record) => {
             return {
-              onClick: () => navigate(`/user/${record._id}`),
+              onClick: () => navigate(`/users/${record._id}`),
             };
           }}
         />

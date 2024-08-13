@@ -7,7 +7,7 @@ function CustomButton({ children, className, onClick, type, loading }) {
     <Button
       htmlType={type}
       className={cn([
-        "rounded-custom bg-custom-primary-color text-white border-none hover:bg-custom-primary-color/90 px-4 py-[18px] disabled:hover:bg-gray-200",
+        "rounded-custom bg-custom-primary-color text-white border-none hover:bg-custom-primary-color/90 px-4 py-[18px] disabled:hover:bg-gray-200 transition-none",
         className,
       ])}
       onClick={onClick}
