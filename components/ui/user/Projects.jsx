@@ -30,7 +30,9 @@ const Projects = ({ projects, error, isPending }) => {
                       </>
                     );
                   })}
-                  <div></div>
+                  <div>
+                    <CustomButton>همه پروژه ها</CustomButton>
+                  </div>
                 </>
               ) : (
                 <div className="flex justify-center items-center col-span-2 ">
