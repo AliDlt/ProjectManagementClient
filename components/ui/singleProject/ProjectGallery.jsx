@@ -2,9 +2,6 @@ import CustomButton from "../../modules/CustomButton";
 import { IoAddOutline } from "react-icons/io5";
 import { Popover, Progress } from "antd";
 import { BsExclamationLg } from "react-icons/bs";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
 import CustomUpload from "../../modules/CustomUpload";
 import { useState } from "react";
 import { useToast } from "../../../Context/ToastContext";
@@ -82,7 +79,7 @@ function ProjectGallery() {
           </CustomButton>
         </CustomUpload>
       </div>
-      <Gallery  />
+      <Gallery />
     </>
   );
 }

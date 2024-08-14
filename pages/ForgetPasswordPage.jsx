@@ -8,6 +8,7 @@ import { otpVerify } from "../services/auth";
 import { useToast } from "../Context/ToastContext";
 import NewPasswordPage from "./NewPasswordPage";
 import { convertToInternational } from "../utils/tools";
+import { Link } from "react-router-dom";
 
 const ForgetPasswordPage = () => {
   const [step, setStep] = useState(1);
@@ -45,9 +46,13 @@ const ForgetPasswordPage = () => {
     }
   };
 
-  switch (step) {
-    case 1:
-      return (
+  const handleBack = () => {
+    setStep((prevStep) => prevStep - 1);
+  };
+
+  return (
+    <div className="flex justify-center items-center flex-col gap-8">
+      {step === 1 && (
         <ForgetPasswordForm
           step={step}
           loading={loading}
@@ -55,24 +60,25 @@ const ForgetPasswordPage = () => {
           setStep={setStep}
           formData={{ control, handleSubmit, errors }}
         />
-      );
-    case 2:
-      return (
+      )}
+      {step === 2 && (
         <OTPForm
           otpCodeRef={otpCode}
           loading={loading}
           phoneNumber={phoneNumber}
           onSubmitOTP={verifyOtpCode}
         />
-      );
-    case 3:
-      return (
+      )}
+      {step === 3 && (
         <NewPasswordPage phoneNumber={convertToInternational(phoneNumber)} />
-      );
+      )}
 
-    default:
-      break;
-  }
+      <div className="flex flex-col gap-3 items-center text-18">
+        {step > 1 && <span onClick={handleBack}> مرحله قبل </span>}
+        <Link to="/auth/login"> بازگشت به صفحه ورود </Link>
+      </div>
+    </div>
+  );
 };
 
 export default ForgetPasswordPage;

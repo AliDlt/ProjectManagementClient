@@ -1,61 +1,55 @@
-import React from "react";
-import CustomButton from "../components/modules/CustomButton";
+import React, { useState } from "react";
 import SmsCart from "../components/modules/MessageCart";
-import CustomInput from "../components/modules/CustomInput";
-import { GrSearch } from "react-icons/gr";
-import SendMessage from "../components/ui/messages/SendMessage";
+import useGetMessages from "../hooks/useGetMessages";
+import CustomLoading from "../components/modules/CustomLoading";
+import { Navigate } from "react-router-dom";
+import { Pagination } from "antd";
 
 const Messages = () => {
-  const constantMessages = [
-    {
-      id: 1,
-      authorName: "امیر سحرخیز",
-      message:
-        "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است",
-    },
-    {
-      id: 2,
-      authorName: "مرتضی روحی",
-      message:
-        "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است",
-    },
-    {
-      id: 3,
-      authorName: "زهرا کریمی",
-      message:
-        "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است",
-    },
-  ];
+  const [page, setPage] = useState(1);
 
+  const changePage = (e) => {
+    setPage(e);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  const { data, error, isPending } = useGetMessages(page);
+
+  if (error) {
+    return <Navigate to={"/dashboard"} />;
+  }
 
   return (
-    <div className="p-5">
-      <section>
-        <h3 className="text-24">پیام ها</h3>
-        <div className="flex mt-5 flex-col gap-y-3">
-          {constantMessages.map((messageData,index) => (
-            <SmsCart data={messageData} key={index} />
-          ))}
+    <div className="container-grid">
+      {isPending ? (
+        <div className="lg:col-span-7">
+          <CustomLoading />
         </div>
-      </section>
-
-      <section className="mt-4">
-        <p className="text-16">پیام جدید</p>
-      </section>
-
-      <section className="mt-10">
-        <div className="flex items-center gap-x-10 justify-between">
-          <p className="text-16 whitespace-nowrap">لیست کاربران</p>
-          <CustomInput
-            placeholder={"جستجو"}
-            className={"px-3 py-1 text-14"}
-            icon={
-              <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
-            }
-          />
+      ) : (
+        <div className="lg:col-span-7">
+          <h3 className="text-24">پیام ها</h3>
+          <div className="flex mt-5 flex-col gap-y-3">
+            {data?.data?.data.tickets.map(
+              ({ title, description, _id: id }, index) => (
+                <SmsCart
+                  title={title}
+                  description={description}
+                  id={id}
+                  key={index}
+                />
+              ),
+            )}
+          </div>
+          <div>
+            <Pagination
+              onChange={changePage}
+              style={{ direction: "ltr" }}
+              align="center"
+              current={data?.data.data.currentPage}
+              total={data?.data.data.totalTickets}
+            />
+          </div>
         </div>
-      </section>
-      <SendMessage />
+      )}
     </div>
   );
 };

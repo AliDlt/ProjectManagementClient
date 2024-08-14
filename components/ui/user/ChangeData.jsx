@@ -13,7 +13,7 @@ import { useToast } from "../../../Context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
 import CustomSelectInput from "../../modules/CustomSelectInput";
 
-const ChangeData = ({ type, value, setShow, title }) => {
+const ChangeData = ({ type, value, setShow, title, userId }) => {
   // Create a schema for the specific type
   const fieldSchema = yup.object({
     [type]: signupSchema.fields[type],
@@ -27,7 +27,7 @@ const ChangeData = ({ type, value, setShow, title }) => {
     setShow(false);
   };
   const role = [
-    { name: "ادمین", id: "2" },
+    { name: "مدیر", id: "2" },
     { name: "پیمان کار", id: "1" },
     { name: "ناظر", id: "0" },
   ];
@@ -44,7 +44,8 @@ const ChangeData = ({ type, value, setShow, title }) => {
   const { mutate, isPending } = useUpdateUser();
 
   const updateData = (data) => {
-    mutate({ data, id }, { onSuccess: success });
+    const idCustom = id ? id : userId;
+    mutate({ data, id: idCustom }, { onSuccess: success });
   };
 
   return (
@@ -75,7 +76,7 @@ const ChangeData = ({ type, value, setShow, title }) => {
           )}
           <div>
             <CustomButton loading={isPending} type="submit">
-              ثبت تغیرات
+              ثبت تغییرات
             </CustomButton>
           </div>
         </form>

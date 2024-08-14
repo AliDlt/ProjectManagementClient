@@ -26,7 +26,7 @@ const SendMessage = () => {
         placeholder="پیام خود را بنویسید ..."
         rows={7}
         error={errors.messageText}
-        name="messageText"
+        name="text"
         control={control}
       />
       <CustomButton className="text-14 mt-2 text-white" type="submit">

@@ -59,7 +59,7 @@ const NewPasswordPage = ({ phoneNumber }) => {
           type="submit"
           className=" p-6 mx-auto rounded-lg text-2xl  "
         >
-          ثبت تغیرات
+          ثبت تغییرات
         </CustomButton>
       </form>
     </>

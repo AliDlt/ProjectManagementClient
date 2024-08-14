@@ -4,13 +4,14 @@ import { MdOutlineEdit } from "react-icons/md";
 import CustomButton from "../../modules/CustomButton";
 import CustomModal from "../../modules/CustomModal";
 import CustomDatePicker from "../../modules/CustomDatePicker";
-import dayjs from "dayjs";
 import CustomInput from "../../modules/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { projectInfoSchema } from "../../../yup/yup";
+import dayjs from "dayjs";
 
-function ProjectInfo() {
+function ProjectInfo({ projectInfo }) {
+  const { startDate, endDate, progress, imageUrl } = projectInfo;
   const [open, setOpen] = useState(false);
 
   const {
@@ -19,7 +20,12 @@ function ProjectInfo() {
     getValues,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
+    defaultValues: {
+      startDate,
+      endDate,
+    },
     resolver: yupResolver(projectInfoSchema),
     mode: "onChange",
   });
@@ -34,11 +40,11 @@ function ProjectInfo() {
       <div className="grid grid-cols-1 text-14 gap-3 xl:grid-cols-2 xl:gap-x-10 items-center xl:text-16 2xl:gap-x-5 ">
         <div className="flex flex-wrap lg:order-3">
           <span>تاریخ شروع پروژه : </span>
-          <span>1400/12/31</span>
+          <span>{dayjs(startDate).format("YYYY/MM/DD")}</span>
         </div>
         <div className="flex flex-wrap lg:order-4">
           <span>تاریخ پایان پروژه :</span>
-          <span>1402/12/31</span>
+          <span>{dayjs(endDate).format("YYYY/MM/DD")}</span>
         </div>
         <div className="flex flex-wrap lg:order-1 2xl:order-2">
           <span>محل پروژه : </span>
@@ -67,7 +73,7 @@ function ProjectInfo() {
               rail: "h-[10px] rounded-full",
               handle: "after:bg-custom-secondary-color-300  mt-[3px]",
             }}
-            defaultValue={72}
+            defaultValue={progress}
             disabled
             tooltip={{
               className: "ant-slider-tooltip",
@@ -99,6 +105,10 @@ function ProjectInfo() {
                 control={control}
                 name="startDate"
                 placeholder="شروع"
+                changeHandler={(date) => {
+                  if (dayjs(date) > dayjs(getValues("endDate")))
+                    setValue("endDate", null);
+                }}
               />
             </div>
             <span className="mx-2">تا</span>

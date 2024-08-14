@@ -103,7 +103,7 @@ function UsersTable({ users, loading }) {
         />
         <Column
           responsive={["lg"]}
-          title="تاریخ  اخرین ورود"
+          title="تاریخ  آخرین ورود"
           dataIndex="lastLogin"
           key="lastLogin"
           width={100}

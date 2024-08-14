@@ -16,6 +16,11 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+@layer components {
+  .container-grid {
+    @apply container grid grid-cols-1 gap-10 lg:gap-5 lg:p-0 lg:grid-cols-7 2xl:grid-cols-11 lg:col-span-9 2xl:col-span-10;
+  }
+}
 
 * {
   font-family: estedad;

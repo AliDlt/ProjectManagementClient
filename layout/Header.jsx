@@ -7,6 +7,7 @@ import { IoMenu } from "react-icons/io5";
 import { Tooltip } from "antd";
 import { useSideBar } from "../Context/SideBarContext";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 function Header() {
   const { setShow } = useSideBar();
@@ -22,18 +23,22 @@ function Header() {
         <div className="flex justify-center items-center gap-2 mr-auto">
           <Tooltip title="اعلان ها">
             <button aria-label="notification">
-              <IoNotifications
-                className="text-custom-primary-color cursor-pointer"
-                size={30}
-              />
+              <Link to="/messages">
+                <IoNotifications
+                  className="text-custom-primary-color cursor-pointer"
+                  size={30}
+                />
+              </Link>
             </button>
           </Tooltip>
           <Tooltip title="تنظیمات">
             <button aria-label="setting">
-              <IoMdSettings
-                className="text-custom-primary-color cursor-pointer"
-                size={30}
-              />
+              <Link to={"/setting"}>
+                <IoMdSettings
+                  className="text-custom-primary-color cursor-pointer"
+                  size={30}
+                />
+              </Link>
             </button>
           </Tooltip>
         </div>

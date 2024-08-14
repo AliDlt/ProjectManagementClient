@@ -10,6 +10,7 @@ const CustomTextAria = ({
   placeholder,
   control,
   name,
+  onBlur,
 }) => {
   return (
     <Controller
@@ -19,6 +20,7 @@ const CustomTextAria = ({
         return (
           <div className="flex flex-col gap-2">
             <TextArea
+              onBlurCapture={() => {onBlur()} }
               {...field}
               className={cn([
                 className,

@@ -17,11 +17,11 @@ export const convertToInternational = (phone) => {
 export const userRol = (rol) => {
   switch (rol) {
     case 0:
-      return "ادمین";
+      return "مدیر";
     case 1:
-      return "پیمانکار";
-    case 2:
       return "ناظر";
+    case 2:
+      return "پیمانکار";
   }
 };
 

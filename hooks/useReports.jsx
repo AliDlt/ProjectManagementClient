@@ -18,7 +18,7 @@ const useReports = (count) => {
         toast(error?.response?.data?.message, "error");
       }
     }
-  }, [error, isLoading]);
+  }, [isLoading, error]);
 
   const reports = data?.data;
   return { reports, isLoading };

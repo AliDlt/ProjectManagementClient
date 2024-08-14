@@ -19,17 +19,23 @@ import Messages from "../pages/Messages";
 import SingleProjectPage from "../pages/SingleProjectPage";
 import dayjs from "dayjs";
 import jalaliday from "jalaliday";
+import SettingPage from "../pages/SettingPage";
+import ReportPage from "../pages/ReportPage";
+import calendar from "dayjs/plugin/calendar";
+
+
 
 function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
         retry: false,
+        refetchOnWindowFocus: false,
       },
     },
   });
 
-  // Config Days JS
+  dayjs.extend(calendar);
   dayjs.extend(jalaliday);
   dayjs.calendar("jalali");
 
@@ -97,7 +103,9 @@ function App() {
               >
                 <Route index element={<Navigate to={"/dashboard"} replace />} />
                 <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/setting" element={<SettingPage />} />
                 <Route path="/reports" element={<ReportsPage />} />
+                <Route path="/reports/:id" element={<ReportPage />} />
                 <Route path="/messages" element={<Messages />} />
                 <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/projects/:id" element={<SingleProjectPage />} />
