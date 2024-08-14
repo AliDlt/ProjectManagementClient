@@ -22,11 +22,20 @@ const ChartProjects = ({ name, description, data }) => {
       },
     },
     {
-      breakpoint: 2000, // New breakpoint for sizes above 768px
+      breakpoint: 2000, 
       options: {
         chart: {
           width: "140px",
           height: "140px",
+        },
+      },
+    },
+    {
+      breakpoint: 1080, 
+      options: {
+        chart: {
+          width: "130px",
+          height: "130px",
         },
       },
     },
@@ -39,12 +48,11 @@ const ChartProjects = ({ name, description, data }) => {
           data={data ? data : 0}
           innerLabel={true}
           option={optionsChart}
-
           projectStatus="وضعیت پروژه "
         />
       </div>
       <div className="   flex flex-col w-1/2 gap-2 justify-center items-center flex-nowrap ">
-        <p className="text-14 lg:text-16 font-bold">{name}</p>
+        <p className="text-14 lg:text-16 text-center font-bold">{name}</p>
         <p className="text-8 md:text-12   font-bold text-ellipsis text-nowrap">
           {description}
         </p>

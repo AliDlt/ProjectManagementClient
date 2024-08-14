@@ -69,8 +69,36 @@ export const resetPasswordSchema = Yup.object({
   ),
 });
 
-export const messageSchema = Yup.object({
-  messageText: Yup.string()
-  .required("پیغام نمیتونه خالی باشه .")
-  .min(5, "حداقل کارکتر : 5")
+export const textAria = Yup.object({
+  text: Yup.string()
+    .required("پیغام نمیتونه خالی باشه .")
+    .min(5, "حداقل کارکتر : 5"),
+});
+
+export const changeDataSchema = Yup.object({
+  name: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(3, "حداقل کارکتر : 3")
+    .max(25, "حداکثر کارکتر : 25")
+    .matches(/[\u0600-\u06FF]/, "لطفا فارسی وارد کنید"),
+
+  username: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(3, "حداقل کارکتر : 3")
+    .max(25, "حداکثر کارکتر : 25")
+    .matches(
+      /^[a-zA-Z]{1,}\d*$/,
+      "نام کاربری باید انگلیسی باشد و با حروف آغاز شود",
+    ),
+  password: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(5, "حداقل کارکتر : 5")
+    .max(25, "حداکثر کارکتر : 25"),
+});
+
+export const changePassword = Yup.object({
+  password: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(5, "حداقل کارکتر : 5")
+    .max(25, "حداکثر کارکتر : 25"),
 });

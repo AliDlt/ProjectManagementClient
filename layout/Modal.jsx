@@ -4,22 +4,29 @@ import { IoCloseSharp } from "react-icons/io5";
 
 const CustomModal = ({ title, children, open, onCancel }) => {
   return (
-    <Modal
-      closeIcon={null}
-      open={open}
-      footer={null}
-      onCancel={() => {
-        onCancel(false);
-      }}
-    >
-      <div className="flex justify-between items-center text-xl border-b pb-3 border-black border-opacity-55">
-        <h3>{title}</h3>
-        <span className="text-custom-primary-color text-24" onClick={()=>{onCancel(false)}}>
-          <IoCloseSharp />
-        </span>
-      </div>
-      <div>{children}</div>
-    </Modal>
+    <>
+      <Modal
+        closeIcon={null}
+        open={open}
+        footer={null}
+        onCancel={() => {
+          onCancel(false);
+        }}
+      >
+        <div className="flex justify-between items-center text-xl border-b pb-3 border-black border-opacity-55">
+          <h3>{title}</h3>
+          <span
+            className="text-custom-primary-color text-24"
+            onClick={() => {
+              onCancel(false);
+            }}
+          >
+            <IoCloseSharp />
+          </span>
+        </div>
+        <div>{children}</div>
+      </Modal>
+    </>
   );
 };
 

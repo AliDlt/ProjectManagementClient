@@ -19,9 +19,9 @@ export const userRol = (rol) => {
     case 0:
       return "مدیر";
     case 1:
-      return "پیمانکار";
-    case 2:
       return "ناظر";
+    case 2:
+      return "پیمانکار";
   }
 };
 

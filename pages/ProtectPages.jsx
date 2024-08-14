@@ -12,6 +12,7 @@ export default function ProtectPages({ children }) {
   if (user) isAuthenticated = true;
 
   useEffect(() => {
+    console.log('first')
     if (!isLoading && !isAuthenticated) {
       toast("لطفا وارد حساب کاربری خود شوید", false, "⚠️");
       navigate("/auth/login", { replace: true });

@@ -5,7 +5,7 @@ import CustomLoading from "../../modules/CustomLoading";
 import { useNavigate } from "react-router-dom";
 
 function ReportsSection() {
-  const { reports, isLoading } = useReports(3);
+  const { reports, isLoading,error } = useReports(3);
   const navigate = useNavigate();
 
   return (

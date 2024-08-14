@@ -9,8 +9,9 @@ const useReports = (count) => {
     queryKey: ["reports", count],
     queryFn: () => getReports(count),
   });
-
+  
   useEffect(() => {
+    console.log(error)
     if (!isLoading && error) toast(error?.response?.data?.message, "error");
   }, [error, isLoading]);
 

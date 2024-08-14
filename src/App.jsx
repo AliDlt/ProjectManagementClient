@@ -6,7 +6,6 @@ import AuthContainer from "../components/ui/auth/AuthContainer";
 import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import ForgetPasswordPage from "../pages/ForgetPasswordPage";
-import NewPasswordPage from "../pages/NewPasswordPage";
 import { Toaster } from "react-hot-toast";
 import AppContainer from "../components/ui/AppContainer";
 import ToastMessageProvider from "../Context/ToastContext";
@@ -17,12 +16,15 @@ import UsersPage from "../pages/UsersPage";
 import ProjectsPage from "../pages/ProjectsPage";
 import ReportsPage from "../pages/ReportsPage";
 import Messages from "../pages/Messages";
+import SettingPage from "../pages/SettingPage";
+import ReportPage from "../pages/ReportPage";
 
 function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
         retry: false,
+        refetchOnWindowFocus: false,
       },
     },
   });
@@ -91,7 +93,9 @@ function App() {
               >
                 <Route index element={<Navigate to={"/dashboard"} replace />} />
                 <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/setting" element={<SettingPage />} />
                 <Route path="/reports" element={<ReportsPage />} />
+                <Route path="/reports/:id" element={<ReportPage />} />
                 <Route path="/messages" element={<Messages />} />
                 <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/projects/:id" element={<ProjectsPage />} />

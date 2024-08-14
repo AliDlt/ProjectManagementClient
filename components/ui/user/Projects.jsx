@@ -19,12 +19,15 @@ const Projects = ({ projects, error, isPending }) => {
                 <>
                   {projects.map(({ name, description, progress }, index) => {
                     return (
-                      <ChartProjects
-                        key={index} // اضافه کردن کلید منحصر به فرد برای هر پروژه
-                        data={progress}
-                        name={name}
-                        description={description}
-                      />
+                      <>
+                        <ChartProjects
+                          key={index} // اضافه کردن کلید منحصر به فرد برای هر پروژه
+                          data={progress}
+                          name={name}
+                          description={description}
+                        />
+                    
+                      </>
                     );
                   })}
                   <div>
@@ -36,6 +39,9 @@ const Projects = ({ projects, error, isPending }) => {
                   پروژه ای وجود ندارد
                 </div>
               )}
+              <div>
+                <CustomButton>دیگر پروژه ها</CustomButton>
+              </div>
             </div>
           </>
         )}
