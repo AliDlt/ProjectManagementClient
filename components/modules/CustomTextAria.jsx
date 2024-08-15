@@ -20,11 +20,13 @@ const CustomTextAria = ({
         return (
           <div className="flex flex-col gap-2">
             <TextArea
-              onBlurCapture={() => {onBlur()} }
+              onBlurCapture={() => {
+                onBlur && onBlur;
+              }}
               {...field}
               className={cn([
                 className,
-                "rounded-md border-custom-primary-color",
+                "rounded-custom border-2 border-custom-primary-color",
               ])}
               placeholder={placeholder}
               rows={rows}
