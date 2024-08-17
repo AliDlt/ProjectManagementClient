@@ -69,6 +69,41 @@ export const resetPasswordSchema = Yup.object({
   ),
 });
 
+export const requestSchema = Yup.object({
+  firstName: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(3, "حداقل کارکتر : 3")
+    .max(25, "حداکثر کارکتر : 25")
+    .matches(/[\u0600-\u06FF]/, "لطفا فارسی وارد کنید"),
+  lastName: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(3, "حداقل کارکتر : 3")
+    .max(25, "حداکثر کارکتر : 25")
+    .matches(/[\u0600-\u06FF]/, "لطفا فارسی وارد کنید"),
+  nationalCode: Yup.string().matches(
+    /^(?!(\d)\1{9})\d{10}$/,
+    "کد ملی باید 10 رقمی باشد",
+  ),
+  birthDate: Yup.date(),
+  phoneNumber: Yup.string()
+    .required("این فیلد اجباری است.")
+    .matches(/^((\+98|0)9\d{9})$/, "لطفا شماره تلفن معتبر وارد کنید"),
+  province: Yup.string(),
+  city: Yup.string(),
+  postalCode: Yup.string(),
+  addressDetail: Yup.string(),
+  requestSubject: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(3, "حداقل کارکتر : 3")
+    .max(35, "حداکثر کارکتر : 25"),
+  requestMessage: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(3, "حداقل کارکتر : 3")
+    .max(1000, "حداکثر کارکتر : 1000"),
+  requestType: Yup.string().required("این فیلد اجباری است."),
+  additionalNotes: Yup.string(),
+});
+
 export const textAria = Yup.object({
   text: Yup.string()
     .required("پیغام نمیتونه خالی باشه .")

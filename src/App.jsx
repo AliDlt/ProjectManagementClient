@@ -18,6 +18,7 @@ import ReportsPage from "../pages/ReportsPage";
 import Messages from "../pages/Messages";
 import SettingPage from "../pages/SettingPage";
 import ReportPage from "../pages/ReportPage";
+import RequestsPage from "../pages/RequestsPage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -95,6 +96,7 @@ function App() {
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/setting" element={<SettingPage />} />
                 <Route path="/reports" element={<ReportsPage />} />
+                <Route path="/requests" element={<RequestsPage />} />
                 <Route path="/reports/:id" element={<ReportPage />} />
                 <Route path="/messages" element={<Messages />} />
                 <Route path="/projects" element={<ProjectsPage />} />
