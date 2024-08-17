@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useToast } from "../../Context/ToastContext";
 import CustomButton from "./CustomButton";
 import CustomInput from "./CustomInput";
-import CustomTextAria from "./CustomTextAria";
 import CustomDatePicker from "./CustomDatePicker";
 import CustomSelectInput from "./CustomSelectInput";
+import CustomTextArea from "./CustomTextArea";
 
 function RequestForm({ formData }) {
   const toast = useToast();
@@ -134,20 +134,20 @@ function RequestForm({ formData }) {
         </div>
       </div>
 
-      <CustomTextAria
+      <CustomTextArea
         control={control}
         error={errors.requestMessage}
         name="requestMessage"
-        className="h-[100px] text-16  px-5 bg-transparent md:text-18"
+        className="h-[100px] text-16 px-5 py-3 bg-transparent md:text-18"
         placeholder="پیام درخواست"
         // Needs to be define to prevent error
         onBlur={() => {}}
       />
-      <CustomTextAria
+      <CustomTextArea
         control={control}
         error={errors.additionalNote}
         name="additionalNotes"
-        className="h-[70px] text-16 px-5 bg-transparent md:text-18"
+        className="h-[70px] text-16 px-5 py-3 bg-transparent md:text-18"
         placeholder="توضیحات بیشتر"
         // Needs to be define to prevent error
         onBlur={() => {}}

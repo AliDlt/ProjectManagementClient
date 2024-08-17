@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CustomButton from "../../modules/CustomButton";
 import { MdDelete, MdModeEdit } from "react-icons/md";
-import CustomTextAria from "../../modules/CustomTextAria";
+import CustomTextArea from "../../modules/CustomTextArea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { textAria } from "../../../yup/yup";
@@ -57,7 +57,7 @@ const ReportBox = ({ title, project }) => {
       </div>
       <div className="mt-2 text-10 md:text-16">
         {edit ? (
-          <CustomTextAria
+          <CustomTextArea
             control={control}
             name="text"
             error={errors["text"]}

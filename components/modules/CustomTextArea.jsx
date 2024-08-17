@@ -3,7 +3,7 @@ import React from "react";
 import cn from "../../utils/cn";
 import { Controller } from "react-hook-form";
 
-const CustomTextAria = ({
+const CustomTextArea = ({
   rows,
   className,
   error,
@@ -26,7 +26,7 @@ const CustomTextAria = ({
               {...field}
               className={cn([
                 className,
-                "rounded-md border-custom-primary-color",
+                "border-2 rounded-md border-custom-primary-color",
               ])}
               placeholder={placeholder}
               rows={rows}
@@ -40,4 +40,4 @@ const CustomTextAria = ({
   );
 };
 
-export default CustomTextAria;
+export default CustomTextArea;

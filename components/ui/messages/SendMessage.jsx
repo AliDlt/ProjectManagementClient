@@ -1,6 +1,6 @@
 import React from "react";
 import CustomButton from "../../modules/CustomButton";
-import CustomTextAria from "../../modules/CustomTextAria";
+import CustomTextArea from "../../modules/CustomTextArea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { messageSchema } from "../../../yup/yup";
@@ -21,7 +21,7 @@ const SendMessage = () => {
   }
   return (
     <form className="mt-5" onSubmit={handleSubmit(sendMessage)}>
-      <CustomTextAria
+      <CustomTextArea
         className="border-2 w-full  text-12 p-2 placeholder:text-black"
         placeholder="پیام خود را بنویسید ..."
         rows={7}
