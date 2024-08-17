@@ -4,6 +4,7 @@ import CustomButton from "./CustomButton";
 import CustomInput from "./CustomInput";
 import CustomTextAria from "./CustomTextAria";
 import CustomDatePicker from "./CustomDatePicker";
+import CustomSelectInput from "./CustomSelectInput";
 
 function RequestForm({ formData }) {
   const toast = useToast();
@@ -111,7 +112,12 @@ function RequestForm({ formData }) {
       <div className="flex flex-col gap-4">
         <h3 className="text-xl font-semibold">جزئیات درخواست</h3>
         <div className="flex flex-wrap gap-4 gap-y-6">
-          <CustomInput
+          <CustomSelectInput
+            options={[
+              { label: "نوع اول", value: "نوع اول" },
+              { label: "نوع دوم", value: "نوع دوم" },
+              { label: "نوع سوم", value: "نوع سوم" },
+            ]}
             control={control}
             error={errors.requestType}
             name="requestType"

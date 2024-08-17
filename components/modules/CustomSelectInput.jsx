@@ -1,36 +1,44 @@
-import { Select } from "antd";
 import React from "react";
-import cn from "../../utils/cn";
+import { Select } from "antd";
 import { Controller } from "react-hook-form";
+import cn from "../../utils/cn";
 
-const CustomSelectInput = ({
-  className,
-  options,
-  control,
+const { Option } = Select;
+
+export default function CustomSelectInput({
+  icon,
   placeholder,
+  className,
   name,
-}) => {
+  control,
+  error = false,
+  options,
+}) {
   return (
     <Controller
-      name={name}
       control={control}
-      render={({ field }) => {
-        return (
-          <div className={cn(["", className])}>
-            <Select placeholder={placeholder} {...field} className="w-full">
-              {options.map((option, index) => {
-                return (
-                  <Select.Option key={index} value={option.id}>
-                    {option.name}
-                  </Select.Option>
-                );
-              })}
-            </Select>
-          </div>
-        );
-      }}
+      name={name}
+      render={({ field }) => (
+        <div className="flex flex-col gap-2">
+          <Select
+            {...field}
+            className={cn([
+              "rounded-custom border-2 border-custom-primary-color",
+              className,
+            ])}
+            placeholder={placeholder}
+            suffixIcon={icon}
+            status={error && "error"}
+          >
+            {options.map((option) => (
+              <Option key={option.value} value={option.value}>
+                {option.label}
+              </Option>
+            ))}
+          </Select>
+          {error && <p className="text-red-500 text-sm">{error.message}</p>}
+        </div>
+      )}
     />
   );
-};
-
-export default CustomSelectInput;
+}

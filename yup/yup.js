@@ -100,7 +100,9 @@ export const requestSchema = Yup.object({
     .required("این فیلد اجباری است.")
     .min(3, "حداقل کارکتر : 3")
     .max(1000, "حداکثر کارکتر : 1000"),
-  requestType: Yup.string().required("این فیلد اجباری است."),
+  requestType: Yup.string()
+    .oneOf(["نوع دوم", "نوع اول", "نوع سوم"], "درخواست غیر مجاز است.")
+    .required("این فیلد اجباری است."),
   additionalNotes: Yup.string(),
 });
 
