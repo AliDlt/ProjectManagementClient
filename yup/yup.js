@@ -84,7 +84,7 @@ export const requestSchema = Yup.object({
     /^(?!(\d)\1{9})\d{10}$/,
     "کد ملی باید 10 رقمی باشد",
   ),
-  birthDate: Yup.date(),
+  birthDate: Yup.string(),
   phoneNumber: Yup.string()
     .required("این فیلد اجباری است.")
     .matches(/^((\+98|0)9\d{9})$/, "لطفا شماره تلفن معتبر وارد کنید"),

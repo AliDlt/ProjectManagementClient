@@ -3,6 +3,7 @@ import { useToast } from "../../Context/ToastContext";
 import CustomButton from "./CustomButton";
 import CustomInput from "./CustomInput";
 import CustomTextAria from "./CustomTextAria";
+import CustomDatePicker from "./CustomDatePicker";
 
 function RequestForm({ formData }) {
   const toast = useToast();
@@ -27,95 +28,104 @@ function RequestForm({ formData }) {
       onSubmit={handleSubmit(onSubmitHandler)}
       className="flex flex-col gap-7 px-2 mt-10"
     >
-      <div className="flex gap-4">
-        <CustomInput
-          error={errors.firstName}
-          control={control}
-          name="firstName"
-          className="w-full h-[50px] text-16 px-5 bg-transparent md:text-18"
-          placeholder="نام"
-        />
-        <CustomInput
-          control={control}
-          error={errors.lastName}
-          name="lastName"
-          className="w-full h-[50px] text-16 px-5 bg-transparent md:text-18"
-          placeholder="نام خانوادگی"
-        />
+      <div className="flex flex-col gap-4">
+        <h3 className="text-xl font-semibold">اطلاعات شخصی</h3>
+        <div className="flex flex-wrap gap-4 gap-y-6">
+          <CustomInput
+            error={errors.firstName}
+            control={control}
+            name="firstName"
+            className="w-full h-[50px] text-16 px-5 bg-transparent md:text-18"
+            placeholder="نام"
+          />
+          <CustomInput
+            control={control}
+            error={errors.lastName}
+            name="lastName"
+            className="w-full h-[50px] text-16 px-5 bg-transparent md:text-18"
+            placeholder="نام خانوادگی"
+          />
 
-        <CustomInput
-          control={control}
-          type="date"
-          error={errors.birthDate}
-          name="birthDate"
-          className="h-[50px] text-16 px-5 bg-transparent md:text-18"
-          placeholder="تاریخ تولد"
-        />
+          <CustomDatePicker
+            control={control}
+            type="date"
+            error={errors.birthDate}
+            name="birthDate"
+            className="h-[50px] text-16 px-5 bg-transparent md:text-18"
+            placeholder="تاریخ تولد"
+          />
 
-        <CustomInput
-          control={control}
-          type="tel"
-          error={errors.nationalCode}
-          name="nationalCode"
-          className="h-[50px] text-16 px-5 bg-transparent md:text-18"
-          placeholder="کد ملی"
-        />
-        <CustomInput
-          control={control}
-          type="tel"
-          error={errors.phoneNumber}
-          name="phoneNumber"
-          className="h-[50px] text-16 px-5 bg-transparent md:text-18"
-          placeholder="شماره موبایل"
-        />
+          <CustomInput
+            control={control}
+            type="tel"
+            error={errors.nationalCode}
+            name="nationalCode"
+            className="h-[50px] text-16 px-5 bg-transparent md:text-18"
+            placeholder="کد ملی"
+          />
+          <CustomInput
+            control={control}
+            type="tel"
+            error={errors.phoneNumber}
+            name="phoneNumber"
+            className="h-[50px] text-16 px-5 bg-transparent md:text-18"
+            placeholder="شماره موبایل"
+          />
+        </div>
       </div>
 
-      <div className="flex gap-4">
-        <CustomInput
-          control={control}
-          error={errors.province}
-          name="province"
-          className="h-[50px] text-16 px-5 bg-transparent md:text-18"
-          placeholder="استان"
-        />
-        <CustomInput
-          control={control}
-          error={errors.city}
-          name="city"
-          className="h-[50px] text-16 px-5 bg-transparent md:text-18"
-          placeholder="شهر"
-        />
-        <CustomInput
-          control={control}
-          error={errors.addressDetail}
-          name="addressDetail"
-          className="h-[50px] text-16 px-5 bg-transparent md:text-18"
-          placeholder="آدرس"
-        />
-        <CustomInput
-          control={control}
-          error={errors.postalCode}
-          name="postalCode"
-          className="h-[50px] text-16 px-5 bg-transparent md:text-18"
-          placeholder="کد پستی"
-        />
+      <div className="flex flex-col gap-4">
+        <h3 className="text-xl font-semibold">جزئیات آدرس</h3>
+        <div className="flex flex-wrap gap-4 gap-y-6">
+          <CustomInput
+            control={control}
+            error={errors.province}
+            name="province"
+            className="h-[50px] text-16 px-5 bg-transparent md:text-18"
+            placeholder="استان"
+          />
+          <CustomInput
+            control={control}
+            error={errors.city}
+            name="city"
+            className="h-[50px] text-16 px-5 bg-transparent md:text-18"
+            placeholder="شهر"
+          />
+          <CustomInput
+            control={control}
+            error={errors.addressDetail}
+            name="addressDetail"
+            className="h-[50px] text-16 px-5 bg-transparent md:text-18"
+            placeholder="آدرس"
+          />
+          <CustomInput
+            control={control}
+            error={errors.postalCode}
+            name="postalCode"
+            className="h-[50px] text-16 px-5 bg-transparent md:text-18"
+            placeholder="کد پستی"
+          />
+        </div>
       </div>
 
-      <div className="flex gap-4">
-        <CustomInput
-          control={control}
-          error={errors.requestType}
-          name="requestType"
-          className="h-[50px] text-16 px-5 bg-transparent md:text-18"
-          placeholder="نوع درخواست"
-        />
-        <CustomInput
-          control={control}
-          error={errors.requestSubject}
-          name="requestSubject"
-          className="h-[50px] text-16 px-5 bg-transparent md:text-18"
-          placeholder="عنوان درخواست"
-        />
+      <div className="flex flex-col gap-4">
+        <h3 className="text-xl font-semibold">جزئیات درخواست</h3>
+        <div className="flex flex-wrap gap-4 gap-y-6">
+          <CustomInput
+            control={control}
+            error={errors.requestType}
+            name="requestType"
+            className="h-[50px] text-16 px-5 bg-transparent md:text-18"
+            placeholder="نوع درخواست"
+          />
+          <CustomInput
+            control={control}
+            error={errors.requestSubject}
+            name="requestSubject"
+            className="h-[50px] text-16 px-5 bg-transparent md:text-18"
+            placeholder="عنوان درخواست"
+          />
+        </div>
       </div>
 
       <CustomTextAria
