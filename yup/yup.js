@@ -104,6 +104,7 @@ export const requestSchema = Yup.object({
     .oneOf(["نوع دوم", "نوع اول", "نوع سوم"], "درخواست غیر مجاز است.")
     .required("این فیلد اجباری است."),
   additionalNotes: Yup.string(),
+  customFields: Yup.array().of(Yup.object().shape({ value: Yup.string() })),
 });
 
 export const textAria = Yup.object({

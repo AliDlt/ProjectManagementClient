@@ -5,6 +5,8 @@ import CustomInput from "./CustomInput";
 import CustomDatePicker from "./CustomDatePicker";
 import CustomSelectInput from "./CustomSelectInput";
 import CustomTextArea from "./CustomTextArea";
+import { useFieldArray } from "react-hook-form";
+import CustomFieldGenerator from "./CustomFieldGenerator";
 
 function RequestForm({ formData }) {
   const toast = useToast();
@@ -15,6 +17,11 @@ function RequestForm({ formData }) {
     control,
     formState: { errors },
   } = formData;
+
+  const { fields, append } = useFieldArray({
+    control,
+    name: "customFields", // The name of the array in your form
+  });
 
   const onSubmitHandler = (values) => {
     try {
@@ -151,6 +158,35 @@ function RequestForm({ formData }) {
         placeholder="توضیحات بیشتر"
         // Needs to be define to prevent error
         onBlur={() => {}}
+      />
+
+      {/* <div className="flex flex-col gap-4">
+        <h3 className="text-xl font-semibold">توضیحات اضافه</h3>
+        <div className="flex flex-wrap gap-4 gap-y-6">
+          {fields.map((item, index) => (
+            <CustomInput
+              key={item.id}
+              control={control}
+              error={errors.customFields?.[index]?.value}
+              name={`customFields[${index}].value`}
+              className="h-[50px] text-16 px-5 bg-transparent md:text-18"
+              placeholder={`فیلد اضافه ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      <CustomButton
+        onClick={() => append({ value: "" })}
+        className="h-[50px] w-full mx-auto text-20 md:w-full md:mt-5"
+        type="button"
+      >
+        <span className="text-white">افزودن فیلد</span>
+      </CustomButton> */}
+      <CustomFieldGenerator
+        placeholder="فیلد اضافه"
+        control={control}
+        error={errors.customFields?.[index]?.value}
       />
 
       <CustomButton
