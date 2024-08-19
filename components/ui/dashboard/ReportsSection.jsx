@@ -9,6 +9,8 @@ function ReportsSection() {
   const { reportsData, isLoading, error } = useReports(3);
   const navigate = useNavigate();
 
+  console.log(error);
+
   // Handle Error
   if (error)
     return (

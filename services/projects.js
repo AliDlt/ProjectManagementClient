@@ -18,9 +18,10 @@ export const getProject = async (projectId = "", search = "") => {
   return res.data;
 };
 
-// Upload Project Image
-export const uploadImage = async (image = "", projectId = "") => {
-  const res = await http.post(`/project/uploadImage/${projectId}`, image);
+// Delete Project File
+export const deleteProjectFile = async (fileInfo) => {
+  console.log(fileInfo);
+  const res = await http.delete("/project/deleteFile", fileInfo);
 
   return res.data;
 };

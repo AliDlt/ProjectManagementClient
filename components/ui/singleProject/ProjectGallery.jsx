@@ -3,20 +3,31 @@ import { IoAddOutline } from "react-icons/io5";
 import { Popover } from "antd";
 import { BsExclamationLg } from "react-icons/bs";
 import CustomUpload from "../../modules/CustomUpload";
-import { useState } from "react";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
+import { useState, useRef } from "react";
 import Gallery from "../Gallery";
 import CustomModal from "../../modules/CustomModal";
 import { FaVideo, FaImage } from "react-icons/fa6";
 import CustomTextAria from "../../modules/CustomTextAria";
 import { useQueryClient } from "@tanstack/react-query";
+import useUser from "../../../hooks/useUser";
+import { FaTrash } from "react-icons/fa6";
+import { Empty, Image } from "antd";
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import useDeleteProjectFile from "../../../hooks/projects/useDeleteProjectFile";
+import CustomConfirm from "../../modules/CustomConfirm";
+import CustomLoading from "../../modules/CustomLoading";
 
 function ProjectGallery({ projectGalleryData, projectId }) {
-  const [open, setOpen] = useState(false);
+  const { user, isLoading } = useUser();
+  const [openAddFileModal, setOpenAddFileModal] = useState(false);
+  const [openDeletFileModal, setOpenDeletFileModal] = useState(false);
   const [fileDescription, setFileDescription] = useState("");
   const queryClient = useQueryClient();
+  const projectInfo = useRef(null);
+  const { deleteFile, isPending } = useDeleteProjectFile();
 
   // Popover Content
   const popoverContent = (
@@ -31,6 +42,14 @@ function ProjectGallery({ projectGalleryData, projectId }) {
     if (info.file.status === "done") {
       queryClient.invalidateQueries("project", projectId);
     }
+  };
+
+  // Delete File Handler
+  const deleteFileHandler = async () => {
+    try {
+      await deleteFile({ fileName: projectInfo.current.fileName, projectId });
+      queryClient.invalidateQueries("project", projectId);
+    } catch (error) {}
   };
 
   return (
@@ -51,20 +70,22 @@ function ProjectGallery({ projectGalleryData, projectId }) {
             </span>
           </Popover>
         </div>
-        <CustomButton
-          className="flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group"
-          onClick={() => setOpen(true)}
-        >
-          <IoAddOutline
-            size={25}
-            className="text-custom-primary-color rounded-full group-hover:text-white"
-          />
-        </CustomButton>
+        {!isLoading && user.userRole !== 2 && (
+          <CustomButton
+            className="flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group"
+            onClick={() => setOpenAddFileModal(true)}
+          >
+            <IoAddOutline
+              size={25}
+              className="text-custom-primary-color rounded-full group-hover:text-white"
+            />
+          </CustomButton>
+        )}
         {/* Modal */}
         <CustomModal
           title="آپلود عکس و فیلم"
-          open={open}
-          onCancel={() => setOpen(false)}
+          open={openAddFileModal}
+          onCancel={() => setOpenAddFileModal(false)}
         >
           <div className="flex flex-col justify-center items-center gap-5 mt-5 md:flex-row">
             {/* Image */}
@@ -108,7 +129,61 @@ function ProjectGallery({ projectGalleryData, projectId }) {
           </div>
         </CustomModal>
       </div>
-      <Gallery data={projectGalleryData} />
+      {/* Gallery */}
+      <Gallery data={projectGalleryData}>
+        {projectGalleryData?.map((file) => (
+          <SwiperSlide
+            key={file.fileName}
+            className="rounded-custom overflow-hidden !h-[220px] relative"
+          >
+            {!isLoading && user.userRole !== 2 && (
+              <span
+                className="absolute top-2 right-2 text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
+                onClick={() => {
+                  setOpenDeletFileModal(true);
+                  projectInfo.current = file;
+                }}
+              >
+                {isLoading ? (
+                  <CustomLoading size={20} className="p-0" />
+                ) : (
+                  <FaTrash />
+                )}
+              </span>
+            )}
+            {file.fileFormat === "image" && (
+              <Image
+                className="object-cover w-full h-full"
+                src={file.fileURL}
+                alt={file.description}
+                crossOrigin="anonymous"
+                rootClassName="w-full h-full"
+                preview={{
+                  mask: "بزرگ نمایی",
+                }}
+              />
+            )}
+            {file.fileFormat === "video" && (
+              <video
+                className="bg-custom-primary-color-300/50 w-full h-full"
+                controls
+                src={file.fileURL}
+                alt={file.description}
+                crossOrigin="anonymous"
+              />
+            )}
+          </SwiperSlide>
+        ))}
+        <CustomConfirm
+          title="حذف فایل"
+          open={openDeletFileModal}
+          onCancel={() => setOpenDeletFileModal(false)}
+          description="آیا از حذف این فایل اطمینان دارید ؟"
+          okText="حذف"
+          cancelText="لغو"
+          okHandler={deleteFileHandler}
+        />
+      </Gallery>
     </>
   );
 }
