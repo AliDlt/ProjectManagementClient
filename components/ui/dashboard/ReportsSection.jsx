@@ -3,29 +3,37 @@ import CustomButton from "../../modules/CustomButton";
 import useReports from "../../../hooks/useReports";
 import CustomLoading from "../../modules/CustomLoading";
 import { useNavigate } from "react-router-dom";
+import { Empty } from "antd";
 
 function ReportsSection() {
-  const { reports, isLoading,error } = useReports(3);
+  const { reports, isLoading, error } = useReports(4, 1);
   const navigate = useNavigate();
-
   return (
     <div className="shadow-custom p-6 flex flex-col gap-3 rounded-custom border-b-4 border-r-4 h-[95%] border-custom-primary-color/50 lg:p-7 bg-white">
       <h3 className="text-lg">گزارش ها</h3>
+      {!isLoading && !reports.reports.length && (
+        <Empty
+          className=" h-64 flex flex-col justify-center items-center"
+          description="گزارشی وجود ندارد"
+        />
+      )}
       <div className="flex flex-col gap-3">
         {isLoading ? (
           <CustomLoading />
         ) : (
-          reports?.map((report) => (
+          reports?.reports.map((report) => (
             <ReportItem desc={report.description} projectId={report._id} />
           ))
         )}
       </div>
-      <CustomButton
-        className="self-end text-sm mt-auto"
-        onClick={() => navigate("/reports")}
-      >
-        همه گزارش ها
-      </CustomButton>
+      {!isLoading && !!reports.length && (
+        <CustomButton
+          className="self-end text-sm mt-auto "
+          onClick={() => navigate("/reports")}
+        >
+          همه گزارش ها
+        </CustomButton>
+      )}
     </div>
   );
 }

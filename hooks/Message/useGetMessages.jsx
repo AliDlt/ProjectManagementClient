@@ -1,0 +1,11 @@
+import { useQuery } from "@tanstack/react-query";
+import { getMessagesById } from "../../services/messages";
+
+const useGetMessages = (id, page) => {
+  return useQuery({
+    queryKey: ["messages-ticket", id],
+    queryFn: () => getMessagesById(id, page),
+  });
+};
+
+export default useGetMessages;

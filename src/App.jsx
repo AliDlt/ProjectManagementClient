@@ -16,9 +16,14 @@ import UsersPage from "../pages/UsersPage";
 import ProjectsPage from "../pages/ProjectsPage";
 import ReportsPage from "../pages/ReportsPage";
 import Messages from "../pages/Messages";
+import SingleProjectPage from "../pages/SingleProjectPage";
+import dayjs from "dayjs";
+import jalaliday from "jalaliday";
 import SettingPage from "../pages/SettingPage";
 import ReportPage from "../pages/ReportPage";
+import calendar from "dayjs/plugin/calendar";
 import Message from "../pages/Message";
+import AddUser from "../pages/AddUser";
 
 function App() {
   const queryClient = new QueryClient({
@@ -29,6 +34,10 @@ function App() {
       },
     },
   });
+
+  dayjs.extend(calendar);
+  dayjs.extend(jalaliday);
+  dayjs.calendar("jalali");
 
   return (
     <ToastMessageProvider>
@@ -96,13 +105,14 @@ function App() {
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/setting" element={<SettingPage />} />
                 <Route path="/reports" element={<ReportsPage />} />
+                <Route path="/add-user" element={<AddUser />} />
                 <Route path="/reports/:id" element={<ReportPage />} />
                 <Route path="/messages" element={<Messages />} />
                 <Route path="/message/:id" element={<Message />} />
                 <Route path="/projects" element={<ProjectsPage />} />
-                <Route path="/projects/:id" element={<ProjectsPage />} />
+                <Route path="/projects/:id" element={<SingleProjectPage />} />
                 <Route path="/users" element={<UsersPage />} />
-                <Route path="/user/:id" element={<UserPage />} />
+                <Route path="/users/:id" element={<UserPage />} />
               </Route>
               {/* Login / Signup */}
               <Route path="/auth" element={<AuthContainer />}>

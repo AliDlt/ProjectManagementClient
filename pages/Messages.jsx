@@ -13,7 +13,7 @@ const Messages = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const { data, error, isPending } = useGetMessages(page);
-
+  console.log(error)
   if (error) {
     return <Navigate to={"/dashboard"} />;
   }

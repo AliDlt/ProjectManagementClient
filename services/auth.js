@@ -45,13 +45,17 @@ export const resetPassword = async (data) => {
   const res = await http.post(`/auth/changePassword`, data, {
     withCredentials: false,
   });
-  console.log(res)
-  return res
+  return res;
 };
 
 // Get User
 export const getUser = async () => {
-    const res = await http.get("/user/getUserByToken");
-    console.log(res);
-    return res.data.data;
+  const res = await http.get("/user/getUserByToken");
+  return res.data.data;
 };
+
+
+export async function logoutAccount() {
+  const res = await http.post("auth/logout");
+  return res.data
+}

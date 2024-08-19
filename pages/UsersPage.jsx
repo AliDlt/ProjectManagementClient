@@ -10,11 +10,10 @@ import { useToast } from "../Context/ToastContext";
 export default function UsersPage() {
   const [searchParams] = useSearchParams();
   const userRole = searchParams.get("userRole");
-  const { users, isLoading,error } = useUsers(userRole || "2");
+  const { users, isLoading } = useUsers(userRole || "1");
   const { user, isLoading: userLoading } = useUser();
   const navigate = useNavigate();
   const toast = useToast(); 
-  console.log(error)
   useEffect(() => {
     if (!userLoading && user && user.userRole === 2) {
       navigate("/", { replace: true });

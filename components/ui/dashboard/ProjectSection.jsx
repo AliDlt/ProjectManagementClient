@@ -1,7 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 import CustomButton from "../../modules/CustomButton";
 import CustomDonutChart from "../charts/CustomDonutChart";
-import useProjects from "../../../hooks/useProjects";
+import CustomLoading from "../../modules/CustomLoading";
+import { Empty } from "antd";
+import useProjects from "../../../hooks/projects/useProjects";
 
 const optionChart = [
   {
@@ -15,34 +17,43 @@ const optionChart = [
   },
 ];
 function ProjectSection() {
-  const { projects } = useProjects();
-  console.log(projects);
+  const { data, isLoading } = useProjects(2);
 
   return (
-    <div className="shadow-custom bg-white  p-6 flex flex-col gap-5 rounded-custom border-b-4 border-l-4 border-custom-primary-color/50 lg:p-7 ">
+    <div className="shadow-custom bg-white p-6 flex flex-col gap-5 rounded-custom border-b-4 border-l-4 border-custom-primary-color/50 lg:p-7 ">
       <h3 className="text-lg">پروژه ها</h3>
-      {!!projects?.length || (
+      {isLoading && (
         <div className="flex justify-center items-center h-[302px]">
-          پروژه ای وجود ندارد
+          <CustomLoading />
         </div>
       )}
-      {/* <div>
-        <ProjectItems
-          option={optionChart}
-          projectNum={1}
-          chartColors={["#15ABFF", "#E5F6FF"]}
-          chartData={72}
-          projectStatus="وضعیت پروژه "
+      {!isLoading && !data?.projects?.length && (
+        <Empty
+          description=" پروژه ای وجود ندارد"
+          className="flex flex-col justify-center items-center h-[302px]"
         />
-        <hr className="my-5 border-0 h-[1px] bg-black/50 lg:my-8" />
-        <ProjectItems
-          projectNum={2}
-          chartColors={["#F1A25B", "#FFEBD9"]}
-          chartData={69}
-          projectStatus="وضعیت پروژه "
-        />
-      </div> */}
-      <CustomButton className="self-start text-sm">همه پروژه ها</CustomButton>
+      )}
+      {!isLoading &&
+        !!data?.projects?.length &&
+        data?.projects?.map((project, index) => (
+          <Fragment key={project._id}>
+            <ProjectItems
+              option={optionChart}
+              projectName={project.name}
+              chartColors={["#15ABFF", "#E5F6FF"]}
+              chartData={project.progress}
+              projectStatus={project.situation}
+            />
+            {index + 1 !== data?.projects?.length && (
+              <hr className="my-5 border-0 h-[1px] bg-black/50 lg:my-8" />
+            )}
+          </Fragment>
+        ))}
+      {!isLoading && !!data?.projects?.length && (
+        <CustomButton className="self-start text-sm">
+          دیگر پروژه ها
+        </CustomButton>
+      )}
     </div>
   );
 }
@@ -51,7 +62,7 @@ export default ProjectSection;
 
 // Project Item
 const ProjectItems = ({
-  projectNum,
+  projectName,
   projectStatus,
   chartColors,
   chartData,
@@ -59,9 +70,9 @@ const ProjectItems = ({
   return (
     <div className="flex justify-between items-center">
       <span className="text-xs sm:text-lg font-bold lg:text-xl xl:text-base 2xl:text-xl">
-        پروژه {projectNum}
+        {projectName}
       </span>
-      <div className="w-40 sm:w-52 xl:w-44 2xl:w-48">
+      <div className=" sm:w-52 xl:w-44 2xl:w-48">
         <CustomDonutChart
           option={optionChart}
           colors={chartColors}

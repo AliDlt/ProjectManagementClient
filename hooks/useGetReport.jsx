@@ -2,10 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { getReport } from "../services/reports";
 
-const useGetReport = () => {
+const useGetReport = (id) => {
+  console.log(id)
   return useQuery({
-    queryKey: ["get-report"],
-    queryFn: getReport,
+    queryKey: ["get-report", id],
+    queryFn: () => getReport(id),
   });
 };
 

@@ -1,5 +1,4 @@
 import React from "react";
-import CustomModal from "../../../layout/Modal";
 import { changePassword } from "../../../yup/yup";
 import useChangePassword from "../../../hooks/useChangePassword";
 import CustomPasswordInput from "../../modules/CustomPasswordInput";

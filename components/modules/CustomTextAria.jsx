@@ -2,6 +2,7 @@ import TextArea from "antd/es/input/TextArea";
 import React from "react";
 import cn from "../../utils/cn";
 import { Controller } from "react-hook-form";
+import CustomButton from "./CustomButton";
 
 const CustomTextAria = ({
   rows,
@@ -18,8 +19,10 @@ const CustomTextAria = ({
       name={name}
       render={({ field }) => {
         return (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 w-full">
+            <div>
             <TextArea
+              style={{ resize: "none" }}
               onBlurCapture={() => {
                 onBlur && onBlur;
               }}
@@ -32,6 +35,8 @@ const CustomTextAria = ({
               rows={rows}
               status={error && "error"}
             />
+            
+            </div>
             {error && <p className="text-red-500 text-sm">{error.message}</p>}
           </div>
         );

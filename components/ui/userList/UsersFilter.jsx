@@ -1,4 +1,4 @@
-import { ConfigProvider, Radio, Select } from "antd";
+import {  Empty, Radio, Select } from "antd";
 import React from "react";
 import { IoChevronDown } from "react-icons/io5";
 import CustomInput from "../../modules/CustomInput";
@@ -24,14 +24,23 @@ function UsersFilter() {
         <span className="text-16">مرتب سازی بر اساس </span>
         <Select
           placeholder="نام خانوادگی"
-          className="flex-1 h-9"
+          className="flex-1 h-9 max-w-72 ml-auto"
           suffixIcon={
             <IoChevronDown size={15} className="text-custom-primary-color" />
           }
-          options={status}
+          options={!sortItems}
+          notFoundContent={
+            <Empty
+              description="داده ای وجود ندارد"
+              className="flex flex-col justify-center items-center gap-0  text-12 "
+              imageStyle={{
+                width: "60px",
+                height: "60px",
+              }}
+            />
+          }
         />
       </div>
-
       <Radio.Group
         className="hidden lg:flex lg:flex-col lg:w-full sort-users "
         name="sort"

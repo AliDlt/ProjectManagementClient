@@ -16,8 +16,15 @@ const CustomSelectInput = ({
       control={control}
       render={({ field }) => {
         return (
-          <div className={cn(["", className])}>
-            <Select placeholder={placeholder} {...field} className="w-full">
+          <div>
+            <Select
+              placeholder={placeholder}
+              {...field}
+              className={cn([
+                "w-full bg-white rounded-custom placeholder:text-black/50 font-medium",
+                className,
+              ])}
+            >
               {options.map((option, index) => {
                 return (
                   <Select.Option key={index} value={option.id}>

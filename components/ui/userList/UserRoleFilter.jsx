@@ -6,7 +6,7 @@ import useUser from "../../../hooks/useUser";
 function UserRoleFilter() {
   const [searchParams, setSearchParams] = useSearchParams();
   const userRoleParam = searchParams.get("userRole");
-  const [userRole, setUserRole] = useState(userRoleParam || "2");
+  const [userRole, setUserRole] = useState(userRoleParam || "1");
   const { user } = useUser();
 
   const radioGroupHandler = ({ target: { value } }) => {

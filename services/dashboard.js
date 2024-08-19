@@ -7,6 +7,5 @@ export const messagesDashboard = async () => {
 
 export const reportDayOfWeek = async () => {
   const response = await http.get("/report/getReportCountByDayOfWeek");
-  console.log(response)
   return response.data;
 };

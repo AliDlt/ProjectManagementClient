@@ -24,7 +24,6 @@ const NewPasswordPage = ({ phoneNumber }) => {
       const response = await resetPassword({ phoneNumber, password });
       toast(response.message, "success");
     } catch (error) {
-      console.log(error);
       toast(error.response.data.message, "error");
     } finally {
       setLoading(false);

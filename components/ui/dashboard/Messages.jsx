@@ -5,7 +5,6 @@ import useGetMessages from "../../../hooks/useGetMessages";
 
 const Messages = () => {
   const { data } = useGetMessages();
-  // console.log();
   return (
     <div className="flex  items-end h-full ">
       <div className="bg-white w-full flex flex-col  align gap-8 rounded-custom p-7 h-[95%] border-custom-primary-color-300 border-l-4  border-t-4 shadow-custom">
