@@ -77,7 +77,7 @@ export const messageSchema = Yup.object({
 
 // Project Info Schema
 export const projectInfoSchema = Yup.object({
-  percentage: Yup.string().matches(/^(?:100|[1-9][0-9]?|0)$/),
+  progress: Yup.string().matches(/^(?:100|[1-9][0-9]?|0)$/),
 });
 
 export const changeDataSchema = Yup.object({

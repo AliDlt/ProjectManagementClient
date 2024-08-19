@@ -10,8 +10,17 @@ import CustomLoading from "../components/modules/CustomLoading";
 
 function SingleProjectPage() {
   const { id } = useParams();
-  const { project, isLoading } = useProject(id);
+  const { project, isLoading, error } = useProject(id);
 
+  // Error
+  if (!isLoading && error)
+    return (
+      <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-96 flex justify-center items-center">
+        {error.response.data.message}
+      </div>
+    );
+
+  // Loading
   if (isLoading)
     return (
       <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-96">
@@ -19,34 +28,28 @@ function SingleProjectPage() {
       </div>
     );
 
-  const { startDate, endDate, progress, imageUrl } = project;
+  // Datas
+  const { startDate, endDate, progress, name, usersIds, files, _id, location } =
+    project;
 
-  const projectInfo = { startDate, endDate, progress, imageUrl };
-
-  console.log(project);
-
-  // createdAt: "2024-08-08T17:44:53.731Z";
-  // description: "پروژه 1 درحال انجام ";
-  // docFiles: [];
-  // endDate: "1382-12-01T20:34:16.000Z";
-  // imageName: null;
-  // imageUrl: "https://projectmanagment.liara.run//public/null";
-  // name: "پروژه 1";
-  // progress: 0;
-  // reportsIds: (2)[(7, 8)];
-  // situation: "شروع";
-  // startDate: "1381-12-01T20:34:16.000Z";
-  // usersIds: (2)[(4, 9)];
-  // __v: 2;
-  // _id: 1;
+  // Sections Datas
+  const projectBannerData = { files, name };
+  const projectInfoData = {
+    startDate,
+    endDate,
+    progress,
+    files,
+    _id,
+    location,
+  };
 
   return (
     <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10">
-      <h1 className="text-32">پروژه ها</h1>
-      <ProjectBanner />
-      <ProjectInfo projectInfo={projectInfo} />
-      <ProjectUsers />
-      <ProjectGallery />
+      <h1 className="text-32">{name}</h1>
+      <ProjectBanner projectBannerData={projectBannerData} />
+      <ProjectInfo projectInfoData={projectInfoData} />
+      <ProjectUsers users={usersIds} projectId={_id} />
+      <ProjectGallery projectGalleryData={files} projectId={_id} />
       <div className="mt-10 lg:mt-5 flex justify-center items-center lg:justify-start">
         <CustomButton className="py-6">
           <span>نمایش گزارش مرتبط</span>

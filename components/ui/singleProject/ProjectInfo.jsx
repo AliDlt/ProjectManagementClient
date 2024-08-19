@@ -9,10 +9,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { projectInfoSchema } from "../../../yup/yup";
 import dayjs from "dayjs";
+import useUpdateProject from "../../../hooks/projects/useUpdateProject";
+import { useToast } from "../../../Context/ToastContext";
 
-function ProjectInfo({ projectInfo }) {
-  const { startDate, endDate, progress, imageUrl } = projectInfo;
+function ProjectInfo({ projectInfoData }) {
+  const { startDate, endDate, progress, _id, location } = projectInfoData;
   const [open, setOpen] = useState(false);
+  const { mutateAsync } = useUpdateProject(_id);
+  const toast = useToast();
 
   const {
     control,
@@ -25,14 +29,22 @@ function ProjectInfo({ projectInfo }) {
     defaultValues: {
       startDate,
       endDate,
+      progress,
+      location,
     },
     resolver: yupResolver(projectInfoSchema),
     mode: "onChange",
   });
 
   // On Submit
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values) => {
+    try {
+      await mutateAsync({ ...values, id: _id });
+      toast("اطلاعات پروژه آپدیت شد", "success");
+      setOpen();
+    } catch (error) {
+      toast(error?.response?.data?.message, "error");
+    }
   };
 
   return (
@@ -48,7 +60,7 @@ function ProjectInfo({ projectInfo }) {
         </div>
         <div className="flex flex-wrap lg:order-1 2xl:order-2">
           <span>محل پروژه : </span>
-          <span>تهران</span>
+          <span>{location}</span>
         </div>
         <div className="flex flex-wrap lg:order-2 2xl:order-1">
           <span>مدیر پروژه : </span>
@@ -74,6 +86,7 @@ function ProjectInfo({ projectInfo }) {
               handle: "after:bg-custom-secondary-color-300  mt-[3px]",
             }}
             defaultValue={progress}
+            value={progress}
             disabled
             tooltip={{
               className: "ant-slider-tooltip",
@@ -126,26 +139,26 @@ function ProjectInfo({ projectInfo }) {
             </div>
           </div>
           <div className="flex justify-between items-center mt-7">
-            <div className="flex justify-center items-center gap-2">
+            <div className="flex justify-center flex-wrap items-center gap-2">
               <span>محل پروژه</span>
               <CustomInput
                 control={control}
-                name="workPlace"
+                name="location"
                 className="px-2 py-0.5 w-24 md:w-40"
                 placeholder="تهران"
                 noErrorMessage
               />
             </div>
-            <div className="flex justify-center items-center gap-2">
+            <div className="flex justify-center flex-wrap items-center gap-2">
               <span>درصد پیشرفت پروژه</span>
               <CustomInput
                 control={control}
-                name="percentage"
+                name="progress"
                 className="px-2 py-0.5 w-16"
                 placeholder="100"
                 type="number"
                 icon={"%"}
-                error={errors.percentage}
+                error={errors.progress}
                 noErrorMessage
               />
             </div>

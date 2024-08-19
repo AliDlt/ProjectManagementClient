@@ -17,7 +17,18 @@ const optionChart = [
   },
 ];
 function ProjectSection() {
-  const { data, isLoading } = useProjects(2);
+  const { data, isLoading, error } = useProjects(2);
+
+  // Handle Error
+  if (error)
+    return (
+      <div className="shadow-custom p-6 flex flex-col gap-3 rounded-custom border-b-4 border-r-4 h-[95%] border-custom-primary-color/50 lg:p-7 bg-white">
+        <h3 className="text-lg">گزارش ها</h3>
+        <p className="flex justify-center items-center h-64">
+          {error?.response?.data?.message}
+        </p>
+      </div>
+    );
 
   return (
     <div className="shadow-custom bg-white p-6 flex flex-col gap-5 rounded-custom border-b-4 border-l-4 border-custom-primary-color/50 lg:p-7 ">

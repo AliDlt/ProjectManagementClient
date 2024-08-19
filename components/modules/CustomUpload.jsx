@@ -1,16 +1,59 @@
 import { Upload } from "antd";
-import React from "react";
+import React, { useState } from "react";
+import CustomLoading from "./CustomLoading";
+import cn from "../../utils/cn";
+import { useToast } from "../../Context/ToastContext";
 
-const CustomUpload = ({ children, uploadHandler, ...rest }) => {
+const CustomUpload = ({
+  onChange,
+  accept,
+  action,
+  icon,
+  className,
+  title,
+  ...rest
+}) => {
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
+
+  const handleChange = (info) => {
+    if (info.file.status === "uploading") {
+      setLoading(true);
+      return;
+    }
+    if (info.file.status === "done") {
+      setLoading(false);
+      toast(info.file.response.message, "success");
+    }
+    if (info.file.status === "error") {
+      setLoading(false);
+      toast(info.file.response.message, "error");
+    }
+  };
+
   return (
     <Upload
-      {...rest}
-      action={"/api/project/uploadImage"}
-      accept="image/png , image/jpeg , image/jpg"
-      onChange={uploadHandler}
+      onChange={(e) => {
+        handleChange(e);
+        onChange && onChange(e);
+      }}
+      action={action}
+      accept={accept}
+      listType="picture-card"
       showUploadList={false}
+      className={cn([
+        "border-2 border-custom-primary-color-300 border-dashed bg-transparent hover:border-custom-primary-color rounded-2xl p-0 [&_.ant-upload-select]:w-full ",
+        className,
+      ])}
+      {...rest}
     >
-      {children}
+      <button
+        className="flex flex-col justify-center items-center gap-2 w-full pointer-events-none"
+        type="button"
+      >
+        {loading ? <CustomLoading size={30} className="p-0" /> : icon}
+        <div>{title}</div>
+      </button>
     </Upload>
   );
 };

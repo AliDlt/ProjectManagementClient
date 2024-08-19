@@ -22,7 +22,7 @@ const useProject = (projectId) => {
 
   const project = data?.data;
 
-  return { project, isLoading };
+  return { project, isLoading, error };
 };
 
 export default useProject;

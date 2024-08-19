@@ -121,8 +121,12 @@ input:focus-visible {
   @apply bg-transparent;
 }
 
-.ant-table-tbody .ant-table-row .ant-table-cell:first-child {
-  cursor: pointer;
+.disabled-row {
+  @apply bg-red-400;
+}
+
+.ant-checkbox-wrapper-disabled {
+  @apply opacity-40;
 }
 
 /* Pagination */

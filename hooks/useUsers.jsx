@@ -3,7 +3,7 @@ import { getAllUsers } from "../services/users";
 import { useToast } from "../Context/ToastContext";
 import { useEffect } from "react";
 
-function useUsers(userRole) {
+function useUsers(userRole, page, count, search, sort) {
   const toast = useToast();
 
   const {
@@ -12,8 +12,8 @@ function useUsers(userRole) {
     refetch,
     error,
   } = useQuery({
-    queryKey: ["get-all-users", userRole],
-    queryFn: () => getAllUsers(userRole),
+    queryKey: ["get-all-users", userRole, page, count, search, sort],
+    queryFn: () => getAllUsers(userRole, page, count, search, sort),
   });
 
   useEffect(() => {

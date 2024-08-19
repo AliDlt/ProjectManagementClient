@@ -3,15 +3,15 @@ import { useEffect } from "react";
 import { useToast } from "../../Context/ToastContext";
 import { getAllProjects } from "../../services/projects";
 
-const useProjects = (count) => {
+const useProjects = (count, search) => {
   const toast = useToast();
   const {
     data: datas,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["projects", count],
-    queryFn: () => getAllProjects(count),
+    queryKey: ["projects", count, search],
+    queryFn: () => getAllProjects(count, search),
   });
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const useProjects = (count) => {
   }, [error, isLoading]);
 
   const data = datas?.data;
-  return { data, isLoading };
+  return { data, isLoading, error };
 };
 
 export default useProjects;
