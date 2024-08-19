@@ -14,9 +14,11 @@ import {
 import UsersTable from "../users/UsersTable";
 import useUpdateProject from "../../../hooks/projects/useUpdateProject";
 import { useToast } from "../../../Context/ToastContext";
-import { MdOutlineEdit } from "react-icons/md";
+import { MdModeEdit } from "react-icons/md";
+import useUser from "../../../hooks/useUser";
 
 function ProjectUsers({ users, projectId }) {
+  const { user, isLoading: userLoading } = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
   const [open, setOpen] = useState(false);
   const [userSearch, setUserSearch] = useState(
@@ -95,15 +97,17 @@ function ProjectUsers({ users, projectId }) {
         />
         <div className="flex justify-center items-center gap-5">
           <span className="hidden md:block">اضافه کردن کاربر </span>
-          <CustomButton
-            className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group"
-            onClick={() => setOpen(true)}
-          >
-            <MdOutlineEdit
-              size={25}
-              className="text-custom-primary-color rounded-full group-hover:text-white"
-            />
-          </CustomButton>
+          {!userLoading && user.userRole !== 2 && (
+            <CustomButton
+              className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group"
+              onClick={() => setOpen(true)}
+            >
+              <MdModeEdit
+                size={25}
+                className="text-custom-primary-color rounded-full group-hover:text-white"
+              />
+            </CustomButton>
+          )}
         </div>
       </div>
       {/* Users List */}

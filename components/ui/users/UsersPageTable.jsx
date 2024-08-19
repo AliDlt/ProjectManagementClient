@@ -7,7 +7,7 @@ import {
   convertToLocalDate,
 } from "../../../utils/tools";
 import StatusBadge from "../../modules/StatusBadge";
-import { MdOutlineEdit } from "react-icons/md";
+import { MdModeEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa6";
 import CustomConfirm from "../../modules/CustomConfirm";
 import useDeleteUser from "../../../hooks/user/useDeleteUser";
@@ -19,7 +19,7 @@ function UsersPageTable({ users, loading }) {
 
   // Delete User Handler
   const deleteUserHandler = async () => {
-    await deleteUserFn(userId.current);
+    await deleteUserFn({ id: userId.current });
   };
 
   return (
@@ -63,7 +63,7 @@ function UsersPageTable({ users, loading }) {
           width={100}
           render={(_, record) => (
             <div className="flex items-center justify-center gap-2">
-              <MdOutlineEdit
+              <MdModeEdit
                 className="text-custom-primary-color cursor-pointer"
                 size={23}
                 onClick={() => console.log(5)}

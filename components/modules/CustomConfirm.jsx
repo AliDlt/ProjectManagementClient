@@ -11,7 +11,7 @@ function CustomConfirm({
   description,
 }) {
   return (
-    <CustomModal title={title} open={open} onCancel={onCancel}>
+    <CustomModal title={title} open={open} onCancel={onCancel} >
       <div className="mt-5 flex flex-col gap-3">
         <p className=" text-16">{description}</p>
         <div className="flex items-center gap-2 mr-auto">

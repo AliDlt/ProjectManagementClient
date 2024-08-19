@@ -1,6 +1,6 @@
 import { Slider } from "antd";
 import React, { useState } from "react";
-import { MdOutlineEdit } from "react-icons/md";
+import { MdModeEdit } from "react-icons/md";
 import CustomButton from "../../modules/CustomButton";
 import CustomModal from "../../modules/CustomModal";
 import CustomDatePicker from "../../modules/CustomDatePicker";
@@ -11,8 +11,10 @@ import { projectInfoSchema } from "../../../yup/yup";
 import dayjs from "dayjs";
 import useUpdateProject from "../../../hooks/projects/useUpdateProject";
 import { useToast } from "../../../Context/ToastContext";
+import useUser from "../../../hooks/useUser";
 
 function ProjectInfo({ projectInfoData }) {
+  const { user, isLoading } = useUser();
   const { startDate, endDate, progress, _id, location } = projectInfoData;
   const [open, setOpen] = useState(false);
   const { mutateAsync } = useUpdateProject(_id);
@@ -68,15 +70,17 @@ function ProjectInfo({ projectInfoData }) {
         </div>
       </div>
       <div className="flex flex-col justify-between items-end gap-8 flex-[1_1_100px] xl:flex-row-reverse xl:justify-start xl:items-center 2xl:gap-28">
-        <CustomButton
-          className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group"
-          onClick={() => setOpen(true)}
-        >
-          <MdOutlineEdit
-            size={25}
-            className="text-custom-primary-color rounded-full group-hover:text-white"
-          />
-        </CustomButton>
+        {!isLoading && user.userRole !== 2 && (
+          <CustomButton
+            className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group"
+            onClick={() => setOpen(true)}
+          >
+            <MdModeEdit
+              size={25}
+              className="text-custom-primary-color rounded-full group-hover:text-white"
+            />
+          </CustomButton>
+        )}
         <div className="w-full flex flex-col gap-2 md:w-72 xl:flex-col-reverse ">
           <Slider
             className="m-0"

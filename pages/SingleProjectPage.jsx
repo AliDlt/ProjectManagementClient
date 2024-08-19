@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProjectBanner from "../components/ui/singleProject/ProjectBanner";
 import ProjectInfo from "../components/ui/singleProject/ProjectInfo";
 import ProjectUsers from "../components/ui/singleProject/ProjectUsers";
 import ProjectGallery from "../components/ui/singleProject/ProjectGallery";
 import CustomButton from "../components/modules/CustomButton";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useProject from "../hooks/projects/useProject";
 import CustomLoading from "../components/modules/CustomLoading";
+import useUser from "../hooks/useUser";
+import { useToast } from "../Context/ToastContext";
 
 function SingleProjectPage() {
+  const { user } = useUser();
   const { id } = useParams();
   const { project, isLoading, error } = useProject(id);
+  const navigate = useNavigate();
+  const toast = useToast();
+
+  useEffect(() => {
+    if (
+      !isLoading &&
+      user &&
+      user.userRole !== 0 &&
+      !project?.usersIds?.includes(user._id)
+    ) {
+      navigate("/projects", { replace: true });
+      toast("شما به این پروژه دسترسی ندارید", "error");
+    }
+  }, [user, isLoading, project]);
 
   // Error
   if (!isLoading && error)
@@ -29,10 +46,19 @@ function SingleProjectPage() {
     );
 
   // Datas
-  const { startDate, endDate, progress, name, usersIds, files, _id, location } =
-    project;
+  const {
+    startDate,
+    endDate,
+    progress,
+    name,
+    usersIds,
+    files,
+    _id,
+    location,
+    users,
+  } = project;
 
-  // Sections Datas
+  // Separate Sections Datas
   const projectBannerData = { files, name };
   const projectInfoData = {
     startDate,
@@ -48,7 +74,7 @@ function SingleProjectPage() {
       <h1 className="text-32">{name}</h1>
       <ProjectBanner projectBannerData={projectBannerData} />
       <ProjectInfo projectInfoData={projectInfoData} />
-      <ProjectUsers users={usersIds} projectId={_id} />
+      <ProjectUsers users={users} projectId={_id} />
       <ProjectGallery projectGalleryData={files} projectId={_id} />
       <div className="mt-10 lg:mt-5 flex justify-center items-center lg:justify-start">
         <CustomButton className="py-6">
