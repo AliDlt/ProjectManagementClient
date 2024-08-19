@@ -1,19 +1,31 @@
 import { Radio } from "antd";
 import React, { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import useUser from "../../../hooks/useUser";
 
 function UserRoleFilter() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const userRoleParam = searchParams.get("userRole");
-  const [userRole, setUserRole] = useState(userRoleParam || "1");
+  const [searchParams] = useSearchParams();
+  const userRoleParam = searchParams.get("userRole") || "1";
+  const [userRole, setUserRole] = useState(userRoleParam);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { user } = useUser();
 
   const radioGroupHandler = ({ target: { value } }) => {
-    setSearchParams({
-      userRole: value,
-    });
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+
     setUserRole(value);
+
+    if (!value) {
+      current.delete("userRole");
+    } else {
+      current.set("userRole", value);
+    }
+
+    const search = current.toString();
+    const query = search ? `?${search}` : "";
+
+    navigate(`${pathname}${query}`);
   };
 
   return (

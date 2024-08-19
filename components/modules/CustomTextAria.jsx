@@ -12,7 +12,31 @@ const CustomTextAria = ({
   control,
   name,
   onBlur,
+  onChange,
 }) => {
+  if (!control) {
+    return (
+      <div className="flex flex-col gap-2">
+        <TextArea
+          onBlurCapture={() => {
+            onBlur && onBlur();
+          }}
+          className={cn([
+            "rounded-md border-2 border-custom-primary-color p-2.5",
+            className,
+          ])}
+          placeholder={placeholder}
+          rows={rows}
+          onChange={(e) => {
+            onChange && onChange(e);
+          }}
+          status={error && "error"}
+        />
+        {error && <p className="text-red-500 text-sm">{error.message}</p>}
+      </div>
+    );
+  }
+
   return (
     <Controller
       control={control}

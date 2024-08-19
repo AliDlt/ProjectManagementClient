@@ -1,8 +1,21 @@
 import http from "./http";
 
-export const getAllUsers = async (userRole = "") => {
+// Get All Users
+export const getAllUsers = async (
+  userRole = "",
+  page = "",
+  count = "",
+  search = "",
+  sort = "",
+) => {
   const res = await http.get(
-    `/user/getAllUsers?filterRole=${userRole}&page=1&count=10`,
+    `/user/getAllUsers?filterRole=${userRole}&page=${page}&count=${count}&search=${search}&sort=${sort}`,
   );
+  return res.data.data;
+};
+
+// Delete User
+export const deleteUser = async (userId) => {
+  const res = await http.delete("/user/deleteUser", userId);
   return res.data.data;
 };

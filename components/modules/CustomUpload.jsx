@@ -1,29 +1,59 @@
 import { Upload } from "antd";
-import React from "react";
-import { IoAdd } from "react-icons/io5";
+import React, { useState } from "react";
+import CustomLoading from "./CustomLoading";
 import cn from "../../utils/cn";
+import { useToast } from "../../Context/ToastContext";
+
 const CustomUpload = ({
-  children,
-  uploadHandler,
-  className,
+  onChange,
+  accept,
   action,
+  icon,
+  className,
+  title,
   ...rest
 }) => {
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
+
+  const handleChange = (info) => {
+    if (info.file.status === "uploading") {
+      setLoading(true);
+      return;
+    }
+    if (info.file.status === "done") {
+      setLoading(false);
+      toast(info.file.response.message, "success");
+    }
+    if (info.file.status === "error") {
+      setLoading(false);
+      toast(info.file.response.message, "error");
+    }
+  };
+
   return (
     <Upload
+      onChange={(e) => {
+        handleChange(e);
+        onChange && onChange(e);
+      }}
+      action={action}
+      accept={accept}
+      listType="picture-card"
+      showUploadList={false}
       className={cn([
-        "!text-custom-primary-color flex items-center  justify-center p-1 rounded-full text-20 border-2 border-custom-primary-color border-solid transition hover:bg-custom-primary-color hover:!text-white hover:cursor-pointer",
+        "border-2 border-custom-primary-color-300 border-dashed bg-transparent hover:border-custom-primary-color rounded-2xl p-0 [&_.ant-upload-select]:w-full ",
         className,
       ])}
       {...rest}
-      action={`${action}`}
-      accept="image/png , image/jpeg , image/jpg"
-      onChange={uploadHandler}
-      showUploadList={false}
     >
-      <span>
-        <IoAdd />
-      </span>
+      <button
+        className="flex flex-col justify-center items-center gap-2 w-full pointer-events-none"
+        type="button"
+      >
+        {loading ? <CustomLoading size={30} className="p-0" /> : icon}
+        <div>{title}</div>
+      </button>
     </Upload>
   );
 };

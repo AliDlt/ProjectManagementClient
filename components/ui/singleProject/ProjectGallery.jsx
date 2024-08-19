@@ -1,19 +1,22 @@
 import CustomButton from "../../modules/CustomButton";
 import { IoAddOutline } from "react-icons/io5";
-import { Popover, Progress } from "antd";
+import { Popover } from "antd";
 import { BsExclamationLg } from "react-icons/bs";
 import CustomUpload from "../../modules/CustomUpload";
 import { useState } from "react";
-import { useToast } from "../../../Context/ToastContext";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import Gallery from "../Gallery";
+import CustomModal from "../../modules/CustomModal";
+import { FaVideo, FaImage } from "react-icons/fa6";
+import CustomTextAria from "../../modules/CustomTextAria";
+import { useQueryClient } from "@tanstack/react-query";
 
-function ProjectGallery() {
-  const [percentUpload, setPercentUpload] = useState(0);
-  const [uploadStatus, setSploadStatus] = useState(false);
-  const toast = useToast();
+function ProjectGallery({ projectGalleryData, projectId }) {
+  const [open, setOpen] = useState(false);
+  const [fileDescription, setFileDescription] = useState("");
+  const queryClient = useQueryClient();
 
   // Popover Content
   const popoverContent = (
@@ -23,24 +26,11 @@ function ProjectGallery() {
     </div>
   );
 
-  // Upload Handler
-  const uploadHandler = (e) => {
-    switch (e?.file?.status) {
-      case "uploading":
-        setSploadStatus(0);
-        break;
-      case "done":
-        setSploadStatus(1);
-        break;
-      case "error":
-        setSploadStatus(2);
-        break;
-      default:
-        break;
+  // Uploaders Change Handlers
+  const uploadersChangeHandler = (info) => {
+    if (info.file.status === "done") {
+      queryClient.invalidateQueries("project", projectId);
     }
-    setPercentUpload(Math.floor(e?.event?.percent));
-    if (e?.file?.status === "error")
-      return toast(e?.file?.response?.message, "error");
   };
 
   return (
@@ -61,28 +51,64 @@ function ProjectGallery() {
             </span>
           </Popover>
         </div>
-        <CustomUpload
-          action={'/api/project/uploadImage"'}
-          uploadHandler={uploadHandler}
+        <CustomButton
+          className="flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group"
+          onClick={() => setOpen(true)}
         >
-          <CustomButton className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group">
-            {uploadStatus !== 0 ? (
-              <IoAddOutline
-                size={25}
-                className="text-custom-primary-color rounded-full group-hover:text-white"
-              />
-            ) : (
-              <Progress
-                size={30}
-                percent={percentUpload}
-                type="circle"
-                status="normal"
-              />
-            )}
-          </CustomButton>
-        </CustomUpload>
+          <IoAddOutline
+            size={25}
+            className="text-custom-primary-color rounded-full group-hover:text-white"
+          />
+        </CustomButton>
+        {/* Modal */}
+        <CustomModal
+          title="آپلود عکس و فیلم"
+          open={open}
+          onCancel={() => setOpen(false)}
+        >
+          <div className="flex flex-col justify-center items-center gap-5 mt-5 md:flex-row">
+            {/* Image */}
+            <CustomUpload
+              action="/api/project/uploadFile"
+              title="آپلود تصویر"
+              className="w-full"
+              icon={<FaImage size={25} />}
+              accept="image/png , image/jpg , image/jpeg"
+              data={{
+                id: projectId,
+                description: fileDescription,
+                fileFormat: "image",
+              }}
+              disabled={!fileDescription}
+              onChange={uploadersChangeHandler}
+            />
+            {/* Video */}
+            <CustomUpload
+              action="/api/project/uploadFile"
+              title="آپلود ویدئو"
+              className="w-full"
+              icon={<FaVideo size={25} />}
+              accept="video/mp4 , video/mpeg"
+              data={{
+                id: projectId,
+                description: fileDescription,
+                fileFormat: "video",
+              }}
+              disabled={!fileDescription}
+              onChange={uploadersChangeHandler}
+            />
+          </div>
+          <div>
+            <CustomTextAria
+              className="mt-5"
+              placeholder="توضیحات فایل ( اجباری )"
+              rows={3}
+              onChange={(e) => setFileDescription(e.target.value)}
+            />
+          </div>
+        </CustomModal>
       </div>
-      <Gallery />
+      <Gallery data={projectGalleryData} />
     </>
   );
 }

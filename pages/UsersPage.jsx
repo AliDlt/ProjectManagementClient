@@ -1,16 +1,19 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import useUsers from "../hooks/useUsers";
-import UsersFilter from "../components/ui/userList/UsersFilter";
-import UsersTable from "../components/ui/userList/UsersTable";
+import UsersFilter from "../components/ui/users/UsersFilter";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import UserRoleFilter from "../components/ui/userList/UserRoleFilter";
+import UserRoleFilter from "../components/ui/users/UserRoleFilter";
 import useUser from "../hooks/useUser";
 import { useToast } from "../Context/ToastContext";
 
+import UsersPageTable from "../components/ui/users/UsersPageTable";
+
 export default function UsersPage() {
   const [searchParams] = useSearchParams();
-  const userRole = searchParams.get("userRole");
-  const { users, isLoading } = useUsers(userRole || "1");
+  const userRole = searchParams.get("userRole") || "1";
+  const userSeach = searchParams.get("search") || "";
+  const userSort = searchParams.get("sort") || "";
+  const { users, isLoading } = useUsers(userRole, "", "", userSeach, userSort);
   const { user, isLoading: userLoading } = useUser();
   const navigate = useNavigate();
   const toast = useToast(); 
@@ -28,7 +31,7 @@ export default function UsersPage() {
         <UserRoleFilter />
       </div>
       {/* Filter */}
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 ">
         <h3 className="text-16 lg:col-span-3 hidden lg:block py-1">
           مرتب سازی بر اساس
         </h3>
@@ -40,7 +43,9 @@ export default function UsersPage() {
           <h3 className="text-16">لیست کاربران</h3>
           <UserRoleFilter />
         </div>
-        <UsersTable users={users} loading={isLoading} />
+        <div className="lg:bg-white lg:rounded-custom lg:py-8 lg:shadow-custom lg:border-b-4 lg:border-custom-primary-color-300  lg:w-[25rem] xl:w-auto">
+          <UsersPageTable users={users} loading={isLoading} />
+        </div>
       </div>
     </div>
   );

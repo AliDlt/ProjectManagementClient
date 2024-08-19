@@ -20,9 +20,8 @@ const useReports = (count, page) => {
     }
   }, [isLoading, error]);
 
-  const reports = data?.data;
-
-  return { reports, isLoading, isPending };
+  const reportsData = data?.data;
+  return { reportsData, isLoading, error };
 };
 
 export default useReports;

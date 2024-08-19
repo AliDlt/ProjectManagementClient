@@ -28,6 +28,7 @@ export default function CustomInput({
         ])}
         prefix={icon}
         placeholder={placeholder}
+        {...rest}
       />
     );
   }

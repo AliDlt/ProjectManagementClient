@@ -29,12 +29,13 @@ function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        retry: false,
+        retry: 0,
         refetchOnWindowFocus: false,
       },
     },
   });
 
+  // Days Config
   dayjs.extend(calendar);
   dayjs.extend(jalaliday);
   dayjs.calendar("jalali");
@@ -87,10 +88,10 @@ function App() {
             },
           }}
         >
-          <div>
-            <Toaster />
-          </div>
           <QueryClientProvider client={queryClient}>
+            <div>
+              <Toaster />
+            </div>
             <Routes>
               {/* Home */}
               <Route
