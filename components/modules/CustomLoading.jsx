@@ -1,15 +1,19 @@
 import React from "react";
 import { PuffLoader } from "react-spinners";
+import cn from "../../utils/cn";
 
-const CustomLoading = () => {
-
+const CustomLoading = ({ size, className }) => {
   return (
-    <div className="flex p-6 justify-center items-center h-full w-full ">
+    <div
+      className={cn([
+        "flex p-6 justify-center items-center h-full w-full",
+        className,
+      ])}
+    >
       <PuffLoader
-     
         loading={true}
-        color='#f1a25b'
-        size={60}
+        color="#f1a25b"
+        size={size || 60}
         data-testid="loader"
       />
     </div>

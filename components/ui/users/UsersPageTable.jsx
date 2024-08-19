@@ -1,64 +1,43 @@
-import Table from "antd/es/table";
-import { useState } from "react";
-import StatusBadge from "../../modules/StatusBadge";
+import { useRef, useState } from "react";
+import UsersTable from "./UsersTable";
 import Column from "antd/es/table/Column";
-import { Empty } from "antd";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 import {
   convertFromInternational,
   convertToLocalDate,
 } from "../../../utils/tools";
-import { useNavigate } from "react-router-dom";
+import StatusBadge from "../../modules/StatusBadge";
 import { MdOutlineEdit } from "react-icons/md";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa6";
+import CustomConfirm from "../../modules/CustomConfirm";
+import useDeleteUser from "../../../hooks/user/useDeleteUser";
 
-function UsersTable({ users, loading }) {
-  const [current, setCurrent] = useState(1);
-  const navigate = useNavigate();
+function UsersPageTable({ users, loading }) {
+  const [open, setOpen] = useState(false);
+  const userId = useRef();
+  const { deleteUserFn, isPending } = useDeleteUser();
 
-  const data = users?.map((user) => {
-    const { name, surName, ...rest } = user;
-    return {
-      fullName: `${name} ${surName}`,
-      ...rest,
-    };
-  });
+  // Delete User Handler
+  const deleteUserHandler = async () => {
+    await deleteUserFn(userId.current);
+  };
 
   return (
-    <div className="lg:bg-white lg:rounded-custom lg:py-8 lg:shadow-custom lg:border-b-4 lg:border-custom-primary-color-300  lg:w-[25rem] xl:w-auto">
-      <Table
-        loading={loading}
-        dataSource={data}
-        locale={{
-          emptyText: (
-            <Empty description="کاربری وجود ندارد" className="my-24" />
-          ),
-        }}
-        pagination={{
-          position: ["bottomCenter"],
-          current,
-          onChange: (pageNum) => setCurrent(pageNum),
-          pageSize: 5,
-          hideOnSinglePage: true,
-          showLessItems: true,
-          prevIcon: () => (
-            <FaAngleRight className="mt-2 text-custom-primary-color" />
-          ),
-          nextIcon: () => (
-            <FaAngleLeft className="mt-2 text-custom-primary-color" />
-          ),
-        }}
-      >
+    <>
+      <UsersTable users={users} loading={loading}>
         <Column
           title="نام و نام خانوادگی"
           dataIndex="fullName"
           key="fullName"
           width={100}
-          onCell={(record) => {
-            return {
-              onClick: () => navigate(`/user/${record._id}`),
-            };
-          }}
+          render={(fullName, record) => (
+            <Link
+              to={`/users/${record.key}`}
+              className="cursor-pointer flex justify-center"
+            >
+              {fullName}
+            </Link>
+          )}
         />
         <Column
           title="شماره تماس "
@@ -82,7 +61,7 @@ function UsersTable({ users, loading }) {
           dataIndex="edit"
           key="edit"
           width={100}
-          render={() => (
+          render={(_, record) => (
             <div className="flex items-center justify-center gap-2">
               <MdOutlineEdit
                 className="text-custom-primary-color cursor-pointer"
@@ -92,7 +71,10 @@ function UsersTable({ users, loading }) {
               <FaTrash
                 className="text-custom-primary-color cursor-pointer"
                 size={20}
-                onClick={() => console.log(5)}
+                onClick={() => {
+                  userId.current = record.key;
+                  setOpen(true);
+                }}
               />
             </div>
           )}
@@ -108,9 +90,18 @@ function UsersTable({ users, loading }) {
             return convertToLocalDate(lastLogin);
           }}
         />
-      </Table>
-    </div>
+      </UsersTable>
+      <CustomConfirm
+        title="حذف کاربر"
+        open={open}
+        onCancel={() => setOpen(false)}
+        okText="حذف"
+        cancelText="لغو"
+        okHandler={deleteUserHandler}
+        description="آیا از حذف این کاربر اطمینان دارید ؟"
+      />
+    </>
   );
 }
 
-export default UsersTable;
+export default UsersPageTable;

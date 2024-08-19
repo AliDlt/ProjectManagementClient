@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import CustomButton from "../../modules/CustomButton";
 import { MdOutlineEdit } from "react-icons/md";
 import { IoAddOutline } from "react-icons/io5";
-import CustomModal from "../../../layout/Modal";
 import ChangePassword from "./ChangePassword";
+import CustomModal from "../../modules/CustomModal";
 
 const PasswordBox = ({
   title,

@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../components/ui/dashboard/Logo";
 import Profile from "../components/ui/dashboard/Profile";
 import { useSideBar } from "../Context/SideBarContext";
 import ListAside from "../components/ui/dashboard/ListAside";
 import { Drawer } from "antd";
+import CustomButton from "../components/modules/CustomButton";
+import CustomModal from "../components/modules/CustomModal";
+import Logout from "../components/ui/Logout";
 
 function SideBar() {
   const { show, setShow } = useSideBar();
-
+  const [modal, showModal] = useState(false);
   return (
     <>
       <Drawer
@@ -44,6 +47,13 @@ function SideBar() {
           </div>
           <Profile />
           <ListAside />
+          <CustomButton onClick={()=>showModal(true)} className="bg-transparent text-black hover:bg-transparent flex my-6 gap-2  justify-center">
+            <img src="/icons/خروج.svg" className="w-8 h-8" alt="خروج" />
+            <span> خروج از حساب</span>
+          </CustomButton>
+          <CustomModal open={modal} onCancel={showModal} title="خروج از حساب">
+            <Logout close={showModal} />
+          </CustomModal>
         </nav>
       </aside>
     </>

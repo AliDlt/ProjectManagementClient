@@ -121,8 +121,12 @@ input:focus-visible {
   @apply bg-transparent;
 }
 
-.ant-table-tbody .ant-table-row .ant-table-cell:first-child {
-  cursor: pointer;
+.disabled-row {
+  @apply bg-red-400;
+}
+
+.ant-checkbox-wrapper-disabled {
+  @apply opacity-40;
 }
 
 /* Pagination */
@@ -169,4 +173,22 @@ input:focus-visible {
 /* Sldier */
 .ant-slider-tooltip .ant-tooltip-arrow {
   @apply after:border after:border-custom-secondary-color z-50 top-[15px];
+}
+
+/* Project Gallery */
+.next-btn.swiper-button-disabled,
+.prev-btn.swiper-button-disabled {
+  @apply hidden;
+}
+
+.swiper-pagination {
+  @apply flex justify-center items-center;
+}
+
+.swiper-pagination .swiper-pagination-bullet {
+  @apply size-3;
+}
+
+.swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  @apply bg-custom-primary-color;
 }

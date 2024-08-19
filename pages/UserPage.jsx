@@ -7,28 +7,55 @@ import useUserName from "../hooks/useUserName";
 import StatusBadge from "../components/modules/StatusBadge";
 import { convertDate } from "../utils/tools";
 import { useToast } from "../Context/ToastContext";
+import { IoRepeatOutline } from "react-icons/io5";
+import CustomButton from "../components/modules/CustomButton";
+import useUpdateUser from "../hooks/useUpdateUser";
+import { useQueryClient } from "@tanstack/react-query";
+import useUser from "../hooks/useUser";
 
 const UserPage = () => {
   const { id } = useParams();
-  const toast = useToast()
+  const toast = useToast();
   const { data, isPending, error } = useUserName(id);
   if (error) {
-    toast(error.response.data.message,'error')
-    return (
-    
-    <Navigate to="/users" />
-  
-  )
+    toast(error.response.data.message, "error");
+    console.log(error);
+    return <Navigate to="/users" />;
   }
+  const queryClient = useQueryClient();
+  const catchUser = queryClient.getQueriesData(["user"]);
+  const { user, isLoading } = useUser({ initialData: catchUser });
+  const { mutate } = useUpdateUser();
+  const changeStatus = () => {
+    mutate(
+      {
+        id,
+        data: { id: id, active: !data.data.user.active },
+      },
+      { onError: (e) => console.log(e) },
+    );
+  };
+
   return (
     <section className="container p-4  flex flex-col  grid-cols-1 gap-10 lg:gap-5 lg:p-0   lg:col-span-9 2xl:col-span-10">
       <div className="flex justify-between ">
         <div>
           <h3 className="text-24 font-bold mb-3 px-2">اطلاعات کاربر</h3>
-          <StatusBadge
-            status={data?.data.user.active}
-            className="p-1 text-12 "
-          />
+          <div className="flex items-center gap-2">
+            <StatusBadge
+              status={data?.data.user.active}
+              className="p-1 text-12 "
+            />
+            {user?.userRole === 0 && (
+              <CustomButton
+                onClick={changeStatus}
+                className="text-12 font-bold flex  items-center gap-2  text-white bg-custom-primary-color px-3 py-1 rounded-xl"
+              >
+                <IoRepeatOutline className="text-16" />
+                تغیر وضعیت
+              </CustomButton>
+            )}
+          </div>
         </div>
         {data?.data.user.lastLogin && (
           <div className="flex items-center flex-col gap-2   text-12">
@@ -38,6 +65,7 @@ const UserPage = () => {
         )}
       </div>
       <UserInformation
+        userRole={user?.userRole}
         user={data?.data.user}
         isPending={isPending}
         error={error}

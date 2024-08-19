@@ -6,8 +6,7 @@ import { useParams } from "react-router-dom";
 import CustomLoading from "../../modules/CustomLoading";
 import { convertFromInternational, userRol } from "../../../utils/tools";
 
-const UserInformation = ({ error, isPending, user }) => {
-  console.log(user);
+const UserInformation = ({ error, isPending, user, userRole }) => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
@@ -41,9 +40,14 @@ const UserInformation = ({ error, isPending, user }) => {
       {isPending ? (
         <CustomLoading />
       ) : (
-        <div className="p-1 gap-1 rounded-lg  grid grid-cols-1 lg:grid-cols-2">
+        <div className="p-1 gap-1 rounded-lg  grid grid-cols-1 lg:grid-cols-2 ">
           {customData.map(({ title, children, type }, index) => (
-            <InformationBox key={index} title={title} type={type}>
+            <InformationBox
+              key={index}
+              title={title}
+              userRole={userRole}
+              type={type}
+            >
               {children || "N/A"}
             </InformationBox>
           ))}
