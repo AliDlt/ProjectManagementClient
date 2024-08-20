@@ -17,15 +17,19 @@ const UserPage = () => {
   const { id } = useParams();
   const toast = useToast();
   const { data, isPending, error } = useUserName(id);
+
+  const queryClient = useQueryClient();
+  const catchUser = queryClient.getQueriesData(["user"]);
+  const { user, isLoading ,} = useUser(id);
+  console.log(user)
+  const { mutate } = useUpdateUser();
+
   if (error) {
     toast(error.response.data.message, "error");
     console.log(error);
     return <Navigate to="/users" />;
   }
-  const queryClient = useQueryClient();
-  const catchUser = queryClient.getQueriesData(["user"]);
-  const { user, isLoading } = useUser({ initialData: catchUser });
-  const { mutate } = useUpdateUser();
+
   const changeStatus = () => {
     mutate(
       {

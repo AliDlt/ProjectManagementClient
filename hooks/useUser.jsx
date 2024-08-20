@@ -7,7 +7,7 @@ function useUser() {
     queryFn: getUser,
     retry: false,
   });
-
+  
   return { user, isLoading };
 }
 
