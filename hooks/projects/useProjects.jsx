@@ -3,15 +3,15 @@ import { useEffect } from "react";
 import { useToast } from "../../Context/ToastContext";
 import { getAllProjects } from "../../services/projects";
 
-const useProjects = (count, search) => {
+const useProjects = (count, page, search) => {
   const toast = useToast();
   const {
     data: datas,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["projects", count, search],
-    queryFn: () => getAllProjects(count, search),
+    queryKey: ["projects", count, page, search],
+    queryFn: () => getAllProjects(count, page, search),
   });
 
   useEffect(() => {

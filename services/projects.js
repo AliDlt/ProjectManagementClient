@@ -1,9 +1,9 @@
 import http from "./http";
 
 // Get All Projects
-export const getAllProjects = async (count = "", search = "") => {
+export const getAllProjects = async (count = "", page = 1, search = "") => {
   const res = await http.get(
-    `/project/getAllProjectsSearchByToken?count=${count}&search=${search}`,
+    `/project/getAllProjectsSearchByToken?count=${count}&search=${search}&page=${page}`,
   );
 
   return res.data;
@@ -21,7 +21,9 @@ export const getProject = async (projectId = "", search = "") => {
 // Delete Project File
 export const deleteProjectFile = async (fileInfo) => {
   console.log(fileInfo);
-  const res = await http.delete("/project/deleteFile", fileInfo);
+  const res = await http.delete("/project/deleteFile", {
+    data: fileInfo,
+  });
 
   return res.data;
 };

@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import ProjectBanner from "../components/ui/singleProject/ProjectBanner";
-import ProjectInfo from "../components/ui/singleProject/ProjectInfo";
-import ProjectUsers from "../components/ui/singleProject/ProjectUsers";
-import ProjectGallery from "../components/ui/singleProject/ProjectGallery";
-import CustomButton from "../components/modules/CustomButton";
+import ProjectInfo from "../components/ui/projects/singleProject/ProjectInfo";
+import ProjectUsers from "../components/ui/projects/singleProject/ProjectUsers";
+import ProjectBanner from "../components/ui/projects/singleProject/ProjectBanner";
+import ProjectGallery from "../components/ui/projects/singleProject/ProjectGallery";
 import { useNavigate, useParams } from "react-router-dom";
-import useProject from "../hooks/projects/useProject";
-import CustomLoading from "../components/modules/CustomLoading";
-import useUser from "../hooks/useUser";
 import { useToast } from "../Context/ToastContext";
+import { useEffect } from "react";
+import CustomButton from "../components/modules/CustomButton";
+import CustomLoading from "../components/modules/CustomLoading";
+import useProject from "../hooks/projects/useProject";
+import useUser from "../hooks/useUser";
 
 function SingleProjectPage() {
   const { user } = useUser();

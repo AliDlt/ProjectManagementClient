@@ -19,7 +19,10 @@ function UsersPageTable({ users, loading }) {
 
   // Delete User Handler
   const deleteUserHandler = async () => {
-    await deleteUserFn({ id: userId.current });
+    try {
+      await deleteUserFn({ id: userId.current });
+      setOpen(false);
+    } catch (error) {}
   };
 
   return (
@@ -99,6 +102,7 @@ function UsersPageTable({ users, loading }) {
         cancelText="لغو"
         okHandler={deleteUserHandler}
         description="آیا از حذف این کاربر اطمینان دارید ؟"
+        loading={isPending}
       />
     </>
   );

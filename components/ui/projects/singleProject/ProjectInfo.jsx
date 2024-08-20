@@ -1,17 +1,17 @@
 import { Slider } from "antd";
 import React, { useState } from "react";
 import { MdModeEdit } from "react-icons/md";
-import CustomButton from "../../modules/CustomButton";
-import CustomModal from "../../modules/CustomModal";
-import CustomDatePicker from "../../modules/CustomDatePicker";
-import CustomInput from "../../modules/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { projectInfoSchema } from "../../../yup/yup";
 import dayjs from "dayjs";
-import useUpdateProject from "../../../hooks/projects/useUpdateProject";
-import { useToast } from "../../../Context/ToastContext";
-import useUser from "../../../hooks/useUser";
+import useUser from "../../../../hooks/useUser";
+import { useToast } from "../../../../Context/ToastContext";
+import { projectInfoSchema } from "../../../../yup/yup";
+import CustomButton from "../../../modules/CustomButton";
+import CustomModal from "../../../modules/CustomModal";
+import CustomInput from "../../../modules/CustomInput";
+import useUpdateProject from "../../../../hooks/projects/useUpdateProject";
+import CustomDatePicker from "../../../modules/CustomDatePicker";
 
 function ProjectInfo({ projectInfoData }) {
   const { user, isLoading } = useUser();
