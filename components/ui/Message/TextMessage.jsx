@@ -5,7 +5,7 @@ import { convertToLocalDate } from "../../../utils/tools";
 
 const TextMessage = ({ message }) => {
   return (
-    <div className="  border-2 w-full border-custom-primary-color rounded-custom rounded-br-none flex flex-col gap-6 bg-white p-4">
+    <div  className="  border-2 w-full border-custom-primary-color rounded-custom rounded-br-none flex flex-col gap-6 bg-white p-4">
       <div className="flex  justify-between items-center">
         <div className="flex flex-col gap-2">
           <h5>

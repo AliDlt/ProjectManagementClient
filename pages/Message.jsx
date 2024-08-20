@@ -1,37 +1,70 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TextMessage from "../components/ui/Message/TextMessage";
 import NewMessage from "../components/ui/Message/NewMessage";
 import { useParams } from "react-router-dom";
 import useGetTicket from "../hooks/Message/useGetTicket";
 import useGetMessages from "../hooks/Message/useGetMessages";
 import CustomLoading from "../components/modules/CustomLoading";
+import CustomButton from "../components/modules/CustomButton";
+import { MdDelete } from "react-icons/md";
 
 const Message = () => {
+  const ref = useRef(null);
+  const refOrginal = useRef(null);
   const { id } = useParams();
   const [page, setPage] = useState(1);
   const { data, error } = useGetTicket(id);
+  const [allMessages, setAllMessages] = useState([]);
   const {
     data: messages,
     error: errorMessage,
     isPending,
   } = useGetMessages(id, page);
-  console.log(messages)
-  if (isPending)
+
+  const loadMore = () => {
+    setPage((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    if (messages?.data.ticket[0].messages) {
+      
+      setAllMessages((prevMessages) => [
+        ...messages.data.ticket[0].messages,
+        ...prevMessages,
+      ]);
+    }
+  }, [messages]);
+
+  if (isPending && page === 1)
     return (
-      <div className="col-span-1 lg:col-span-11 ">
-        {" "}
-        <CustomLoading />{" "}
+      <div className="container-grid justify-center">
+        <div className="col-span-1 lg:col-span-9">
+          <CustomLoading />
+        </div>
       </div>
     );
+
   return (
-    <div className="container-grid p-0 w-full  ">
-      <div className="col-span-1 lg:col-span-11 flex flex-col  ">
-        <div className="flex flex-col gap-4 px-10">
-          {messages?.data.messages[0].messages.map((message, index) => {
+    <div className="container-grid w-full relative">
+      <div className="col-span-1 lg:col-span-11 flex flex-col">
+        <div className="sticky flex justify-between items-center font-bold mb-4 top-24 col-span-11 bg-white p-4 rounded-custom border-4 border-custom-primary-color z-50">
+          <h5>عنوان : {data?.data.ticket[0].title}</h5>
+          <CustomButton>
+            <MdDelete />
+          </CustomButton>
+        </div>
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center justify-center">
+            <CustomButton onClick={loadMore}>بارگزاری بیشتر</CustomButton>
+          </div>
+          {allMessages?.map((message, index) => {
+            {
+              console.log();
+            }
             return (
-              <>
+              <div ref={allMessages.length === index + 1 ? ref : refOrginal}>
                 <TextMessage key={index} message={message} />
-              </>
+              </div>
             );
           })}
         </div>

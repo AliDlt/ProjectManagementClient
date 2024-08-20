@@ -3,8 +3,9 @@ import { getMessagesById } from "../../services/messages";
 
 const useGetMessages = (id, page) => {
   return useQuery({
-    queryKey: ["messages-ticket", id],
+    queryKey: ["messages-ticket", id, page],
     queryFn: () => getMessagesById(id, page),
+    keepPreviousData: true,
   });
 };
 

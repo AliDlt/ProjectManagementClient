@@ -50,6 +50,7 @@ export const resetPassword = async (data) => {
 
 // Get User
 export const getUser = async () => {
+  console.log('first')
   const res = await http.get("/user/getUserByToken");
   return res.data.data;
 };

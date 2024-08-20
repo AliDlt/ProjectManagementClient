@@ -12,7 +12,8 @@ function ReportsPage() {
   const changePage = (e) => {
     setPage(e);
   };
-  const { reports, isPending } = useReports(10, page);
+  const { reportsData, isPending } = useReports(10, page);
+  console.log(reportsData);
   if (isPending) {
     return (
       <div className="col-span-1 lg:col-span-9">
@@ -31,7 +32,7 @@ function ReportsPage() {
           </CustomButton>
         </div>
         <section className="flex flex-col gap-4">
-          {reports?.reports.map(({ name, description, _id }, index) => {
+          {reportsData?.reports.map(({ name, description, _id }, index) => {
             return (
               <ReportCard
                 key={index}
@@ -48,7 +49,7 @@ function ReportsPage() {
           align="center"
           defaultCurrent={1}
           onChange={changePage}
-          total={reports?.totalReports}
+          total={reportsData?.totalReports}
         />
       </div>{" "}
     </div>

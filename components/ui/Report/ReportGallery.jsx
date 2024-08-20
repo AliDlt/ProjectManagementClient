@@ -1,23 +1,21 @@
 import React from "react";
 import Gallery from "../Gallery";
-import CustomButton from "../../modules/CustomButton";
-import { MdDelete } from "react-icons/md";
-import { Popover } from "antd";
-import { BsExclamationLg } from "react-icons/bs";
+import { IoAddOutline } from "react-icons/io5";
 import CustomUpload from "../../modules/CustomUpload";
-import Files from "../Files";
+import { BsExclamationLg } from "react-icons/bs";
+import { Popover } from "antd";
 const popoverContent = (
   <div className="flex flex-col gap-2 text-12">
-    <p>اسناد با حجم حد اکثر 5 مگابایت</p>
+    <p>ویدئو ها با حجم 10 مگابایت</p>
+    <p>عکس ها با حجم 2 مگابایت</p>
   </div>
 );
-
-const ShowFiles = () => {
+const ReportGallery = () => {
   return (
-    <div className="my-6">
-      <div className="my-6 flex justify-between px-4">
+    <div>
+      <div className="mt-6 flex justify-between px-4">
         <div className="flex w-full gap-2 text-20 items-center">
-          <h4 className="text-base">اسناد</h4>
+          <h4 className="text-base">گالری عکس ها</h4>
           <Popover
             content={popoverContent}
             arrow={false}
@@ -31,18 +29,21 @@ const ShowFiles = () => {
             </span>
           </Popover>
         </div>
-        <div>
+        <div className="flex items-center justify-center">
           <CustomUpload
-          title='اپلود'
-          accept={'png'}
-            // uploadHandler={uploadHandler}
+            icon={
+              <IoAddOutline
+                size={25}
+                className="text-custom-primary-color rounded-full group-hover:text-white"
+              />
+            }
             action={`https://projectmanagment.liara.run/api/report/uploadImage/${8}`}
           />
         </div>
       </div>
-      <Files />
+      <Gallery />
     </div>
   );
 };
 
-export default ShowFiles;
+export default ReportGallery;
