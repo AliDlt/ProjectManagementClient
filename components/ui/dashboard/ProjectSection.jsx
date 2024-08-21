@@ -1,23 +1,13 @@
 import React, { Fragment } from "react";
 import CustomButton from "../../modules/CustomButton";
-import CustomDonutChart from "../charts/CustomDonutChart";
 import CustomLoading from "../../modules/CustomLoading";
-import { Empty } from "antd";
+import { Empty, Progress } from "antd";
 import useProjects from "../../../hooks/projects/useProjects";
+import { useNavigate } from "react-router-dom";
 
-const optionChart = [
-  {
-    breakpoint: 768,
-    options: {
-      chart: {
-        width: "150px",
-        height: "150px",
-      },
-    },
-  },
-];
 function ProjectSection() {
   const { data, isLoading, error } = useProjects(2);
+  const navigate = useNavigate();
 
   // Handle Error
   if (error)
@@ -49,10 +39,13 @@ function ProjectSection() {
         data?.projects?.map((project, index) => (
           <Fragment key={project._id}>
             <ProjectItems
-              option={optionChart}
               projectName={project.name}
-              chartColors={["#15ABFF", "#E5F6FF"]}
-              chartData={project.progress}
+              progressColors={
+                index % 2 === 0
+                  ? ["#15ABFF", "#E5F6FF"]
+                  : ["#F1A25B", "#FDECDE"]
+              }
+              progressValue={project.progress}
               projectStatus={project.situation}
             />
             {index + 1 !== data?.projects?.length && (
@@ -61,7 +54,10 @@ function ProjectSection() {
           </Fragment>
         ))}
       {!isLoading && !!data?.projects?.length && (
-        <CustomButton className="self-start text-sm">
+        <CustomButton
+          className="self-start text-sm"
+          onClick={() => navigate("/projects")}
+        >
           دیگر پروژه ها
         </CustomButton>
       )}
@@ -75,29 +71,32 @@ export default ProjectSection;
 const ProjectItems = ({
   projectName,
   projectStatus,
-  chartColors,
-  chartData,
+  progressColors,
+  progressValue,
 }) => {
   return (
     <div className="flex justify-between items-center">
       <span className="text-xs sm:text-lg font-bold lg:text-xl xl:text-base 2xl:text-xl">
         {projectName}
       </span>
-      <div className=" sm:w-52 xl:w-44 2xl:w-48">
-        <CustomDonutChart
-          option={optionChart}
-          colors={chartColors}
-          data={chartData}
-        />
-      </div>
+      <Progress
+        className="[&_.ant-progress-inner]:!size-20 [&_.ant-progress-inner]:md:!size-28 [&_.ant-progress-inner]:xl:!size-28"
+        showInfo={false}
+        strokeLinecap="butt"
+        type="circle"
+        percent={progressValue}
+        strokeWidth={15}
+        strokeColor={progressColors[0]}
+        trailColor={progressColors[1]}
+      />
       <div className="flex flex-col items-center gap-2">
         <span
           className="font-extrabold text-2xl 2xl:text-4xl"
           style={{
-            color: chartColors[0],
+            color: progressColors[0],
           }}
         >
-          {chartData}%
+          {progressValue}%
         </span>
         <span className="text-xs sm:text-lg lg:text-base">{projectStatus}</span>
       </div>

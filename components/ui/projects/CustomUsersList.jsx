@@ -1,45 +1,48 @@
-import { useEffect, useState } from "react";
-import CustomModal from "../../modules/CustomModal";
-import CustomInput from "../../modules/CustomInput";
+import React, { useEffect, useState } from "react";
 import CustomButton from "../../modules/CustomButton";
-import { GrSearch } from "react-icons/gr";
-import { Link, useSearchParams } from "react-router-dom";
+import { MdModeEdit } from "react-icons/md";
+import UsersTable from "../users/UsersTable";
 import Column from "antd/es/table/Column";
-import useUsers from "../../../hooks/useUsers";
-import StatusBadge from "../../modules/StatusBadge";
 import {
   convertFromInternational,
   convertToLocalDate,
 } from "../../../utils/tools";
-import UsersTable from "../users/UsersTable";
-import useUpdateProject from "../../../hooks/projects/useUpdateProject";
-import { useToast } from "../../../Context/ToastContext";
-import { MdModeEdit } from "react-icons/md";
+import StatusBadge from "../../modules/StatusBadge";
+import CustomModal from "../../modules/CustomModal";
+import CustomInput from "../../modules/CustomInput";
 import useUser from "../../../hooks/useUser";
+import { Link, useSearchParams } from "react-router-dom";
+import useUsers from "../../../hooks/useUsers";
+import { GrSearch } from "react-icons/gr";
 
-function ProjectUsers({ users, projectId }) {
+function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
   const { user, isLoading: userLoading } = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [open, setOpen] = useState(false);
-  const [userSearch, setUserSearch] = useState(
+  const [openAddUsersModal, setOpenAddUsersModal] = useState(false);
+  const [searchAllUsers, setSearchAllUsers] = useState("");
+  const [searchUsers, setSearchUsers] = useState(
     searchParams.get("search") || "",
   );
-  const [search, setSearch] = useState("");
-  const [finalUsers, setFinalUsers] = useState(users);
-  const { isLoading, users: allUsers } = useUsers("", "", "", search);
-  const { mutateAsync } = useUpdateProject(projectId);
-  const toast = useToast();
+  const [searchedProductUsers, setSearchedProductUsers] =
+    useState(projectUsers);
+  const { isLoading, users: allUsers } = useUsers("", "", "", searchAllUsers);
   const [selectedRowKeys, setSelectedRowKeys] = useState(() =>
-    users?.map((user) => user._id),
+    projectUsers?.map((user) => user._id),
+  );
+  const [selectedRowUsers, setSelectedRowUsers] = useState(() =>
+    projectUsers?.map((user) => user._id),
   );
 
   // Project's Users Filter
   useEffect(() => {
-    const searchValue = userSearch?.toLowerCase()?.trim();
+    const searchValue = searchUsers?.toLowerCase()?.trim();
     const searchedUsers =
-      users &&
-      users?.filter((user) => {
-        const userInfo = user.name + " " + user?.surName + user.phoneNumber;
+      projectUsers &&
+      projectUsers?.filter((user) => {
+        const userInfo = user.name
+          ? user.name + " " + user?.surName + user.phoneNumber
+          : user?.fullName + user.phoneNumber;
+
         if (
           searchValue.length !== 0 &&
           userInfo.toLowerCase().trim().includes(searchValue)
@@ -50,28 +53,17 @@ function ProjectUsers({ users, projectId }) {
           return user;
         }
       });
-    setFinalUsers(searchedUsers);
-  }, [searchParams, users]);
+    setSearchedProductUsers(searchedUsers);
+  }, [searchParams, projectUsers]);
 
   // Table rowSelection
   const rowSelection = {
     selectedRowKeys,
-    onChange: setSelectedRowKeys,
+    onChange: (usersId, users) => {
+      setSelectedRowKeys(usersId);
+      setSelectedRowUsers(users);
+    },
     hideSelectAll: true,
-  };
-
-  // Add User To Product Handler
-  const addUserHandler = async () => {
-    try {
-      await mutateAsync({
-        id: projectId,
-        usersIds: selectedRowKeys,
-      });
-      setOpen(false);
-      toast("لیست کاربران آپدیت شد", "success");
-    } catch (error) {
-      toast(error?.response?.data?.message, "error");
-    }
   };
 
   // Search Handler
@@ -79,7 +71,7 @@ function ProjectUsers({ users, projectId }) {
     setSearchParams({
       search: e.target.value,
     });
-    setUserSearch(e.target.value);
+    setSearchUsers(e.target.value);
   };
 
   return (
@@ -90,7 +82,7 @@ function ProjectUsers({ users, projectId }) {
           className="hidden py-1 rounded-custom w-72 ml-auto mr-12 md:flex"
           placeholder="جستجو"
           onChange={searchHandler}
-          value={userSearch}
+          value={searchUsers}
           icon={
             <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
           }
@@ -100,7 +92,7 @@ function ProjectUsers({ users, projectId }) {
           {!userLoading && user.userRole !== 2 && (
             <CustomButton
               className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group"
-              onClick={() => setOpen(true)}
+              onClick={() => setOpenAddUsersModal(true)}
             >
               <MdModeEdit
                 size={25}
@@ -113,8 +105,9 @@ function ProjectUsers({ users, projectId }) {
       {/* Users List */}
       <div className=" mt-5 md:mt-10">
         <UsersTable
+          emptyText={emptyText}
           loading={false}
-          users={finalUsers}
+          users={searchedProductUsers}
           rowClassName="lg:border-t lg:border-black lg:last:border-b"
         >
           <Column
@@ -162,21 +155,21 @@ function ProjectUsers({ users, projectId }) {
       </div>
       {/* Modal */}
       <CustomModal
-        open={open}
-        onCancel={() => setOpen(false)}
+        open={openAddUsersModal}
+        onCancel={() => setOpenAddUsersModal(false)}
         title="اضافه کردن کاربر به پروژه"
       >
         <CustomInput
           className="hidden py-1 rounded-custom w-72 ml-auto  md:flex mt-5"
           placeholder="جستجو"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          value={searchAllUsers}
+          onChange={(e) => setSearchAllUsers(e.target.value)}
           icon={
             <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
           }
         />
         <UsersTable
-          className="mt-6"
+          className="mt-6 h-[438px]"
           loading={isLoading}
           users={allUsers}
           rowSelection={rowSelection}
@@ -225,7 +218,13 @@ function ProjectUsers({ users, projectId }) {
             }}
           />
         </UsersTable>
-        <CustomButton className="mt-5" onClick={addUserHandler}>
+        <CustomButton
+          className="mt-5"
+          onClick={() => {
+            modalHandler(selectedRowKeys, selectedRowUsers);
+            setOpenAddUsersModal(false);
+          }}
+        >
           اضافه کردن
         </CustomButton>
       </CustomModal>
@@ -233,4 +232,4 @@ function ProjectUsers({ users, projectId }) {
   );
 }
 
-export default ProjectUsers;
+export default CustomUsersList;

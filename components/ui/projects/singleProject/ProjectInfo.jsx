@@ -1,21 +1,22 @@
 import { Slider } from "antd";
 import React, { useState } from "react";
 import { MdModeEdit } from "react-icons/md";
-import CustomButton from "../../modules/CustomButton";
-import CustomModal from "../../modules/CustomModal";
-import CustomDatePicker from "../../modules/CustomDatePicker";
-import CustomInput from "../../modules/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { projectInfoSchema } from "../../../yup/yup";
 import dayjs from "dayjs";
-import useUpdateProject from "../../../hooks/projects/useUpdateProject";
-import { useToast } from "../../../Context/ToastContext";
-import useUser from "../../../hooks/useUser";
+import useUser from "../../../../hooks/useUser";
+import { useToast } from "../../../../Context/ToastContext";
+import { projectInfoSchema } from "../../../../yup/yup";
+import CustomButton from "../../../modules/CustomButton";
+import CustomModal from "../../../modules/CustomModal";
+import CustomInput from "../../../modules/CustomInput";
+import useUpdateProject from "../../../../hooks/projects/useUpdateProject";
+import CustomDatePicker from "../../../modules/CustomDatePicker";
 
 function ProjectInfo({ projectInfoData }) {
   const { user, isLoading } = useUser();
-  const { startDate, endDate, progress, _id, location } = projectInfoData;
+  const { startDate, endDate, progress, _id, location, createdBy } =
+    projectInfoData;
   const [open, setOpen] = useState(false);
   const { mutateAsync } = useUpdateProject(_id);
   const toast = useToast();
@@ -53,20 +54,22 @@ function ProjectInfo({ projectInfoData }) {
     <div className="flex flex-wrap bg-white p-5 border-2 border-custom-primary-color rounded-custom mt-10 gap-5 ">
       <div className="grid grid-cols-1 text-14 gap-3 xl:grid-cols-2 xl:gap-x-10 items-center xl:text-16 2xl:gap-x-5 ">
         <div className="flex flex-wrap lg:order-3">
-          <span>تاریخ شروع پروژه : </span>
+          <span>تاریخ شروع پروژه : </span>&nbsp;
           <span>{dayjs(startDate).format("YYYY/MM/DD")}</span>
         </div>
         <div className="flex flex-wrap lg:order-4">
-          <span>تاریخ پایان پروژه :</span>
+          <span>تاریخ پایان پروژه :</span>&nbsp;
           <span>{dayjs(endDate).format("YYYY/MM/DD")}</span>
         </div>
         <div className="flex flex-wrap lg:order-1 2xl:order-2">
-          <span>محل پروژه : </span>
+          <span>محل پروژه : </span>&nbsp;
           <span>{location}</span>
         </div>
         <div className="flex flex-wrap lg:order-2 2xl:order-1">
-          <span>مدیر پروژه : </span>
-          <span>محمد زمانپور جزی</span>
+          <span>مدیر پروژه : </span>&nbsp;
+          <span>
+            {createdBy.name} {createdBy.surName}
+          </span>
         </div>
       </div>
       <div className="flex flex-col justify-between items-end gap-8 flex-[1_1_100px] xl:flex-row-reverse xl:justify-start xl:items-center 2xl:gap-28">

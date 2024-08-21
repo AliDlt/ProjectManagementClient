@@ -9,6 +9,7 @@ import { useToast } from "../Context/ToastContext";
 import NewPasswordPage from "./NewPasswordPage";
 import { convertToInternational } from "../utils/tools";
 import { Link } from "react-router-dom";
+import MetaTag from "../components/modules/MetaTag";
 
 const ForgetPasswordPage = () => {
   const [step, setStep] = useState(1);
@@ -77,6 +78,8 @@ const ForgetPasswordPage = () => {
         {step > 1 && <span onClick={handleBack}> مرحله قبل </span>}
         <Link to="/auth/login"> بازگشت به صفحه ورود </Link>
       </div>
+      {/* Meta Tag */}
+      <MetaTag title="فراموشی رمز" description="بازیابی رمز عبور" />
     </div>
   );
 };

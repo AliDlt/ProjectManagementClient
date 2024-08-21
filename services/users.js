@@ -16,7 +16,6 @@ export const getAllUsers = async (
 
 // Delete User
 export const deleteUser = async (userId) => {
-  console.log(userId);
-  const res = await http.delete("/user/deleteUser", userId);
+  const res = await http.delete("/user/deleteUser", { data: userId });
   return res.data.data;
 };

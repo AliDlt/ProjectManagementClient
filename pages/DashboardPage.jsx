@@ -3,6 +3,7 @@ import ReportsSection from "../components/ui/dashboard/ReportsSection";
 import ProjectSection from "../components/ui/dashboard/ProjectSection";
 import ReportChartSection from "../components/ui/dashboard/ReportChartSection";
 import Messages from "../components/ui/dashboard/Messages";
+import MetaTag from "../components/modules/MetaTag";
 
 function DashboardPage() {
   return (
@@ -20,6 +21,11 @@ function DashboardPage() {
       <div className="lg:col-span-7 xl:col-span-3 2xl:col-span-4  ">
         <Messages />
       </div>
+      {/* Meta Tags */}
+      <MetaTag
+        title="داشبورد"
+        description="مرور مختصر بر پروژها ها ، گزارش ها ، پیام ها"
+      />
     </div>
   );
 }

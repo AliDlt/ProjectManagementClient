@@ -11,6 +11,7 @@ function CustomDatePicker({
   control,
   name,
   changeHandler,
+  error = false,
   ...rest
 }) {
   return (
@@ -28,6 +29,7 @@ function CustomDatePicker({
             className={cn([
               "border-2 border-custom-primary-color rounded-custom px-2 py-0.5",
               className,
+              error && "border-red-500",
             ])}
             onChange={(date) => {
               changeHandler && changeHandler(date ? date.valueOf() : null);
@@ -41,6 +43,7 @@ function CustomDatePicker({
             prevIcon="<"
             superNextIcon=">>"
             superPrevIcon="<<"
+            status={error && "error"}
             {...rest}
           />
         </ConfigProvider>
