@@ -107,7 +107,7 @@ input:focus-visible {
 
 /* Users Table */
 .ant-table {
-  @apply bg-transparent overflow-x-auto;
+  @apply bg-transparent overflow-x-auto mb-auto;
 }
 
 .ant-table-thead .ant-table-cell {
@@ -128,6 +128,14 @@ input:focus-visible {
 
 .ant-checkbox-wrapper-disabled {
   @apply opacity-40;
+}
+
+.ant-spin-container {
+  @apply h-full flex flex-col;
+}
+
+.ant-spin-nested-loading {
+  @apply h-full;
 }
 
 /* Pagination */

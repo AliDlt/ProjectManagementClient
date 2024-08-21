@@ -1,22 +1,15 @@
-import { IoAddOutline } from "react-icons/io5";
-import { Image, Popover } from "antd";
-import { BsExclamationLg } from "react-icons/bs";
-import { useRef, useState } from "react";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import { FaVideo, FaImage, FaTrash } from "react-icons/fa6";
 import { useQueryClient } from "@tanstack/react-query";
-import { SwiperSlide } from "swiper/react";
-import CustomButton from "../../../modules/CustomButton";
-import CustomModal from "../../../modules/CustomModal";
-import CustomUpload from "../../../modules/CustomUpload";
-import Gallery from "../../Gallery";
-import CustomConfirm from "../../../modules/CustomConfirm";
-import useDeleteProjectFile from "../../../../hooks/projects/useDeleteProjectFile";
-import CustomTextAria from "../../../modules/CustomTextAria";
+import { Image, Popover } from "antd";
+import React, { useRef, useState } from "react";
+import { BsExclamationLg } from "react-icons/bs";
+import CustomButton from "../../modules/CustomButton";
+import { IoAddOutline } from "react-icons/io5";
+import CustomUpload from "../../modules/CustomUpload";
+import CustomTextAria from "../../modules/CustomTextAria";
+import { FaTrash } from "react-icons/fa6";
+import CustomConfirm from "../../modules/CustomConfirm";
 
-function ProjectGallery({ projectGalleryData, projectId }) {
+function CustomProjectGallery({ projectUsers, modalHandler, emptyText }) {
   const [fileDescription, setFileDescription] = useState("");
   const [openAddFileModal, setOpenAddFileModal] = useState(false);
   const [openDeleteFileModal, setOpenDeleteFileModal] = useState(false);
@@ -180,4 +173,4 @@ function ProjectGallery({ projectGalleryData, projectId }) {
   );
 }
 
-export default ProjectGallery;
+export default CustomProjectGallery;

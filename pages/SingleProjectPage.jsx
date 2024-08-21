@@ -4,16 +4,21 @@ import ProjectBanner from "../components/ui/projects/singleProject/ProjectBanner
 import ProjectGallery from "../components/ui/projects/singleProject/ProjectGallery";
 import { useNavigate, useParams } from "react-router-dom";
 import { useToast } from "../Context/ToastContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CustomButton from "../components/modules/CustomButton";
 import CustomLoading from "../components/modules/CustomLoading";
 import useProject from "../hooks/projects/useProject";
 import useUser from "../hooks/useUser";
+import useDeleteProject from "../hooks/projects/useDeleteProject";
+import CustomConfirm from "../components/modules/CustomConfirm";
+import MetaTag from "../components/modules/MetaTag";
 
 function SingleProjectPage() {
   const { user } = useUser();
   const { id } = useParams();
   const { project, isLoading, error } = useProject(id);
+  const { deleteProjectFn, isPending } = useDeleteProject(id);
+  const [openDeleteProjectModal, setOpenDeleteProjectModal] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -45,21 +50,30 @@ function SingleProjectPage() {
       </div>
     );
 
+  // Delete Project Handler
+  const deleteProjectHandler = async () => {
+    try {
+      await deleteProjectFn({ id: _id });
+      navigate("/projects", { replace: true });
+    } catch (error) {}
+  };
+
   // Datas
   const {
     startDate,
     endDate,
     progress,
     name,
-    usersIds,
     files,
     _id,
     location,
     users,
+    createdBy,
+    description,
   } = project;
 
   // Separate Sections Datas
-  const projectBannerData = { files, name };
+  const projectBannerData = { files, _id };
   const projectInfoData = {
     startDate,
     endDate,
@@ -67,6 +81,7 @@ function SingleProjectPage() {
     files,
     _id,
     location,
+    createdBy,
   };
 
   return (
@@ -76,11 +91,29 @@ function SingleProjectPage() {
       <ProjectInfo projectInfoData={projectInfoData} />
       <ProjectUsers users={users} projectId={_id} />
       <ProjectGallery projectGalleryData={files} projectId={_id} />
-      <div className="mt-10 lg:mt-5 flex justify-center items-center lg:justify-start">
-        <CustomButton className="py-6">
+      <div className="mt-10 lg:mt-5 flex justify-center items-center gap-5">
+        <CustomButton
+          className="p-6"
+          onClick={() => setOpenDeleteProjectModal(true)}
+        >
+          <span>حذف پروژه</span>
+        </CustomButton>
+        <CustomButton className="p-6">
           <span>نمایش گزارش مرتبط</span>
         </CustomButton>
       </div>
+      <CustomConfirm
+        cancelText="لغو"
+        okText="حذف"
+        open={openDeleteProjectModal}
+        onCancel={() => setOpenDeleteProjectModal(false)}
+        okHandler={deleteProjectHandler}
+        title="حذف پروژه"
+        description="آیا از حذف این پروژه اطمینان دارید ؟"
+        loading={isPending}
+      />
+      {/* Meta Tag */}
+      <MetaTag title={name} description={description} />
     </section>
   );
 }

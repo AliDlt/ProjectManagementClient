@@ -4,7 +4,15 @@ import { Empty } from "antd";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import CustomLoading from "../../modules/CustomLoading";
 
-function UsersTable({ users, loading, children, className, ...rest }) {
+function UsersTable({
+  users,
+  loading,
+  children,
+  className,
+  paginationClassName,
+  emptyText,
+  ...rest
+}) {
   const [current, setCurrent] = useState(1);
 
   const data = users?.map((user) => {
@@ -25,9 +33,15 @@ function UsersTable({ users, loading, children, className, ...rest }) {
         indicator: <CustomLoading className="p-0 w-auto h-auto" />,
       }}
       locale={{
-        emptyText: <Empty description="کاربری وجود ندارد" className="my-24" />,
+        emptyText: (
+          <Empty
+            description={emptyText || "کاربری وجود ندارد"}
+            className="my-24 "
+          />
+        ),
       }}
       pagination={{
+        className: paginationClassName,
         position: ["bottomCenter"],
         current,
         onChange: (pageNum) => setCurrent(pageNum),

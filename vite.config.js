@@ -13,6 +13,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: true,
       },
+      "/uploads": {
+        target: "https://projectmanagment.liara.run",
+        changeOrigin: true,
+        secure: true,
+      },
     },
   },
 });

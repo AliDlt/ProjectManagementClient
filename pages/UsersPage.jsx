@@ -7,6 +7,7 @@ import useUser from "../hooks/useUser";
 import { useToast } from "../Context/ToastContext";
 
 import UsersPageTable from "../components/ui/users/UsersPageTable";
+import MetaTag from "../components/modules/MetaTag";
 
 export default function UsersPage() {
   const [searchParams] = useSearchParams();
@@ -16,7 +17,8 @@ export default function UsersPage() {
   const { users, isLoading } = useUsers(userRole, "", "", userSeach, userSort);
   const { user, isLoading: userLoading } = useUser();
   const navigate = useNavigate();
-  const toast = useToast(); 
+  const toast = useToast();
+
   useEffect(() => {
     if (!userLoading && user && user.userRole === 2) {
       navigate("/", { replace: true });
@@ -43,10 +45,15 @@ export default function UsersPage() {
           <h3 className="text-16">لیست کاربران</h3>
           <UserRoleFilter />
         </div>
-        <div className="lg:bg-white lg:rounded-custom lg:py-8 lg:shadow-custom lg:border-b-4 lg:border-custom-primary-color-300  lg:w-[25rem] xl:w-auto">
+        <div className="lg:bg-white lg:rounded-custom lg:py-8 lg:shadow-custom lg:border-b-4 lg:border-custom-primary-color-300 lg:w-[25rem] xl:w-auto ">
           <UsersPageTable users={users} loading={isLoading} />
         </div>
       </div>
+      {/* Meta Tag */}
+      <MetaTag
+        title="لیست کاربران"
+        description="لیست همه کاربران ( مدیر ، پیمانکار ، ناظر )"
+      />
     </div>
   );
 }

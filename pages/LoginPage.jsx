@@ -11,6 +11,7 @@ import { login } from "../services/auth";
 import { useToast } from "../Context/ToastContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import MetaTag from "../components/modules/MetaTag";
 
 const LoginPage = () => {
   const { mutateAsync, isPending } = useMutation({
@@ -39,7 +40,9 @@ const LoginPage = () => {
 
   return (
     <>
-      <Logo />
+      <div className="flex justify-center items-center size-44 mx-auto">
+        <Logo />
+      </div>
       <h3 className="md:text-20 mt-16">به سمپ خوش آمدید</h3>
       <form
         onSubmit={handleSubmit(submitLogin)}
@@ -85,6 +88,8 @@ const LoginPage = () => {
           ثبت نام
         </Link>
       </div>
+      {/* Meta Tag */}
+      <MetaTag title="ورود" description="ورود به برنامه مدیریت پروژه" />
     </>
   );
 };

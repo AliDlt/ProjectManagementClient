@@ -1,6 +1,7 @@
 import CustomModal from "./CustomModal";
 import CustomButton from "./CustomButton";
 import CustomLoading from "./CustomLoading";
+import cn from "../../utils/cn";
 
 function CustomConfirm({
   title,
@@ -10,7 +11,8 @@ function CustomConfirm({
   cancelText,
   okHandler,
   description,
-  loading,
+  loading = false,
+  okClassName,
 }) {
   return (
     <CustomModal title={title} open={open} onCancel={onCancel}>
@@ -18,7 +20,10 @@ function CustomConfirm({
         <p className=" text-16">{description}</p>
         <div className="flex items-center gap-2 mr-auto">
           <CustomButton
-            className="bg-red-500 hover:bg-red-400 px-5 py-1 border-2 border-red-500 w-20 h-[33px] flex justify-center items-center"
+            className={cn([
+              "bg-red-500 hover:bg-red-400 px-5 py-1 border-2 border-red-500 w-20 h-[33px] flex justify-center items-center",
+              okClassName,
+            ])}
             onClick={okHandler}
           >
             {loading ? (
