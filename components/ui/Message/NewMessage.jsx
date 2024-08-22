@@ -10,9 +10,9 @@ import { useParams } from "react-router-dom";
 import { useToast } from "../../../Context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
 
-const NewMessage = () => {
+const NewMessage = ({ addMessage }) => {
   const { id } = useParams();
-  const queryClient = useQueryClient();
+
   const {
     control,
     handleSubmit,
@@ -21,10 +21,11 @@ const NewMessage = () => {
   } = useForm({ mode: "onChange", resolver: yupResolver(messageSchema) });
   const { mutate, error, isPending } = useSendMessage();
   const toast = useToast();
-  const successMessage = () => {
+  const successMessage = (e) => {
     toast("پیام با موفقیت ارسال شد", "success");
-    queryClient.invalidateQueries("single-message", id);
     setValue("messageText", "");
+    addMessage(e);
+
   };
   const submitMessage = (e) => {
     mutate(

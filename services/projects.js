@@ -1,14 +1,14 @@
 import http from "./http";
 
 // Get All Projects
-export const getAllProjects = async (count = "", search = "") => {
+export const getAllProjects = async (count = "", search = "", signal,page = 1) => {
   const res = await http.get(
-    `/project/getAllProjectsSearchByToken?count=${count}&search=${search}`,
+    `/project/getAllProjectsSearchByToken?count=${count}&search=${search}&page=${page}`,
+    { signal },
   );
 
   return res.data;
 };
-
 // Get A Project
 export const getProject = async (projectId = "", search = "") => {
   const res = await http.get(

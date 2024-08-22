@@ -7,6 +7,7 @@ import CustomButton from "./CustomButton";
 const CustomTextAria = ({
   rows,
   className,
+  value,
   error,
   placeholder,
   control,
@@ -15,9 +16,11 @@ const CustomTextAria = ({
   onChange,
 }) => {
   if (!control) {
+    console.log(value);
     return (
       <div className="flex flex-col gap-2">
         <TextArea
+          value={value}
           onBlurCapture={() => {
             onBlur && onBlur();
           }}
@@ -45,21 +48,20 @@ const CustomTextAria = ({
         return (
           <div className="flex flex-col gap-2 w-full">
             <div>
-            <TextArea
-              style={{ resize: "none" }}
-              onBlurCapture={() => {
-                onBlur && onBlur;
-              }}
-              {...field}
-              className={cn([
-                className,
-                "rounded-custom border-2 border-custom-primary-color",
-              ])}
-              placeholder={placeholder}
-              rows={rows}
-              status={error && "error"}
-            />
-            
+              <TextArea
+                style={{ resize: "none" }}
+                onBlurCapture={() => {
+                  onBlur && onBlur;
+                }}
+                {...field}
+                className={cn([
+                  className,
+                  "rounded-custom border-2 border-custom-primary-color",
+                ])}
+                placeholder={placeholder}
+                rows={rows}
+                status={error && "error"}
+              />
             </div>
             {error && <p className="text-red-500 text-sm">{error.message}</p>}
           </div>

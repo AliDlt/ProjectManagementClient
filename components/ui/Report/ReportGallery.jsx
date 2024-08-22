@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Gallery from "../Gallery";
 import { IoAddOutline } from "react-icons/io5";
 import CustomUpload from "../../modules/CustomUpload";
 import { BsExclamationLg } from "react-icons/bs";
 import { Popover } from "antd";
+import CustomButton from "../../modules/CustomButton";
+import CustomTextAria from "../../modules/CustomTextAria";
+import { FaImage, FaVideo } from "react-icons/fa6";
+import CustomModal from "../../modules/CustomModal";
 const popoverContent = (
   <div className="flex flex-col gap-2 text-12">
     <p>ویدئو ها با حجم 10 مگابایت</p>
     <p>عکس ها با حجم 2 مگابایت</p>
   </div>
 );
-const ReportGallery = () => {
+const ReportGallery = ({ id }) => {
+  const [show, setShow] = useState();
+  const changeValue = (e) => {
+    setDescription(e.target.value);
+  };
+
+  const [description, setDescription] = useState("");
+
   return (
     <div>
       <div className="mt-6 flex justify-between px-4">
@@ -30,15 +41,58 @@ const ReportGallery = () => {
           </Popover>
         </div>
         <div className="flex items-center justify-center">
-          <CustomUpload
-            icon={
-              <IoAddOutline
-                size={25}
-                className="text-custom-primary-color rounded-full group-hover:text-white"
-              />
-            }
-            action={`https://projectmanagment.liara.run/api/report/uploadImage/${8}`}
-          />
+          <div className="flex justify-center items-center  ">
+            <CustomButton
+              onClick={() => setShow(true)}
+              className="hover:bg-custom-primary-color w-10 rounded-full  h-10 p-1 text-custom-primary-color bg-transparent hover:text-white transition border-2 border-custom-primary-color "
+            >
+              <IoAddOutline className="text-24" />
+            </CustomButton>
+            <CustomModal onCancel={setShow} open={show} title="بارگزاری فایل">
+              <div className="flex flex-col justify-center items-center gap-5 mt-5 md:flex-row">
+                {/* Image */}
+                <CustomUpload
+                  action="/api/report/uploadFile"
+                  title="آپلود تصویر"
+                  className="w-full text-black/50"
+                  icon={<FaImage size={25} />}
+                  accept="image/png , image/jpg , image/jpeg"
+                  data={{
+                    id,
+                    description,
+                    fileFormat: "image",
+                  }}
+                  disabled={!description}
+                />
+                {/* Video */}
+                <CustomUpload
+                  action="/api/report/uploadFile"
+                  title="آپلود ویدئو"
+                  className="w-full text-black/50"
+                  icon={<FaVideo size={25} />}
+                  accept="video/mp4 , video/mpeg"
+                  disabled={!description}
+
+                  data={{
+                    id,
+                    description,
+                    fileFormat: "video",
+                  }}
+                  //   disabled={!fileDescription}
+                  //   onChange={uploadersChangeHandler}
+                />
+              </div>
+              <div>
+                <CustomTextAria
+                  className="mt-5"
+                  value={description}
+                  placeholder="توضیحات  ( اجباری )"
+                  rows={3}
+                  onChange={changeValue}
+                />
+              </div>
+            </CustomModal>
+          </div>
         </div>
       </div>
       <Gallery />

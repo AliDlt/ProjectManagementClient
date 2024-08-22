@@ -9,8 +9,10 @@ const CustomUpload = ({
   accept,
   action,
   icon,
+  data,
   className,
   title,
+  disabled,
   ...rest
 }) => {
   const [loading, setLoading] = useState(false);
@@ -37,10 +39,12 @@ const CustomUpload = ({
         handleChange(e);
         onChange && onChange(e);
       }}
+      data={data}
       action={action}
       accept={accept}
       listType="picture-card"
       showUploadList={false}
+      disabled={disabled}
       className={cn([
         "border-2 border-custom-primary-color-300 border-dashed bg-transparent hover:border-custom-primary-color rounded-2xl p-0 [&_.ant-upload-select]:w-full ",
         className,

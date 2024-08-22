@@ -66,7 +66,7 @@ function ProjectGallery({ projectGalleryData, projectId }) {
           open={open}
           onCancel={() => setOpen(false)}
         >
-          =
+          
           <div className="flex flex-col justify-center items-center gap-5 mt-5 md:flex-row">
             {/* Image */}
             <CustomUpload

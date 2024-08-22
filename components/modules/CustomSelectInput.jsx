@@ -25,7 +25,7 @@ const CustomSelectInput = ({
                 className,
               ])}
             >
-              {options.map((option, index) => {
+              {options?.map((option, index) => {
                 return (
                   <Select.Option key={index} value={option.id}>
                     {option.name}

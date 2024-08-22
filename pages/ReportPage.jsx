@@ -14,13 +14,13 @@ import ReportGallery from "../components/ui/Report/ReportGallery";
 const ReportPage = () => {
   const { id } = useParams();
   const { data, error } = useGetReport(id);
-  console.log(data);
+  console.log();
   // Popover Content
   const uploadHandler = (e) => {
     console.log(e.file.response);
     console.log(e.file.status);
   };
-  
+
   const data2 = { project: "پروژه 1 ", title: "موضوع گزارش" };
   return (
     <div className="container-grid ">
@@ -32,8 +32,11 @@ const ReportPage = () => {
           title={data2.title}
           project={data2.project}
         />
-        <ShowFiles />
-        <ReportGallery />
+        <ShowFiles
+          action="/api/report/uploadFile"
+          data={{ id: data?._id, file: data?.files }}
+        />
+        <ReportGallery id={data?._id} data = { data?.files} />
         <div className="mt-4 px-4  flex items-center justify-center ">
           <CustomButton className="py-5 lg:p-7 ">
             <Link to={`projects/${2}`}>نمایش پروژه مرتبط </Link>

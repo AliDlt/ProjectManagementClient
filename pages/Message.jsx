@@ -9,8 +9,6 @@ import CustomButton from "../components/modules/CustomButton";
 import { MdDelete } from "react-icons/md";
 
 const Message = () => {
-  const ref = useRef(null);
-  const refOrginal = useRef(null);
   const { id } = useParams();
   const [page, setPage] = useState(1);
   const { data, error } = useGetTicket(id);
@@ -18,6 +16,7 @@ const Message = () => {
   const {
     data: messages,
     error: errorMessage,
+
     isPending,
   } = useGetMessages(id, page);
 
@@ -26,14 +25,17 @@ const Message = () => {
   };
 
   useEffect(() => {
-    if (messages?.data.ticket[0].messages) {
-      
-      setAllMessages((prevMessages) => [
-        ...messages.data.ticket[0].messages,
-        ...prevMessages,
-      ]);
+    if (messages?.data.ticket.messages) {
+      const newArr = [...messages.data.ticket.messages].reverse();
+      setAllMessages((prevMessages) => [...newArr, ...prevMessages]);
     }
   }, [messages]);
+  console.log();
+  const addMessage = (e) => {
+    console.log("first");
+    setAllMessages((prev) => [...prev, e.data.data.replyTicket.messages[0]]);
+    return;
+  };
 
   if (isPending && page === 1)
     return (
@@ -48,27 +50,26 @@ const Message = () => {
     <div className="container-grid w-full relative">
       <div className="col-span-1 lg:col-span-11 flex flex-col">
         <div className="sticky flex justify-between items-center font-bold mb-4 top-24 col-span-11 bg-white p-4 rounded-custom border-4 border-custom-primary-color z-50">
-          <h5>عنوان : {data?.data.ticket[0].title}</h5>
+          <h5>عنوان : {data?.data.ticket.title}</h5>
           <CustomButton>
             <MdDelete />
           </CustomButton>
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-center">
-            <CustomButton onClick={loadMore}>بارگزاری بیشتر</CustomButton>
+            <CustomButton loading={isPending} onClick={loadMore}>
+              بارگزاری بیشتر
+            </CustomButton>
           </div>
           {allMessages?.map((message, index) => {
-            {
-              console.log();
-            }
             return (
-              <div ref={allMessages.length === index + 1 ? ref : refOrginal}>
-                <TextMessage key={index} message={message} />
+              <div key={index}>
+                <TextMessage message={message} />
               </div>
             );
           })}
         </div>
-        <NewMessage />
+        <NewMessage addMessage={addMessage} />
       </div>
     </div>
   );
