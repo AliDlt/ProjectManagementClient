@@ -26,6 +26,7 @@ import AddUser from "../pages/AddUser";
 import AddReport from "../pages/AddReport";
 // import AddNewProject from "../pages/AddNewProject";
 import SingleProjectPage from "../pages/SingleProjectPage";
+import AddMessage from "../pages/AddMessage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -112,6 +113,7 @@ function App() {
                 <Route path="/reports/:id" element={<ReportPage />} />
                 <Route path="/add-report" element={<AddReport />} />
                 <Route path="/messages" element={<Messages />} />
+                <Route path="/add-ticket" element={<AddMessage />} />
                 <Route path="/message/:id" element={<Message />} />
                 <Route path="/projects" element={<ProjectsPage />} />
                 {/* <Route
