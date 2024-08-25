@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
 import CustomButton from "../../modules/CustomButton";
 import CustomLoading from "../../modules/CustomLoading";
-import { Empty, Progress } from "antd";
+import { Empty } from "antd";
 import useProjects from "../../../hooks/projects/useProjects";
 import { useNavigate } from "react-router-dom";
+import ProjectProgress from "../projects/ProjectProgress";
 
 function ProjectSection() {
   const { data, isLoading, error } = useProjects(2);
@@ -34,28 +35,49 @@ function ProjectSection() {
           className="flex flex-col justify-center items-center h-[302px]"
         />
       )}
-      {!isLoading &&
-        !!data?.projects?.length &&
-        data?.projects?.map((project, index) => (
-          <Fragment key={project._id}>
-            <ProjectItems
-              projectName={project.name}
-              progressColors={
-                index % 2 === 0
-                  ? ["#15ABFF", "#E5F6FF"]
-                  : ["#F1A25B", "#FDECDE"]
-              }
-              progressValue={project.progress}
-              projectStatus={project.situation}
-            />
-            {index + 1 !== data?.projects?.length && (
-              <hr className="my-5 border-0 h-[1px] bg-black/50 lg:my-8" />
-            )}
-          </Fragment>
-        ))}
+      <div className="flex flex-col lg:flex-row justify-between my-5 xl:flex-col">
+        {!isLoading &&
+          !!data?.projects?.length &&
+          data?.projects?.map((project, index) => (
+            <Fragment key={project._id}>
+              <div className="flex flex-col sm:flex-row gap-5 justify-start items-center lg:flex-row">
+                <ProjectProgress
+                  projectIndex={index}
+                  progress={project.progress}
+                  className="[&_.ant-progress-inner]:!size-20 [&_.ant-progress-inner]:xl:!size-28 [&_.ant-progress-inner]:sm:!size-32"
+                />
+                <div className="flex flex-col gap-1.5 text-14 lg:text-16 w-full">
+                  <div className="flex items-center gap-1">
+                    <span className="font-bold">پروژه</span>
+                    <span>{project._id}</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-nowrap">
+                    <span className="font-bold">عنوان پروژه : </span>
+                    <span className="truncate max-w-16">{project.name}</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-nowrap lg:w-[228px] truncate">
+                    <span className="font-bold">مدیر پروژه : </span>
+                    <span className="truncate max-w-28">
+                      {project.createdBy.name} {project.createdBy.surName}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1 text-nowrap">
+                    <span className="font-bold">توضیحات پروژه : </span>
+                    <span className="truncate max-w-28">
+                      {project.description}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              {index + 1 !== data?.projects?.length && (
+                <hr className="my-5 border-0 h-[1px] bg-black/50 lg:my-8" />
+              )}
+            </Fragment>
+          ))}
+      </div>
       {!isLoading && !!data?.projects?.length && (
         <CustomButton
-          className="self-start text-sm"
+          className="self-end text-sm"
           onClick={() => navigate("/projects")}
         >
           دیگر پروژه ها
@@ -66,40 +88,3 @@ function ProjectSection() {
 }
 
 export default ProjectSection;
-
-// Project Item
-const ProjectItems = ({
-  projectName,
-  projectStatus,
-  progressColors,
-  progressValue,
-}) => {
-  return (
-    <div className="flex justify-between items-center">
-      <span className="text-xs sm:text-lg font-bold lg:text-xl xl:text-base 2xl:text-xl">
-        {projectName}
-      </span>
-      <Progress
-        className="[&_.ant-progress-inner]:!size-20 [&_.ant-progress-inner]:md:!size-28 [&_.ant-progress-inner]:xl:!size-28"
-        showInfo={false}
-        strokeLinecap="butt"
-        type="circle"
-        percent={progressValue}
-        strokeWidth={15}
-        strokeColor={progressColors[0]}
-        trailColor={progressColors[1]}
-      />
-      <div className="flex flex-col items-center gap-2">
-        <span
-          className="font-extrabold text-2xl 2xl:text-4xl"
-          style={{
-            color: progressColors[0],
-          }}
-        >
-          {progressValue}%
-        </span>
-        <span className="text-xs sm:text-lg lg:text-base">{projectStatus}</span>
-      </div>
-    </div>
-  );
-};

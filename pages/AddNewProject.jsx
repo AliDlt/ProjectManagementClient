@@ -46,9 +46,17 @@ function AddNewProject() {
   };
 
   return (
-    <section className="container lg:col-span-9 2xl:col-span-10 flex flex-col">
-      <h1 className=" text-24 lg:text-32">پروژه جدید</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 flex flex-col"
+    >
+      <div className="flex justify-between items-center">
+        <h1 className=" text-24 lg:text-32">پروژه جدید</h1>
+        <CustomButton type="submit" loading={isPending}>
+          ثبت پروژه
+        </CustomButton>
+      </div>
+      <div>
         {/* Project Info */}
         <div className="bg-white p-5 border-2 border-custom-primary-color rounded-custom mt-10 xl:flex xl:gap-10 xl:justify-between">
           <div>
@@ -81,7 +89,18 @@ function AddNewProject() {
                 />
               </div>
             </div>
-            <div className="flex  items-center mt-7 flex-wrap gap-3 xl:order-1">
+            <div className="flex justify-center flex-wrap items-center gap-2 mt-7">
+              <span>محل پروژه</span>
+              <CustomInput
+                control={control}
+                name="location"
+                className="px-2 py-0.5 md:max-w-96"
+                noErrorMessage
+                error={errors.location}
+                containerClassName="flex-1"
+              />
+            </div>
+            <div className="flex  items-center mt-7 flex-wrap gap-5 xl:order-1">
               <div className="flex  justify-center items-center flex-wrap gap-2">
                 <span>نام پروژه </span>
                 <CustomInput
@@ -90,16 +109,6 @@ function AddNewProject() {
                   className="px-2 py-0.5 w-24 md:w-40"
                   noErrorMessage
                   error={errors.name}
-                />
-              </div>
-              <div className="flex justify-center flex-wrap items-center gap-2">
-                <span>محل پروژه</span>
-                <CustomInput
-                  control={control}
-                  name="location"
-                  className="px-2 py-0.5 w-24 md:w-40"
-                  noErrorMessage
-                  error={errors.location}
                 />
               </div>
               <div className="flex justify-center flex-wrap items-center gap-2">
@@ -116,9 +125,10 @@ function AddNewProject() {
               </div>
             </div>
           </div>
-          <div className="mt-10 xl:mt-0 xl:order-3 xl:w-96 flex flex-col gap-2">
+          <div className="mt-10 xl:mt-0 xl:order-3 flex-1 flex flex-col gap-2 2xl:mr-20">
             <span>توضیحات پروژه</span>
             <CustomTextAria
+            className="flex-1"
               control={control}
               name="description"
               error={errors?.description}
@@ -135,17 +145,7 @@ function AddNewProject() {
           }}
           emptyText="کاربری انتخاب نشده"
         />
-        {/* Project Gallery */}
-        <div className="flex justify-center items-center">
-          <CustomButton
-            className="mt-7 w-36 h-12 mx-auto p-6"
-            type="submit"
-            loading={isPending}
-          >
-            ثبت پروژه
-          </CustomButton>
-        </div>
-      </form>
+      </div>
       <CustomConfirm
         title="بارگزاری عکس و فیلم"
         okText="بله"
@@ -163,7 +163,7 @@ function AddNewProject() {
       />
       {/* Meta Tag */}
       <MetaTag title="ایجاد پروژه" description="ایجاد پروژه جدید" />
-    </section>
+    </form>
   );
 }
 

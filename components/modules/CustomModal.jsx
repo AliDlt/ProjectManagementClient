@@ -1,12 +1,16 @@
 import React from "react";
 import { Modal } from "antd";
 import { IoCloseSharp } from "react-icons/io5";
+import cn from "../../utils/cn";
 
-const CustomModal = ({ title, children, open, onCancel }) => {
+const CustomModal = ({ title, children, open, onCancel, className }) => {
   return (
     <Modal
       classNames={{
-        content: "ring-2 ring-custom-primary-color rounded-custom",
+        content: cn([
+          "ring-2 ring-custom-primary-color rounded-custom",
+          className,
+        ]),
       }}
       closeIcon={null}
       open={open}

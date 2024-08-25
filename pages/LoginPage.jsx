@@ -89,7 +89,7 @@ const LoginPage = () => {
         </Link>
       </div>
       {/* Meta Tag */}
-      <MetaTag title="ورود" description="ورود به برنامه مدیریت پروژه" />
+      <MetaTag title="ورود / سمپ" description="ورود به برنامه مدیریت پروژه" />
     </>
   );
 };

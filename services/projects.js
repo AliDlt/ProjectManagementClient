@@ -46,6 +46,17 @@ export const updateProject = async (projectInfo, id) => {
   return res.data;
 };
 
+// Upload Project File
+export const uploadProjectFile = async (file) => {
+  const res = await http.post("/project/uploadFile", file, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return res.data;
+};
+
 // Add New Project
 export const addNewProject = async (project) => {
   const res = await http.post("/project/addProject", project);
@@ -58,6 +69,13 @@ export const deleteProject = async (projectId) => {
   const res = await http.delete("/project/deleteProject", {
     params: projectId,
   });
+
+  return res.data;
+};
+
+// Get Project Files
+export const getProjectFiles = async (data) => {
+  const res = await http.post("/project/downloadFile", data);
 
   return res.data;
 };

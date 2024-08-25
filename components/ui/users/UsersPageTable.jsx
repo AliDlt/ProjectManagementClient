@@ -33,20 +33,19 @@ function UsersPageTable({ users, loading }) {
         loading={loading}
         className="h-[410px]"
         paginationClassName="!mt-auto"
+        onRow={(record) => {
+          return {
+            onClick: () => {
+              navigate(`/users/${record.key}`);
+            },
+          };
+        }}
       >
         <Column
           title="نام و نام خانوادگی"
           dataIndex="fullName"
           key="fullName"
           width={100}
-          render={(fullName, record) => (
-            <Link
-              to={`/users/${record.key}`}
-              className="cursor-pointer flex justify-center"
-            >
-              {fullName}
-            </Link>
-          )}
         />
         <Column
           title="شماره تماس "
@@ -75,12 +74,16 @@ function UsersPageTable({ users, loading }) {
               <MdModeEdit
                 className="text-custom-primary-color cursor-pointer"
                 size={23}
-                onClick={() => navigate(`/users/${record.key}`)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/users/${record.key}`);
+                }}
               />
               <FaTrash
                 className="text-custom-primary-color cursor-pointer"
                 size={20}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   userId.current = record.key;
                   setOpen(true);
                 }}

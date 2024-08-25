@@ -16,15 +16,13 @@ import UsersPage from "../pages/UsersPage";
 import ProjectsPage from "../pages/ProjectsPage";
 import ReportsPage from "../pages/ReportsPage";
 import Messages from "../pages/Messages";
-import dayjs from "dayjs";
-import jalaliday from "jalaliday";
 import SettingPage from "../pages/SettingPage";
 import ReportPage from "../pages/ReportPage";
-import calendar from "dayjs/plugin/calendar";
 import Message from "../pages/Message";
 import AddUser from "../pages/AddUser";
 import AddNewProject from "../pages/AddNewProject";
 import SingleProjectPage from "../pages/SingleProjectPage";
+import SingleProjectGallery from "../pages/SingleProjectGallery";
 
 function App() {
   const queryClient = new QueryClient({
@@ -35,11 +33,6 @@ function App() {
       },
     },
   });
-
-  // Days Config
-  dayjs.extend(calendar);
-  dayjs.extend(jalaliday);
-  dayjs.calendar("jalali");
 
   return (
     <ToastMessageProvider>
@@ -117,6 +110,10 @@ function App() {
                   element={<AddNewProject />}
                 />
                 <Route path="/projects/:id" element={<SingleProjectPage />} />
+                <Route
+                  path="/projects/gallery/:projectId"
+                  element={<SingleProjectGallery />}
+                />
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="/users/:id" element={<UserPage />} />
               </Route>

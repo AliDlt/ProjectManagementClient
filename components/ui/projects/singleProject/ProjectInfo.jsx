@@ -1,4 +1,4 @@
-import { Slider } from "antd";
+import { Progress, Slider } from "antd";
 import React, { useState } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { useForm } from "react-hook-form";
@@ -12,11 +12,19 @@ import CustomModal from "../../../modules/CustomModal";
 import CustomInput from "../../../modules/CustomInput";
 import useUpdateProject from "../../../../hooks/projects/useUpdateProject";
 import CustomDatePicker from "../../../modules/CustomDatePicker";
+import cn from "../../../../utils/cn";
 
 function ProjectInfo({ projectInfoData }) {
   const { user, isLoading } = useUser();
-  const { startDate, endDate, progress, _id, location, createdBy } =
-    projectInfoData;
+  const {
+    startDate,
+    endDate,
+    progress,
+    _id,
+    location,
+    createdBy,
+    description,
+  } = projectInfoData;
   const [open, setOpen] = useState(false);
   const { mutateAsync } = useUpdateProject(_id);
   const toast = useToast();
@@ -51,67 +59,55 @@ function ProjectInfo({ projectInfoData }) {
   };
 
   return (
-    <div className="flex flex-wrap bg-white p-5 border-2 border-custom-primary-color rounded-custom mt-10 gap-5 ">
-      <div className="grid grid-cols-1 text-14 gap-3 xl:grid-cols-2 xl:gap-x-10 items-center xl:text-16 2xl:gap-x-5 ">
-        <div className="flex flex-wrap lg:order-3">
-          <span>تاریخ شروع پروژه : </span>&nbsp;
-          <span>{dayjs(startDate).format("YYYY/MM/DD")}</span>
-        </div>
-        <div className="flex flex-wrap lg:order-4">
-          <span>تاریخ پایان پروژه :</span>&nbsp;
-          <span>{dayjs(endDate).format("YYYY/MM/DD")}</span>
-        </div>
-        <div className="flex flex-wrap lg:order-1 2xl:order-2">
-          <span>محل پروژه : </span>&nbsp;
-          <span>{location}</span>
-        </div>
-        <div className="flex flex-wrap lg:order-2 2xl:order-1">
-          <span>مدیر پروژه : </span>&nbsp;
-          <span>
-            {createdBy.name} {createdBy.surName}
-          </span>
+    <div className="flex flex-col bg-white p-5 border-2 border-custom-primary-color rounded-custom mt-10 relative gap-10">
+      <div className="flex flex-col sm:flex-row w-full gap-5">
+        <Progress
+          className={cn([
+            "[&_.ant-progress-inner]:!size-20 [&_.ant-progress-inner]:xl:!size-32 [&_.ant-progress-text]:text-custom-primary-color",
+          ])}
+          strokeLinecap="butt"
+          type="circle"
+          percent={progress}
+          strokeWidth={15}
+          strokeColor={"rgb(var(--primary-color))"}
+          trailColor={"rgb(var(--primary-color) / 0.2)"}
+        />
+        <div className=" grid grid-cols-1 min-[470px]:grid-cols-2 text-14 gap-3 sm:grid-cols-2 xl:grid-cols-3 items-center xl:text-16 2xl:gap-x-5  sm:ml-14">
+          <div className="flex text-nowrap ">
+            <span>تاریخ شروع پروژه : </span>&nbsp;
+            <span>{dayjs(startDate).format("YYYY/MM/DD")}</span>
+          </div>
+          <div className="flex text-nowrap ">
+            <span>تاریخ پایان پروژه :</span>&nbsp;
+            <span>{dayjs(endDate).format("YYYY/MM/DD")}</span>
+          </div>
+          <div className="flex flex-1 text-nowrap">
+            <span>مدیر پروژه : </span>&nbsp;
+            <span>
+              {createdBy.name} {createdBy.surName}
+            </span>
+          </div>
+          <div className="flex flex-wrap  flex-1 col-span-full">
+            <span>محل پروژه : </span>&nbsp;
+            <span>{location}</span>
+          </div>
         </div>
       </div>
-      <div className="flex flex-col justify-between items-end gap-8 flex-[1_1_100px] xl:flex-row-reverse xl:justify-start xl:items-center 2xl:gap-28">
-        {!isLoading && user.userRole !== 2 && (
-          <CustomButton
-            className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group"
-            onClick={() => setOpen(true)}
-          >
-            <MdModeEdit
-              size={25}
-              className="text-custom-primary-color rounded-full group-hover:text-white"
-            />
-          </CustomButton>
-        )}
-        <div className="w-full flex flex-col gap-2 md:w-72 xl:flex-col-reverse ">
-          <Slider
-            className="m-0"
-            classNames={{
-              track: "h-[10px] rounded-tl-full rounded-bl-full",
-              rail: "h-[10px] rounded-full",
-              handle: "after:bg-custom-secondary-color-300  mt-[3px]",
-            }}
-            defaultValue={progress}
-            value={progress}
-            disabled
-            tooltip={{
-              className: "ant-slider-tooltip",
-              open: true,
-              color: "white",
-              overlayInnerStyle: {
-                color: "rgba(var(--secondary-color))",
-                boxShadow: "none",
-                border: "1px solid rgba(var(--secondary-color))",
-                padding: "4px",
-              },
-              formatter: (value) => value + "%",
-              zIndex: "0",
-            }}
+      <div className="flex flex-wrap gap-2 lg:order-2 2xl:order-1">
+        <span> توضیحات پروژه : </span>&nbsp;
+        <span>{description}</span>
+      </div>
+      {!isLoading && user.userRole !== 2 && (
+        <CustomButton
+          className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group absolute top-4 left-4 z-10"
+          onClick={() => setOpen(true)}
+        >
+          <MdModeEdit
+            size={25}
+            className="text-custom-primary-color rounded-full group-hover:text-white"
           />
-          <span className="text-12 mr-auto">درصد پیشرفت پروژه</span>
-        </div>
-      </div>
+        </CustomButton>
+      )}
       <CustomModal
         title="تغییر اطلاعات پروژه"
         open={open}
@@ -145,30 +141,30 @@ function ProjectInfo({ projectInfoData }) {
               />
             </div>
           </div>
-          <div className="flex justify-between items-center mt-7">
-            <div className="flex justify-center flex-wrap items-center gap-2">
-              <span>محل پروژه</span>
-              <CustomInput
-                control={control}
-                name="location"
-                className="px-2 py-0.5 w-24 md:w-40"
-                placeholder="تهران"
-                noErrorMessage
-              />
-            </div>
-            <div className="flex justify-center flex-wrap items-center gap-2">
-              <span>درصد پیشرفت پروژه</span>
-              <CustomInput
-                control={control}
-                name="progress"
-                className="px-2 py-0.5 w-16"
-                placeholder="100"
-                type="number"
-                icon={"%"}
-                error={errors.progress}
-                noErrorMessage
-              />
-            </div>
+          <div className="flex justify-center flex-wrap items-center gap-2 mt-5">
+            <span>محل پروژه</span>
+            <CustomInput
+              containerClassName="flex-1"
+              control={control}
+              name="location"
+              className="px-2 py-0.5"
+              placeholder="تهران"
+              noErrorMessage
+            />
+          </div>
+          <div className="flex justify-center flex-wrap items-center gap-2 mt-5">
+            <span>درصد پیشرفت پروژه</span>
+            <CustomInput
+              containerClassName="flex-1"
+              control={control}
+              name="progress"
+              className="px-2 py-0.5 w-16"
+              placeholder="100"
+              type="number"
+              icon={"%"}
+              error={errors.progress}
+              noErrorMessage
+            />
           </div>
           <CustomButton className="mt-7" type="submit">
             ثبت تغییرات
