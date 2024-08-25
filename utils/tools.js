@@ -1,5 +1,9 @@
 import dayjs from "dayjs";
 
+import { FaFileArchive, FaFileWord } from "react-icons/fa";
+import { FaFilePdf } from "react-icons/fa6";
+import { MdTextSnippet } from "react-icons/md";
+
 export const maskPhoneNumber = (phoneNumber) => {
   if (phoneNumber.length === 11) {
     return phoneNumber.replace(/(\d{4})(\d{4})(\d{3})/, "$1****$3");
@@ -43,3 +47,4 @@ export const convertToLocalDate = (date) => {
     numberingSystem: "latn",
   });
 };
+

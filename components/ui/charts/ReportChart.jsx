@@ -1,21 +1,58 @@
 import React, { useEffect, useState } from "react";
 import ApexCharts from "react-apexcharts";
 
-const ReportChart = () => {
+const ReportChart = ({ data }) => {
   const [series, setSeries] = useState([
     {
       name: "گزارش",
       data: [
-        { x: "شنبه", y: 20 },
-        { x: "یک شنبه", y: 30 },
-        { x: "دو شنبه", y: 30 },
-        { x: "سه شنبه", y: 10 },
-        { x: "چهار شنبه", y: 50 },
-        { x: "پنج شنبه", y: 20 },
-        { x: "جمعه", y: 30 },
+        { x: "شنبه", y: 0 },
+        { x: "یک شنبه", y: 0 },
+        { x: "دو شنبه", y: 0 },
+        { x: "سه شنبه", y: 0 },
+        { x: "چهار شنبه", y: 0 },
+        { x: "پنج شنبه", y: 0 },
+        { x: "جمعه", y: 0 },
       ],
     },
   ]);
+
+  const updateSeries = (isMobile) => {
+    const days = isMobile
+      ? ["ش", "ی", "د", "س", "چ", "پ", "ج"]
+      : [
+          "شنبه",
+          "یک شنبه",
+          "دو شنبه",
+          "سه شنبه",
+          "چهار شنبه",
+          "پنج شنبه",
+          "جمعه",
+        ];
+
+    setSeries([
+      {
+        name: "گزارش",
+        data: days.map((day, index) => ({
+          x: day,
+          y: data ? data[index] || 0 : 0,
+        })),
+      },
+    ]);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      updateSeries(window.innerWidth <= 500);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Call it initially to set the correct state
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [data]);
 
   const options = {
     dataLabels: {
@@ -32,7 +69,7 @@ const ReportChart = () => {
     chart: {
       fontFamily: "estedad",
       toolbar: {
-        show: false, // Hide the toolbar
+        show: false,
       },
       type: "bar",
     },
@@ -45,50 +82,14 @@ const ReportChart = () => {
         },
       },
     },
+    yaxis: {
+      labels: {
+        formatter: function (value) {
+          return Math.round(value);
+        },
+      },
+    },
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 480) {
-        setSeries([
-          {
-            name: "گزارش",
-            data: [
-              { x: "ش", y: 20 },
-              { x: "ی", y: 30 },
-              { x: "د", y: 30 },
-              { x: "س", y: 10 },
-              { x: "چ", y: 50 },
-              { x: "پ", y: 20 },
-              { x: "ج", y: 30 },
-            ],
-          },
-        ]);
-      } else {
-        setSeries([
-          {
-            name: "گزارش",
-            data: [
-              { x: "شنبه", y: 20 },
-              { x: "یک شنبه", y: 30 },
-              { x: "دو شنبه", y: 30 },
-              { x: "سه شنبه", y: 10 },
-              { x: "چهار شنبه", y: 50 },
-              { x: "پنج شنبه", y: 20 },
-              { x: "جمعه", y: 30 },
-            ],
-          },
-        ]);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Call it initially to set the correct state
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   return (
     <ApexCharts options={options} series={series} type="bar" height={330} />

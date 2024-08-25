@@ -5,7 +5,6 @@ const useGetMessages = (id, page) => {
   return useQuery({
     queryKey: ["messages-ticket", id, page],
     queryFn: () => getMessagesById(id, page),
-    keepPreviousData: true,
   });
 };
 

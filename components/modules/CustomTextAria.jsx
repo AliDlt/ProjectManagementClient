@@ -6,6 +6,7 @@ import { Controller } from "react-hook-form";
 const CustomTextAria = ({
   rows,
   className,
+  value,
   error,
   placeholder,
   control,
@@ -15,9 +16,11 @@ const CustomTextAria = ({
   noErrorMessage = false,
 }) => {
   if (!control) {
+    console.log(value);
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 w-full ">
         <TextArea
+          value={value}
           onBlurCapture={() => {
             onBlur && onBlur();
           }}

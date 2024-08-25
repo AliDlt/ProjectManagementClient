@@ -2,10 +2,10 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
 import { deleteReport } from "../../services/reports";
 
-const useDeleteReport = (id) => {
+const useDeleteReport = () => {
   return useMutation({
     mutationKey: ["delete-report"],
-    onMutate: () => deleteReport(id),
+    mutationFn: deleteReport,
   });
 };
 

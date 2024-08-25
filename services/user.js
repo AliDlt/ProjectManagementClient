@@ -1,7 +1,7 @@
 import http from "./http";
 
 export const userInfo = async (id) => {
-  const response = await http.get(`/user/getUserById?id=${id}`);
+  const response = await http.get(`/user/getUserById}`, { id: id });
   return response.data;
 };
 

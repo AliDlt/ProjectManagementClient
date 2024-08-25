@@ -10,9 +10,9 @@ import { useParams } from "react-router-dom";
 import { useToast } from "../../../Context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
 
-const NewMessage = () => {
+const NewMessage = ({ addMessage }) => {
   const { id } = useParams();
-  const queryClient = useQueryClient();
+
   const {
     control,
     handleSubmit,
@@ -21,10 +21,10 @@ const NewMessage = () => {
   } = useForm({ mode: "onChange", resolver: yupResolver(messageSchema) });
   const { mutate, error, isPending } = useSendMessage();
   const toast = useToast();
-  const successMessage = () => {
+  const successMessage = (e) => {
     toast("پیام با موفقیت ارسال شد", "success");
-    queryClient.invalidateQueries("single-message", id);
     setValue("messageText", "");
+    addMessage(e);
   };
   const submitMessage = (e) => {
     mutate(
@@ -36,16 +36,18 @@ const NewMessage = () => {
     <div className="  flex flex-col gap-3 mt-4 sticky bottom-0 w-full  left-0   ">
       <form
         onSubmit={handleSubmit(submitMessage)}
-        className="flex w-full gap-2 border-t-2 px-2   border-b-2 bg-white border-custom-primary-color lg:border-4 lg:rounded-custom"
+        className="flex w-full gap-2 border-t-2 px-2  border-b-2 bg-white border-custom-primary-color lg:border-4 lg:rounded-custom"
       >
-        <CustomTextAria
-          placeholder="پیام خود را بنوسید"
-          className="p-3 border-none"
-          control={control}
-          rows={2}
-          name="messageText"
-          error={errors["messageText"]}
-        />
+        <div className="w-full">
+          <CustomTextAria
+            placeholder="پیام خود را بنوسید"
+            className="p-3 border-none outline-none "
+            control={control}
+            rows={2}
+            name="messageText"
+            error={errors["messageText"]}
+          />
+        </div>
         <div className="flex items-center justify-center">
           <CustomButton
             loading={isPending}

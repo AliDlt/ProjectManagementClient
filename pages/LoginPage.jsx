@@ -43,10 +43,10 @@ const LoginPage = () => {
       <div className="flex justify-center items-center size-44 mx-auto">
         <Logo />
       </div>
-      <h3 className="md:text-20 mt-16">به سمپ خوش آمدید</h3>
+      <h3 className="md:text-20 mt-10">به سمپ خوش آمدید</h3>
       <form
         onSubmit={handleSubmit(submitLogin)}
-        className="flex flex-col gap-6 mt-8"
+        className="flex flex-col gap-6 mt-3"
       >
         {/* Phone number */}
         <CustomInput
@@ -71,7 +71,9 @@ const LoginPage = () => {
             رمز عبور خود را فراموش کردید؟
           </Link>
           {/* Remember me */}
-          <Checkbox>به خاطر بسپر </Checkbox>
+          <Checkbox>
+            من را به خاطر بسپار
+          </Checkbox>
         </div>
         {/* Submit button */}
         <CustomButton

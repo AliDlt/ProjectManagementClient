@@ -23,7 +23,8 @@ import ReportPage from "../pages/ReportPage";
 import calendar from "dayjs/plugin/calendar";
 import Message from "../pages/Message";
 import AddUser from "../pages/AddUser";
-import AddNewProject from "../pages/AddNewProject";
+import AddReport from "../pages/AddReport";
+// import AddNewProject from "../pages/AddNewProject";
 import SingleProjectPage from "../pages/SingleProjectPage";
 
 function App() {
@@ -109,13 +110,14 @@ function App() {
                 <Route path="/reports" element={<ReportsPage />} />
                 <Route path="/add-user" element={<AddUser />} />
                 <Route path="/reports/:id" element={<ReportPage />} />
+                <Route path="/add-report" element={<AddReport />} />
                 <Route path="/messages" element={<Messages />} />
                 <Route path="/message/:id" element={<Message />} />
                 <Route path="/projects" element={<ProjectsPage />} />
-                <Route
+                {/* <Route
                   path="/projects/new-project"
                   element={<AddNewProject />}
-                />
+                /> */}
                 <Route path="/projects/:id" element={<SingleProjectPage />} />
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="/users/:id" element={<UserPage />} />

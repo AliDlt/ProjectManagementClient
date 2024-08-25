@@ -12,7 +12,6 @@ export const getAllProjects = async (
 
   return res.data;
 };
-
 // Get A Project
 export const getProject = async (projectId = "", search = "") => {
   const res = await http.get(

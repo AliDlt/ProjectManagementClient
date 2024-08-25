@@ -7,7 +7,9 @@ export default function CustomInput({
   icon,
   placeholder,
   className,
+  onChange,
   name,
+  value,
   control,
   error = false,
   type,
@@ -17,6 +19,8 @@ export default function CustomInput({
   if (!control) {
     return (
       <Input
+        onChange={(e) => onChange(e)}
+        value={value}
         dir="rtl"
         type={type}
         classNames={{

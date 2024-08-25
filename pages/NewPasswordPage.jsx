@@ -6,9 +6,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { resetPasswordSchema } from "../yup/yup";
 import { resetPassword } from "../services/auth";
 import { useToast } from "../Context/ToastContext";
+import { useNavigate } from "react-router-dom";
 
-const NewPasswordPage = ({ phoneNumber }) => {
+const NewPasswordPage = ({ phoneNumber, otpCode }) => {
   const [loading, setLoading] = useState(false);
+  console.log(otpCode);
   const {
     control,
     handleSubmit,
@@ -17,13 +19,21 @@ const NewPasswordPage = ({ phoneNumber }) => {
     mode: "onChange",
     resolver: yupResolver(resetPasswordSchema),
   });
+  const navigate = useNavigate()
   const toast = useToast();
-  const confirmResetPassword = async ({ password }) => {
-    setLoading(true);
+  const confirmResetPassword = async ({ password, passwordConfirmation }) => {
+    console.log(otpCode.current);
     try {
-      const response = await resetPassword({ phoneNumber, password });
-      toast(response.message, "success");
+      const response = await resetPassword({
+        phoneNumber,
+        password,
+        confirmPassword: passwordConfirmation,
+        otpCode: otpCode.current,
+      })
+      toast(response.data.message, "success");
+      navigate('/auth/login')
     } catch (error) {
+
       toast(error.response.data.message, "error");
     } finally {
       setLoading(false);

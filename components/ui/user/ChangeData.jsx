@@ -15,9 +15,12 @@ import CustomSelectInput from "../../modules/CustomSelectInput";
 
 const ChangeData = ({ type, value, setShow, title, userId }) => {
   // Create a schema for the specific type
+
   const fieldSchema = yup.object({
     [type]: signupSchema.fields[type],
   });
+  console.log(type);
+  console.log(fieldSchema.fields[type]);
   const toast = useToast();
   const queryClient = useQueryClient();
 
@@ -40,12 +43,16 @@ const ChangeData = ({ type, value, setShow, title, userId }) => {
     defaultValues: { [type]: value },
     resolver: yupResolver(fieldSchema),
   });
+  console.log(errors.name);
   const { id } = useParams();
   const { mutate, isPending } = useUpdateUser();
 
   const updateData = (data) => {
     const idCustom = id ? id : userId;
-    mutate({ data, id: idCustom }, { onSuccess: success });
+    mutate(
+      { data: { ...data, id: `${idCustom}` }, id: idCustom },
+      { onSuccess: success, onError: (e) => console.log(e) },
+    );
   };
 
   return (
@@ -59,10 +66,10 @@ const ChangeData = ({ type, value, setShow, title, userId }) => {
           {type !== "userRole" ? (
             <>
               <CustomInput
-                className="p-2"
+                className="p-2 "
                 placeholder={title}
                 control={control}
-                error={errors}
+                error={errors[type]}
                 name={type}
               />
             </>

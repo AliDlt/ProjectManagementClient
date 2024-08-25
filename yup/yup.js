@@ -139,11 +139,10 @@ export const addUserSchema = Yup.object({
   userRole: Yup.number().required("این فیلد اجباری است "),
 });
 
-// New Project Schema
-export const addNewProjectSchema = Yup.object({
-  name: Yup.string().required(""),
-  description: Yup.string().required("این فیلد اجباری است"),
-  startDate: Yup.string().required(""),
-  endDate: Yup.string().required(""),
-  location: Yup.string().required(""),
+export const addReportSchema = Yup.object({
+  name: Yup.string()
+    .min(3, "حد اقل 3 کارکتر")
+    .required("این فیلد اجباری است."),
+  description: Yup.string().required("این فیلد اجباری است."),
+  project: Yup.object().required("یک پروژه برای گزارش انتخاب کنید"),
 });
