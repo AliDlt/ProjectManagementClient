@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import CustomButton from "../../modules/CustomButton";
 
-import { Popover } from "antd";
+import { Empty, Popover } from "antd";
 import { BsExclamationLg } from "react-icons/bs";
 import CustomUpload from "../../modules/CustomUpload";
 import Files from "../Files";
@@ -12,6 +12,8 @@ import { FaFile } from "react-icons/fa6";
 import CustomModal from "../../modules/CustomModal";
 import CustomTextAria from "../../modules/CustomTextAria";
 import CustomInput from "../../modules/CustomInput";
+import { SwiperSlide } from "swiper/react";
+import CustomSlideFIle from "../../modules/CustomSlideFIle";
 const popoverContent = (
   <div className="flex flex-col gap-2 text-12">
     <p>اسناد با حجم حد اکثر 5 مگابایت</p>
@@ -52,8 +54,26 @@ const ShowFiles = ({ data, action }) => {
           </CustomButton>
         </div>
       </div>
-
-      <Files items={data?.file} />
+      {data?.file?.length ? (
+        <Files>
+          <>
+            {data?.file?.map((item, key) => {
+              return (
+                <SwiperSlide
+                  key={key}
+                  className="flex items-center justify-center"
+                >
+                  <CustomSlideFIle item={item} /> 
+                </SwiperSlide>
+              );
+            })}
+          </>
+        </Files>
+      ) : (
+        <div>
+          <Empty description="سندی وجود ندارد" />
+        </div>
+      )}
 
       <CustomModal onCancel={setShow} open={show} title="بارگزاری فایل">
         <div className="flex gap-4 flex-col">

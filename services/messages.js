@@ -20,3 +20,13 @@ export const getMessagesById = async (id, page) => {
   const resp = await http.get(`/ticket/messages/${id}/?page=${page}&limit=10`);
   return resp.data;
 };
+
+export const addTicket = async (data) => {
+  const res = await http.post("/ticket", data);
+  return res.data;
+};
+
+export const deleteTicket = async (id) => {
+  const res = await http.delete(`/ticket/${id}`);
+  return res.data;
+};

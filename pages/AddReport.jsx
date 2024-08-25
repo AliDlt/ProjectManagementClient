@@ -34,14 +34,13 @@ const AddReport = () => {
     setShow(false);
     delete errors.project;
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const toast = useToast();
   const { mutate, isPending } = useAddReport();
 
   const successAdd = (e) => {
     toast(e.message, "success");
-  navigate(`/reports/${e.data._id}`)
-
+    navigate(`/reports/${e.data._id}`);
   };
 
   const addReport = (e) => {
