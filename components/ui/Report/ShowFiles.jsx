@@ -52,6 +52,7 @@ const ShowFiles = ({ data, action }) => {
           </CustomButton>
         </div>
       </div>
+
       <Files items={data?.file} />
 
       <CustomModal onCancel={setShow} open={show} title="بارگزاری فایل">

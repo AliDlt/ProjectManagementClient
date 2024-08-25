@@ -28,7 +28,7 @@ const ForgetPasswordForm = ({ formData, setStep, step }) => {
           control={control}
           error={errors.phoneNumber}
           name="phoneNumber"
-          className="md:text-2xl md:px-5 py-3"
+          className="md:text-2xl px-3 md:px-5 py-3"
           placeholder="شماره موبایل"
         />
         <CustomButton

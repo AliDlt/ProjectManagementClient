@@ -18,7 +18,7 @@ function AuthContainer() {
         alt="auth image"
       />
       <div className="w-full mb-12 md:m-0 md:flex md:items-center md:justify-center md:min-h-[650px] md:py-10">
-        <div className=" px-8 py-10 md:w-[30rem] md:mt-0 xl:w-[35rem] md:shadow-custom xl:px-16 xl:py-12 md:rounded-custom h-full">
+        <div className=" px-8 py-6 md:w-[30rem] md:mt-0 xl:w-[35rem] md:shadow-custom xl:px-16 xl:py-12 md:rounded-custom h-full">
           <Outlet />
         </div>
       </div>

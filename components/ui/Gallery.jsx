@@ -6,12 +6,8 @@ import { Empty } from "antd";
 import "swiper/css";
 import "swiper/css/pagination";
 import { CiImageOff } from "react-icons/ci";
-import CustomConfirm from "../modules/CustomConfirm";
-import { useState } from "react";
 
 function Gallery({ data, children }) {
-  const [open, setOpen] = useState(false);
-
   return (
     <div>
       <div className="mt-7">
@@ -28,6 +24,9 @@ function Gallery({ data, children }) {
           <Swiper
             className="h-[270px]"
             modules={[Navigation, Pagination]}
+            pagination={{
+              clickable: true,
+            }}
             breakpoints={{
               0: {
                 spaceBetween: 10,

@@ -1,16 +1,27 @@
 import React from "react";
 import ReportChart from "../charts/ReportChart";
 import useChartReportDashboard from "../../../hooks/useChartReportDashboard";
+import CustomLoading from "../../modules/CustomLoading";
 
 const ReportChartSection = () => {
-  const resp = useChartReportDashboard()
-  
+  const { data, error, isLoading } = useChartReportDashboard();
+  console.log(error)
   return (
     <div className="bg-white shadow-custom p-4 lg:p-7  text-lg rounded-custom border-custom-primary-color/50 border-r-4 border-b-4 ">
-      <h3>گزارشات هفتگی</h3>
-      <div className="mt-5 lg:px-6">
-        <ReportChart />
-      </div>
+      {isLoading ? (
+        <>
+          {" "}
+          <CustomLoading />{" "}
+        </>
+      ) : (
+        <>
+          <h3>گزارشات هفتگی</h3>
+          <div className="mt-5 lg:px-6">
+            {console.log(data)}
+            <ReportChart data={data?.data} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

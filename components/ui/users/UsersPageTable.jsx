@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import UsersTable from "./UsersTable";
 import Column from "antd/es/table/Column";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   convertFromInternational,
   convertToLocalDate,
@@ -16,15 +16,24 @@ function UsersPageTable({ users, loading }) {
   const [open, setOpen] = useState(false);
   const userId = useRef();
   const { deleteUserFn, isPending } = useDeleteUser();
+  const navigate = useNavigate();
 
   // Delete User Handler
   const deleteUserHandler = async () => {
-    await deleteUserFn({ id: userId.current });
+    try {
+      await deleteUserFn({ id: userId.current });
+      setOpen(false);
+    } catch (error) {}
   };
 
   return (
     <>
-      <UsersTable users={users} loading={loading}>
+      <UsersTable
+        users={users}
+        loading={loading}
+        className="h-[410px]"
+        paginationClassName="!mt-auto"
+      >
         <Column
           title="نام و نام خانوادگی"
           dataIndex="fullName"
@@ -66,7 +75,7 @@ function UsersPageTable({ users, loading }) {
               <MdModeEdit
                 className="text-custom-primary-color cursor-pointer"
                 size={23}
-                onClick={() => console.log(5)}
+                onClick={() => navigate(`/users/${record.key}`)}
               />
               <FaTrash
                 className="text-custom-primary-color cursor-pointer"
@@ -99,6 +108,7 @@ function UsersPageTable({ users, loading }) {
         cancelText="لغو"
         okHandler={deleteUserHandler}
         description="آیا از حذف این کاربر اطمینان دارید ؟"
+        loading={isPending}
       />
     </>
   );

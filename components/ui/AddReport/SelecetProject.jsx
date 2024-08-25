@@ -16,6 +16,9 @@ const SelectProject = ({ setProject }) => {
     setPage(e);
     console.log(e);
   };
+  const searchValue = (e)=>{
+    setSearch(e.target.value)
+  }
   return (
     <div>
       <div className="pt-3">

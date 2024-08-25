@@ -50,7 +50,7 @@ export default function CustomInput({
             }}
             className={cn([
               "rounded-custom border-2 border-custom-primary-color",
-              error && "border-red-400",
+              error && "border-red-500",
               className,
             ])}
             dir="rtl"

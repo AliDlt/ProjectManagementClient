@@ -1,10 +1,10 @@
-import { Checkbox, Empty, Radio, Select } from "antd";
+import { Empty, Radio, Select } from "antd";
 import React, { useState } from "react";
 import { IoChevronDown } from "react-icons/io5";
 import CustomInput from "../../modules/CustomInput";
 import { GrSearch } from "react-icons/gr";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import CustomButton from "../../modules/CustomButton";
+import { useDebouncedCallback } from "use-debounce";
 
 const sortItems = [
   { value: "surName", label: <span>نام و نام خانوادگی </span> },
@@ -20,11 +20,10 @@ function UsersFilter() {
   const navigate = useNavigate();
 
   // Seach Handler
-  const searchHandler = (event) => {
+  const searchHandler = useDebouncedCallback((event) => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
 
     const value = event.target.value.trim();
-    setSearch(value);
 
     if (!value) {
       current.delete("search");
@@ -36,7 +35,7 @@ function UsersFilter() {
     const query = search ? `?${search}` : "";
 
     navigate(`${pathname}${query}`);
-  };
+  }, 1000);
 
   // Sort Handler
   const sortHandler = (value) => {
@@ -61,7 +60,10 @@ function UsersFilter() {
       <CustomInput
         className="lg:py-2.5 rounded-custom w-52 ml-auto"
         placeholder="جستجو"
-        onChange={searchHandler}
+        onChange={(event) => {
+          setSearch(event.target.value.trim());
+          searchHandler(event);
+        }}
         value={search}
         icon={
           <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />

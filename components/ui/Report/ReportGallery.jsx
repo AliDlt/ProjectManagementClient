@@ -3,25 +3,30 @@ import Gallery from "../Gallery";
 import { IoAddOutline } from "react-icons/io5";
 import CustomUpload from "../../modules/CustomUpload";
 import { BsExclamationLg } from "react-icons/bs";
-import { Popover } from "antd";
+import { Empty, Image, Popover } from "antd";
 import CustomButton from "../../modules/CustomButton";
 import CustomTextAria from "../../modules/CustomTextAria";
-import { FaImage, FaVideo } from "react-icons/fa6";
+import { FaImage, FaTrash, FaVideo } from "react-icons/fa6";
 import CustomModal from "../../modules/CustomModal";
+import { SwiperSlide } from "swiper/react";
 const popoverContent = (
   <div className="flex flex-col gap-2 text-12">
     <p>ویدئو ها با حجم 10 مگابایت</p>
     <p>عکس ها با حجم 2 مگابایت</p>
   </div>
 );
-const ReportGallery = ({ id }) => {
+
+const ReportGallery = ({ id, data }) => {
   const [show, setShow] = useState();
   const changeValue = (e) => {
     setDescription(e.target.value);
   };
 
   const [description, setDescription] = useState("");
-
+  const changeFile = (e)=>{
+    console.log(e)
+    
+  }
   return (
     <div>
       <div className="mt-6 flex justify-between px-4">
@@ -48,11 +53,12 @@ const ReportGallery = ({ id }) => {
             >
               <IoAddOutline className="text-24" />
             </CustomButton>
+
             <CustomModal onCancel={setShow} open={show} title="بارگزاری فایل">
               <div className="flex flex-col justify-center items-center gap-5 mt-5 md:flex-row">
                 {/* Image */}
                 <CustomUpload
-                  action="/api/report/uploadFile"
+                  action="/api/report/uploadImage"
                   title="آپلود تصویر"
                   className="w-full text-black/50"
                   icon={<FaImage size={25} />}
@@ -66,20 +72,18 @@ const ReportGallery = ({ id }) => {
                 />
                 {/* Video */}
                 <CustomUpload
-                  action="/api/report/uploadFile"
+                  action="/api/report/uploadVideo"
                   title="آپلود ویدئو"
                   className="w-full text-black/50"
                   icon={<FaVideo size={25} />}
                   accept="video/mp4 , video/mpeg"
                   disabled={!description}
-
                   data={{
                     id,
                     description,
                     fileFormat: "video",
                   }}
-                  //   disabled={!fileDescription}
-                  //   onChange={uploadersChangeHandler}
+                  onChange={changeFile}
                 />
               </div>
               <div>
@@ -95,7 +99,50 @@ const ReportGallery = ({ id }) => {
           </div>
         </div>
       </div>
-      <Gallery />
+
+      <Gallery>
+        {data?.length ? (
+          <>
+            {data?.map((file) => {
+              return (
+                <SwiperSlide
+                  key={file.fileName}
+                  className="rounded-custom overflow-hidden !h-[220px] relative"
+                >
+                  <span className="absolute top-2 right-2 text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10">
+                    <FaTrash />
+                  </span>
+                  {file.fileFormat === "image" && (
+                    <Image
+                      className="object-cover w-full h-full"
+                      src={file.fileURL}
+                      alt={file.description}
+                      rootClassName="w-full h-full"
+                      preview={{
+                        mask: "بزرگ نمایی",
+                      }}
+                      fallback="/images/download.png"
+                    />
+                  )}
+                  {file.fileFormat === "video" && (
+                    <video
+                      className="bg-custom-primary-color-300/50 w-full h-full"
+                      controls
+                      src={file.fileURL}
+                      alt={file.description}
+                      crossOrigin="anonymous"
+                    />
+                  )}
+                </SwiperSlide>
+              );
+            })}
+          </>
+        ) : (
+          <div>
+            <Empty description="محتوایی وجود ندارد" />
+          </div>
+        )}
+      </Gallery>
     </div>
   );
 };

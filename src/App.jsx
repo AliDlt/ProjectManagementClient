@@ -16,7 +16,6 @@ import UsersPage from "../pages/UsersPage";
 import ProjectsPage from "../pages/ProjectsPage";
 import ReportsPage from "../pages/ReportsPage";
 import Messages from "../pages/Messages";
-import SingleProjectPage from "../pages/SingleProjectPage";
 import dayjs from "dayjs";
 import jalaliday from "jalaliday";
 import SettingPage from "../pages/SettingPage";
@@ -25,6 +24,8 @@ import calendar from "dayjs/plugin/calendar";
 import Message from "../pages/Message";
 import AddUser from "../pages/AddUser";
 import AddReport from "../pages/AddReport";
+// import AddNewProject from "../pages/AddNewProject";
+import SingleProjectPage from "../pages/SingleProjectPage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -113,6 +114,10 @@ function App() {
                 <Route path="/messages" element={<Messages />} />
                 <Route path="/message/:id" element={<Message />} />
                 <Route path="/projects" element={<ProjectsPage />} />
+                {/* <Route
+                  path="/projects/new-project"
+                  element={<AddNewProject />}
+                /> */}
                 <Route path="/projects/:id" element={<SingleProjectPage />} />
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="/users/:id" element={<UserPage />} />

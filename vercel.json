@@ -5,6 +5,10 @@
       "destination": "https://projectmanagment.liara.run/api/$1"
     },
     {
+      "source": "/uploads/(.*)",
+      "destination": "https://projectmanagment.liara.run/api/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

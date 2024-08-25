@@ -23,9 +23,8 @@ const useProjects = (count, search, page) => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["projects", count, search, page],
-    queryFn: fetchProjects,
-    keepPreviousData: true,
+    queryKey: ["projects", count, page, search],
+    queryFn: () => getAllProjects(count, page, search),
   });
 
   useEffect(() => {

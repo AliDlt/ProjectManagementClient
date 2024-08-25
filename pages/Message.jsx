@@ -7,6 +7,7 @@ import useGetMessages from "../hooks/Message/useGetMessages";
 import CustomLoading from "../components/modules/CustomLoading";
 import CustomButton from "../components/modules/CustomButton";
 import { MdDelete } from "react-icons/md";
+import MetaTag from "../components/modules/MetaTag";
 
 const Message = () => {
   const { id } = useParams();
@@ -62,11 +63,7 @@ const Message = () => {
             </CustomButton>
           </div>
           {allMessages?.map((message, index) => {
-            return (
-              <div key={index}>
-                <TextMessage message={message} />
-              </div>
-            );
+            return <TextMessage message={message} key={index} />;
           })}
         </div>
         <NewMessage addMessage={addMessage} />

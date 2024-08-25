@@ -9,6 +9,7 @@ import { useToast } from "../Context/ToastContext";
 import NewPasswordPage from "./NewPasswordPage";
 import { convertToInternational } from "../utils/tools";
 import { Link } from "react-router-dom";
+import MetaTag from "../components/modules/MetaTag";
 
 const ForgetPasswordPage = () => {
   const [step, setStep] = useState(1);
@@ -29,21 +30,7 @@ const ForgetPasswordPage = () => {
 
   const verifyOtpCode = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    try {
-      const response = await otpVerify({
-        otpCode: otpCode.current,
-        phoneNumber: convertToInternational(phoneNumber),
-      });
-      toast(response.message, "success");
-      setStep(3);
-    } catch (error) {
-      console.log(error);
-      toast(error.response.data.message, "error");
-    } finally {
-      setLoading(false);
-    }
+    setStep(3);
   };
 
   const handleBack = () => {
@@ -63,6 +50,7 @@ const ForgetPasswordPage = () => {
       )}
       {step === 2 && (
         <OTPForm
+          forget={true}
           otpCodeRef={otpCode}
           loading={loading}
           phoneNumber={phoneNumber}
@@ -70,13 +58,23 @@ const ForgetPasswordPage = () => {
         />
       )}
       {step === 3 && (
-        <NewPasswordPage phoneNumber={convertToInternational(phoneNumber)} />
+        <NewPasswordPage
+          otpCode={otpCode}
+          phoneNumber={convertToInternational(phoneNumber)}
+        />
       )}
 
-      <div className="flex flex-col gap-3 items-center text-18">
-        {step > 1 && <span onClick={handleBack}> مرحله قبل </span>}
+      <div className="flex  flex-col gap-3 items-center text-18">
+        {step > 1 && (
+          <p className="cursor-pointer" onClick={handleBack}>
+            {" "}
+            مرحله قبل{" "}
+          </p>
+        )}
         <Link to="/auth/login"> بازگشت به صفحه ورود </Link>
       </div>
+      {/* Meta Tag */}
+      <MetaTag title="فراموشی رمز" description="بازیابی رمز عبور" />
     </div>
   );
 };

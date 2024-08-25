@@ -6,6 +6,7 @@ import { checkSignup } from "../../../services/auth";
 import { useToast } from "../../../Context/ToastContext";
 import { convertToInternational } from "../../../utils/tools";
 import { Link } from "react-router-dom";
+import MetaTag from "../../modules/MetaTag";
 
 function SignupForm({ formData, setStep }) {
   const toast = useToast();
@@ -107,6 +108,8 @@ function SignupForm({ formData, setStep }) {
           وارد شوید
         </Link>
       </div>
+      {/* Meta Tag */}
+      <MetaTag description="ثبت نام در برنامه مدیریت پروژه" title="ثبت نام" />
     </>
   );
 }

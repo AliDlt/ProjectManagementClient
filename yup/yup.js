@@ -140,7 +140,9 @@ export const addUserSchema = Yup.object({
 });
 
 export const addReportSchema = Yup.object({
-  title: Yup.string().min(3,'حد اقل 3 کارکتر').required("این فیلد اجباری است."),
+  name: Yup.string()
+    .min(3, "حد اقل 3 کارکتر")
+    .required("این فیلد اجباری است."),
   description: Yup.string().required("این فیلد اجباری است."),
   project: Yup.object().required("یک پروژه برای گزارش انتخاب کنید"),
 });

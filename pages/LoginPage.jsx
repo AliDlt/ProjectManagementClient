@@ -11,6 +11,7 @@ import { login } from "../services/auth";
 import { useToast } from "../Context/ToastContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import MetaTag from "../components/modules/MetaTag";
 
 const LoginPage = () => {
   const { mutateAsync, isPending } = useMutation({
@@ -39,11 +40,13 @@ const LoginPage = () => {
 
   return (
     <>
-      <Logo />
-      <h3 className="md:text-20 mt-16">به سمپ خوش آمدید</h3>
+      <div className="flex justify-center items-center size-44 mx-auto">
+        <Logo />
+      </div>
+      <h3 className="md:text-20 mt-10">به سمپ خوش آمدید</h3>
       <form
         onSubmit={handleSubmit(submitLogin)}
-        className="flex flex-col gap-6 mt-8"
+        className="flex flex-col gap-6 mt-3"
       >
         {/* Phone number */}
         <CustomInput
@@ -68,7 +71,9 @@ const LoginPage = () => {
             رمز عبور خود را فراموش کردید؟
           </Link>
           {/* Remember me */}
-          <Checkbox>به خاطر بسپر </Checkbox>
+          <Checkbox>
+            من را به خاطر بسپار
+          </Checkbox>
         </div>
         {/* Submit button */}
         <CustomButton
@@ -85,6 +90,8 @@ const LoginPage = () => {
           ثبت نام
         </Link>
       </div>
+      {/* Meta Tag */}
+      <MetaTag title="ورود" description="ورود به برنامه مدیریت پروژه" />
     </>
   );
 };

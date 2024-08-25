@@ -10,6 +10,9 @@ function useUpdateProject(projectId) {
     onSuccess: () => {
       queryClient.invalidateQueries(["project", projectId]);
     },
+    onError: (error) => {
+      toast(error?.response?.data?.message, "error");
+    },
   });
 
   return { mutateAsync };

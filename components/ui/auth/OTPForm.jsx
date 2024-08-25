@@ -4,8 +4,9 @@ import CustomButton from "../../modules/CustomButton";
 import { sendOtpCode } from "../../../services/auth";
 import { useToast } from "../../../Context/ToastContext";
 import { convertToInternational, maskPhoneNumber } from "../../../utils/tools";
+import MetaTag from "../../modules/MetaTag";
 
-function OTPForm({ phoneNumber, onSubmitOTP, otpCodeRef, loading }) {
+function OTPForm({ phoneNumber, onSubmitOTP, otpCodeRef, loading,forget }) {
   const toast = useToast();
   const [second, setSecond] = useState(60);
   const [minute, setMinute] = useState(1);
@@ -82,8 +83,10 @@ function OTPForm({ phoneNumber, onSubmitOTP, otpCodeRef, loading }) {
         type="submit"
         loading={loading}
       >
-        <span className="text-white ">ثبت نام</span>
+        <span className="text-white ">{forget? 'تایید کد': 'ثبت نام'}</span>
       </CustomButton>
+      {/* Meta Tag */}
+      <MetaTag title="رمز یکبار مصرف" description="وارد کردن رمز یکبار مصرف" />
     </form>
   );
 }

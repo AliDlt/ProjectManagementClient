@@ -28,24 +28,13 @@ function SideBar() {
           },
         }}
       >
-        <nav className="flex flex-col items-center pt-12 w-full">
-          <div className="flex justify-center">
+        <nav className="flex flex-col items-center w-full pt-6">
+          <div className="w-[50%]">
             <Logo />
           </div>
           <Profile />
           <ListAside />
-          <div>
-            <CustomButton
-              onClick={() => showModal(true)}
-              className="bg-transparent w-full text-black hover:bg-transparent flex my-6 gap-2  justify-center"
-            >
-              <img src="/icons/خروج.svg" className="w-8 h-8" alt="خروج" />
-              <span> خروج از حساب</span>
-            </CustomButton>
-            <CustomModal open={modal} onCancel={showModal} title="خروج از حساب">
-              <Logout close={showModal} />
-            </CustomModal>
-          </div>
+       
         </nav>
       </Drawer>
       <aside
@@ -53,24 +42,13 @@ function SideBar() {
         lg:col-span-3 
          md:static z-50  2xl:col-span-2 lg:row-start-1 lg:-row-end-9  shadow-custom rounded-xl bg-white md:h-max border-b-4 border-custom-primary-color-300 lg:!sticky lg:top-5 overflow-hidden"
       >
-        <nav className="flex flex-col items-center pt-12 w-full">
-          <div className="flex justify-center">
+        <nav className="flex flex-col items-center w-full pt-6">
+          <div className="w-[50%]">
             <Logo />
           </div>
           <Profile />
           <ListAside />
-          <div>
-            <CustomButton
-              onClick={() => showModal(true)}
-              className="bg-transparent w-full text-black hover:bg-transparent flex my-6 gap-2  justify-center"
-            >
-              <img src="/icons/خروج.svg" className="w-8 h-8" alt="خروج" />
-              <span> خروج از حساب</span>
-            </CustomButton>
-            <CustomModal open={modal} onCancel={showModal} title="خروج از حساب">
-              <Logout close={showModal} />
-            </CustomModal>
-          </div>  
+         
         </nav>
       </aside>
     </>

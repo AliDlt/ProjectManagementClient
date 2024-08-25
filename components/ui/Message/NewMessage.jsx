@@ -25,7 +25,6 @@ const NewMessage = ({ addMessage }) => {
     toast("پیام با موفقیت ارسال شد", "success");
     setValue("messageText", "");
     addMessage(e);
-
   };
   const submitMessage = (e) => {
     mutate(
@@ -37,16 +36,18 @@ const NewMessage = ({ addMessage }) => {
     <div className="  flex flex-col gap-3 mt-4 sticky bottom-0 w-full  left-0   ">
       <form
         onSubmit={handleSubmit(submitMessage)}
-        className="flex w-full gap-2 border-t-2 px-2   border-b-2 bg-white border-custom-primary-color lg:border-4 lg:rounded-custom"
+        className="flex w-full gap-2 border-t-2 px-2  border-b-2 bg-white border-custom-primary-color lg:border-4 lg:rounded-custom"
       >
-        <CustomTextAria
-          placeholder="پیام خود را بنوسید"
-          className="p-3 border-none"
-          control={control}
-          rows={2}
-          name="messageText"
-          error={errors["messageText"]}
-        />
+        <div className="w-full">
+          <CustomTextAria
+            placeholder="پیام خود را بنوسید"
+            className="p-3 border-none outline-none "
+            control={control}
+            rows={2}
+            name="messageText"
+            error={errors["messageText"]}
+          />
+        </div>
         <div className="flex items-center justify-center">
           <CustomButton
             loading={isPending}

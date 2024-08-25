@@ -16,3 +16,8 @@ export const deleteReport = async (id) => {
   const resp = await http.delete(`/report/deleteReport/?id=${id}`);
   return resp.data;
 };
+
+export const addReport = async (data) => {
+  const response = await http.post("/report/addReport", data);
+  return response.data;
+};
