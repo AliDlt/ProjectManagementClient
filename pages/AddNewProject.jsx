@@ -1,49 +1,49 @@
-// import dayjs from "dayjs";
-// import CustomDatePicker from "../components/modules/CustomDatePicker";
-// import CustomInput from "../components/modules/CustomInput";
-// import CustomButton from "../components/modules/CustomButton";
-// import CustomTextAria from "../components/modules/CustomTextAria";
-// import { useForm } from "react-hook-form";
-// import { addNewProjectSchema } from "../yup/yup";
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import CustomUsersList from "../components/ui/projects/CustomUsersList";
-// import { useState } from "react";
-// import useAddProject from "../hooks/projects/useAddProject";
-// import CustomConfirm from "../components/modules/CustomConfirm";
-// import { useNavigate } from "react-router-dom";
-// import MetaTag from "../components/modules/MetaTag";
+import dayjs from "dayjs";
+import CustomDatePicker from "../components/modules/CustomDatePicker";
+import CustomInput from "../components/modules/CustomInput";
+import CustomButton from "../components/modules/CustomButton";
+import CustomTextAria from "../components/modules/CustomTextAria";
+import { useForm } from "react-hook-form";
+import { addNewProjectSchema } from "../yup/yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import CustomUsersList from "../components/ui/projects/CustomUsersList";
+import { useState } from "react";
+import useAddProject from "../hooks/projects/useAddProject";
+import CustomConfirm from "../components/modules/CustomConfirm";
+import { useNavigate } from "react-router-dom";
+import MetaTag from "../components/modules/MetaTag";
 
-// function AddNewProject() {
-//   const [selectedUsers, setSelectedUsers] = useState([]);
-//   const { addProject, isPending, data } = useAddProject();
-//   const [open, setOpen] = useState(false);
-//   const navigate = useNavigate();
-//   const {
-//     control,
-//     watch,
-//     getValues,
-//     handleSubmit,
-//     reset,
-//     formState: { errors },
-//     setValue,
-//   } = useForm({
-//     defaultValues: {
-//       usersIds: selectedUsers,
-//       progress: 0,
-//     },
-//     resolver: yupResolver(addNewProjectSchema),
-//     mode: "onChange",
-//   });
+function AddNewProject() {
+  const [selectedUsers, setSelectedUsers] = useState([]);
+  const { addProject, isPending, data } = useAddProject();
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const {
+    control,
+    watch,
+    getValues,
+    handleSubmit,
+    reset,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    defaultValues: {
+      usersIds: selectedUsers,
+      progress: 0,
+    },
+    resolver: yupResolver(addNewProjectSchema),
+    mode: "onChange",
+  });
 
-//   // On Submit
-//   const onSubmit = async (values) => {
-//     try {
-//       await addProject(values);
-//       reset();
-//       setSelectedUsers([]);
-//       setOpen(true);
-//     } catch (error) {}
-//   };
+  // On Submit
+  const onSubmit = async (values) => {
+    try {
+      await addProject(values);
+      reset();
+      setSelectedUsers([]);
+      setOpen(true);
+    } catch (error) {}
+  };
 
   return (
     <form
@@ -128,7 +128,7 @@
           <div className="mt-10 xl:mt-0 xl:order-3 flex-1 flex flex-col gap-2 2xl:mr-20">
             <span>توضیحات پروژه</span>
             <CustomTextAria
-            className="flex-1"
+              className="flex-1"
               control={control}
               name="description"
               error={errors?.description}
@@ -136,6 +136,8 @@
             />
           </div>
         </div>
+        {/* Project Files */}
+        <div></div>
         {/* Project Users */}
         <CustomUsersList
           projectUsers={selectedUsers}
@@ -167,4 +169,4 @@
   );
 }
 
-// export default AddNewProject;
+export default AddNewProject;

@@ -11,7 +11,9 @@ import CustomPagination from "../components/modules/CustomPagination";
 
 function ProjectsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(searchParams.get("page"));
+  const [currentPage, setCurrentPage] = useState(
+    searchParams.get("page") || undefined,
+  );
   const { totalPages, totalPagesLoading } = useProjectsTotalPages();
   const { data, error, isLoading } = useProjects(10, currentPage);
   const navigate = useNavigate();
@@ -20,7 +22,9 @@ function ProjectsPage() {
   if (!isLoading && error)
     return (
       <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-96 flex justify-center items-center">
-        {error.response.data.message}
+        {error.response.data.errors
+          ? error.response.data.errors[0]
+          : error.response.data.message}
       </div>
     );
 
@@ -60,7 +64,7 @@ function ProjectsPage() {
           ))
         )}
       </div>
-      {!totalPagesLoading && totalPages.data !== 0 && (
+      {!totalPagesLoading && data?.projects.length !== 0 && (
         <CustomPagination
           rootClassName="!mt-16"
           align="center"

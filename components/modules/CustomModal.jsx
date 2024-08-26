@@ -18,6 +18,7 @@ const CustomModal = ({ title, children, open, onCancel, className }) => {
       onCancel={() => {
         onCancel(false);
       }}
+      centered
     >
       <div className="flex justify-between items-center text-xl border-b pb-3 border-black border-opacity-55">
         <h3>{title}</h3>

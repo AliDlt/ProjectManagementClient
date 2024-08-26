@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import CustomButton from "../../modules/CustomButton";
-import { MdModeEdit } from "react-icons/md";
 import UsersTable from "../users/UsersTable";
 import Column from "antd/es/table/Column";
 import {
@@ -112,14 +111,12 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           }}
         >
           <Column
-            className="cursor-pointer"
             title="نام و نام خانوادگی"
             dataIndex="fullName"
             key="fullName"
             width={100}
           />
           <Column
-            className="cursor-pointer"
             title="شماره تماس"
             dataIndex="phoneNumber"
             key="phoneNumber"
@@ -127,7 +124,6 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             render={(phoneNumber) => convertFromInternational(phoneNumber)}
           />
           <Column
-            className="cursor-pointer"
             title="وضعیت"
             dataIndex="active"
             key="active"
@@ -137,7 +133,6 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             )}
           />
           <Column
-            className="cursor-pointer"
             responsive={["lg"]}
             title="تاریخ  آخرین ورود"
             dataIndex="lastLogin"
@@ -152,7 +147,6 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
       </div>
       {/* Modal */}
       <CustomModal
-        className="h-96 overflow-auto"
         open={openAddUsersModal}
         onCancel={() => setOpenAddUsersModal(false)}
         title="اضافه کردن کاربر به پروژه"

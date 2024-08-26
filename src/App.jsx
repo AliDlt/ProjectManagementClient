@@ -21,10 +21,11 @@ import ReportPage from "../pages/ReportPage";
 import Message from "../pages/Message";
 import AddUser from "../pages/AddUser";
 import AddReport from "../pages/AddReport";
-// import AddNewProject from "../pages/AddNewProject";
 import SingleProjectPage from "../pages/SingleProjectPage";
 import AddMessage from "../pages/AddMessage";
 import SingleProjectGallery from "../pages/SingleProjectGallery";
+import AddNewProject from "../pages/AddNewProject";
+import NotFound from "../pages/NotFound";
 
 function App() {
   const queryClient = new QueryClient({
@@ -109,10 +110,10 @@ function App() {
                 <Route path="/add-ticket" element={<AddMessage />} />
                 <Route path="/message/:id" element={<Message />} />
                 <Route path="/projects" element={<ProjectsPage />} />
-                {/* <Route
+                <Route
                   path="/projects/new-project"
                   element={<AddNewProject />}
-                /> */}
+                />
                 <Route path="/projects/:id" element={<SingleProjectPage />} />
                 <Route
                   path="/projects/gallery/:projectId"
@@ -134,6 +135,7 @@ function App() {
                   element={<ForgetPasswordPage />}
                 />
               </Route>
+              <Route path="/*" element={<NotFound />} />
             </Routes>
           </QueryClientProvider>
         </ConfigProvider>
