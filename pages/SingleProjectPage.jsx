@@ -82,26 +82,26 @@ function SingleProjectPage() {
     _id,
     location,
     createdBy,
+    description,
   };
 
   return (
     <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10">
-      <h1 className="text-32">{name}</h1>
+      <div className="flex justify-between items-center flex-wrap gap-3">
+        <h1 className="text-32">نام پروژه : {name}</h1>
+        <div className="flex justify-center items-center gap-5">
+          <CustomButton onClick={() => setOpenDeleteProjectModal(true)}>
+            <span>حذف پروژه</span>
+          </CustomButton>
+          <CustomButton>
+            <span>نمایش گزارش مرتبط</span>
+          </CustomButton>
+        </div>
+      </div>
       <ProjectBanner projectBannerData={projectBannerData} />
       <ProjectInfo projectInfoData={projectInfoData} />
       <ProjectUsers users={users} projectId={_id} />
       <ProjectGallery projectGalleryData={files} projectId={_id} />
-      <div className="mt-10 lg:mt-5 flex justify-center items-center gap-5">
-        <CustomButton
-          className="p-6"
-          onClick={() => setOpenDeleteProjectModal(true)}
-        >
-          <span>حذف پروژه</span>
-        </CustomButton>
-        <CustomButton className="p-6">
-          <span>نمایش گزارش مرتبط</span>
-        </CustomButton>
-      </div>
       <CustomConfirm
         cancelText="لغو"
         okText="حذف"

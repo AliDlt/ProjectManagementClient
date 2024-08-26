@@ -35,8 +35,15 @@ function SignupPage() {
 
     try {
       await otpVerify(userData);
-      const { name, password, phoneNumber, username, nationalCode, surName } =
-        watch();
+      const {
+        name,
+        password,
+        phoneNumber,
+        username,
+        nationalCode,
+        surName,
+        userRole,
+      } = watch();
       const userDataSignup = {
         name,
         surName,
@@ -44,7 +51,7 @@ function SignupPage() {
         phoneNumber: convertToInternational(phoneNumber),
         username,
         nationalCode,
-        userRole: 0,
+        userRole,
       };
       const data = await signup(userDataSignup);
       toast(data.message, "success");

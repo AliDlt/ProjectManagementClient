@@ -4,12 +4,12 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import useUser from "../../../hooks/useUser";
 
 function UserRoleFilter() {
+  const { user } = useUser();
   const [searchParams] = useSearchParams();
-  const userRoleParam = searchParams.get("userRole") || "1";
+  const userRoleParam = searchParams.get("userRole") || String(user?.userRole);
   const [userRole, setUserRole] = useState(userRoleParam);
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { user } = useUser();
 
   const radioGroupHandler = ({ target: { value } }) => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));

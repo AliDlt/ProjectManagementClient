@@ -11,7 +11,7 @@ import StatusBadge from "../../modules/StatusBadge";
 import CustomModal from "../../modules/CustomModal";
 import CustomInput from "../../modules/CustomInput";
 import useUser from "../../../hooks/useUser";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import useUsers from "../../../hooks/useUsers";
 import { GrSearch } from "react-icons/gr";
 
@@ -32,6 +32,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
   const [selectedRowUsers, setSelectedRowUsers] = useState(() =>
     projectUsers?.map((user) => user._id),
   );
+  const navigate = useNavigate();
 
   // Project's Users Filter
   useEffect(() => {
@@ -76,7 +77,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
 
   return (
     <div>
-      <div className="flex justify-between items-center mt-10">
+      <div className="flex justify-between items-center mt-10 flex-wrap gap-2">
         <h3 className="text-20 font-extrabold">لیست کاربران</h3>
         <CustomInput
           className="hidden py-1 rounded-custom w-72 ml-auto mr-12 md:flex"
@@ -87,17 +88,10 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
           }
         />
-        <div className="flex justify-center items-center gap-5">
-          <span className="hidden md:block">اضافه کردن کاربر </span>
+        <div className="flex justify-center items-center gap-5 mr-auto">
           {!userLoading && user.userRole !== 2 && (
-            <CustomButton
-              className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group"
-              onClick={() => setOpenAddUsersModal(true)}
-            >
-              <MdModeEdit
-                size={25}
-                className="text-custom-primary-color rounded-full group-hover:text-white"
-              />
+            <CustomButton onClick={() => setOpenAddUsersModal(true)}>
+              اضافه / ویرایش لیست کاربران
             </CustomButton>
           )}
         </div>
@@ -109,22 +103,23 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           loading={false}
           users={searchedProductUsers}
           rowClassName="lg:border-t lg:border-black lg:last:border-b"
+          onRow={(record) => {
+            return {
+              onClick: () => {
+                navigate(`/users/${record.key}`);
+              },
+            };
+          }}
         >
           <Column
+            className="cursor-pointer"
             title="نام و نام خانوادگی"
             dataIndex="fullName"
             key="fullName"
             width={100}
-            render={(fullName, record) => (
-              <Link
-                to={`/users/${record.key}`}
-                className="cursor-pointer flex justify-center"
-              >
-                {fullName}
-              </Link>
-            )}
           />
           <Column
+            className="cursor-pointer"
             title="شماره تماس"
             dataIndex="phoneNumber"
             key="phoneNumber"
@@ -132,6 +127,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             render={(phoneNumber) => convertFromInternational(phoneNumber)}
           />
           <Column
+            className="cursor-pointer"
             title="وضعیت"
             dataIndex="active"
             key="active"
@@ -141,6 +137,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             )}
           />
           <Column
+            className="cursor-pointer"
             responsive={["lg"]}
             title="تاریخ  آخرین ورود"
             dataIndex="lastLogin"
@@ -155,6 +152,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
       </div>
       {/* Modal */}
       <CustomModal
+        className="h-96 overflow-auto"
         open={openAddUsersModal}
         onCancel={() => setOpenAddUsersModal(false)}
         title="اضافه کردن کاربر به پروژه"
@@ -174,6 +172,13 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           users={allUsers}
           rowSelection={rowSelection}
           rowClassName="lg:border-t lg:border-black lg:last:border-b"
+          onRow={(record) => {
+            return {
+              onClick: () => {
+                navigate(`/users/${record.key}`);
+              },
+            };
+          }}
         >
           <Column
             title="نام و نام خانوادگی"

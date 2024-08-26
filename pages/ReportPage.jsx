@@ -39,7 +39,6 @@ const ReportPage = () => {
             </span>
           </CustomButton>
         </h3>
-        {console.log(data)}
         <ReportBox description={data?.description} />
         <ShowFiles
           action="/api/report/uploadFile"

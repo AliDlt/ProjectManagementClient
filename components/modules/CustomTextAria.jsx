@@ -14,6 +14,7 @@ const CustomTextAria = ({
   onBlur,
   onChange,
   noErrorMessage = false,
+  ...rest
 }) => {
   if (!control) {
     console.log(value);
@@ -35,6 +36,7 @@ const CustomTextAria = ({
             onChange && onChange(e);
           }}
           status={error && "error"}
+          {...rest}
         />
         {!noErrorMessage && error && (
           <p className="text-red-500 text-sm">{error.message}</p>
@@ -64,6 +66,7 @@ const CustomTextAria = ({
               placeholder={placeholder}
               rows={rows}
               status={error && "error"}
+              {...rest}
             />
             {!noErrorMessage && error && (
               <p className="text-red-500 text-sm">{error.message}</p>

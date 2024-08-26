@@ -14,6 +14,7 @@ export default function CustomInput({
   error = false,
   type,
   noErrorMessage = false,
+  containerClassName,
   ...rest
 }) {
   if (!control) {
@@ -42,7 +43,7 @@ export default function CustomInput({
       control={control}
       name={name}
       render={({ field }) => (
-        <div className="flex flex-col gap-2">
+        <div className={cn(["flex flex-col gap-2" , containerClassName])}>
           <Input
             {...field}
             classNames={{

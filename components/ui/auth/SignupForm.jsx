@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import CustomInput from "../../modules/CustomInput";
 import CustomPasswordInput from "../../modules/CustomPasswordInput";
+import CustomSelectInput from "../../modules/CustomSelectInput";
 import CustomButton from "../../modules/CustomButton";
 import { checkSignup } from "../../../services/auth";
 import { useToast } from "../../../Context/ToastContext";
 import { convertToInternational } from "../../../utils/tools";
 import { Link } from "react-router-dom";
 import MetaTag from "../../modules/MetaTag";
+
+const userRoleOptions = [
+  { name: "مدیر", id: 0 },
+  { name: "پیمانکار", id: 1 },
+  { name: "ناظر", id: 2 },
+];
 
 function SignupForm({ formData, setStep }) {
   const toast = useToast();
@@ -80,6 +87,15 @@ function SignupForm({ formData, setStep }) {
           className="h-[60px] text-16 px-5 bg-transparent md:text-18"
           placeholder="کد ملی"
         />
+        <CustomSelectInput
+          placeholder="نقش کاربری"
+          className="h-[60px] text-16 px-5 bg-transparent md:text-18 placeholder:text-black/50  [&_.ant-select-selection-placeholder]:text-black/50 [&_.ant-select-selection-placeholder]:md:!text-18 [&_.ant-select-selection-item]:md:!text-18"
+          control={control}
+          name="userRole"
+          options={userRoleOptions}
+          iconSize={20}
+          error={errors.userRole}
+        />
         <CustomPasswordInput
           error={errors.password}
           name="password"
@@ -109,7 +125,10 @@ function SignupForm({ formData, setStep }) {
         </Link>
       </div>
       {/* Meta Tag */}
-      <MetaTag description="ثبت نام در برنامه مدیریت پروژه" title="ثبت نام" />
+      <MetaTag
+        description="ثبت نام در برنامه مدیریت پروژه"
+        title="ثبت نام / سمپ"
+      />
     </>
   );
 }

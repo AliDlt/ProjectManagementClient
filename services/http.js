@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const http = axios.create({
   baseURL: "/api",
@@ -9,3 +10,12 @@ const http = axios.create({
 });
 
 export default http;
+
+http.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 500) {
+      toast.error("مشکلی در سرور بوجود آمده", { position: "left-bottom" });
+    }
+  },
+);

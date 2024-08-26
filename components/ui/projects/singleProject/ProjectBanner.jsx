@@ -8,8 +8,11 @@ function ProjectBanner({ projectBannerData }) {
 
   // Select First Image
   useEffect(() => {
-    console.log(files);
-    files.map((file) => setFirstImage(file.fileFormat === "image" && file));
+    if (files.length !== 0) {
+      files.map((file) => file.fileFormat === "image" && setFirstImage(file));
+    } else {
+      setFirstImage(false);
+    }
   }, [files, setFirstImage]);
 
   return (
@@ -36,7 +39,7 @@ function ProjectBanner({ projectBannerData }) {
         />
       )}
       <span className="absolute bg-white flex rounded-lg top-5 right-5 px-3 py-1 border-2 border-custom-primary-color text-12">
-        پروژه : {_id}
+        شماره پروژه : {_id}
       </span>
     </div>
   );

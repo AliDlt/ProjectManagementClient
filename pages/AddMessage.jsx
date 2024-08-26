@@ -23,7 +23,7 @@ const AddMessage = () => {
     mode: "onChange",
     resolver: yupResolver(addTicket),
   });
-  const { mutate,isPending } = useAddTicket();
+  const { mutate, isPending } = useAddTicket();
   const toast = useToast();
   const navigate = useNavigate();
   const setUser = (e) => {
@@ -96,7 +96,10 @@ const AddMessage = () => {
             />
           </div>
           <div>
-            <CustomButton loading={isPending} type="submit"> ارسال پیام </CustomButton>
+            <CustomButton loading={isPending} type="submit">
+              {" "}
+              ارسال پیام{" "}
+            </CustomButton>
           </div>
         </form>
       </div>
