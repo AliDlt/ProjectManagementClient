@@ -14,6 +14,7 @@ import CustomTextAria from "../../modules/CustomTextAria";
 import CustomInput from "../../modules/CustomInput";
 import { SwiperSlide } from "swiper/react";
 import CustomSlideFIle from "../../modules/CustomSlideFIle";
+import useDeleteReportFile from "../../../hooks/Report/useDeleteReportFile";
 const popoverContent = (
   <div className="flex flex-col gap-2 text-12">
     <p>اسناد با حجم حد اکثر 5 مگابایت</p>
@@ -26,6 +27,8 @@ const ShowFiles = ({ data, action }) => {
   const changeValue = (e) => {
     setDescription(e.target.value);
   };
+
+  const { mutate, isPending } = useDeleteReportFile();
   console.log(data);
   return (
     <div className="my-6">
@@ -63,7 +66,11 @@ const ShowFiles = ({ data, action }) => {
                   key={key}
                   className="flex items-center justify-center"
                 >
-                  <CustomSlideFIle item={item} /> 
+                  <CustomSlideFIle
+                    mutate={mutate}
+                    isPending={isPending}
+                    item={item}
+                  />
                 </SwiperSlide>
               );
             })}

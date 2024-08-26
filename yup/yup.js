@@ -4,12 +4,10 @@ import * as Yup from "yup";
 export const signupSchema = Yup.object({
   name: Yup.string()
     .required("این فیلد اجباری است.")
-    .min(3, "حداقل کارکتر : 3")
     .max(25, "حداکثر کارکتر : 25")
     .matches(/[\u0600-\u06FF]/, "لطفا فارسی وارد کنید"),
   surName: Yup.string()
     .required("این فیلد اجباری است.")
-    .min(3, "حداقل کارکتر : 3")
     .max(25, "حداکثر کارکتر : 25")
     .matches(/[\u0600-\u06FF]/, "لطفا فارسی وارد کنید"),
   phoneNumber: Yup.string()
@@ -17,7 +15,7 @@ export const signupSchema = Yup.object({
     .matches(/^((\+98|0)9\d{9})$/, "لطفا شماره تلفن معتبر وارد کنید"),
   username: Yup.string()
     .required("این فیلد اجباری است.")
-    .min(3, "حداقل کارکتر : 3")
+    .min(5, " نام کاربری باید حداقل 5 کارکتر باشد")
     .max(25, "حداکثر کارکتر : 25")
     .matches(
       /^[a-zA-Z]{1,}\d*$/,
@@ -25,16 +23,14 @@ export const signupSchema = Yup.object({
     ),
   password: Yup.string()
     .required("این فیلد اجباری است.")
-    .min(5, "حداقل کارکتر : 5")
-    .max(25, "حداکثر کارکتر : 25"),
-  passwordConfirmation: Yup.string().oneOf(
-    [Yup.ref("password"), null],
-    "با رمز عبور مطابقت ندارد.",
-  ),
-  nationalCode: Yup.string().matches(
-    /^(?!(\d)\1{9})\d{10}$/,
-    "کد ملی باید 10 رقمی باشد",
-  ),
+    .min(5, "رمز عبور باید حداقل 5 کارکتر باشد"),
+  passwordConfirmation: Yup.string()
+    .required("این فیلد اجباری است.")
+    .oneOf([Yup.ref("password"), null], "با رمز عبور مطابقت ندارد."),
+  nationalCode: Yup.string()
+    .required("این فیلد اجباری است.")
+    .matches(/^(?!(\d)\1{9})\d{10}$/, "کد ملی باید 10 رقمی باشد"),
+  userRole: Yup.string().required("این فیلد اجباری است."),
 });
 
 // Login Schema

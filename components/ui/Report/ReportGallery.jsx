@@ -27,6 +27,9 @@ const ReportGallery = ({ id, data }) => {
     console.log(e)
     
   }
+  const filter = (files)=>{
+    // files.filter(()=>)
+  }
   return (
     <div>
       <div className="mt-6 flex justify-between px-4">
@@ -101,6 +104,7 @@ const ReportGallery = ({ id, data }) => {
       </div>
 
       <Gallery>
+        {console.log(data)}
         {data?.length ? (
           <>
             {data?.map((file) => {

@@ -21,3 +21,9 @@ export const addReport = async (data) => {
   const response = await http.post("/report/addReport", data);
   return response.data;
 };
+
+export const deleteReportFile = async (data) => {
+  console.log(data)
+  const res = await http.delete("/report/deleteFile", data);
+  return res.data;
+};

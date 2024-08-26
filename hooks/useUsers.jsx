@@ -6,12 +6,7 @@ import { useEffect } from "react";
 function useUsers(userRole, page, count, search, sort) {
   const toast = useToast();
 
-  const {
-    data: users,
-    isLoading,
-    refetch,
-    error,
-  } = useQuery({
+  const { data, isLoading, refetch, error } = useQuery({
     queryKey: ["get-all-users", userRole, page, count, search, sort],
     queryFn: () => getAllUsers(userRole, page, count, search, sort),
   });
@@ -19,6 +14,8 @@ function useUsers(userRole, page, count, search, sort) {
   useEffect(() => {
     if (!isLoading && error) toast(error?.response?.data?.message, "error");
   }, [error, isLoading]);
+
+  const users = data?.users;
 
   return {
     users,

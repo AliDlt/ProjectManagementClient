@@ -10,12 +10,13 @@ const sortItems = [
   { value: "surName", label: <span>نام و نام خانوادگی </span> },
   { value: "active", label: <span> وضعیت </span> },
   { value: "lastLogin", label: <span> ورود کاربر </span> },
+  { value: "", label: <span>هیچکدام</span> },
 ];
 
 function UsersFilter() {
   const [searchParams] = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("search") || "");
-  const [sort, setSort] = useState(searchParams.get("sort"));
+  const [sort, setSort] = useState(searchParams.get("sort") || "");
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -73,7 +74,7 @@ function UsersFilter() {
         <span className="text-16">مرتب سازی بر اساس :</span>
         <Select
           defaultValue={sort}
-          placeholder="نام خانوادگی"
+          placeholder="بر اساس"
           className="flex-1 h-9 max-w-72 ml-auto"
           options={sortItems}
           suffixIcon={
@@ -104,7 +105,6 @@ function UsersFilter() {
           </Radio>
         ))}
       </Radio.Group>
-      <hr className="h-[2px] bg-custom-primary-color w-full hidden lg:block" />
     </div>
   );
 }
