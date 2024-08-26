@@ -6,7 +6,7 @@
     },
     {
       "source": "/uploads/(.*)",
-      "destination": "https://projectmanagment.liara.run/$1"
+      "destination": "https://projectmanagment.liara.run/uploads/$1"
     },
     {
       "source": "/(.*)",
