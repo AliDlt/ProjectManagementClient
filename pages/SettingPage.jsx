@@ -3,8 +3,9 @@ import useUser from "../hooks/useUser";
 import { useQueryClient } from "@tanstack/react-query";
 import InformationBox from "../components/ui/user/InformationBox";
 import CustomLoading from "../components/modules/CustomLoading";
-import PasswordBox from "../components/ui/setting/PasswordBox";
 import { userRol } from "../utils/tools";
+import CustomPasswordInput from "../components/modules/CustomPasswordInput";
+import ChangePasswordForm from "../components/ui/setting/ChangePasswordForm";
 
 const SettingPage = () => {
   const queryClient = useQueryClient();
@@ -41,11 +42,7 @@ const SettingPage = () => {
 
         <div>
           {!user?.userRol && (
-            <InformationBox
-              userId={user?._id}
-              title="نقش کاربری "
-              type="name"
-            >
+            <InformationBox userId={user?._id} title="نقش کاربری " type="name">
               {userRol(user?.userRole)}
             </InformationBox>
           )}
@@ -74,16 +71,11 @@ const SettingPage = () => {
             </InformationBox>
           )}
         </div>
+      </div>
+      <div className="col-span-1 lg:col-span-11">
+        <h5 className="text-20">تعیر رمز عبور</h5>
         <div>
-          <PasswordBox
-            title="رمز عبور جدید"
-            type="password"
-            userId={user?._id}
-            placeholder="پسورد جدید"
-            phoneNumber={user?.phoneNumber}
-          >
-            {" "}
-          </PasswordBox>
+          <ChangePasswordForm />
         </div>
       </div>
     </div>
