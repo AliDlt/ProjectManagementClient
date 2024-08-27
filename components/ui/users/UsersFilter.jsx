@@ -69,6 +69,7 @@ function UsersFilter() {
         icon={
           <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
         }
+        type="search"
       />
       <div className="flex justify-between flex-wrap items-center gap-5 w-full lg:hidden">
         <span className="text-16">مرتب سازی بر اساس :</span>

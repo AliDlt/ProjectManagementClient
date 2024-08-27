@@ -11,7 +11,6 @@ export const getAllUsers = async (
   const res = await http.get(
     `/user/getAllUsers?filterRole=${userRole}&page=${page}&count=${count}&search=${search}&sort=${sort}`,
   );
-  console.log(res);
   return res.data.data;
 };
 
