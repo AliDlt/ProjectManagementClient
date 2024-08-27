@@ -23,7 +23,16 @@ export const addReport = async (data) => {
 };
 
 export const deleteReportFile = async (data) => {
-  console.log(data)
-  const res = await http.delete("/report/deleteFile", data);
+  console.log(data);
+  const res = await http.delete("/report/deleteFile", { data });
   return res.data;
+};
+export const uploadReportFile = async (data) => {
+  console.log(data);
+  const resp = await http.post("/report/uploadFile", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return resp;
 };

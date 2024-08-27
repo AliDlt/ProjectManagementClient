@@ -47,4 +47,16 @@ export const convertToLocalDate = (date) => {
     numberingSystem: "latn",
   });
 };
+export const filterFile = (files, type) => {
+  if (type === "gallery") {
 
+    return files?.filter(
+      (file) => file.fileFormat === "image" || file.fileFormat === "video",
+    );
+  } else {
+
+    return files?.filter(
+      (file) => file.fileFormat !== "image" && file.fileFormat !== "video",
+    );
+  }
+};

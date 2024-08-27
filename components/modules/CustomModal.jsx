@@ -8,7 +8,7 @@ const CustomModal = ({ title, children, open, onCancel, className }) => {
     <Modal
       classNames={{
         content: cn([
-          "ring-2 ring-custom-primary-color rounded-custom",
+          "ring-2 ring-custom-primary-color rounded-custom ",
           className,
         ]),
       }}

@@ -6,6 +6,7 @@ const CustomUpload = ({
   onChange,
   accept,
   icon,
+  customRequest,
   className,
   title,
   loading,
@@ -14,6 +15,7 @@ const CustomUpload = ({
 }) => {
   return (
     <Upload
+      customRequest={customRequest}
       onChange={onChange}
       action={false}
       accept={accept}
@@ -26,7 +28,7 @@ const CustomUpload = ({
       {...rest}
     >
       <button
-        className="flex flex-col justify-center items-center gap-2 w-full "
+        className="flex flex-col justify-center items-center  gap-2 w-full "
         type="button"
       >
         {loading ? (

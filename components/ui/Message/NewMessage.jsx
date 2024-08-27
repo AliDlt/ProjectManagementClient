@@ -33,7 +33,7 @@ const NewMessage = ({ addMessage }) => {
     );
   };
   return (
-    <div className="  flex flex-col gap-3 mt-4 sticky bottom-0 w-full  left-0   ">
+    <div className="  flex flex-col gap-3 mt-4 sticky bottom-0 w-full  left-0 justify-self-end   ">
       <form
         onSubmit={handleSubmit(submitMessage)}
         className="flex w-full gap-2 border-t-2 px-2  border-b-2 bg-white border-custom-primary-color lg:border-4 lg:rounded-custom"

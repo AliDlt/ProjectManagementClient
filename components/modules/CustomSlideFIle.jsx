@@ -4,20 +4,22 @@ import CustomButton from "./CustomButton";
 import { MdDelete } from "react-icons/md";
 import IconFile from "../ui/IconFile";
 import CustomModal from "./CustomModal";
+import { useToast } from "../../Context/ToastContext";
 
 const CustomSlideFIle = ({ item, mutate, isPending }) => {
+  const toast = useToast();
   const [modal, showModal] = useState(false);
   const deleteFile = () => {
     mutate(
       { id: item.sectionId, fileName: item.fileName },
       {
         onSuccess: (e) => {
-          console.log(e)
+          console.log(e);
           console.log("ss");
         },
         onError: (e) => {
-          console.log("first");
           console.log(e);
+          return toast(e.response.data.message, "error");
         },
       },
     );
@@ -40,6 +42,7 @@ const CustomSlideFIle = ({ item, mutate, isPending }) => {
         <h3 className="mt-3">آیا از حذف فایل مطمعن هستید ؟</h3>
         <div className="flex gap-2 justify-end items-center">
           <CustomButton
+            loading={isPending}
             onClick={deleteFile}
             className="w-14 p-2 bg-red-500 hover:bg-transparent hover:text-red-500 transition-all border-red-500 border-2"
           >
