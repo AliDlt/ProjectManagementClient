@@ -52,15 +52,15 @@ const Message = () => {
       </div>
     );
   return (
-    <div className="container-grid w-full relative">
-      <div className="col-span-1 lg:col-span-11 flex flex-col">
-        <div className="sticky flex justify-between items-center font-bold mb-4 top-24 col-span-11 bg-white p-4 rounded-custom border-4 border-custom-primary-color z-50">
+    <div className="container-grid w-full relative row-span-7  ">
+      <div className="col-span-1 lg:col-span-11  h-full flex justify-between flex-col">
+        <div className="sticky flex justify-between items-center font-bold mb-4 top-2 col-span-11 bg-white p-4 rounded-custom border-4 border-custom-primary-color z-50">
           <h5>عنوان : {data?.data.ticket.title}</h5>
           <CustomButton onClick={() => showDeleteModal(true)}>
             <MdDelete />
           </CustomButton>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 h-full">
           <div className="flex items-center justify-center">
             {data?.data.totalMessages > 10 && (
               <CustomButton loading={isPending} onClick={loadMore}>
@@ -68,9 +68,9 @@ const Message = () => {
               </CustomButton>
             )}
           </div>
-          {allMessages?.map((message, index) => {
-            return <TextMessage message={message} key={index} />;
-          })}
+            {allMessages?.map((message, index) => {
+              return <TextMessage message={message} key={index} />;
+            })}
         </div>
         <NewMessage addMessage={addMessage} />
       </div>

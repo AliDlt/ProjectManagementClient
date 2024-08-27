@@ -3,8 +3,6 @@ import { NavLink } from "react-router-dom";
 import cn from "../../../utils/cn";
 import { useSideBar } from "../../../Context/SideBarContext";
 import useUser from "../../../hooks/useUser";
-import CustomButton from "../../modules/CustomButton";
-
 const ListAside = () => {
   const { setShow } = useSideBar();
   const { user, isLoading } = useUser();

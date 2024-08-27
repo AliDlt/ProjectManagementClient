@@ -7,6 +7,7 @@ function CustomButton({
   className,
   onClick,
   type,
+  disabled,
   loading,
   ...rest
 }) {
@@ -18,6 +19,7 @@ function CustomButton({
         className,
       ])}
       onClick={onClick}
+      disabled={disabled}
       loading={loading}
       {...rest}
     >

@@ -12,7 +12,7 @@ const useProjects = (count, search, page) => {
     error,
   } = useQuery({
     queryKey: ["projects", count, page, search],
-    queryFn: () => getAllProjects(count, page, search),
+    queryFn: () => getAllProjects(count, search, page),
   });
 
   useEffect(() => {

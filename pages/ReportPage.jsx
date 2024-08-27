@@ -10,21 +10,31 @@ import { MdDelete } from "react-icons/md";
 import CustomModal from "../components/modules/CustomModal";
 import useDeleteReport from "../hooks/Report/useDeleteReport";
 import { useToast } from "../Context/ToastContext";
+import CustomLoading from "../components/modules/CustomLoading";
 
 const ReportPage = () => {
   const { id } = useParams();
-  const { data, error } = useGetReport(id);
+  const { data, error , isLoading } = useGetReport(id);
   const [modalDelete, showModalDelete] = useState(false);
   const { mutate, isPending } = useDeleteReport();
   const toast = useToast();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const deleteSuccess = (e) => {
-    toast(e.message,'success');
-    navigate('/reports')
+    toast(e.message, "success");
+    navigate("/reports");
   };
   const deleteReportFn = () => {
     mutate(id, { onSuccess: deleteSuccess, onError: (e) => console.log(e) });
   };
+  if(isLoading) {
+    return <div className="container-grid">
+      <div className="col-span-1 lg:col-span-11">
+        <CustomLoading /> 
+      </div>
+      
+    </div>
+  }
+
   return (
     <div className="container-grid ">
       <div className="col-span-1 lg:col-span-11">
@@ -62,7 +72,6 @@ const ReportPage = () => {
             <CustomButton
               onClick={deleteReportFn}
               loading={isPending}
-
               className="w-14 p-2 bg-red-500 hover:bg-white hover:text-red-500 border-red-500 border-2  transition-all"
             >
               بله

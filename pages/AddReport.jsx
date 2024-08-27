@@ -14,6 +14,7 @@ import useAddReport from "../hooks/Report/useAddReport";
 import { useToast } from "../Context/ToastContext";
 import useUser from "../hooks/useUser";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AddReport = () => {
   const [show, setShow] = useState(false);
@@ -37,10 +38,11 @@ const AddReport = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const { mutate, isPending } = useAddReport();
-
+  const queryClient = useQueryClient();
   const successAdd = (e) => {
     toast(e.message, "success");
     navigate(`/reports/${e.data._id}`);
+    queryClient.invalidateQueries("reports");
   };
 
   const addReport = (e) => {

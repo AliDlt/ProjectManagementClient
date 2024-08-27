@@ -29,9 +29,19 @@ export const deleteReportFile = async (data) => {
 };
 
 // Get All project's Reports
-export const getAllProkectsReports = async (projectId) => {
+export const getAllProjectsReports = async (projectId) => {
   const res = await http.get(
     `/report/getAllReportsByProjectId?id=${projectId}`,
   );
   return res.data;
+};
+
+export const uploadReportFile = async (data) => {
+  console.log(data);
+  const resp = await http.post("/report/uploadFile", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return resp;
 };
