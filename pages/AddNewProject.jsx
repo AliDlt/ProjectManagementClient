@@ -12,12 +12,14 @@ import useAddProject from "../hooks/projects/useAddProject";
 import CustomConfirm from "../components/modules/CustomConfirm";
 import { useNavigate } from "react-router-dom";
 import MetaTag from "../components/modules/MetaTag";
+import { useToast } from "../Context/ToastContext";
 
 function AddNewProject() {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const { addProject, isPending, data } = useAddProject();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const toast = useToast();
   const {
     control,
     watch,
@@ -45,6 +47,12 @@ function AddNewProject() {
     } catch (error) {}
   };
 
+  //  Click Handler
+  const clickHandler = () => {
+    if (Object.keys(errors).length !== 0)
+      toast("لطفا فیلد های خواسته شده رو پر کنید", "error");
+  };
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -52,7 +60,7 @@ function AddNewProject() {
     >
       <div className="flex justify-between items-center">
         <h1 className=" text-24 lg:text-32">پروژه جدید</h1>
-        <CustomButton type="submit" loading={isPending}>
+        <CustomButton type="submit" loading={isPending} onClick={clickHandler}>
           ثبت پروژه
         </CustomButton>
       </div>
@@ -64,6 +72,7 @@ function AddNewProject() {
               <div className="flex justify-center items-center gap-2">
                 <span className="hidden md:block">شروع</span>
                 <CustomDatePicker
+                  className="px-3 py-1.5"
                   control={control}
                   name="startDate"
                   placeholder="شروع"
@@ -78,6 +87,7 @@ function AddNewProject() {
               <div className="flex justify-center items-center gap-2">
                 <span className="hidden md:block">پایان</span>
                 <CustomDatePicker
+                  className="px-3 py-1.5"
                   control={control}
                   name="endDate"
                   error={errors.endDate}
@@ -89,24 +99,13 @@ function AddNewProject() {
                 />
               </div>
             </div>
-            <div className="flex justify-center flex-wrap items-center gap-2 mt-7">
-              <span>محل پروژه</span>
-              <CustomInput
-                control={control}
-                name="location"
-                className="px-2 py-0.5 md:max-w-96"
-                noErrorMessage
-                error={errors.location}
-                containerClassName="flex-1"
-              />
-            </div>
-            <div className="flex  items-center mt-7 flex-wrap gap-5 xl:order-1">
+            <div className="flex items-center mt-7 flex-wrap gap-5 xl:order-1">
               <div className="flex  justify-center items-center flex-wrap gap-2">
                 <span>نام پروژه </span>
                 <CustomInput
                   control={control}
                   name="name"
-                  className="px-2 py-0.5 w-24 md:w-40"
+                  className="px-3 py-1.5 w-24 md:w-40"
                   noErrorMessage
                   error={errors.name}
                 />
@@ -116,13 +115,24 @@ function AddNewProject() {
                 <CustomInput
                   control={control}
                   name="progress"
-                  className="px-2 py-0.5 w-16"
+                  className="px-2 py-1.5 w-16"
                   placeholder="0"
                   type="number"
                   icon={"%"}
                   noErrorMessage
                 />
               </div>
+            </div>
+            <div className="flex justify-center flex-wrap items-center gap-2 mt-7">
+              <span>محل پروژه</span>
+              <CustomInput
+                control={control}
+                name="location"
+                className="px-3 py-1.5 md:max-w-96"
+                noErrorMessage
+                error={errors.location}
+                containerClassName="flex-1"
+              />
             </div>
           </div>
           <div className="mt-10 xl:mt-0 xl:order-3 flex-1 flex flex-col gap-2 2xl:mr-20">

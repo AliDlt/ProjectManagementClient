@@ -31,7 +31,7 @@ function UsersPageTable({ users, loading }) {
       <UsersTable
         users={users}
         loading={loading}
-        className="h-[410px]"
+        className="h-[410px] row-cursor-pointer"
         paginationClassName="!mt-auto"
         onRow={(record) => {
           return {
@@ -92,7 +92,6 @@ function UsersPageTable({ users, loading }) {
           )}
         />
         <Column
-          responsive={["lg"]}
           title="تاریخ  آخرین ورود"
           dataIndex="lastLogin"
           key="lastLogin"

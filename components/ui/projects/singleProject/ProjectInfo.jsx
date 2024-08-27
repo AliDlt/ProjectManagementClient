@@ -13,6 +13,7 @@ import CustomInput from "../../../modules/CustomInput";
 import useUpdateProject from "../../../../hooks/projects/useUpdateProject";
 import CustomDatePicker from "../../../modules/CustomDatePicker";
 import cn from "../../../../utils/cn";
+import CustomTextAria from "../../../modules/CustomTextAria";
 
 function ProjectInfo({ projectInfoData }) {
   const { user, isLoading } = useUser();
@@ -42,6 +43,7 @@ function ProjectInfo({ projectInfoData }) {
       endDate,
       progress,
       location,
+      description,
     },
     resolver: yupResolver(projectInfoSchema),
     mode: "onChange",
@@ -59,7 +61,7 @@ function ProjectInfo({ projectInfoData }) {
   };
 
   return (
-    <div className="flex flex-col bg-white p-5 border-2 border-custom-primary-color rounded-custom mt-10 relative gap-10">
+    <div className="flex flex-col bg-white p-5 border-2 border-custom-primary-color rounded-custom mt-10 relative gap-2 lg:gap-5">
       <div className="flex flex-col sm:flex-row w-full gap-5">
         <Progress
           className={cn([
@@ -72,7 +74,7 @@ function ProjectInfo({ projectInfoData }) {
           strokeColor={"rgb(var(--primary-color))"}
           trailColor={"rgb(var(--primary-color) / 0.2)"}
         />
-        <div className=" grid grid-cols-1 min-[470px]:grid-cols-2 text-14 gap-3 sm:grid-cols-2 xl:grid-cols-3 items-center xl:text-16 2xl:gap-x-5  sm:ml-14">
+        <div className=" grid grid-cols-1 min-[470px]:grid-cols-2 text-14 gap-3 sm:grid-cols-2 xl:grid-cols-3 items-center xl:text-16 2xl:gap-x-5 sm:ml-14">
           <div className="flex text-nowrap ">
             <span>تاریخ شروع پروژه : </span>&nbsp;
             <span>{dayjs(startDate).format("YYYY/MM/DD")}</span>
@@ -118,6 +120,7 @@ function ProjectInfo({ projectInfoData }) {
             <div className="flex justify-center items-center gap-2">
               <span className="hidden md:block">شروع</span>
               <CustomDatePicker
+                className="px-3 py-1.5"
                 control={control}
                 name="startDate"
                 placeholder="شروع"
@@ -131,6 +134,7 @@ function ProjectInfo({ projectInfoData }) {
             <div className="flex justify-center items-center gap-2">
               <span className="hidden md:block">پایان</span>
               <CustomDatePicker
+                className="px-3 py-1.5"
                 control={control}
                 name="endDate"
                 disabledDate={() => {
@@ -147,7 +151,7 @@ function ProjectInfo({ projectInfoData }) {
               containerClassName="flex-1"
               control={control}
               name="location"
-              className="px-2 py-0.5"
+              className="px-3 py-1.5"
               placeholder="تهران"
               noErrorMessage
             />
@@ -158,11 +162,21 @@ function ProjectInfo({ projectInfoData }) {
               containerClassName="flex-1"
               control={control}
               name="progress"
-              className="px-2 py-0.5 w-16"
+              className="px-2 py-1.5 w-16"
               placeholder="100"
               type="number"
               icon={"%"}
               error={errors.progress}
+              noErrorMessage
+            />
+          </div>
+          <div className="flex flex-col justify-center flex-wrap gap-2 mt-5 ">
+            <span>توضیحات پروژه</span>
+            <CustomTextAria
+              className="flex-1"
+              control={control}
+              name="description"
+              error={errors.description}
               noErrorMessage
             />
           </div>

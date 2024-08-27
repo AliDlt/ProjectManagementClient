@@ -112,7 +112,7 @@ input:focus-visible {
   @apply bg-transparent overflow-x-auto mb-auto;
 }
 
-.ant-table-tbody .ant-table-row {
+.row-cursor-pointer .ant-table-tbody .ant-table-row {
   @apply hover:bg-custom-primary-color/15 cursor-pointer;
 }
 

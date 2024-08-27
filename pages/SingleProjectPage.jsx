@@ -12,11 +12,13 @@ import useUser from "../hooks/useUser";
 import useDeleteProject from "../hooks/projects/useDeleteProject";
 import CustomConfirm from "../components/modules/CustomConfirm";
 import MetaTag from "../components/modules/MetaTag";
+import useProjectsReports from "../hooks/Report/useProjectsReports";
 
 function SingleProjectPage() {
   const { user } = useUser();
   const { id } = useParams();
   const { project, isLoading, error } = useProject(id);
+  const { data } = useProjectsReports(id);
   const { deleteProjectFn, isPending } = useDeleteProject(id);
   const [openDeleteProjectModal, setOpenDeleteProjectModal] = useState(false);
   const navigate = useNavigate();
@@ -95,7 +97,7 @@ function SingleProjectPage() {
           <CustomButton onClick={() => setOpenDeleteProjectModal(true)}>
             <span>حذف پروژه</span>
           </CustomButton>
-          <CustomButton>
+          <CustomButton onClick={() => navigate(`/reports/${_id}`)}>
             <span>نمایش گزارش مرتبط</span>
           </CustomButton>
         </div>
