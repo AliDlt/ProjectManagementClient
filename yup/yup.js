@@ -100,13 +100,6 @@ export const changeDataSchema = Yup.object({
     .max(25, "حداکثر کارکتر : 25"),
 });
 
-export const changePassword = Yup.object({
-  password: Yup.string()
-    .required("این فیلد اجباری است.")
-    .min(5, "حداقل کارکتر : 5")
-    .max(25, "حداکثر کارکتر : 25"),
-});
-
 export const addUserSchema = Yup.object({
   name: Yup.string()
     .required("این فیلد اجباری است.")
@@ -154,4 +147,19 @@ export const addNewProjectSchema = Yup.object({
   startDate: Yup.string().required(""),
   endDate: Yup.string().required(""),
   location: Yup.string().required(""),
+});
+
+export const changePassword = Yup.object({
+  password: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(5, "حد اقل 5 کارکتر لازم است")
+    .max(25, "حداکثر 25 کارکتر میتوانید وارد کنید"),
+  passwordConfirmation: Yup.string().oneOf(
+    [Yup.ref("password"), null],
+    "با رمز عبور مطابقت ندارد.",
+  ),
+  otpCode: Yup.string()
+    .required("کد اعتبار سنجی اجباری است")
+    .max(4, "کد اعتبار سنجی 4 رقمی میباشد")
+    .min(4, "کد اعتبار سنجی 4 رقمی میباشد"),
 });
