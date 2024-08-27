@@ -52,7 +52,7 @@ const Message = () => {
       </div>
     );
   return (
-    <div className="container-grid w-full relative row-span-7  ">
+    <div className="container-grid w-full relative row-span-7 min-h-screen ">
       <div className="col-span-1 lg:col-span-11  h-full flex justify-between flex-col">
         <div className="sticky flex justify-between items-center font-bold mb-4 top-2 col-span-11 bg-white p-4 rounded-custom border-4 border-custom-primary-color z-50">
           <h5>عنوان : {data?.data.ticket.title}</h5>
