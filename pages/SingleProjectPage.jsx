@@ -14,6 +14,8 @@ import CustomConfirm from "../components/modules/CustomConfirm";
 import MetaTag from "../components/modules/MetaTag";
 import CustomModal from "../components/modules/CustomModal";
 import ProjectsReportsModal from "../components/ui/projects/singleProject/ProjectsReportsModal";
+import ProjectFiles from "../components/ui/projects/singleProject/ProjectFiles";
+
 
 function SingleProjectPage() {
   const { user } = useUser();
@@ -106,6 +108,7 @@ function SingleProjectPage() {
       <ProjectBanner projectBannerData={projectBannerData} />
       <ProjectInfo projectInfoData={projectInfoData} />
       <ProjectUsers users={users} projectId={_id} />
+      <ProjectFiles files={files} projectId={_id} />
       <ProjectGallery projectGalleryData={files} projectId={_id} />
       <CustomConfirm
         cancelText="لغو"
