@@ -29,11 +29,11 @@ export const deleteReportFile = async (data) => {
 };
 
 // Get All project's Reports
-export const getAllProjectsReports = async (projectId) => {
+export const getAllProjectsReports = async (projectId, search, count, page) => {
   const res = await http.get(
-    `/report/getAllReportsByProjectId?id=${projectId}`,
+    `/report/getAllReportsByProjectId?id=${projectId}&search=${search}&count=${count}&page=${page}`,
   );
-  return res.data;
+  return res.data?.data;
 };
 
 export const uploadReportFile = async (data) => {

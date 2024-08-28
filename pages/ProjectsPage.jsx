@@ -15,7 +15,7 @@ function ProjectsPage() {
     searchParams.get("page") || undefined,
   );
   const { totalPages, totalPagesLoading } = useProjectsTotalPages();
-  const { data, error, isLoading } = useProjects(10, currentPage);
+  const { data, error, isLoading } = useProjects(10, "", currentPage);
   const navigate = useNavigate();
 
   // Error
@@ -66,7 +66,7 @@ function ProjectsPage() {
       </div>
       {!totalPagesLoading && data?.projects.length !== 0 && (
         <CustomPagination
-          rootClassName="!mt-16"
+          rootClassName="!my-16"
           align="center"
           current={currentPage}
           onChange={(page) => {

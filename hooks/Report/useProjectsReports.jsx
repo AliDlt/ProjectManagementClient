@@ -3,18 +3,23 @@ import { getAllProjectsReports } from "../../services/reports";
 import { useEffect } from "react";
 import { useToast } from "../../Context/ToastContext";
 
-function useProjectsReports(projectId) {
+function useProjectsReports(projectId, search, count, page) {
   const toast = useToast();
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["get-project-reports", projectId],
-    queryFn: () => getAllProjectsReports(projectId),
+  const {
+    data: projectsReportsData,
+    isLoading: projectsReportsLoading,
+    error: projectsReportsError,
+  } = useQuery({
+    queryKey: ["get-project-reports", projectId, search, count, page],
+    queryFn: () => getAllProjectsReports(projectId, search, count, page),
   });
 
   useEffect(() => {
-    if (!isLoading && error) toast(error?.response?.data?.message, "error");
-  }, [error, isLoading]);
+    if (!projectsReportsLoading && projectsReportsError)
+      toast(projectsReportsError?.response?.data?.message, "error");
+  }, [projectsReportsError, projectsReportsLoading]);
 
-  return { data, isLoading, error };
+  return { projectsReportsData, projectsReportsLoading, projectsReportsError };
 }
 
 export default useProjectsReports;

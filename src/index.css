@@ -146,11 +146,11 @@ input:focus-visible {
 }
 
 .ant-pagination-item {
-  @apply flex justify-center items-center bg-transparent;
+  @apply flex justify-center items-center bg-transparent  max-[320px]:m-0;
 }
 
 .ant-pagination-item > * {
-  @apply w-max  border-b-2 border-transparent rounded-none font-extrabold;
+  @apply w-max border-b-2 border-transparent rounded-none font-extrabold;
 }
 
 .ant-pagination-item.ant-pagination-item-active > * {
@@ -159,7 +159,12 @@ input:focus-visible {
 
 .ant-pagination-next,
 .ant-pagination-prev {
-  @apply flex justify-center;
+  @apply flex justify-center items-center;
+}
+
+.ant-pagination-jump-next,
+.ant-pagination-jump-prev {
+  @apply max-[320px]:m-0;
 }
 
 /* User Role Filter CheckBox */
