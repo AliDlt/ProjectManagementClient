@@ -12,15 +12,16 @@ import useUser from "../hooks/useUser";
 import useDeleteProject from "../hooks/projects/useDeleteProject";
 import CustomConfirm from "../components/modules/CustomConfirm";
 import MetaTag from "../components/modules/MetaTag";
-import useProjectsReports from "../hooks/Report/useProjectsReports";
+import CustomModal from "../components/modules/CustomModal";
+import ProjectsReportsModal from "../components/ui/projects/singleProject/ProjectsReportsModal";
 
 function SingleProjectPage() {
   const { user } = useUser();
   const { id } = useParams();
-  const { project, isLoading, error } = useProject(id);
-  const { data } = useProjectsReports(id);
-  const { deleteProjectFn, isPending } = useDeleteProject(id);
   const [openDeleteProjectModal, setOpenDeleteProjectModal] = useState(false);
+  const [openReportsModal, setOpenReportsModal] = useState(false);
+  const { project, isLoading, error } = useProject(id);
+  const { deleteProjectFn, isPending } = useDeleteProject(id);
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -93,12 +94,12 @@ function SingleProjectPage() {
     <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10">
       <div className="flex justify-between items-center flex-wrap gap-3">
         <h1 className="text-32">نام پروژه : {name}</h1>
-        <div className="flex justify-center items-center gap-5">
+        <div className="flex justify-end items-center gap-5 flex-wrap mr-auto">
           <CustomButton onClick={() => setOpenDeleteProjectModal(true)}>
             <span>حذف پروژه</span>
           </CustomButton>
-          <CustomButton onClick={() => navigate(`/reports/${_id}`)}>
-            <span>نمایش گزارش مرتبط</span>
+          <CustomButton onClick={() => setOpenReportsModal(true)}>
+            <span>نمایش گزارش های مرتبط</span>
           </CustomButton>
         </div>
       </div>
@@ -116,6 +117,13 @@ function SingleProjectPage() {
         description="آیا از حذف این پروژه اطمینان دارید ؟"
         loading={isPending}
       />
+      <CustomModal
+        open={openReportsModal}
+        onCancel={() => setOpenReportsModal(false)}
+        title="گزارش ها"
+      >
+        <ProjectsReportsModal />
+      </CustomModal>
       {/* Meta Tag */}
       <MetaTag title={name} description={description} />
     </section>

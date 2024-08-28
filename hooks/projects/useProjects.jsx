@@ -11,7 +11,7 @@ const useProjects = (count, search, page) => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["projects", count, page, search],
+    queryKey: ["projects", count, search, page],
     queryFn: () => getAllProjects(count, search, page),
   });
 

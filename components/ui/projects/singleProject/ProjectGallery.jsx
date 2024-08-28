@@ -36,8 +36,8 @@ function ProjectGallery({ projectGalleryData, projectId }) {
   // Popover Content
   const popoverContent = (
     <div className="flex flex-col gap-2 text-12">
-      <p>ویدئو ها با حجم 10 مگابایت</p>
-      <p>عکس ها با حجم 2 مگابایت</p>
+      <p>ویدئو ها تا حجم 30 مگابایت</p>
+      <p>عکس ها تا حجم 10 مگابایت</p>
     </div>
   );
 
@@ -45,10 +45,10 @@ function ProjectGallery({ projectGalleryData, projectId }) {
   const customUploaderRequest = (info) => {
     console.log(info);
     // check file size
-    if (info.filename === "image" && info.file.size > 2097152)
-      return toast("حجم تصویر باید کمتر از 2 مگابایت باشد", "error");
-    if (info.filename === "video" && info.file.size > 10485760)
-      return toast("حجم ویدئو باید کمتر از 10 مگابایت باشد", "error");
+    if (info.filename === "image" && info.file.size > 10485760)
+      return toast("حجم تصویر باید کمتر از 10 مگابایت باشد", "error");
+    if (info.filename === "video" && info.file.size > 31457280)
+      return toast("حجم ویدئو باید کمتر از 30 مگابایت باشد", "error");
 
     // set preview
     if (info.filename === "image") {
@@ -278,12 +278,14 @@ function ProjectGallery({ projectGalleryData, projectId }) {
           okHandler={deleteFileHandler}
           loading={isPending}
         />
-        <span
-          className="absolute top-4 left-4 z-20 bg-white text-black px-2 py-0.5 rounded-custom border-2 border-custom-primary-color cursor-pointer hover:bg-custom-primary-color hover:text-white"
-          onClick={() => navigate(`/projects/gallery/${projectId}`)}
-        >
-          مشاهده همه
-        </span>
+        {projectGalleryData?.length > 7 && (
+          <span
+            className="absolute top-4 left-4 z-20 bg-white text-black px-2 py-0.5 rounded-custom border-2 border-custom-primary-color cursor-pointer hover:bg-custom-primary-color hover:text-white"
+            onClick={() => navigate(`/projects/gallery/${projectId}`)}
+          >
+            مشاهده همه
+          </span>
+        )}
       </Gallery>
     </>
   );
