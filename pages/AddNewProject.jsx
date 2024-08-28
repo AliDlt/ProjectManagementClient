@@ -146,8 +146,6 @@ function AddNewProject() {
             />
           </div>
         </div>
-        {/* Project Files */}
-        <div></div>
         {/* Project Users */}
         <CustomUsersList
           projectUsers={selectedUsers}
@@ -159,10 +157,10 @@ function AddNewProject() {
         />
       </div>
       <CustomConfirm
-        title="بارگزاری عکس و فیلم"
+        title="بارگزاری عکس ، فیلم و فایل"
         okText="بله"
         cancelText="خیر"
-        description="آیا میخواهید به پروژه عکس یا فیلم اضافه کنید ؟"
+        description="آیا میخواهید به پروژه عکس ، فیلم و یا فایل اضافه کنید ؟"
         open={open}
         onCancel={() => {
           setOpen(false);
@@ -171,7 +169,7 @@ function AddNewProject() {
         okHandler={() => {
           navigate(`/projects/${data?._id}`);
         }}
-        okClassName="bg-green-500 border-green-600 hover:bg-green-400 "
+        okClassName="bg-green-500 hover:bg-white hover:text-green-500 border-green-500"
       />
       {/* Meta Tag */}
       <MetaTag title="ایجاد پروژه" description="ایجاد پروژه جدید" />

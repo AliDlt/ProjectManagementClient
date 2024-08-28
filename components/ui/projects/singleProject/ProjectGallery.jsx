@@ -1,12 +1,8 @@
-import { IoAddOutline, IoClose } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
 import { Image, Popover } from "antd";
 import { BsExclamationLg } from "react-icons/bs";
 import { useRef, useState } from "react";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
 import { FaVideo, FaImage, FaTrash } from "react-icons/fa6";
-import { useQueryClient } from "@tanstack/react-query";
 import { SwiperSlide } from "swiper/react";
 import CustomButton from "../../../modules/CustomButton";
 import CustomModal from "../../../modules/CustomModal";
@@ -18,6 +14,9 @@ import CustomTextAria from "../../../modules/CustomTextAria";
 import { useToast } from "../../../../Context/ToastContext";
 import useUploadProjectFile from "../../../../hooks/projects/useUploadProjectFile";
 import { useNavigate } from "react-router-dom";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
 
 function ProjectGallery({ projectGalleryData, projectId }) {
   const [fileDescription, setFileDescription] = useState("");
@@ -25,10 +24,9 @@ function ProjectGallery({ projectGalleryData, projectId }) {
   const [openDeleteFileModal, setOpenDeleteFileModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(false);
-  const { deleteFile, isPending } = useDeleteProjectFile();
+  const { deleteFile, isPending } = useDeleteProjectFile(projectId);
   const { uploadProjectFileFn, uploadProjectFilePending } =
     useUploadProjectFile(projectId);
-  const queryClient = useQueryClient();
   const projectInfo = useRef(null);
   const toast = useToast();
   const navigate = useNavigate();
@@ -43,7 +41,6 @@ function ProjectGallery({ projectGalleryData, projectId }) {
 
   // Custom Uploader Request
   const customUploaderRequest = (info) => {
-    console.log(info);
     // check file size
     if (info.filename === "image" && info.file.size > 10485760)
       return toast("حجم تصویر باید کمتر از 10 مگابایت باشد", "error");
@@ -96,7 +93,6 @@ function ProjectGallery({ projectGalleryData, projectId }) {
         id: projectId,
       });
       setOpenDeleteFileModal(false);
-      queryClient.invalidateQueries("project", projectId);
     } catch (error) {}
   };
 
@@ -230,6 +226,7 @@ function ProjectGallery({ projectGalleryData, projectId }) {
           </form>
         </CustomModal>
       </div>
+      {/* Slider */}
       <Gallery data={projectGalleryData}>
         {projectGalleryData?.slice(0, 7)?.map((file) => (
           <SwiperSlide
@@ -280,7 +277,7 @@ function ProjectGallery({ projectGalleryData, projectId }) {
         />
         {projectGalleryData?.length > 7 && (
           <span
-            className="absolute top-4 left-4 z-20 bg-white text-black px-2 py-0.5 rounded-custom border-2 border-custom-primary-color cursor-pointer hover:bg-custom-primary-color hover:text-white"
+            className="absolute top-4 left-4 z-20 bg-white text-black px-2 py-0.5 rounded-custom border-2 border-custom-primary-color cursor-pointer hover:bg-custom-primary-color hover:text-white text-14"
             onClick={() => navigate(`/projects/gallery/${projectId}`)}
           >
             مشاهده همه

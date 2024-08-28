@@ -7,6 +7,7 @@ import CustomLoading from "../../../modules/CustomLoading";
 import CustomPagination from "../../../modules/CustomPagination";
 import CustomButton from "../../../modules/CustomButton";
 import { useDebounce } from "use-debounce";
+import { Empty } from "antd";
 
 function ProjectsReportsModal() {
   const { id } = useParams();
@@ -30,7 +31,7 @@ function ProjectsReportsModal() {
   return (
     <>
       <CustomInput
-        className="hidden py-1 rounded-custom w-72 ml-auto  md:flex mt-5"
+        className="hidden py-1 rounded-custom w-72 ml-auto md:flex mt-5"
         placeholder="جستجو"
         value={reportSearchValue}
         onChange={(e) => setReportSearchValue(e.target.value)}
@@ -44,30 +45,39 @@ function ProjectsReportsModal() {
         </div>
       ) : (
         <div className="flex flex-col mt-5 gap-[1px] bg-black">
-          {projectsReportsData?.reports.map((report) => (
-            <div
-              key={report._id}
-              className="flex justify-start items-center py-4 bg-white flex-wrap"
-            >
-              <span className="font-bold">{report.name} : </span>&nbsp;
-              <p className="flex-1 text-16 truncate ml-2.5">
-                {report.description}
-              </p>
-              <CustomButton
-                className="text-sm py-1.5 px-3 h-auto"
-                onClick={() => navigate(`/reports/${report._id}`)}
+          {projectsReportsData?.reports.length === 0 ? (
+            <Empty
+              className="bg-white m-0 h-80 flex flex-col justify-center items-center"
+              description="گزارشی وجود ندارد"
+            />
+          ) : (
+            projectsReportsData?.reports.map((report) => (
+              <div
+                key={report._id}
+                className="flex justify-start items-center py-4 bg-white flex-wrap"
               >
-                مشاهده گزارش
-              </CustomButton>
-            </div>
-          ))}
+                <span className="font-bold">{report.name} : </span>&nbsp;
+                <p className="flex-1 text-16 truncate ml-2.5">
+                  {report.description}
+                </p>
+                <CustomButton
+                  className="text-sm py-1.5 px-3 h-auto"
+                  onClick={() => navigate(`/reports/${report._id}`)}
+                >
+                  مشاهده گزارش
+                </CustomButton>
+              </div>
+            ))
+          )}
         </div>
       )}
-      <CustomPagination
-        onChange={(page) => setCurrentPage(page)}
-        total={projectsReportsData?.totalReports}
-        pageSize={5}
-      />
+      {projectsReportsData?.reports.length !== 0 && (
+        <CustomPagination
+          onChange={(page) => setCurrentPage(page)}
+          total={projectsReportsData?.totalReports}
+          pageSize={5}
+        />
+      )}
     </>
   );
 }
