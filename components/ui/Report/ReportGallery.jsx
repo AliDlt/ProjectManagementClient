@@ -92,14 +92,14 @@ const ReportGallery = ({ id, data }) => {
   const uploadCustomFile = (info) => {
     if (
       info.file.type === ("image/jpeg" || "image/jpg" || "image/png") &&
-      info.file.size > 2097152
-    )
-      return toast("حجم تصویر باید کمتر از 2 مگابایت باشد", "error");
-    if (
-      info.file.type === ("video/mp4" || "video/mpeg") &&
       info.file.size > 10485760
     )
-      return toast("حجم ویدئو باید کمتر از 10 مگابایت باشد", "error");
+      return toast("حجم تصویر باید کمتر از 10 مگابایت باشد", "error");
+    if (
+      info.file.type === ("video/mp4" || "video/mpeg") &&
+      info.file.size > 20971520
+    )
+      return toast("حجم ویدئو باید کمتر از 20 مگابایت باشد", "error");
     if (info.file.type.includes("image")) {
       selectImage(info.file);
     }
@@ -147,9 +147,9 @@ const ReportGallery = ({ id, data }) => {
           <div className="flex justify-center items-center  ">
             <CustomButton
               onClick={() => setShow(true)}
-              className="hover:bg-custom-primary-color w-10 rounded-full  h-10 p-1 text-custom-primary-color bg-transparent hover:text-white transition border-2 border-custom-primary-color "
+              className=" rounded-xl p-3 transition border-2 border-custom-primary-color "
             >
-              <IoAddOutline className="text-24" />
+              اضافه کردن عکس یا ویدیو
             </CustomButton>
 
             <CustomModal onCancel={setShow} open={show} title="بارگزاری فایل">

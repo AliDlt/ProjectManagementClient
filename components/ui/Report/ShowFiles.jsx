@@ -35,7 +35,6 @@ const Preview = (file) => {
 };
 
 const ShowFiles = ({ data }) => {
-  const [showFile, setShowFile] = useState();
   const [description, setDescription] = useState();
   const [show, setShow] = useState();
   const [selectedFile, selectFile] = useState();
@@ -51,15 +50,15 @@ const ShowFiles = ({ data }) => {
     console.log(file);
     if (file.filename !== "file") {
       return toast("لطفا یک فایل را انتخاب کنید", "error");
-    } else if (fileSizeInMB > 5) {
-      return toast("فایل انختابی شما حد اکثر باید 5 مگابایت باشد", "error");
+    } else if (fileSizeInMB > 20) {
+      return toast("فایل انختابی شما حد اکثر باید 10 مگابایت باشد", "error");
     } else {
       selectFile(file);
     }
   };
   const queryClient = useQueryClient();
   const successUpload = (e) => {
-    toast(e.data.message, "success");
+    toast(e?.data?.message, "success");
     setShow(false);
     setDescription("");
     queryClient.invalidateQueries("get-report", id);
@@ -99,9 +98,9 @@ const ShowFiles = ({ data }) => {
         <div className="flex justify-center items-center ">
           <CustomButton
             onClick={() => setShow(true)}
-            className="hover:bg-custom-primary-color w-10 rounded-full  h-10 p-1 text-custom-primary-color bg-transparent hover:text-white transition border-2 border-custom-primary-color "
+            className=" rounded-xl  p-3  transition border-2 border-custom-primary-color "
           >
-            <IoAddOutline className="text-24" />
+            اضافه کردن فایل
           </CustomButton>
         </div>
       </div>
@@ -116,7 +115,7 @@ const ShowFiles = ({ data }) => {
                   {item.fileFormat !== "image" &&
                     item.fileFormat !== "video" && (
                       <SwiperSlide
-                        onClick={() => setShowFile(true)}
+                      
                         key={key}
                         className="flex items-center justify-center"
                       >

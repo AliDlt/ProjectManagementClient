@@ -3,7 +3,7 @@ import SmsCart from "../components/modules/MessageCart";
 import useGetMessages from "../hooks/useGetMessages";
 import CustomLoading from "../components/modules/CustomLoading";
 import { Link, Navigate } from "react-router-dom";
-import {  Pagination } from "antd";
+import { Empty, Pagination } from "antd";
 import MetaTag from "../components/modules/MetaTag";
 import CustomButton from "../components/modules/CustomButton";
 
@@ -15,7 +15,18 @@ const Messages = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const { data, error, isPending } = useGetMessages(page);
-  console.log(error);
+  if (!isPending && data?.data.data.tickets) {
+    return (
+      <div className="container-grid ">
+        <div className="col-span-1 lg:col-span-11 mt-60 flex-col gap-5  flex items-center justify-center">
+          <Empty description="پیامی وجود ندارد" />
+          <CustomButton>
+            <Link to='/add-ticket'>ارسال پیام جدید</Link>
+          </CustomButton>
+        </div>
+      </div>
+    );
+  }
   if (error) {
     return <Navigate to={"/dashboard"} />;
   }
@@ -34,7 +45,6 @@ const Messages = () => {
               <Link to="/add-ticket">اضافه کردن پیغام</Link>
             </CustomButton>
           </div>
-          {console.log(data?.data.data.tickets[0])}
           <div className=" mt-5 grid md:grid-cols-2 grid-cols-1 gap gap-5">
             {data?.data?.data.tickets.map(
               ({ title, _id: id, messages }, index) => (

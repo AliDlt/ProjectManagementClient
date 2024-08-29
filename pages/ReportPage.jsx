@@ -11,30 +11,37 @@ import CustomModal from "../components/modules/CustomModal";
 import useDeleteReport from "../hooks/Report/useDeleteReport";
 import { useToast } from "../Context/ToastContext";
 import CustomLoading from "../components/modules/CustomLoading";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ReportPage = () => {
   const { id } = useParams();
-  const { data, error , isLoading } = useGetReport(id);
+  const { data, error, isLoading } = useGetReport(id);
   const [modalDelete, showModalDelete] = useState(false);
   const { mutate, isPending } = useDeleteReport();
+  const queryClient = useQueryClient();
   const toast = useToast();
   const navigate = useNavigate();
   const deleteSuccess = (e) => {
     toast(e.message, "success");
+    queryClient.invalidateQueries("reports");
     navigate("/reports");
   };
   const deleteReportFn = () => {
     mutate(id, { onSuccess: deleteSuccess, onError: (e) => console.log(e) });
   };
-  if(isLoading) {
-    return <div className="container-grid">
-      <div className="col-span-1 lg:col-span-11">
-        <CustomLoading /> 
+  if (isLoading) {
+    return (
+      <div className="container-grid">
+        <div className="col-span-1 lg:col-span-11">
+          <CustomLoading />
+        </div>
       </div>
-      
-    </div>
+    );
   }
-
+  if (error) {
+    toast(error.response.data.message,'error');
+    navigate("/reports");
+  }
   return (
     <div className="container-grid ">
       <div className="col-span-1 lg:col-span-11">
@@ -54,10 +61,11 @@ const ReportPage = () => {
           action="/api/report/uploadFile"
           data={{ id: data?._id, file: data?.files }}
         />
+        {console.log()}
         <ReportGallery id={data?._id} data={data?.files} />
         <div className="mt-4 px-4  flex items-center justify-center ">
           <CustomButton className="py-5 lg:p-7 ">
-            <Link to={`/projects/${2}`}>نمایش پروژه مرتبط </Link>
+            <Link to={`/projects/${data?.projectId}`}>نمایش پروژه مرتبط </Link>
           </CustomButton>
         </div>
       </div>
