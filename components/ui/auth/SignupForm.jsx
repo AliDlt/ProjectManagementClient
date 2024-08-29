@@ -8,6 +8,8 @@ import { useToast } from "../../../Context/ToastContext";
 import { convertToInternational } from "../../../utils/tools";
 import { Link } from "react-router-dom";
 import MetaTag from "../../modules/MetaTag";
+import { Checkbox } from "antd";
+import { Controller } from "react-hook-form";
 
 const userRoleOptions = [
   { name: "مدیر", id: 0 },
@@ -18,20 +20,21 @@ const userRoleOptions = [
 function SignupForm({ formData, setStep }) {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
-
   const {
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = formData;
 
   const onSubmitHandler = async (values) => {
     setLoading(true);
-    const { phoneNumber, username, nationalCode } = values;
+    const { phoneNumber, username, nationalCode, isForeign } = values;
     const userData = {
       phoneNumber: convertToInternational(phoneNumber),
       username,
       nationalCode,
+      isForeign,
     };
     try {
       await checkSignup(userData);
@@ -79,14 +82,16 @@ function SignupForm({ formData, setStep }) {
           className="h-[60px] text-16 px-5 bg-transparent md:text-18"
           placeholder="شماره موبایل"
         />
-        <CustomInput
-          type="tel"
-          error={errors.nationalCode}
-          name="nationalCode"
-          control={control}
-          className="h-[60px] text-16 px-5 bg-transparent md:text-18"
-          placeholder="کد ملی"
-        />
+        {!watch("isForeign") && (
+          <CustomInput
+            type="tel"
+            error={errors.nationalCode}
+            name="nationalCode"
+            control={control}
+            className="h-[60px] text-16 px-5 bg-transparent md:text-18"
+            placeholder="کد ملی"
+          />
+        )}
         <CustomSelectInput
           placeholder="نقش کاربری"
           className="h-[60px] text-16 px-5 bg-transparent md:text-18 placeholder:text-black/50  [&_.ant-select-selection-placeholder]:text-black/50 [&_.ant-select-selection-placeholder]:md:!text-18 [&_.ant-select-selection-item]:md:!text-18"
@@ -110,6 +115,22 @@ function SignupForm({ formData, setStep }) {
           className="h-[60px] text-16 px-5 bg-transparent md:text-18"
           placeholder="تکرار رمز عبور"
         />
+        <div>
+          <Controller
+            control={control}
+            name="isForeign"
+            render={({ field: { value, ...rest } }) => (
+              <Checkbox
+                className="text-nowrap text-12 md:text-base"
+                onChange={(e) => onChange(e.target.checked)}
+                checked={value}
+                {...rest}
+              >
+                اتباع خارجی هستم
+              </Checkbox>
+            )}
+          />
+        </div>
         <CustomButton
           loading={loading}
           className="h-[60px] w-48 mx-auto text-20 md:w-56  md:mt-5"
