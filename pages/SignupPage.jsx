@@ -17,6 +17,9 @@ function SignupPage() {
   const navigate = useNavigate();
 
   const formData = useForm({
+    defaultValues: {
+      isForeign: false,
+    },
     mode: "onChange",
     resolver: yupResolver(signupSchema),
   });
@@ -35,23 +38,12 @@ function SignupPage() {
 
     try {
       await otpVerify(userData);
-      const {
-        name,
-        password,
-        phoneNumber,
-        username,
-        nationalCode,
-        surName,
-        userRole,
-      } = watch();
+      const { phoneNumber, nationalCode, isForeign, ...rest } = watch();
       const userDataSignup = {
-        name,
-        surName,
-        password,
         phoneNumber: convertToInternational(phoneNumber),
-        username,
-        nationalCode,
-        userRole,
+        ...(isForeign ? {} : { nationalCode }),
+        isForeign,
+        ...rest,
       };
       const data = await signup(userDataSignup);
       toast(data.message, "success");

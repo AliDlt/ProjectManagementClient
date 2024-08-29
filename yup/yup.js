@@ -27,9 +27,14 @@ export const signupSchema = Yup.object({
   passwordConfirmation: Yup.string()
     .required("این فیلد اجباری است.")
     .oneOf([Yup.ref("password"), null], "با رمز عبور مطابقت ندارد."),
-  nationalCode: Yup.string()
-    .required("این فیلد اجباری است.")
-    .matches(/^(?!(\d)\1{9})\d{10}$/, "کد ملی باید 10 رقمی باشد"),
+  isForeign: Yup.boolean(),
+  nationalCode: Yup.string().when("isForeign", {
+    is: false,
+    then: (schema) =>
+      schema
+        .required("این فیلد اجباری است.")
+        .matches(/^(?!(\d)\1{9})\d{10}$/, "کد ملی باید 10 رقمی باشد"),
+  }),
   userRole: Yup.string().required("این فیلد اجباری است."),
 });
 
