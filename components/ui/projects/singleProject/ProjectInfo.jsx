@@ -97,12 +97,12 @@ function ProjectInfo({ projectInfoData }) {
             </span>
           </div>
           <div>
-            <span>محل پروژه : </span>&nbsp;
+            <span>آدرس پروژه : </span>&nbsp;
             <span>{address}</span>
           </div>
           <div className="flex flex-wrap  flex-1 col-span-full">
             <CustomButton onClick={() => setIsOpenMapModal(true)}>
-              محل پروژه
+              لوکیشن پروژه روی نقشه
             </CustomButton>
             <CustomModal
               open={isOpenMapModal}
@@ -114,7 +114,7 @@ function ProjectInfo({ projectInfoData }) {
                 target="_blank"
                 className="flex justify-center items-center rounded-custom bg-custom-primary-color text-white hover:bg-custom-primary-color/90  disabled:hover:bg-gray-200 transition-none disabled:cursor-not-allowed disabled:bg-gray-200 w-max px-5 py-2 mt-5"
               >
-                محل در گوگل مپ
+                لوکیشن پروژه روی Google Map
               </a>
             </CustomModal>
           </div>
@@ -172,7 +172,7 @@ function ProjectInfo({ projectInfoData }) {
           </div>
           <div className="flex flex-col sm:flex-row justify-center flex-wrap gap-2 mt-5">
             <div className="flex justify-center flex-wrap items-center gap-2 flex-1">
-              <span>محل پروژه</span>
+              <span>آدرس پروژه</span>
               <CustomInput
                 containerClassName="flex-1"
                 control={control}
@@ -186,7 +186,7 @@ function ProjectInfo({ projectInfoData }) {
               onClick={() => setIsOpenMapModal(true)}
               className="mr-auto"
             >
-              محل پروژه
+              لوکیشن پروژه روی نقشه
             </CustomButton>
           </div>
           <div className="flex justify-center flex-wrap items-center gap-2 mt-5">
@@ -223,10 +223,11 @@ function ProjectInfo({ projectInfoData }) {
               onClick={() => {
                 setValue("latitude", position?.lat);
                 setValue("longitude", position?.lng);
+                toast("محل پروژه ثبت شد", "success");
                 setIsOpenMapModal(false);
               }}
             >
-              ثبت محل
+              ثبت مکان پروژه
             </CustomButton>
           </CustomModal>
           <CustomButton className="mt-7" type="submit">

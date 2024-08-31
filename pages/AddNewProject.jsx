@@ -143,7 +143,7 @@ function AddNewProject() {
               </div>
             </div>
             <div className="flex justify-center flex-wrap items-center gap-2 mt-7">
-              <span>محل پروژه</span>
+              <span>آدرس پروژه</span>
               <CustomInput
                 control={control}
                 name="address"
@@ -158,11 +158,11 @@ function AddNewProject() {
                 onClick={() => setIsOpenMapModal(true)}
                 className="mt-7"
               >
-                محل پروژه
+                لوکیشن پروژه روی نقشه
               </CustomButton>
               {errors.latitude && errors.longitude && (
                 <p className="text-red-500 text-14 mt-2">
-                  لطفا مکان پروژه رو انتخاب کنید
+                  لطفا مکان پروژه را ، روی نقشه مشخص کنید
                 </p>
               )}
               <CustomModal
@@ -175,10 +175,11 @@ function AddNewProject() {
                   onClick={() => {
                     setValue("latitude", position?.lat);
                     setValue("longitude", position?.lng);
+                    toast("محل پروژه ثبت شد", "success");
                     setIsOpenMapModal(false);
                   }}
                 >
-                  ثبت محل
+                  ثبت مکان پروژه
                 </CustomButton>
               </CustomModal>
             </div>
