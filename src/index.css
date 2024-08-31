@@ -208,3 +208,11 @@ input:focus-visible {
 .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
   @apply bg-custom-primary-color;
 }
+
+.leaflet-container {
+  height: 100%;
+}
+
+.leaflet-bottom.leaflet-right {
+  @apply hidden;
+}

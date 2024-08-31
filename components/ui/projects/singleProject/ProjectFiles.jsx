@@ -13,6 +13,8 @@ import { SwiperSlide } from "swiper/react";
 import { filterFile } from "../../../../utils/tools";
 import { Empty } from "antd";
 import CustomSlideFIle from "../../../modules/CustomSlideFIle";
+import useUser from "../../../../hooks/useUser";
+import { file, filesSize } from "../../../../utils/uploadFileInfo";
 
 const Preview = (file) => {
   return (
@@ -26,6 +28,7 @@ const Preview = (file) => {
 };
 
 function ProjectFiles({ projectId, files }) {
+  const { isLoading, user } = useUser();
   const [fileDescription, setFileDescription] = useState("");
   const [openAddFileModal, setOpenAddFileModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
@@ -36,12 +39,10 @@ function ProjectFiles({ projectId, files }) {
 
   //   Custom Upload File
   const customUploadFile = (file) => {
-    const fileSizeInMB = (file.file.size / (1024 * 1024)).toFixed(2);
-
     if (file.filename !== "file")
       return toast("لطفا یک فایل را انتخاب کنید", "error");
-    if (fileSizeInMB > 5)
-      return toast("فایل انتخابی شما حد اکثر باید 5 مگابایت باشد", "error");
+    if (file.file.size > filesSize.file)
+      return toast("فایل انتخابی شما حد اکثر باید 10 مگابایت باشد", "error");
 
     setSelectedFile(file);
   };
@@ -72,12 +73,14 @@ function ProjectFiles({ projectId, files }) {
           <div className="flex items-center gap-3">
             <h3 className="text-20 font-extrabold">اسناد</h3>
           </div>
-          <CustomButton
-            onClick={() => setOpenAddFileModal(true)}
-            className="mr-auto"
-          >
-            بارگزاری اسناد
-          </CustomButton>
+          {!isLoading && user.userRole !== 2 && (
+            <CustomButton
+              onClick={() => setOpenAddFileModal(true)}
+              className="mr-auto"
+            >
+              بارگزاری اسناد
+            </CustomButton>
+          )}
         </div>
       </div>
       {/* File Slider */}
@@ -120,12 +123,12 @@ function ProjectFiles({ projectId, files }) {
             {/* File */}
             <div className="flex flex-col flex-1 gap-2">
               <div className="flex flex-col flex-1 gap-2">
-                <p>اسناد با حجم حد اکثر 5 مگابایت</p>
+                <p>اسناد با حجم حد اکثر 10 مگابایت</p>
                 <CustomUpload
                   customRequest={customUploadFile}
                   preview={selectedFile && Preview(selectedFile)}
                   className=" text-black/50 text-18"
-                  accept="application/pdf,text/plain,application/zip,application/msword,application/vnd.rar"
+                  accept={file}
                   title="بارگزاری فایل"
                   icon={<FaFile />}
                 />

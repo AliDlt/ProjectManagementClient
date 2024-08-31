@@ -26,6 +26,7 @@ import AddMessage from "../pages/AddMessage";
 import SingleProjectGallery from "../pages/SingleProjectGallery";
 import AddNewProject from "../pages/AddNewProject";
 import NotFound from "../pages/NotFound";
+import dayjs from "dayjs";
 
 function App() {
   const queryClient = new QueryClient({
@@ -36,6 +37,8 @@ function App() {
       },
     },
   });
+
+  dayjs.calendar("jalali");
 
   return (
     <ToastMessageProvider>
