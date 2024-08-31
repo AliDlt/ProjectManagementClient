@@ -1,4 +1,4 @@
-import { Progress, Slider } from "antd";
+import { Progress } from "antd";
 import React, { useState } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { useForm } from "react-hook-form";
@@ -14,6 +14,7 @@ import useUpdateProject from "../../../../hooks/projects/useUpdateProject";
 import CustomDatePicker from "../../../modules/CustomDatePicker";
 import cn from "../../../../utils/cn";
 import CustomTextAria from "../../../modules/CustomTextAria";
+import Map from "../Map";
 
 function ProjectInfo({ projectInfoData }) {
   const { user, isLoading } = useUser();
@@ -22,11 +23,15 @@ function ProjectInfo({ projectInfoData }) {
     endDate,
     progress,
     _id,
-    location,
+    address,
     createdBy,
     description,
+    longitude,
+    latitude,
   } = projectInfoData;
   const [open, setOpen] = useState(false);
+  const [isOpenMapModal, setIsOpenMapModal] = useState(false);
+  const [position, setPosition] = useState([latitude, longitude]);
   const { mutateAsync } = useUpdateProject(_id);
   const toast = useToast();
 
@@ -42,8 +47,10 @@ function ProjectInfo({ projectInfoData }) {
       startDate,
       endDate,
       progress,
-      location,
+      address,
       description,
+      longitude,
+      latitude,
     },
     resolver: yupResolver(projectInfoSchema),
     mode: "onChange",
@@ -89,9 +96,27 @@ function ProjectInfo({ projectInfoData }) {
               {createdBy.name} {createdBy.surName}
             </span>
           </div>
-          <div className="flex flex-wrap  flex-1 col-span-full">
+          <div>
             <span>محل پروژه : </span>&nbsp;
-            <span>{location}</span>
+            <span>{address}</span>
+          </div>
+          <div className="flex flex-wrap  flex-1 col-span-full">
+            <CustomButton onClick={() => setIsOpenMapModal(true)}>
+              محل پروژه
+            </CustomButton>
+            <CustomModal
+              open={isOpenMapModal}
+              onCancel={() => setIsOpenMapModal(false)}
+            >
+              <Map centerMap={[latitude, longitude]} />
+              <a
+                href={`https://www.google.com/maps?q=${latitude},${longitude}`}
+                target="_blank"
+                className="flex justify-center items-center rounded-custom bg-custom-primary-color text-white hover:bg-custom-primary-color/90  disabled:hover:bg-gray-200 transition-none disabled:cursor-not-allowed disabled:bg-gray-200 w-max px-5 py-2 mt-5"
+              >
+                محل در گوگل مپ
+              </a>
+            </CustomModal>
           </div>
         </div>
       </div>
@@ -145,16 +170,24 @@ function ProjectInfo({ projectInfoData }) {
               />
             </div>
           </div>
-          <div className="flex justify-center flex-wrap items-center gap-2 mt-5">
-            <span>محل پروژه</span>
-            <CustomInput
-              containerClassName="flex-1"
-              control={control}
-              name="location"
-              className="px-3 py-1.5"
-              placeholder="تهران"
-              noErrorMessage
-            />
+          <div className="flex flex-col sm:flex-row justify-center flex-wrap gap-2 mt-5">
+            <div className="flex justify-center flex-wrap items-center gap-2 flex-1">
+              <span>محل پروژه</span>
+              <CustomInput
+                containerClassName="flex-1"
+                control={control}
+                name="address"
+                className="px-3 py-1.5"
+                placeholder="تهران"
+                noErrorMessage
+              />
+            </div>
+            <CustomButton
+              onClick={() => setIsOpenMapModal(true)}
+              className="mr-auto"
+            >
+              محل پروژه
+            </CustomButton>
           </div>
           <div className="flex justify-center flex-wrap items-center gap-2 mt-5">
             <span>درصد پیشرفت پروژه</span>
@@ -180,6 +213,22 @@ function ProjectInfo({ projectInfoData }) {
               noErrorMessage
             />
           </div>
+          <CustomModal
+            open={open && isOpenMapModal}
+            onCancel={() => setIsOpenMapModal(false)}
+          >
+            <Map centerMap={position} setPosition={setPosition} />
+            <CustomButton
+              className="mt-5"
+              onClick={() => {
+                setValue("latitude", position?.lat);
+                setValue("longitude", position?.lng);
+                setIsOpenMapModal(false);
+              }}
+            >
+              ثبت محل
+            </CustomButton>
+          </CustomModal>
           <CustomButton className="mt-7" type="submit">
             ثبت تغییرات
           </CustomButton>

@@ -151,7 +151,9 @@ export const addNewProjectSchema = Yup.object({
   description: Yup.string().required("این فیلد اجباری است"),
   startDate: Yup.string().required(""),
   endDate: Yup.string().required(""),
-  location: Yup.string().required(""),
+  address: Yup.string().required(""),
+  longitude: Yup.number().required(""),
+  latitude: Yup.number().required(""),
 });
 
 export const changePassword = Yup.object({

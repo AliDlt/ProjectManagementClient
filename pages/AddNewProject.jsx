@@ -7,15 +7,23 @@ import { useForm } from "react-hook-form";
 import { addNewProjectSchema } from "../yup/yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import CustomUsersList from "../components/ui/projects/CustomUsersList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAddProject from "../hooks/projects/useAddProject";
 import CustomConfirm from "../components/modules/CustomConfirm";
 import { useNavigate } from "react-router-dom";
 import MetaTag from "../components/modules/MetaTag";
 import { useToast } from "../Context/ToastContext";
+import CustomModal from "../components/modules/CustomModal";
+import useUserGeolocation from "../hooks/useUserGeolocation";
+import Map from "../components/ui/projects/Map";
 
 function AddNewProject() {
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const { location } = useUserGeolocation();
+  const [isOpenMapModal, setIsOpenMapModal] = useState(false);
+  const [position, setPosition] = useState([
+    35.68942549867877, 51.39404296875001,
+  ]);
   const { addProject, isPending, data } = useAddProject();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -32,10 +40,21 @@ function AddNewProject() {
     defaultValues: {
       usersIds: selectedUsers,
       progress: 0,
+      latitude: null,
+      longitude: null,
     },
     resolver: yupResolver(addNewProjectSchema),
     mode: "onChange",
   });
+
+  useEffect(() => {
+    if (location) {
+      setPosition({
+        lat: location?.latitude,
+        lng: location?.longitude,
+      });
+    }
+  }, [location, setPosition]);
 
   // On Submit
   const onSubmit = async (values) => {
@@ -127,12 +146,41 @@ function AddNewProject() {
               <span>محل پروژه</span>
               <CustomInput
                 control={control}
-                name="location"
+                name="address"
                 className="px-3 py-1.5 md:max-w-96"
                 noErrorMessage
-                error={errors.location}
+                error={errors.address}
                 containerClassName="flex-1"
               />
+            </div>
+            <div>
+              <CustomButton
+                onClick={() => setIsOpenMapModal(true)}
+                className="mt-7"
+              >
+                محل پروژه
+              </CustomButton>
+              {errors.latitude && errors.longitude && (
+                <p className="text-red-500 text-14 mt-2">
+                  لطفا مکان پروژه رو انتخاب کنید
+                </p>
+              )}
+              <CustomModal
+                open={isOpenMapModal}
+                onCancel={() => setIsOpenMapModal(false)}
+              >
+                <Map centerMap={position} setPosition={setPosition} />
+                <CustomButton
+                  className="mt-5"
+                  onClick={() => {
+                    setValue("latitude", position?.lat);
+                    setValue("longitude", position?.lng);
+                    setIsOpenMapModal(false);
+                  }}
+                >
+                  ثبت محل
+                </CustomButton>
+              </CustomModal>
             </div>
           </div>
           <div className="mt-10 xl:mt-0 xl:order-3 flex-1 flex flex-col gap-2 2xl:mr-20">

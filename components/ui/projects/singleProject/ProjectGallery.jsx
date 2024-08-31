@@ -17,8 +17,19 @@ import { useNavigate } from "react-router-dom";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import useUser from "../../../../hooks/useUser";
+import { filesSize, image, video } from "../../../../utils/uploadFileInfo";
+
+// Popover Content
+const popoverContent = (
+  <div className="flex flex-col gap-2 text-12">
+    <p>ویدئو ها تا حجم 30 مگابایت</p>
+    <p>عکس ها تا حجم 10 مگابایت</p>
+  </div>
+);
 
 function ProjectGallery({ projectGalleryData, projectId }) {
+  const { isLoading, user } = useUser();
   const [fileDescription, setFileDescription] = useState("");
   const [openAddFileModal, setOpenAddFileModal] = useState(false);
   const [openDeleteFileModal, setOpenDeleteFileModal] = useState(false);
@@ -31,20 +42,14 @@ function ProjectGallery({ projectGalleryData, projectId }) {
   const toast = useToast();
   const navigate = useNavigate();
 
-  // Popover Content
-  const popoverContent = (
-    <div className="flex flex-col gap-2 text-12">
-      <p>ویدئو ها تا حجم 30 مگابایت</p>
-      <p>عکس ها تا حجم 10 مگابایت</p>
-    </div>
-  );
-
   // Custom Uploader Request
   const customUploaderRequest = (info) => {
+    const fileSize = info.file.size;
+
     // check file size
-    if (info.filename === "image" && info.file.size > 10485760)
+    if (info.filename === "image" && fileSize > filesSize.image)
       return toast("حجم تصویر باید کمتر از 10 مگابایت باشد", "error");
-    if (info.filename === "video" && info.file.size > 31457280)
+    if (info.filename === "video" && fileSize > filesSize.video)
       return toast("حجم ویدئو باید کمتر از 30 مگابایت باشد", "error");
 
     // set preview
@@ -102,25 +107,29 @@ function ProjectGallery({ projectGalleryData, projectId }) {
         <div className="flex justify-between w-full items-center gap-3 flex-wrap">
           <div className="flex items-center gap-3">
             <h3 className="text-20 font-extrabold">گالری عکس ها</h3>
-            <Popover
-              content={popoverContent}
-              arrow={false}
-              overlayInnerStyle={{
-                borderRadius: "8px",
-                border: "2px solid rgb(var(--primary-color))",
-              }}
-            >
-              <span className="flex justify-center items-center ring-2 ring-custom-primary-color rounded-full cursor-pointer">
-                <BsExclamationLg className="text-custom-primary-color rounded-full group-hover:text-white" />
-              </span>
-            </Popover>
+            {!isLoading && user.userRole !== 2 && (
+              <Popover
+                content={popoverContent}
+                arrow={false}
+                overlayInnerStyle={{
+                  borderRadius: "8px",
+                  border: "2px solid rgb(var(--primary-color))",
+                }}
+              >
+                <span className="flex justify-center items-center ring-2 ring-custom-primary-color rounded-full cursor-pointer">
+                  <BsExclamationLg className="text-custom-primary-color rounded-full group-hover:text-white" />
+                </span>
+              </Popover>
+            )}
           </div>
-          <CustomButton
-            onClick={() => setOpenAddFileModal(true)}
-            className="mr-auto"
-          >
-            بارگزاری عکس / ویدئو
-          </CustomButton>
+          {!isLoading && user.userRole !== 2 && (
+            <CustomButton
+              onClick={() => setOpenAddFileModal(true)}
+              className="mr-auto"
+            >
+              بارگزاری عکس / ویدئو
+            </CustomButton>
+          )}
         </div>
         {/* Modal */}
         <CustomModal
@@ -132,12 +141,12 @@ function ProjectGallery({ projectGalleryData, projectId }) {
             <div className="flex flex-col justify-center sm:items-center gap-5 mt-5 sm:flex-row">
               {/* Image */}
               <div className="flex flex-col flex-1 gap-2">
-                <span>عکس ها با حجم 2 مگابایت</span>
+                <span>عکس ها با حجم 10 مگابایت</span>
                 <CustomUpload
                   title="بارگزاری تصویر"
                   className="w-full"
                   icon={<FaImage size={25} />}
-                  accept="image/png , image/jpg , image/jpeg"
+                  accept={image}
                   name="image"
                   customRequest={customUploaderRequest}
                   preview={
@@ -169,12 +178,12 @@ function ProjectGallery({ projectGalleryData, projectId }) {
               </div>
               {/* Video */}
               <div className="flex flex-col flex-1 gap-2 ">
-                <span>ویدئو ها با حجم 10 مگابایت</span>
+                <span>ویدئو ها با حجم 30 مگابایت</span>
                 <CustomUpload
                   title="بارگزاری ویدئو"
                   className="w-full"
                   icon={<FaVideo size={25} />}
-                  accept="video/mp4 , video/mpeg"
+                  accept={video}
                   name="video"
                   customRequest={customUploaderRequest}
                   preview={

@@ -16,9 +16,8 @@ import CustomModal from "../components/modules/CustomModal";
 import ProjectsReportsModal from "../components/ui/projects/singleProject/ProjectsReportsModal";
 import ProjectFiles from "../components/ui/projects/singleProject/ProjectFiles";
 
-
 function SingleProjectPage() {
-  const { user } = useUser();
+  const { user, isLoading: userLoading } = useUser();
   const { id } = useParams();
   const [openDeleteProjectModal, setOpenDeleteProjectModal] = useState(false);
   const [openReportsModal, setOpenReportsModal] = useState(false);
@@ -73,10 +72,12 @@ function SingleProjectPage() {
     name,
     files,
     _id,
-    location,
+    address,
     users,
     createdBy,
     description,
+    longitude,
+    latitude,
   } = project;
 
   // Separate Sections Datas
@@ -87,19 +88,25 @@ function SingleProjectPage() {
     progress,
     files,
     _id,
-    location,
+    address,
     createdBy,
     description,
+    longitude,
+    latitude,
   };
+
+  console.log(project);
 
   return (
     <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10">
       <div className="flex justify-between items-center flex-wrap gap-3">
         <h1 className="text-32">نام پروژه : {name}</h1>
         <div className="flex justify-end items-center gap-5 flex-wrap mr-auto">
-          <CustomButton onClick={() => setOpenDeleteProjectModal(true)}>
-            <span>حذف پروژه</span>
-          </CustomButton>
+          {!userLoading && user.userRole !== 2 && (
+            <CustomButton onClick={() => setOpenDeleteProjectModal(true)}>
+              <span>حذف پروژه</span>
+            </CustomButton>
+          )}
           <CustomButton onClick={() => setOpenReportsModal(true)}>
             <span>نمایش گزارش های مرتبط</span>
           </CustomButton>

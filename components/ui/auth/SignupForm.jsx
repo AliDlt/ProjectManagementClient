@@ -12,9 +12,9 @@ import { Checkbox } from "antd";
 import { Controller } from "react-hook-form";
 
 const userRoleOptions = [
-  { name: "مدیر", id: 0 },
-  { name: "پیمانکار", id: 1 },
-  { name: "ناظر", id: 2 },
+  { name: "مدیر کل", id: 0 },
+  { name: "سرپرست پروژه", id: 1 },
+  { name: "ناظر پروژه", id: 2 },
 ];
 
 function SignupForm({ formData, setStep }) {
