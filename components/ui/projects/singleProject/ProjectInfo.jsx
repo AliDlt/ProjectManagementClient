@@ -105,7 +105,7 @@ function ProjectInfo({ projectInfoData }) {
               لوکیشن پروژه روی نقشه
             </CustomButton>
             <CustomModal
-              open={isOpenMapModal}
+              open={!open && isOpenMapModal}
               onCancel={() => setIsOpenMapModal(false)}
             >
               <Map centerMap={[latitude, longitude]} />

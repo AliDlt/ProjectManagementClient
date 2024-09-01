@@ -20,8 +20,8 @@ const UserPage = () => {
 
   const queryClient = useQueryClient();
   const catchUser = queryClient.getQueriesData(["user"]);
-  const { user, isLoading ,} = useUser(id);
-  console.log(user)
+  const { user, isLoading } = useUser(id);
+  console.log(user);
   const { mutate } = useUpdateUser();
 
   if (error) {
