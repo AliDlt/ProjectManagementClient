@@ -27,6 +27,7 @@ import SingleProjectGallery from "../pages/SingleProjectGallery";
 import AddNewProject from "../pages/AddNewProject";
 import NotFound from "../pages/NotFound";
 import dayjs from "dayjs";
+import UserProjectsPage from "../pages/UserProjectsPage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -124,6 +125,10 @@ function App() {
                 />
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="/users/:id" element={<UserPage />} />
+                <Route
+                  path="/users/project/:userId"
+                  element={<UserProjectsPage />}
+                />
               </Route>
               {/* Login / Signup */}
               <Route path="/auth" element={<AuthContainer />}>

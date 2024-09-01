@@ -53,7 +53,7 @@ function ProjectFiles({ projectId, files }) {
     try {
       await uploadProjectFileFn({
         file: selectedFile.file,
-        fileFormat: selectedFile.file.type,
+        fileFormat: "file",
         id: projectId,
         description: fileDescription,
       });

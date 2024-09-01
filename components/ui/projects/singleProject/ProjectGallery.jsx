@@ -1,4 +1,4 @@
-import { IoClose } from "react-icons/io5";
+import { IoClose, IoEyeSharp } from "react-icons/io5";
 import { Image, Popover } from "antd";
 import { BsExclamationLg } from "react-icons/bs";
 import { useRef, useState } from "react";
@@ -19,6 +19,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import useUser from "../../../../hooks/useUser";
 import { filesSize, image, video } from "../../../../utils/uploadFileInfo";
+import cn from "../../../../utils/cn";
 
 // Popover Content
 const popoverContent = (
@@ -33,6 +34,7 @@ function ProjectGallery({ projectGalleryData, projectId }) {
   const [fileDescription, setFileDescription] = useState("");
   const [openAddFileModal, setOpenAddFileModal] = useState(false);
   const [openDeleteFileModal, setOpenDeleteFileModal] = useState(false);
+  const [openFileInfoModal, setOpenFileInfoModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(false);
   const { deleteFile, isPending } = useDeleteProjectFile(projectId);
@@ -238,10 +240,7 @@ function ProjectGallery({ projectGalleryData, projectId }) {
       {/* Slider */}
       <Gallery data={projectGalleryData}>
         {projectGalleryData?.slice(0, 7)?.map((file) => (
-          <SwiperSlide
-            key={file.fileName}
-            className="rounded-custom overflow-hidden !h-[220px] relative"
-          >
+          <SwiperSlide key={file.fileName} className="overflow-hidden relative">
             <span
               className="absolute top-2 right-2 text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
               onClick={() => {
@@ -251,12 +250,21 @@ function ProjectGallery({ projectGalleryData, projectId }) {
             >
               <FaTrash />
             </span>
+            <span
+              className="absolute top-2 right-14 text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
+              onClick={() => {
+                setOpenFileInfoModal(true);
+                projectInfo.current = file;
+              }}
+            >
+              <IoEyeSharp size={25} />
+            </span>
             {file.fileFormat === "image" && (
               <Image
-                className="object-cover w-full h-full"
+                className="object-cover w-full h-full rounded-custom"
                 src={file.fileURL}
                 alt={file.description}
-                rootClassName="w-full h-full"
+                rootClassName="w-full h-[220px] rounded-custom"
                 preview={{
                   mask: "بزرگ نمایی",
                 }}
@@ -265,13 +273,21 @@ function ProjectGallery({ projectGalleryData, projectId }) {
             )}
             {file.fileFormat === "video" && (
               <video
-                className="bg-custom-primary-color-300/50 w-full h-full"
+                className="bg-custom-primary-color-300/50 w-full h-[220px] rounded-custom "
                 controls
                 src={file.fileURL}
                 alt={file.description}
                 crossOrigin="anonymous"
               />
             )}
+            <p
+              className={cn(
+                "truncate",
+                file.fileFormat === "video" && "mt-2.5",
+              )}
+            >
+              {file.description}
+            </p>
           </SwiperSlide>
         ))}
         <CustomConfirm
@@ -284,6 +300,41 @@ function ProjectGallery({ projectGalleryData, projectId }) {
           okHandler={deleteFileHandler}
           loading={isPending}
         />
+        {/* Modal Project Info */}
+        <CustomModal
+          open={openFileInfoModal}
+          onCancel={() => setOpenFileInfoModal(false)}
+        >
+          {projectInfo?.current?.fileFormat === "image" && (
+            <Image
+              className="object-cover w-full h-full rounded-custom"
+              src={projectInfo?.current?.fileURL}
+              alt={projectInfo?.current?.description}
+              rootClassName="w-full h-[220px] rounded-custom"
+              preview={{
+                mask: "بزرگ نمایی",
+              }}
+              fallback="/images/download.png"
+            />
+          )}
+          {projectInfo?.current?.fileFormat === "video" && (
+            <video
+              className="bg-custom-primary-color-300/50 w-full h-[220px] rounded-custom "
+              controls
+              src={projectInfo?.current?.fileURL}
+              alt={projectInfo?.current?.description}
+              crossOrigin="anonymous"
+            />
+          )}
+          <p
+            className={cn(
+              "text-justify",
+              projectInfo?.current?.fileFormat === "video" && "mt-2.5",
+            )}
+          >
+            {projectInfo?.current?.description}
+          </p>
+        </CustomModal>
         {projectGalleryData?.length > 7 && (
           <span
             className="absolute top-4 left-4 z-20 bg-white text-black px-2 py-0.5 rounded-custom border-2 border-custom-primary-color cursor-pointer hover:bg-custom-primary-color hover:text-white text-14"

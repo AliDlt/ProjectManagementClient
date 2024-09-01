@@ -209,6 +209,12 @@ input:focus-visible {
   @apply bg-custom-primary-color;
 }
 
+.ant-image-mask {
+  @apply rounded-custom;
+}
+
+/* Map */
+
 .leaflet-container {
   height: 100%;
 }

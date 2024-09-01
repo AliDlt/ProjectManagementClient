@@ -26,6 +26,8 @@ export default function UsersPage() {
     }
   }, [userLoading, user]);
 
+  console.log(users);
+
   return (
     <div className="px-5 lg:px-0  flex flex-col gap-10 col-span-1 lg:col-span-9 2xl:col-span-10 lg:flex-row-reverse">
       <div className="flex items-center gap-3 flex-wrap lg:hidden">

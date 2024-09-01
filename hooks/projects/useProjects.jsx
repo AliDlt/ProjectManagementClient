@@ -16,7 +16,13 @@ const useProjects = (count, search, page) => {
   });
 
   useEffect(() => {
-    if (!isLoading && error) toast(error?.response?.data?.message, "error");
+    if (!isLoading && error) {
+      if (error?.response?.data?.errors) {
+        toast(error?.response?.data?.errors[0], "error");
+      } else {
+        toast(error?.response?.data?.message, "error");
+      }
+    }
   }, [error, isLoading]);
 
   const data = datas?.data;
