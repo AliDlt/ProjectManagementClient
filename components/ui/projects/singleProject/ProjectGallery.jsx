@@ -43,6 +43,9 @@ function ProjectGallery({ projectGalleryData, projectId }) {
   const projectInfo = useRef(null);
   const toast = useToast();
   const navigate = useNavigate();
+  const galleryData = projectGalleryData?.filter((file) => {
+    if (file.fileFormat === "image" || file.fileFormat === "video") return file;
+  });
 
   // Custom Uploader Request
   const customUploaderRequest = (info) => {
@@ -238,8 +241,8 @@ function ProjectGallery({ projectGalleryData, projectId }) {
         </CustomModal>
       </div>
       {/* Slider */}
-      <Gallery data={projectGalleryData}>
-        {projectGalleryData?.slice(0, 7)?.map((file) => (
+      <Gallery data={galleryData}>
+        {galleryData?.slice(0, 7)?.map((file) => (
           <SwiperSlide key={file.fileName} className="overflow-hidden relative">
             <span
               className="absolute top-2 right-2 text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
@@ -260,34 +263,32 @@ function ProjectGallery({ projectGalleryData, projectId }) {
               <IoEyeSharp size={25} />
             </span>
             {file.fileFormat === "image" && (
-              <Image
-                className="object-cover w-full h-full rounded-custom"
-                src={file.fileURL}
-                alt={file.description}
-                rootClassName="w-full h-[220px] rounded-custom"
-                preview={{
-                  mask: "بزرگ نمایی",
-                }}
-                fallback="/images/download.png"
-              />
+              <>
+                <Image
+                  className="object-cover w-full h-full rounded-custom"
+                  src={file.fileURL}
+                  alt={file.description}
+                  rootClassName="w-full h-[220px] rounded-custom"
+                  preview={{
+                    mask: "بزرگ نمایی",
+                  }}
+                  fallback="/images/download.png"
+                />
+                <p className="truncate">{file.description}</p>
+              </>
             )}
             {file.fileFormat === "video" && (
-              <video
-                className="bg-custom-primary-color-300/50 w-full h-[220px] rounded-custom "
-                controls
-                src={file.fileURL}
-                alt={file.description}
-                crossOrigin="anonymous"
-              />
+              <>
+                <video
+                  className="bg-custom-primary-color-300/50 w-full h-[220px] rounded-custom "
+                  controls
+                  src={file.fileURL}
+                  alt={file.description}
+                  crossOrigin="anonymous"
+                />
+                <p className="truncate mt-2.5">{file.description}</p>
+              </>
             )}
-            <p
-              className={cn(
-                "truncate",
-                file.fileFormat === "video" && "mt-2.5",
-              )}
-            >
-              {file.description}
-            </p>
           </SwiperSlide>
         ))}
         <CustomConfirm
@@ -335,7 +336,7 @@ function ProjectGallery({ projectGalleryData, projectId }) {
             {projectInfo?.current?.description}
           </p>
         </CustomModal>
-        {projectGalleryData?.length > 7 && (
+        {galleryData?.length > 7 && (
           <span
             className="absolute top-4 left-4 z-20 bg-white text-black px-2 py-0.5 rounded-custom border-2 border-custom-primary-color cursor-pointer hover:bg-custom-primary-color hover:text-white text-14"
             onClick={() => navigate(`/projects/gallery/${projectId}`)}
