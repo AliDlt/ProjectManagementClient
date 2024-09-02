@@ -34,7 +34,7 @@ function AddNewProject() {
     getValues,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, validatingFields },
     setValue,
   } = useForm({
     defaultValues: {
@@ -58,6 +58,7 @@ function AddNewProject() {
 
   // On Submit
   const onSubmit = async (values) => {
+    console.log(Object.keys(errors));
     try {
       await addProject(values);
       reset();
@@ -66,20 +67,22 @@ function AddNewProject() {
     } catch (error) {}
   };
 
-  //  Click Handler
-  const clickHandler = () => {
-    if (Object.keys(errors).length !== 0)
-      toast("لطفا فیلد های خواسته شده رو پر کنید", "error");
+  // On Submit Error
+  const onSubmitError = () => {
+    toast(
+      "لطفا فیلد های خواسته شده رو پر کنید ( تاریخ شروع ، تاریخ پایان ، نام پروژه ، آدرس پروژه ، لوکیشن پروژه ، توضیحات پروژه )",
+      "error",
+    );
   };
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, onSubmitError)}
       className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 flex flex-col"
     >
       <div className="flex justify-between items-center">
         <h1 className=" text-24 lg:text-32">پروژه جدید</h1>
-        <CustomButton type="submit" loading={isPending} onClick={clickHandler}>
+        <CustomButton type="submit" loading={isPending}>
           ثبت پروژه
         </CustomButton>
       </div>

@@ -77,7 +77,7 @@ function ProjectsPage() {
           type="search"
         />
       </div>
-      <div className=" grid grid-cols-1 md:grid-cols-2 mt-10 gap-2">
+      <div className=" grid grid-cols-1 md:grid-cols-2 mt-10 gap-5">
         {data?.projects.length === 0 && (
           <Empty
             className="w-full col-span-full h-80 flex flex-col justify-center items-center"
