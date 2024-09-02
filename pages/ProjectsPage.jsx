@@ -108,7 +108,7 @@ function ProjectsPage() {
         <CustomPagination
           rootClassName="!my-16"
           align="center"
-          current={data?.currentPage === "undefined" ? 1 : data?.currentPage}
+          current={data?.currentPage}
           onChange={(page) => {
             setSearchParams({
               page,

@@ -83,26 +83,31 @@ function SingleProjectGallery() {
               </span>
               <div className="flex flex-col ">
                 {file.fileFormat === "image" ? (
-                  <Image
-                    className="object-cover rounded-custom h-[220px]"
-                    src={file.fileURL}
-                    alt={file.description}
-                    rootClassName="rounded-custom h-full"
-                    preview={{
-                      mask: "بزرگ نمایی",
-                    }}
-                    fallback="/images/download.png"
-                  />
+                  <>
+                    <Image
+                      className="object-cover rounded-custom h-[220px]"
+                      src={file.fileURL}
+                      alt={file.description}
+                      rootClassName="rounded-custom h-full"
+                      preview={{
+                        mask: "بزرگ نمایی",
+                      }}
+                      fallback="/images/download.png"
+                    />
+                    <p className="truncate mt-2">{file.description}</p>
+                  </>
                 ) : (
-                  <video
-                    className="bg-custom-primary-color-300/50 h-[220px] rounded-custom "
-                    controls
-                    src={file.fileURL}
-                    alt={file.description}
-                    crossOrigin="anonymous"
-                  />
+                  <>
+                    <video
+                      className="bg-custom-primary-color-300/50 h-[220px] rounded-custom "
+                      controls
+                      src={file.fileURL}
+                      alt={file.description}
+                      crossOrigin="anonymous"
+                    />
+                    <p className="truncate mt-2">{file.description}</p>
+                  </>
                 )}
-                <p className="truncate mt-2">{file.description}</p>
               </div>
             </div>
           ))}
