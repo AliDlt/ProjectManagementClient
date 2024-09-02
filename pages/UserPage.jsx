@@ -56,7 +56,7 @@ const UserPage = () => {
                 className="text-12 font-bold flex  items-center gap-2  text-white bg-custom-primary-color px-3 py-1 rounded-xl"
               >
                 <IoRepeatOutline className="text-16" />
-                تغیر وضعیت
+                تغییر وضعیت
               </CustomButton>
             )}
           </div>

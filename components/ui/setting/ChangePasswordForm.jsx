@@ -71,7 +71,7 @@ const ChangePasswordForm = () => {
       </div>
       <div>
         <CustomButton loading={isPending} type={"submit"}>
-          تغیر رمز عبور
+          تغییر رمز عبور
         </CustomButton>
       </div>
     </form>

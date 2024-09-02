@@ -123,7 +123,7 @@ function ProjectFiles({ projectId, files }) {
             {/* File */}
             <div className="flex flex-col flex-1 gap-2">
               <div className="flex flex-col flex-1 gap-2">
-                <p>اسناد با حجم حد اکثر 10 مگابایت</p>
+                <p>اسناد با حجم حداکثر 10 مگابایت</p>
                 <CustomUpload
                   customRequest={customUploadFile}
                   preview={selectedFile && Preview(selectedFile)}

@@ -26,7 +26,7 @@ const InformationBox = ({ title, children, type, userId, userRole }) => {
 
       <CustomModal
         open={visible}
-        title="تغیر اطلاعات کاربری "
+        title="تغییر اطلاعات کاربری "
         onCancel={setVisible}
       >
         <ChangeData
