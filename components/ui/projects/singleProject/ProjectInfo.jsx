@@ -67,6 +67,15 @@ function ProjectInfo({ projectInfoData }) {
     }
   };
 
+  // Map Handler
+  const mapHandler = (position) => {
+    setPosition(position);
+    setValue("latitude", position?.lat);
+    setValue("longitude", position?.lng);
+    toast("محل پروژه ثبت شد", "success");
+    setIsOpenMapModal(false);
+  };
+
   return (
     <div className="flex flex-col bg-white p-5 border-2 border-custom-primary-color rounded-custom mt-10 relative gap-2 lg:gap-5">
       <div className="flex flex-col sm:flex-row w-full gap-5">
@@ -108,7 +117,7 @@ function ProjectInfo({ projectInfoData }) {
               open={!open && isOpenMapModal}
               onCancel={() => setIsOpenMapModal(false)}
             >
-              <Map centerMap={[latitude, longitude]} />
+              <Map position={[latitude, longitude]} showPosition />
               <a
                 href={`https://www.google.com/maps?q=${latitude},${longitude}`}
                 target="_blank"
@@ -217,18 +226,7 @@ function ProjectInfo({ projectInfoData }) {
             open={open && isOpenMapModal}
             onCancel={() => setIsOpenMapModal(false)}
           >
-            <Map centerMap={position} setPosition={setPosition} />
-            <CustomButton
-              className="mt-5"
-              onClick={() => {
-                setValue("latitude", position?.lat);
-                setValue("longitude", position?.lng);
-                toast("محل پروژه ثبت شد", "success");
-                setIsOpenMapModal(false);
-              }}
-            >
-              ثبت مکان پروژه
-            </CustomButton>
+            <Map position={position} showPosition onSetPosition={mapHandler} />
           </CustomModal>
           <CustomButton className="mt-7" type="submit">
             ثبت تغییرات
