@@ -154,6 +154,7 @@ export const addNewProjectSchema = Yup.object({
   address: Yup.string().required(""),
   longitude: Yup.number().required(""),
   latitude: Yup.number().required(""),
+  progress: Yup.string().matches(/^(?:100|[1-9][0-9]?|0)$/),
 });
 
 export const changePassword = Yup.object({

@@ -34,8 +34,9 @@ function AddNewProject() {
     getValues,
     handleSubmit,
     reset,
-    formState: { errors, validatingFields },
+    formState: { errors },
     setValue,
+    clearErrors,
   } = useForm({
     defaultValues: {
       usersIds: selectedUsers,
@@ -58,7 +59,6 @@ function AddNewProject() {
 
   // On Submit
   const onSubmit = async (values) => {
-    console.log(Object.keys(errors));
     try {
       await addProject(values);
       reset();
@@ -73,6 +73,16 @@ function AddNewProject() {
       "لطفا فیلد های خواسته شده رو پر کنید ( تاریخ شروع ، تاریخ پایان ، نام پروژه ، آدرس پروژه ، لوکیشن پروژه ، توضیحات پروژه )",
       "error",
     );
+  };
+
+  // Map Handler
+  const mapHandler = (position) => {
+    setPosition(position);
+    setValue("latitude", position?.lat);
+    setValue("longitude", position?.lng);
+    clearErrors(["latitude", "longitude"]);
+    toast("محل پروژه ثبت شد", "success");
+    setIsOpenMapModal(false);
   };
 
   return (
@@ -141,6 +151,7 @@ function AddNewProject() {
                   placeholder="0"
                   type="number"
                   icon={"%"}
+                  error={errors.progress}
                   noErrorMessage
                 />
               </div>
@@ -172,18 +183,7 @@ function AddNewProject() {
                 open={isOpenMapModal}
                 onCancel={() => setIsOpenMapModal(false)}
               >
-                <Map centerMap={position} setPosition={setPosition} />
-                <CustomButton
-                  className="mt-5"
-                  onClick={() => {
-                    setValue("latitude", position?.lat);
-                    setValue("longitude", position?.lng);
-                    toast("محل پروژه ثبت شد", "success");
-                    setIsOpenMapModal(false);
-                  }}
-                >
-                  ثبت مکان پروژه
-                </CustomButton>
+                <Map position={position} onSetPosition={mapHandler} />
               </CustomModal>
             </div>
           </div>
