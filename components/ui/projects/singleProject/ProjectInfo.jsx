@@ -226,6 +226,24 @@ function ProjectInfo({ projectInfoData }) {
             open={open && isOpenMapModal}
             onCancel={() => setIsOpenMapModal(false)}
           >
+            <div className="flex flex-wrap items-center gap-2 mb-3 sm:flex-row sm:gap-5 ">
+              <div className="flex justify-center items-center gap-1">
+                <img
+                  className="size-[25px]"
+                  src="https://cdn-icons-png.flaticon.com/512/7987/7987463.png"
+                  alt="map-icon"
+                />
+                موقعیت فعلی پروژه
+              </div>
+              <div className="flex justify-center items-center gap-1">
+                <img
+                  className="size-[30px]"
+                  src="https://cdn-icons-png.flaticon.com/512/2776/2776000.png"
+                  alt="map-icon"
+                />
+                موقعیت جدید پروژه
+              </div>
+            </div>
             <Map position={position} showPosition onSetPosition={mapHandler} />
           </CustomModal>
           <CustomButton className="mt-7" type="submit">
