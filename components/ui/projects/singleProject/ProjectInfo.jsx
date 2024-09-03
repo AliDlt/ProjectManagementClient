@@ -31,7 +31,6 @@ function ProjectInfo({ projectInfoData }) {
   } = projectInfoData;
   const [open, setOpen] = useState(false);
   const [isOpenMapModal, setIsOpenMapModal] = useState(false);
-  const [position, setPosition] = useState([latitude, longitude]);
   const { mutateAsync } = useUpdateProject(_id);
   const toast = useToast();
 
@@ -59,7 +58,10 @@ function ProjectInfo({ projectInfoData }) {
   // On Submit
   const onSubmit = async (values) => {
     try {
-      await mutateAsync({ ...values, id: _id });
+      await mutateAsync({
+        ...values,
+        id: _id,
+      });
       toast("اطلاعات پروژه آپدیت شد", "success");
       setOpen();
     } catch (error) {
@@ -69,7 +71,6 @@ function ProjectInfo({ projectInfoData }) {
 
   // Map Handler
   const mapHandler = (position) => {
-    setPosition(position);
     setValue("latitude", position?.lat);
     setValue("longitude", position?.lng);
     toast("محل پروژه ثبت شد", "success");
@@ -244,7 +245,12 @@ function ProjectInfo({ projectInfoData }) {
                 موقعیت جدید پروژه
               </div>
             </div>
-            <Map position={position} showPosition onSetPosition={mapHandler} />
+            <Map
+              position={[getValues("latitude"), getValues("longitude")]}
+              showPosition
+              onSetPosition={mapHandler}
+              markerPosition={[latitude, longitude]}
+            />
           </CustomModal>
           <CustomButton className="mt-7" type="submit">
             ثبت تغییرات
