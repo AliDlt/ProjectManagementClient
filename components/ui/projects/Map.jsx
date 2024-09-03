@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 import CustomButton from "../../modules/CustomButton";
 
 const icon = new Icon({
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/2776/2776000.png",
-  iconSize: [30, 30],
+  iconUrl: "https://cdn-icons-png.flaticon.com/512/7987/7987463.png",
+  iconSize: [25, 25],
 });
 
 function Map({ position, onSetPosition, showPosition }) {
@@ -41,7 +41,7 @@ const LoadMap = ({ position }) => {
   const map = useMap();
 
   map.setView(position);
-  
+
   useEffect(() => {
     map.invalidateSize();
   }, [map]);
