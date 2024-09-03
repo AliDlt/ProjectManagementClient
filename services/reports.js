@@ -1,8 +1,9 @@
 import http from "./http";
 
-export const getReports = async (count, page) => {
+export const getReports = async (count, page, value) => {
+   
   const res = await http.get(
-    `/report/getAllReportsSearchByToken/?count=${count}&page=${page}`,
+    `/report/getAllReportsSearchByToken/?count=${count}`,
   );
   return res.data;
 };
@@ -44,4 +45,9 @@ export const uploadReportFile = async (data) => {
     },
   });
   return resp;
+};
+
+export const updateReport = async (data) => {
+  const response = await http.put("/report/updateReport", data);
+  return response.data;
 };
