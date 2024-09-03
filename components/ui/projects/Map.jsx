@@ -9,7 +9,7 @@ const icon = new Icon({
   iconSize: [25, 25],
 });
 
-function Map({ position, onSetPosition, showPosition }) {
+function Map({ position, onSetPosition, showPosition, markerPosition }) {
   return (
     <div className="h-96 overflow-hidden relative">
       <MapContainer center={position} zoom={10} scrollWheelZoom>
@@ -28,7 +28,9 @@ function Map({ position, onSetPosition, showPosition }) {
             />
           </div>
         )}
-        {showPosition && <Marker position={position} icon={icon}></Marker>}
+        {showPosition && (
+          <Marker position={markerPosition || position} icon={icon}></Marker>
+        )}
       </MapContainer>
     </div>
   );
