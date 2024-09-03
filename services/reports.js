@@ -36,3 +36,8 @@ export const uploadReportFile = async (data) => {
   });
   return resp;
 };
+
+export const updateReport =async (data) => {
+  const response = await http.put('/report/updateReport',data)
+  return response.data
+}

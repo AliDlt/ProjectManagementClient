@@ -111,16 +111,17 @@ export const addUserSchema = Yup.object({
     .matches(/^((\+98|0)9\d{9})$/, "لطفا شماره تلفن معتبر وارد کنید"),
   username: Yup.string()
     .required("این فیلد اجباری است.")
-    .min(3, "حداقل کارکتر : 3")
-    .max(25, "حداکثر کارکتر : 25")
+    .min(3, "حد اقل 3 کارکتر وارد کنید")
+
+    .max(25, "حداکثر 25 کارکتر وارد کنید")
     .matches(
       /^[a-zA-Z]{1,}\d*$/,
       "نام کاربری باید انگلیسی باشد و با حروف آغاز شود",
     ),
   password: Yup.string()
     .required("این فیلد اجباری است.")
-    .min(5, "حداقل کارکتر : 5")
-    .max(25, "حداکثر کارکتر : 25"),
+    .min(5, "حد اقل 5 کارکتر وارد کنید")
+    .max(25, "حداکثر 25 کارکتر وارد کنید"),
   nationalCode: Yup.string().matches(
     /^(?!(\d)\1{9})\d{10}$/,
     "کد ملی باید 10 رقمی باشد",
@@ -129,9 +130,12 @@ export const addUserSchema = Yup.object({
 });
 
 export const addReportSchema = Yup.object({
-  name: Yup.string().min(3, "حد اقل 3 کارکتر").required("این فیلد اجباری است."),
+  name: Yup.string()
+    .min(3, " حد اقل 3 کارکتر وارد کنید")
+    .required("این فیلد اجباری است."),
   description: Yup.string().required("این فیلد اجباری است."),
   project: Yup.object().required("یک پروژه برای گزارش انتخاب کنید"),
+  createAt: Yup.string().required(""),
 });
 
 export const addTicket = Yup.object({

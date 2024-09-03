@@ -64,7 +64,8 @@ const ShowFiles = ({ data }) => {
     queryClient.invalidateQueries("get-report", id);
   };
   const uploadFile = () => {
-    console.log(selectedFile.file);
+    console.log(selectedFile.file.fileFormat,);
+
     upload(
       {
         file: selectedFile.file,
@@ -104,18 +105,15 @@ const ShowFiles = ({ data }) => {
           </CustomButton>
         </div>
       </div>
-      {console.log()}
       {filterFile(data.file, "file")?.length ? (
         <Files>
-          {console.log(data)}
           <>
             {data?.file?.map((item, key) => {
               return (
-                <>
+                <div key={key}>
                   {item.fileFormat !== "image" &&
                     item.fileFormat !== "video" && (
                       <SwiperSlide
-                      
                         key={key}
                         className="flex items-center justify-center"
                       >
@@ -124,10 +122,9 @@ const ShowFiles = ({ data }) => {
                           isPending={isPending}
                           item={item}
                         />
-
                       </SwiperSlide>
                     )}
-                </>
+                </div>
               );
             })}
           </>

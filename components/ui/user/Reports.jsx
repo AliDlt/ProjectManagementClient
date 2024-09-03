@@ -31,8 +31,8 @@ const Reports = ({ reports, isPending, error }) => {
           <>
             {reports?.length ? (
               <>
-                {reports.map(({ description, name }) => {
-                  return <ReportItem title={name} report={description} />;
+                {reports.map(({ description, name,key }) => {
+                  return <ReportItem title={name} report={description} key={key} />;
                 })}
                 <div className="">
                   <CustomButton>همه گزارش ها</CustomButton>

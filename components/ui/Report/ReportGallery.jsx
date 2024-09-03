@@ -116,13 +116,18 @@ const ReportGallery = ({ id, data }) => {
   };
   const queryClient = useQueryClient();
   const { mutate: deleteFiles, isPending: loading } = useDeleteReportFile();
+  const deleteMediaSuccess = (e) => {
+    toast(e.message, "success");
+    setShow(false);
+    queryClient.invalidateQueries("get-report", id);
+  };
   const deleteFile = (e) => {
     deleteFiles(
       {
         id,
         fileName: e.fileName,
       },
-      { onSuccess: (e) => console.log(e), onError: (e) => console.log(e) },
+      { onSuccess: deleteMediaSuccess, onError: (e) => console.log(e) },
     );
   };
   return (
@@ -246,7 +251,7 @@ const ReportGallery = ({ id, data }) => {
                         loading={loading}
                         okHandler={() => deleteFile(file)}
                         okText={"بله"}
-                        description={"آیا از حذف فایل مطمعن هستید"}
+                        description={"آیا از حذف فایل مطمئن هستید"}
                         open={modalDeleteFile}
                         title="حذف فایل "
                       />

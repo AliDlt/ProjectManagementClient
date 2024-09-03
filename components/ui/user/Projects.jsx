@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import CustomLoading from "../../modules/CustomLoading";
 
 const Projects = ({ projects, error, isPending }) => {
+  console.log(projects)
   return (
     <div className="flex flex-col gap-4 order-1">
       <h4 className="pr-4">پروژه ها</h4>
@@ -21,7 +22,7 @@ const Projects = ({ projects, error, isPending }) => {
                     return (
                       <>
                         <ChartProjects
-                          key={index} // اضافه کردن کلید منحصر به فرد برای هر پروژه
+                          key={index} 
                           data={progress}
                           name={name}
                           description={description}
@@ -30,9 +31,7 @@ const Projects = ({ projects, error, isPending }) => {
                       </>
                     );
                   })}
-                  <div>
-                    <CustomButton>همه پروژه ها</CustomButton>
-                  </div>
+            
                 </>
               ) : (
                 <div className="flex justify-center items-center col-span-2 ">

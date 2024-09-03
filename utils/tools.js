@@ -21,11 +21,11 @@ export const convertToInternational = (phone) => {
 export const userRol = (rol) => {
   switch (rol) {
     case 0:
-      return "مدیر";
+      return "مدیر کل";
     case 1:
-      return "ناظر";
+      return "سر پرست پروژه";
     case 2:
-      return "پیمانکار";
+      return "ناظر پروژه";
   }
 };
 
@@ -34,7 +34,7 @@ export function convertDate(dateString) {
 
   const jalaliDate = date.format("YYYY/MM/DD");
   const time = date.format("HH:mm");
-
+  
   return ` ${time} - ${jalaliDate} `;
 }
 

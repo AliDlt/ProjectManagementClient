@@ -14,8 +14,7 @@ const CustomSlideFIle = ({ item, mutate, isPending }) => {
       { id: item.sectionId, fileName: item.fileName },
       {
         onSuccess: (e) => {
-          console.log(e);
-          console.log("ss");
+          toast(e.message, "success");
         },
         onError: (e) => {
           console.log(e);
@@ -39,7 +38,7 @@ const CustomSlideFIle = ({ item, mutate, isPending }) => {
       </div>
       <p className="text-14 absolute right-3 bottom-3">اسم فایل </p>
       <CustomModal title={"حدف فایل"} onCancel={showModal} open={modal}>
-        <h3 className="mt-3">آیا از حذف فایل مطمعن هستید ؟</h3>
+        <h3 className="mt-3">آیا از حذف فایل مطمئن هستید ؟</h3>
         <div className="flex gap-2 justify-end items-center">
           <CustomButton
             loading={isPending}

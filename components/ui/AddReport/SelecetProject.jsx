@@ -10,8 +10,8 @@ const SelectProject = ({ setProject }) => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useProjects(10, search, page);
-  console.log(data?.projects[0]);
-
+  console.log(data)
+  console.log(error)
   const changePage = (e) => {
     setPage(e);
     console.log(e);
