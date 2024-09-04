@@ -12,7 +12,7 @@ import MetaTag from "../components/modules/MetaTag";
 export default function UsersPage() {
   const { user, isLoading: userLoading } = useUser();
   const [searchParams] = useSearchParams();
-  const userRole = searchParams.get("userRole") || String(user?.userRole);
+  const userRole = searchParams.get("userRole") || user?.userRole;
   const userSeach = searchParams.get("search") || "";
   const userSort = searchParams.get("sort") || "";
   const { users, isLoading } = useUsers(userRole, "", "", userSeach, userSort);
@@ -25,6 +25,8 @@ export default function UsersPage() {
       toast("شما به این صفحه دسترسی ندارید .", "error");
     }
   }, [userLoading, user]);
+
+  console.log(users);
 
   return (
     <div className="px-5 lg:px-0  flex flex-col gap-10 col-span-1 lg:col-span-9 2xl:col-span-10 lg:flex-row-reverse">

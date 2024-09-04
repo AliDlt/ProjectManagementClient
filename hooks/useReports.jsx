@@ -3,11 +3,11 @@ import { getReports } from "../services/reports";
 import { useToast } from "../Context/ToastContext";
 import { useEffect } from "react";
 
-const useReports = (count, page) => {
+const useReports = (count, page, value) => {
   const toast = useToast();
   const { data, isLoading, error, isPending } = useQuery({
-    queryKey: ["reports", page],
-    queryFn: () => getReports(count, page),
+    queryKey: ["reports", page, value],
+    queryFn: () => getReports(count, page, value),
   });
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const useReports = (count, page) => {
   }, [isLoading, error]);
 
   const reportsData = data?.data;
-  return { reportsData, isLoading, error,isPending };
+  return { reportsData, isLoading, error, isPending };
 };
 
 export default useReports;

@@ -7,7 +7,7 @@ export default function CustomInput({
   icon,
   placeholder,
   className,
-  onChange,
+  onChange = () => {},
   name,
   value,
   control,
@@ -43,9 +43,10 @@ export default function CustomInput({
       control={control}
       name={name}
       render={({ field }) => (
-        <div className={cn(["flex flex-col gap-2" , containerClassName])}>
+        <div className={cn(["flex flex-col gap-2", containerClassName])}>
           <Input
             {...field}
+
             classNames={{
               input: "placeholder:text-black/50 font-medium",
             }}
@@ -54,12 +55,15 @@ export default function CustomInput({
               error && "border-red-500",
               className,
             ])}
+
             dir="rtl"
             type={type}
             prefix={icon}
             placeholder={placeholder}
             status={error && "error"}
             {...rest}
+            
+
           />
           {!noErrorMessage && error && (
             <p className="text-red-500 text-sm">{error.message}</p>

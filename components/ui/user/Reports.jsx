@@ -2,25 +2,11 @@ import React from "react";
 import ReportItem from "./ReportItem";
 import CustomButton from "../../modules/CustomButton";
 import CustomLoading from "../../modules/CustomLoading";
-const reports = [
-  {
-    title: "پروژه 1 ",
-    report:
-      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است",
-  },
-  {
-    title: "پروژه 1 ",
-    report:
-      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است",
-  },
-  {
-    title: "پروژه 1 ",
-    report:
-      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است",
-  },
-];
+import { Empty } from "antd";
+import { Link, useParams } from "react-router-dom";
 
 const Reports = ({ reports, isPending, error }) => {
+  const {id} = useParams()
   return (
     <section className="h-full flex flex-col gap-4">
       <h3 className=" px-3">گزارش ها</h3>
@@ -31,17 +17,26 @@ const Reports = ({ reports, isPending, error }) => {
           <>
             {reports?.length ? (
               <>
-                {reports.map(({ description, name,key }) => {
-                  return <ReportItem title={name} report={description} key={key} />;
+                {reports.map(({ description, name, _id }, key) => {
+                  return (
+                    <ReportItem
+                      title={name}
+                      report={description}
+                      id={_id}
+                      key={key}
+                    />
+                  );
                 })}
                 <div className="">
-                  <CustomButton>همه گزارش ها</CustomButton>
+                  <Link to={`/userReports/${id}`}>
+                    <CustomButton>همه گزارش ها</CustomButton>
+                  </Link>
                 </div>
               </>
             ) : (
-              <div className="flex justify-center items-center">
+              <div className="flex justify-center items-center h-full">
                 {" "}
-                گزارشی وجود ندارد{" "}
+                <Empty description="گزارشی برای کاربر وجود ندارد" />
               </div>
             )}
           </>

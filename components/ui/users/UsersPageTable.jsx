@@ -11,6 +11,7 @@ import { MdModeEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa6";
 import CustomConfirm from "../../modules/CustomConfirm";
 import useDeleteUser from "../../../hooks/user/useDeleteUser";
+import CustomButton from "../../modules/CustomButton";
 
 function UsersPageTable({ users, loading }) {
   const [open, setOpen] = useState(false);
@@ -31,7 +32,7 @@ function UsersPageTable({ users, loading }) {
       <UsersTable
         users={users}
         loading={loading}
-        className="h-[410px]"
+        className="h-[410px] row-cursor-pointer"
         paginationClassName="!mt-auto"
         onRow={(record) => {
           return {
@@ -92,7 +93,6 @@ function UsersPageTable({ users, loading }) {
           )}
         />
         <Column
-          responsive={["lg"]}
           title="تاریخ  آخرین ورود"
           dataIndex="lastLogin"
           key="lastLogin"
@@ -101,6 +101,23 @@ function UsersPageTable({ users, loading }) {
             if (!lastLogin) return "-";
             return convertToLocalDate(lastLogin);
           }}
+        />
+        <Column
+          title="پروژه های کاربر"
+          dataIndex="userProject"
+          key="userProject"
+          width={100}
+          render={(_, record) => (
+            <CustomButton
+              className="py-1 h-auto"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`project/${record.key}`);
+              }}
+            >
+              مشاهده پروژه ها
+            </CustomButton>
+          )}
         />
       </UsersTable>
       <CustomConfirm

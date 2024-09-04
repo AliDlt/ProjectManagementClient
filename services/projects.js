@@ -1,10 +1,12 @@
 import http from "./http";
 
-
-export const getAllProjects = async (count = "", search = "", signal, page = undefined) => {
+export const getAllProjects = async (
+  count = "",
+  search = "",
+  page = undefined,
+) => {
   const res = await http.get(
     `/project/getAllProjectsSearchByToken?count=${count}&search=${search}&page=${page}`,
-    { signal } 
   );
 
   return res.data;

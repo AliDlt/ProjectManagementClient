@@ -27,16 +27,22 @@ import SingleProjectGallery from "../pages/SingleProjectGallery";
 import AddNewProject from "../pages/AddNewProject";
 import NotFound from "../pages/NotFound";
 import UserReports from "../pages/UserReports";
+import dayjs from "dayjs";
+import UserProjectsPage from "../pages/UserProjectsPage";
 
 function App() {
+   dayjs.calendar("jalali");
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
         retry: 0,
         refetchOnWindowFocus: false,
+        
       },
     },
   });
+
+ 
 
   return (
     <ToastMessageProvider>
@@ -123,6 +129,10 @@ function App() {
                 />
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="/users/:id" element={<UserPage />} />
+                <Route
+                  path="/users/project/:userId"
+                  element={<UserProjectsPage />}
+                />
               </Route>
               {/* Login / Signup */}
               <Route path="/auth" element={<AuthContainer />}>

@@ -12,13 +12,17 @@ import useUser from "../hooks/useUser";
 import useDeleteProject from "../hooks/projects/useDeleteProject";
 import CustomConfirm from "../components/modules/CustomConfirm";
 import MetaTag from "../components/modules/MetaTag";
+import CustomModal from "../components/modules/CustomModal";
+import ProjectsReportsModal from "../components/ui/projects/singleProject/ProjectsReportsModal";
+import ProjectFiles from "../components/ui/projects/singleProject/ProjectFiles";
 
 function SingleProjectPage() {
-  const { user } = useUser();
+  const { user, isLoading: userLoading } = useUser();
   const { id } = useParams();
+  const [openDeleteProjectModal, setOpenDeleteProjectModal] = useState(false);
+  const [openReportsModal, setOpenReportsModal] = useState(false);
   const { project, isLoading, error } = useProject(id);
   const { deleteProjectFn, isPending } = useDeleteProject(id);
-  const [openDeleteProjectModal, setOpenDeleteProjectModal] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -68,10 +72,12 @@ function SingleProjectPage() {
     name,
     files,
     _id,
-    location,
+    address,
     users,
     createdBy,
     description,
+    longitude,
+    latitude,
   } = project;
 
   // Separate Sections Datas
@@ -82,27 +88,32 @@ function SingleProjectPage() {
     progress,
     files,
     _id,
-    location,
+    address,
     createdBy,
     description,
+    longitude,
+    latitude,
   };
 
   return (
     <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10">
       <div className="flex justify-between items-center flex-wrap gap-3">
         <h1 className="text-32">نام پروژه : {name}</h1>
-        <div className="flex justify-center items-center gap-5">
-          <CustomButton onClick={() => setOpenDeleteProjectModal(true)}>
-            <span>حذف پروژه</span>
-          </CustomButton>
-          <CustomButton>
-            <span>نمایش گزارش مرتبط</span>
+        <div className="flex justify-end items-center gap-5 flex-wrap mr-auto">
+          {!userLoading && user.userRole === 0 && (
+            <CustomButton onClick={() => setOpenDeleteProjectModal(true)}>
+              <span>حذف پروژه</span>
+            </CustomButton>
+          )}
+          <CustomButton onClick={() => setOpenReportsModal(true)}>
+            <span>نمایش گزارش های مرتبط</span>
           </CustomButton>
         </div>
       </div>
       <ProjectBanner projectBannerData={projectBannerData} />
       <ProjectInfo projectInfoData={projectInfoData} />
       <ProjectUsers users={users} projectId={_id} />
+      <ProjectFiles files={files} projectId={_id} />
       <ProjectGallery projectGalleryData={files} projectId={_id} />
       <CustomConfirm
         cancelText="لغو"
@@ -114,6 +125,13 @@ function SingleProjectPage() {
         description="آیا از حذف این پروژه اطمینان دارید ؟"
         loading={isPending}
       />
+      <CustomModal
+        open={openReportsModal}
+        onCancel={() => setOpenReportsModal(false)}
+        title="گزارش ها"
+      >
+        <ProjectsReportsModal />
+      </CustomModal>
       {/* Meta Tag */}
       <MetaTag title={name} description={description} />
     </section>

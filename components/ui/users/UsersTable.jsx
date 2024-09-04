@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Empty } from "antd";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import CustomLoading from "../../modules/CustomLoading";
+import cn from "../../../utils/cn";
 
 function UsersTable({
   users,
@@ -11,6 +12,7 @@ function UsersTable({
   className,
   paginationClassName,
   emptyText,
+  emptyClassName,
   ...rest
 }) {
   const [current, setCurrent] = useState(1);
@@ -36,7 +38,7 @@ function UsersTable({
         emptyText: (
           <Empty
             description={emptyText || "کاربری وجود ندارد"}
-            className="my-24 "
+            className={cn(["my-24", emptyClassName])}
           />
         ),
       }}

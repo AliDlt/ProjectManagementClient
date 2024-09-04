@@ -17,6 +17,10 @@ import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import CustomDatePicker from "../components/modules/CustomDatePicker";
 import dayjs from "dayjs";
+import {
+  CustomHourSelector,
+  CustomMinSelector,
+} from "../components/modules/CustomClockSelector";
 
 const AddReport = () => {
   const [show, setShow] = useState(false);
@@ -39,13 +43,14 @@ const AddReport = () => {
   };
   const navigate = useNavigate();
   const toast = useToast();
-  const { mutate, isPending } = useAddReport();
   const queryClient = useQueryClient();
   const successAdd = (e) => {
     toast(e.message, "success");
     navigate(`/reports/${e.data._id}`);
     queryClient.invalidateQueries("reports");
   };
+
+  const { mutate, isPending } = useAddReport();
 
   const addReport = (e) => {
     console.log(e);
@@ -60,8 +65,9 @@ const AddReport = () => {
       { onSuccess: successAdd, onError: (e) => console.log(e) },
     );
   };
-  console.log();
+
   const setDateReport = (e) => {
+    console.log(dayjs(e));
     setValue("createAt", dayjs(e));
   };
   return (
@@ -94,6 +100,11 @@ const AddReport = () => {
             error={errors.createAt}
             placeholder={"تاریخ گزارش "}
           />
+        </div>
+        <div className="flex items-center gap-3 ">
+          <p>ساعت شروع کار :</p>
+          <CustomHourSelector control={control} nameHour="hour" />
+          <CustomMinSelector control={control} nameMin="min" />
         </div>
         {errors?.project && (
           <p className="py-2 text-red-500">{errors?.project.message}</p>

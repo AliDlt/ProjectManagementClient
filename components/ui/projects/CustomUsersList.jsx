@@ -10,21 +10,23 @@ import StatusBadge from "../../modules/StatusBadge";
 import CustomModal from "../../modules/CustomModal";
 import CustomInput from "../../modules/CustomInput";
 import useUser from "../../../hooks/useUser";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import useUsers from "../../../hooks/useUsers";
 import { GrSearch } from "react-icons/gr";
+import { useDebounce } from "use-debounce";
 
 function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
   const { user, isLoading: userLoading } = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
   const [openAddUsersModal, setOpenAddUsersModal] = useState(false);
   const [searchAllUsers, setSearchAllUsers] = useState("");
+  const [value] = useDebounce(searchAllUsers, 500);
   const [searchUsers, setSearchUsers] = useState(
     searchParams.get("search") || "",
   );
   const [searchedProductUsers, setSearchedProductUsers] =
     useState(projectUsers);
-  const { isLoading, users: allUsers } = useUsers("", "", "", searchAllUsers);
+  const { isLoading, users: allUsers } = useUsers("", "", "", value);
   const [selectedRowKeys, setSelectedRowKeys] = useState(() =>
     projectUsers?.map((user) => user._id),
   );
@@ -98,7 +100,9 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
       {/* Users List */}
       <div className=" mt-5 md:mt-10">
         <UsersTable
+          className="row-cursor-pointer"
           emptyText={emptyText}
+          emptyClassName="my-10"
           loading={false}
           users={searchedProductUsers}
           rowClassName="lg:border-t lg:border-black lg:last:border-b"
@@ -148,7 +152,10 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
       {/* Modal */}
       <CustomModal
         open={openAddUsersModal}
-        onCancel={() => setOpenAddUsersModal(false)}
+        onCancel={() => {
+          setOpenAddUsersModal(false);
+          setSearchAllUsers("");
+        }}
         title="اضافه کردن کاربر به پروژه"
       >
         <CustomInput
@@ -166,13 +173,6 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           users={allUsers}
           rowSelection={rowSelection}
           rowClassName="lg:border-t lg:border-black lg:last:border-b"
-          onRow={(record) => {
-            return {
-              onClick: () => {
-                navigate(`/users/${record.key}`);
-              },
-            };
-          }}
         >
           <Column
             title="نام و نام خانوادگی"
@@ -180,14 +180,6 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             dataIndex="fullName"
             key="fullName"
             width={100}
-            render={(fullName, record) => (
-              <Link
-                to={`/users/${record.key}`}
-                className="cursor-pointer flex justify-center"
-              >
-                {fullName}
-              </Link>
-            )}
           />
           <Column
             title="شماره تماس"
@@ -215,6 +207,17 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
               if (!lastLogin) return "-";
               return convertToLocalDate(lastLogin);
             }}
+          />
+          <Column
+            title=""
+            dataIndex=""
+            key=""
+            width={100}
+            render={(_, record) => (
+              <CustomButton onClick={() => navigate(`/users/${record.key}`)}>
+                مشاهده اطلاعات کاربر
+              </CustomButton>
+            )}
           />
         </UsersTable>
         <CustomButton

@@ -20,7 +20,12 @@ const CustomModal = ({ title, children, open, onCancel, className }) => {
       }}
       centered
     >
-      <div className="flex justify-between items-center text-xl border-b pb-3 border-black border-opacity-55">
+      <div
+        className={cn([
+          "flex justify-between items-center text-xl pb-3 ",
+          title && "border-opacity-55 border-black border-b",
+        ])}
+      >
         <h3>{title}</h3>
         <span
           className="text-custom-primary-color text-24 cursor-pointer"

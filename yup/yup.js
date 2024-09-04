@@ -27,9 +27,14 @@ export const signupSchema = Yup.object({
   passwordConfirmation: Yup.string()
     .required("این فیلد اجباری است.")
     .oneOf([Yup.ref("password"), null], "با رمز عبور مطابقت ندارد."),
-  nationalCode: Yup.string()
-    .required("این فیلد اجباری است.")
-    .matches(/^(?!(\d)\1{9})\d{10}$/, "کد ملی باید 10 رقمی باشد"),
+  isForeign: Yup.boolean(),
+  nationalCode: Yup.string().when("isForeign", {
+    is: false,
+    then: (schema) =>
+      schema
+        .required("این فیلد اجباری است.")
+        .matches(/^(?!(\d)\1{9})\d{10}$/, "کد ملی باید 10 رقمی باشد"),
+  }),
   userRole: Yup.string().required("این فیلد اجباری است."),
 });
 
@@ -136,6 +141,8 @@ export const addReportSchema = Yup.object({
   description: Yup.string().required("این فیلد اجباری است."),
   project: Yup.object().required("یک پروژه برای گزارش انتخاب کنید"),
   createAt: Yup.string().required(""),
+  hour: Yup.string().required(""),
+  min: Yup.string().required(""),
 });
 
 export const addTicket = Yup.object({
@@ -150,7 +157,10 @@ export const addNewProjectSchema = Yup.object({
   description: Yup.string().required("این فیلد اجباری است"),
   startDate: Yup.string().required(""),
   endDate: Yup.string().required(""),
-  location: Yup.string().required(""),
+  address: Yup.string().required(""),
+  longitude: Yup.number().required(""),
+  latitude: Yup.number().required(""),
+  progress: Yup.string().matches(/^(?:100|[1-9][0-9]?|0)$/),
 });
 
 export const changePassword = Yup.object({

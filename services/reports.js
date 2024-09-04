@@ -1,6 +1,7 @@
 import http from "./http";
 
-export const getReports = async (count, page, value) => {
+export const getReports = async (count, page, value = '') => {
+  
   const res = await http.get(
     `/report/getAllReportsSearchByToken/?count=${count}&page=${page}&search=${value}`,
   );
@@ -51,9 +52,10 @@ export const updateReport = async (data) => {
   return response.data;
 };
 
-export const userReports = async (id) => {
+export const userReports = async (id, page = undefined, value='') => {
+
   const resp = await http.get(
-    `/report/getAllReportsSearchByUserId?userId=${id}`,
+    `/report/getAllReportsSearchByUserId?userId=${id}&page=${page}&search=${value}`,
   );
   return resp.data;
 };

@@ -22,7 +22,7 @@ function Gallery({ data, children }) {
           />
         ) : (
           <Swiper
-            className="h-[270px]"
+            className="h-[310px]"
             modules={[Navigation, Pagination]}
             pagination={{
               clickable: true,
@@ -61,7 +61,7 @@ function Gallery({ data, children }) {
                 slidesPerView: 2.5,
               },
               1496: {
-                spaceBetween: 10,
+                spaceBetween: 25,
                 slidesPerView: 4,
               },
             }}

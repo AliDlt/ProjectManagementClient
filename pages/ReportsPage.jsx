@@ -25,7 +25,7 @@ function ReportsPage() {
       date: "sss",
     });
   };
-  const { control, watch } = useForm({
+  const { control, watch, setValue } = useForm({
     mode: "onChange",
     defaultValues: { search: params.get("search") || "" },
   });
@@ -78,6 +78,7 @@ function ReportsPage() {
               control={control}
               name="search"
               onChange={(e) => {
+                setValue("search", e.target.value);
                 searchHandler(e);
               }}
             />
@@ -113,9 +114,8 @@ function ReportsPage() {
           })}
         </section>
       </div>
-      {console.log(error.response.status)}
       {reportsData?.reports.length !== 0 ||
-        (error.response.status === 404 && (
+        (error?.response.status === 404 && (
           <div
             className="col-span-1 lg:col-span-11"
             style={{ direction: "ltr" }}

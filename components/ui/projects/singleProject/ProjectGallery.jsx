@@ -1,12 +1,8 @@
-import { IoAddOutline, IoClose } from "react-icons/io5";
+import { IoClose, IoEyeSharp } from "react-icons/io5";
 import { Image, Popover } from "antd";
 import { BsExclamationLg } from "react-icons/bs";
 import { useRef, useState } from "react";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
 import { FaVideo, FaImage, FaTrash } from "react-icons/fa6";
-import { useQueryClient } from "@tanstack/react-query";
 import { SwiperSlide } from "swiper/react";
 import CustomButton from "../../../modules/CustomButton";
 import CustomModal from "../../../modules/CustomModal";
@@ -18,37 +14,48 @@ import CustomTextAria from "../../../modules/CustomTextAria";
 import { useToast } from "../../../../Context/ToastContext";
 import useUploadProjectFile from "../../../../hooks/projects/useUploadProjectFile";
 import { useNavigate } from "react-router-dom";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import useUser from "../../../../hooks/useUser";
+import { filesSize, image, video } from "../../../../utils/uploadFileInfo";
+import cn from "../../../../utils/cn";
+
+// Popover Content
+const popoverContent = (
+  <div className="flex flex-col gap-2 text-12">
+    <p>ویدئو ها تا حجم 30 مگابایت</p>
+    <p>عکس ها تا حجم 10 مگابایت</p>
+  </div>
+);
 
 function ProjectGallery({ projectGalleryData, projectId }) {
+  const { isLoading, user } = useUser();
   const [fileDescription, setFileDescription] = useState("");
   const [openAddFileModal, setOpenAddFileModal] = useState(false);
   const [openDeleteFileModal, setOpenDeleteFileModal] = useState(false);
+  const [openFileInfoModal, setOpenFileInfoModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(false);
-  const { deleteFile, isPending } = useDeleteProjectFile();
+  const { deleteFile, isPending } = useDeleteProjectFile(projectId);
   const { uploadProjectFileFn, uploadProjectFilePending } =
     useUploadProjectFile(projectId);
-  const queryClient = useQueryClient();
   const projectInfo = useRef(null);
   const toast = useToast();
   const navigate = useNavigate();
-
-  // Popover Content
-  const popoverContent = (
-    <div className="flex flex-col gap-2 text-12">
-      <p>ویدئو ها با حجم 10 مگابایت</p>
-      <p>عکس ها با حجم 2 مگابایت</p>
-    </div>
-  );
+  const galleryData = projectGalleryData?.filter((file) => {
+    if (file.fileFormat === "image" || file.fileFormat === "video") return file;
+  });
 
   // Custom Uploader Request
   const customUploaderRequest = (info) => {
-    console.log(info);
+    const fileSize = info.file.size;
+
     // check file size
-    if (info.filename === "image" && info.file.size > 2097152)
-      return toast("حجم تصویر باید کمتر از 2 مگابایت باشد", "error");
-    if (info.filename === "video" && info.file.size > 10485760)
-      return toast("حجم ویدئو باید کمتر از 10 مگابایت باشد", "error");
+    if (info.filename === "image" && fileSize > filesSize.image)
+      return toast("حجم تصویر باید کمتر از 10 مگابایت باشد", "error");
+    if (info.filename === "video" && fileSize > filesSize.video)
+      return toast("حجم ویدئو باید کمتر از 30 مگابایت باشد", "error");
 
     // set preview
     if (info.filename === "image") {
@@ -96,7 +103,6 @@ function ProjectGallery({ projectGalleryData, projectId }) {
         id: projectId,
       });
       setOpenDeleteFileModal(false);
-      queryClient.invalidateQueries("project", projectId);
     } catch (error) {}
   };
 
@@ -106,25 +112,29 @@ function ProjectGallery({ projectGalleryData, projectId }) {
         <div className="flex justify-between w-full items-center gap-3 flex-wrap">
           <div className="flex items-center gap-3">
             <h3 className="text-20 font-extrabold">گالری عکس ها</h3>
-            <Popover
-              content={popoverContent}
-              arrow={false}
-              overlayInnerStyle={{
-                borderRadius: "8px",
-                border: "2px solid rgb(var(--primary-color))",
-              }}
-            >
-              <span className="flex justify-center items-center ring-2 ring-custom-primary-color rounded-full cursor-pointer">
-                <BsExclamationLg className="text-custom-primary-color rounded-full group-hover:text-white" />
-              </span>
-            </Popover>
+            {!isLoading && user.userRole !== 2 && (
+              <Popover
+                content={popoverContent}
+                arrow={false}
+                overlayInnerStyle={{
+                  borderRadius: "8px",
+                  border: "2px solid rgb(var(--primary-color))",
+                }}
+              >
+                <span className="flex justify-center items-center ring-2 ring-custom-primary-color rounded-full cursor-pointer">
+                  <BsExclamationLg className="text-custom-primary-color rounded-full group-hover:text-white" />
+                </span>
+              </Popover>
+            )}
           </div>
-          <CustomButton
-            onClick={() => setOpenAddFileModal(true)}
-            className="mr-auto"
-          >
-            بارگزاری عکس / ویدئو
-          </CustomButton>
+          {!isLoading && user.userRole !== 2 && (
+            <CustomButton
+              onClick={() => setOpenAddFileModal(true)}
+              className="mr-auto"
+            >
+              بارگزاری عکس / ویدئو
+            </CustomButton>
+          )}
         </div>
         {/* Modal */}
         <CustomModal
@@ -136,12 +146,12 @@ function ProjectGallery({ projectGalleryData, projectId }) {
             <div className="flex flex-col justify-center sm:items-center gap-5 mt-5 sm:flex-row">
               {/* Image */}
               <div className="flex flex-col flex-1 gap-2">
-                <span>عکس ها با حجم 2 مگابایت</span>
+                <span>عکس ها با حجم 10 مگابایت</span>
                 <CustomUpload
                   title="بارگزاری تصویر"
                   className="w-full"
                   icon={<FaImage size={25} />}
-                  accept="image/png , image/jpg , image/jpeg"
+                  accept={image}
                   name="image"
                   customRequest={customUploaderRequest}
                   preview={
@@ -173,12 +183,12 @@ function ProjectGallery({ projectGalleryData, projectId }) {
               </div>
               {/* Video */}
               <div className="flex flex-col flex-1 gap-2 ">
-                <span>ویدئو ها با حجم 10 مگابایت</span>
+                <span>ویدئو ها با حجم 30 مگابایت</span>
                 <CustomUpload
                   title="بارگزاری ویدئو"
                   className="w-full"
                   icon={<FaVideo size={25} />}
-                  accept="video/mp4 , video/mpeg"
+                  accept={video}
                   name="video"
                   customRequest={customUploaderRequest}
                   preview={
@@ -230,12 +240,10 @@ function ProjectGallery({ projectGalleryData, projectId }) {
           </form>
         </CustomModal>
       </div>
-      <Gallery data={projectGalleryData}>
-        {projectGalleryData?.slice(0, 7)?.map((file) => (
-          <SwiperSlide
-            key={file.fileName}
-            className="rounded-custom overflow-hidden !h-[220px] relative"
-          >
+      {/* Slider */}
+      <Gallery data={galleryData}>
+        {galleryData?.slice(0, 7)?.map((file) => (
+          <SwiperSlide key={file.fileName} className="overflow-hidden relative">
             <span
               className="absolute top-2 right-2 text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
               onClick={() => {
@@ -245,26 +253,41 @@ function ProjectGallery({ projectGalleryData, projectId }) {
             >
               <FaTrash />
             </span>
+            <span
+              className="absolute top-2 right-14 text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
+              onClick={() => {
+                setOpenFileInfoModal(true);
+                projectInfo.current = file;
+              }}
+            >
+              <IoEyeSharp size={25} />
+            </span>
             {file.fileFormat === "image" && (
-              <Image
-                className="object-cover w-full h-full"
-                src={file.fileURL}
-                alt={file.description}
-                rootClassName="w-full h-full"
-                preview={{
-                  mask: "بزرگ نمایی",
-                }}
-                fallback="/images/download.png"
-              />
+              <>
+                <Image
+                  className="object-cover w-full h-full rounded-custom"
+                  src={file.fileURL}
+                  alt={file.description}
+                  rootClassName="w-full h-[220px] rounded-custom"
+                  preview={{
+                    mask: "بزرگ نمایی",
+                  }}
+                  fallback="/images/download.png"
+                />
+                <p className="truncate">{file.description}</p>
+              </>
             )}
             {file.fileFormat === "video" && (
-              <video
-                className="bg-custom-primary-color-300/50 w-full h-full"
-                controls
-                src={file.fileURL}
-                alt={file.description}
-                crossOrigin="anonymous"
-              />
+              <>
+                <video
+                  className="bg-custom-primary-color-300/50 w-full h-[220px] rounded-custom "
+                  controls
+                  src={file.fileURL}
+                  alt={file.description}
+                  crossOrigin="anonymous"
+                />
+                <p className="truncate mt-2.5">{file.description}</p>
+              </>
             )}
           </SwiperSlide>
         ))}
@@ -278,12 +301,49 @@ function ProjectGallery({ projectGalleryData, projectId }) {
           okHandler={deleteFileHandler}
           loading={isPending}
         />
-        <span
-          className="absolute top-4 left-4 z-20 bg-white text-black px-2 py-0.5 rounded-custom border-2 border-custom-primary-color cursor-pointer hover:bg-custom-primary-color hover:text-white"
-          onClick={() => navigate(`/projects/gallery/${projectId}`)}
+        {/* Modal Project Info */}
+        <CustomModal
+          open={openFileInfoModal}
+          onCancel={() => setOpenFileInfoModal(false)}
         >
-          مشاهده همه
-        </span>
+          {projectInfo?.current?.fileFormat === "image" && (
+            <Image
+              className="object-cover w-full h-full rounded-custom"
+              src={projectInfo?.current?.fileURL}
+              alt={projectInfo?.current?.description}
+              rootClassName="w-full h-[220px] rounded-custom"
+              preview={{
+                mask: "بزرگ نمایی",
+              }}
+              fallback="/images/download.png"
+            />
+          )}
+          {projectInfo?.current?.fileFormat === "video" && (
+            <video
+              className="bg-custom-primary-color-300/50 w-full h-[220px] rounded-custom "
+              controls
+              src={projectInfo?.current?.fileURL}
+              alt={projectInfo?.current?.description}
+              crossOrigin="anonymous"
+            />
+          )}
+          <p
+            className={cn(
+              "text-justify",
+              projectInfo?.current?.fileFormat === "video" && "mt-2.5",
+            )}
+          >
+            {projectInfo?.current?.description}
+          </p>
+        </CustomModal>
+        {galleryData?.length > 7 && (
+          <span
+            className="absolute top-4 left-4 z-20 bg-white text-black px-2 py-0.5 rounded-custom border-2 border-custom-primary-color cursor-pointer hover:bg-custom-primary-color hover:text-white text-14"
+            onClick={() => navigate(`/projects/gallery/${projectId}`)}
+          >
+            مشاهده همه
+          </span>
+        )}
       </Gallery>
     </>
   );

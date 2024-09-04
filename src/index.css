@@ -22,6 +22,7 @@ input[type="number"]::-webkit-outer-spin-button {
   .container {
     @apply mx-auto p-5 xl:max-w-[1440px];
   }
+
   .container-grid {
     @apply container grid grid-cols-1 gap-10 lg:gap-5 lg:p-0 lg:grid-cols-7 2xl:grid-cols-11 lg:col-span-9 2xl:col-span-10;
   }
@@ -90,7 +91,7 @@ input:focus-visible {
 }
 
 .ant-otp-input {
-  @apply bg-[#d9d9d9] hover:bg-[#d9d9d9] border-0 focus:bg-[#d9d9d9] w-16 h-16  md:w-20 md:h-20 md:text-32 rounded-custom text-24;
+  @apply bg-[#d9d9d9] hover:bg-[#d9d9d9] border-0 focus:bg-[#d9d9d9] w-16 h-16 md:w-20 md:h-20 md:text-32 rounded-custom text-24;
 }
 
 /* Button Loading Icon */
@@ -112,7 +113,7 @@ input:focus-visible {
   @apply bg-transparent overflow-x-auto mb-auto;
 }
 
-.ant-table-tbody .ant-table-row {
+.row-cursor-pointer .ant-table-tbody .ant-table-row {
   @apply hover:bg-custom-primary-color/15 cursor-pointer;
 }
 
@@ -146,20 +147,25 @@ input:focus-visible {
 }
 
 .ant-pagination-item {
-  @apply flex justify-center items-center bg-transparent;
+  @apply flex justify-center items-center bg-transparent max-[320px]:m-0;
 }
 
-.ant-pagination-item > * {
-  @apply w-max  border-b-2 border-transparent rounded-none font-extrabold;
+.ant-pagination-item>* {
+  @apply w-max border-b-2 border-transparent rounded-none font-extrabold;
 }
 
-.ant-pagination-item.ant-pagination-item-active > * {
+.ant-pagination-item.ant-pagination-item-active>* {
   @apply border-custom-primary-color;
 }
 
 .ant-pagination-next,
 .ant-pagination-prev {
-  @apply flex justify-center;
+  @apply flex justify-center items-center;
+}
+
+.ant-pagination-jump-next,
+.ant-pagination-jump-prev {
+  @apply max-[320px]:m-0;
 }
 
 /* User Role Filter CheckBox */
@@ -167,8 +173,7 @@ input:focus-visible {
   @apply bg-transparent rounded-custom before:hidden px-2.5 hover:text-black;
 }
 
-.user-role-filter-radio
-  .ant-radio-button-wrapper.ant-radio-button-wrapper-checked {
+.user-role-filter-radio .ant-radio-button-wrapper.ant-radio-button-wrapper-checked {
   @apply bg-custom-primary-color text-white;
 }
 
@@ -203,3 +208,18 @@ input:focus-visible {
 .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
   @apply bg-custom-primary-color;
 }
+
+.ant-image-mask {
+  @apply rounded-custom;
+}
+
+/* Map */
+
+.leaflet-container {
+  height: 100%;
+}
+
+.leaflet-bottom.leaflet-right {
+  @apply hidden;
+}
+

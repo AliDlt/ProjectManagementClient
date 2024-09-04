@@ -12,7 +12,6 @@ import useDeleteReport from "../hooks/Report/useDeleteReport";
 import { useToast } from "../Context/ToastContext";
 import CustomLoading from "../components/modules/CustomLoading";
 import { useQueryClient } from "@tanstack/react-query";
-import dayjs from "dayjs";
 
 const ReportPage = () => {
   const { id } = useParams();
@@ -85,7 +84,7 @@ const ReportPage = () => {
             <CustomButton
               onClick={deleteReportFn}
               loading={isPending}
-              className="w-14 p-2 bg-red-500 hover:bg-white hover:text-red-500 border-red-500 border-2  transition-all"
+              className="w-14 p-2 bg-red-500 hover:bg-red-400 border-red-500 border-2  transition-all"
             >
               بله
             </CustomButton>

@@ -214,49 +214,49 @@ const ReportGallery = ({ id, data }) => {
                 <>
                   {(file.fileFormat === "image" ||
                     file.fileFormat === "video") && (
-                    <SwiperSlide
-                      key={file.fileName}
-                      className="rounded-custom overflow-hidden !h-[220px] relative"
-                    >
-                      <span
-                        onClick={() => ShowModalDeleteFile(true)}
-                        className="absolute top-2 right-2 text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
+                      <SwiperSlide
+                        key={file.fileName}
+                        className="rounded-custom overflow-hidden !h-[220px] relative"
                       >
-                        <FaTrash />
-                      </span>
-                      {file.fileFormat === "image" && (
-                        <Image
-                          className="object-cover w-full h-full"
-                          src={file.fileURL}
-                          alt={file.description}
-                          rootClassName="w-full h-full"
-                          preview={{
-                            mask: "بزرگ نمایی",
-                          }}
-                          fallback="/images/download.png"
+                        <span
+                          onClick={() => ShowModalDeleteFile(true)}
+                          className="absolute top-2 right-2 text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
+                        >
+                          <FaTrash />
+                        </span>
+                        {file.fileFormat === "image" && (
+                          <Image
+                            className="object-cover w-full h-full"
+                            src={file.fileURL}
+                            alt={file.description}
+                            rootClassName="w-full h-full"
+                            preview={{
+                              mask: "بزرگ نمایی",
+                            }}
+                            fallback="/images/download.png"
+                          />
+                        )}
+                        {file.fileFormat === "video" && (
+                          <video
+                            className="bg-custom-primary-color-300/50 w-full h-full"
+                            controls
+                            src={file.fileURL}
+                            alt={file.description}
+                            crossOrigin="anonymous"
+                          />
+                        )}
+                        <CustomConfirm
+                          onCancel={() => ShowModalDeleteFile(false)}
+                          cancelText={"خیر"}
+                          loading={loading}
+                          okHandler={() => deleteFile(file)}
+                          okText={"بله"}
+                          description={"آیا از حذف فایل مطمئن هستید"}
+                          open={modalDeleteFile}
+                          title="حذف فایل "
                         />
-                      )}
-                      {file.fileFormat === "video" && (
-                        <video
-                          className="bg-custom-primary-color-300/50 w-full h-full"
-                          controls
-                          src={file.fileURL}
-                          alt={file.description}
-                          crossOrigin="anonymous"
-                        />
-                      )}
-                      <CustomConfirm
-                        onCancel={() => ShowModalDeleteFile(false)}
-                        cancelText={"خیر"}
-                        loading={loading}
-                        okHandler={() => deleteFile(file)}
-                        okText={"بله"}
-                        description={"آیا از حذف فایل مطمئن هستید"}
-                        open={modalDeleteFile}
-                        title="حذف فایل "
-                      />
-                    </SwiperSlide>
-                  )}
+                      </SwiperSlide>
+                    )}
                 </>
               );
             })}

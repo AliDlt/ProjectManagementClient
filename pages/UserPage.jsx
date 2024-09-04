@@ -43,7 +43,6 @@ const UserPage = () => {
       { onError: (e) => console.log(e), onSuccess: changedStatus },
     );
   };
-  console.log();
   return (
     <section className="container p-4  flex flex-col  grid-cols-1 gap-10 lg:gap-5 lg:p-0   lg:col-span-9 2xl:col-span-10">
       <div className="flex justify-between ">
@@ -61,7 +60,7 @@ const UserPage = () => {
                 className="text-12 font-bold flex  items-center gap-2  text-white bg-custom-primary-color px-3 py-1 rounded-xl"
               >
                 <IoRepeatOutline className="text-16" />
-                تغیر وضعیت
+                تغییر وضعیت
               </CustomButton>
             )}
           </div>
