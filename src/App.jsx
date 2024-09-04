@@ -26,6 +26,7 @@ import AddMessage from "../pages/AddMessage";
 import SingleProjectGallery from "../pages/SingleProjectGallery";
 import AddNewProject from "../pages/AddNewProject";
 import NotFound from "../pages/NotFound";
+import UserReports from "../pages/UserReports";
 
 function App() {
   const queryClient = new QueryClient({
@@ -103,6 +104,7 @@ function App() {
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/setting" element={<SettingPage />} />
                 <Route path="/reports" element={<ReportsPage />} />
+                <Route path="/userReports/:id" element={<UserReports />} />
                 <Route path="/add-user" element={<AddUser />} />
                 <Route path="/reports/:id" element={<ReportPage />} />
                 <Route path="/add-report" element={<AddReport />} />
