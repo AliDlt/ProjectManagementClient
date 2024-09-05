@@ -44,7 +44,7 @@ const AddUser = () => {
   return (
     <div className="container-grid">
       <div className="col-span-1 flex flex-col gap-5 lg:col-span-7">
-        <h4 className="text-24 font-bold">اضافه کردن کاربر</h4>
+        <h4 className="text-24 font-bold">افزودن کاربر</h4>
         <form
           onSubmit={handleSubmit(submitUser)}
           className="flex flex-col gap-5 lg:grid grid-cols-2  "

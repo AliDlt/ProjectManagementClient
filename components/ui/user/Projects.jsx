@@ -21,12 +21,12 @@ const Projects = ({ projects, error, isPending }) => {
                     return (
                       <>
                         <ChartProjects
-                          key={index} // اضافه کردن کلید منحصر به فرد برای هر پروژه
+                          key={index} // افزودن کلید منحصر به فرد برای هر پروژه
                           data={progress}
                           name={name}
                           description={description}
                         />
-                    
+
                       </>
                     );
                   })}

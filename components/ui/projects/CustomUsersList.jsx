@@ -156,7 +156,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           setOpenAddUsersModal(false);
           setSearchAllUsers("");
         }}
-        title="اضافه کردن کاربر به پروژه"
+        title="افزودن کاربر به پروژه"
       >
         <CustomInput
           className="hidden py-1 rounded-custom w-72 ml-auto  md:flex mt-5"
@@ -227,7 +227,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             setOpenAddUsersModal(false);
           }}
         >
-          اضافه کردن
+          افزودن
         </CustomButton>
       </CustomModal>
     </div>

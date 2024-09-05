@@ -100,7 +100,7 @@ const ShowFiles = ({ data }) => {
             onClick={() => setShow(true)}
             className=" rounded-xl  p-3  transition border-2 border-custom-primary-color "
           >
-            اضافه کردن فایل
+            افزودن فایل
           </CustomButton>
         </div>
       </div>
@@ -115,7 +115,7 @@ const ShowFiles = ({ data }) => {
                   {item.fileFormat !== "image" &&
                     item.fileFormat !== "video" && (
                       <SwiperSlide
-                      
+
                         key={key}
                         className="flex items-center justify-center"
                       >

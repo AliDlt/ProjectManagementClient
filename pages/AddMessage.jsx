@@ -57,7 +57,7 @@ const AddMessage = () => {
             <span>
               {getValues()?.assignedTo
                 ? getValues()?.assignedTo.name
-                : "اضافه کردن کاربر"}
+                : "افزودن کاربر"}
             </span>
             <span>
               <MdAdd />

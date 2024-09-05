@@ -28,6 +28,7 @@ import AddNewProject from "../pages/AddNewProject";
 import NotFound from "../pages/NotFound";
 import dayjs from "dayjs";
 import UserProjectsPage from "../pages/UserProjectsPage";
+import ApplicantsCategoryPage from "../pages/Applicants/ApplicantsCategoryPage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -110,6 +111,7 @@ function App() {
                 <Route path="/add-user" element={<AddUser />} />
                 <Route path="/reports/:id" element={<ReportPage />} />
                 <Route path="/add-report" element={<AddReport />} />
+                <Route path="/applicants" element={<ApplicantsCategoryPage />} />
                 <Route path="/messages" element={<Messages />} />
                 <Route path="/add-ticket" element={<AddMessage />} />
                 <Route path="/message/:id" element={<Message />} />

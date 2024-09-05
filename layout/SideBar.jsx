@@ -4,13 +4,9 @@ import Profile from "../components/ui/dashboard/Profile";
 import { useSideBar } from "../Context/SideBarContext";
 import ListAside from "../components/ui/dashboard/ListAside";
 import { Drawer } from "antd";
-import CustomButton from "../components/modules/CustomButton";
-import CustomModal from "../components/modules/CustomModal";
-import Logout from "../components/ui/Logout";
 
 function SideBar() {
   const { show, setShow } = useSideBar();
-  const [modal, showModal] = useState(false);
   return (
     <>
       <Drawer
@@ -29,12 +25,8 @@ function SideBar() {
         }}
       >
         <nav className="flex flex-col items-center w-full pt-6">
-          <div className="w-[50%]">
-            <Logo />
-          </div>
           <Profile />
           <ListAside />
-       
         </nav>
       </Drawer>
       <aside
@@ -43,12 +35,8 @@ function SideBar() {
          md:static z-50  2xl:col-span-2 lg:row-start-1 lg:-row-end-9  shadow-custom rounded-xl bg-white md:h-max border-b-4 border-custom-primary-color-300 lg:!sticky lg:top-5 overflow-hidden"
       >
         <nav className="flex flex-col items-center w-full pt-6">
-          <div className="w-[50%]">
-            <Logo />
-          </div>
           <Profile />
           <ListAside />
-         
         </nav>
       </aside>
     </>
