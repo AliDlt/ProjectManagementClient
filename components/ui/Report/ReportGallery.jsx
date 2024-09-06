@@ -1,21 +1,19 @@
 import React, { useState, memo } from "react";
 import Gallery from "../Gallery";
-import { IoAddOutline } from "react-icons/io5";
 import CustomUpload from "../../modules/CustomUpload";
 import { BsExclamationLg } from "react-icons/bs";
-import { Empty, Image, Popover } from "antd";
+import { Empty, Popover } from "antd";
 import CustomButton from "../../modules/CustomButton";
 import CustomTextAria from "../../modules/CustomTextAria";
-import { FaImage, FaTrash, FaVideo } from "react-icons/fa6";
+import { FaImage, FaVideo } from "react-icons/fa6";
 import CustomModal from "../../modules/CustomModal";
 import { SwiperSlide } from "swiper/react";
 import { useToast } from "../../../Context/ToastContext";
 import useUploadReportFile from "../../../hooks/Report/useUploadReportFile";
-import { useParams } from "react-router-dom";
 import useDeleteReportFile from "../../../hooks/Report/useDeleteReportFile";
-import CustomConfirm from "../../modules/CustomConfirm";
 import { useQueryClient } from "@tanstack/react-query";
 import { filterFile } from "../../../utils/tools";
+import ImageVideoSlide from "../ImageVideoSlide";
 const popoverContent = (
   <div className="flex flex-col gap-2 text-12">
     <p>ویدئو ها با حجم 10 مگابایت</p>
@@ -57,7 +55,6 @@ const ReportGallery = ({ id, data }) => {
   const [selectedImage, selectImage] = useState();
   const [selectedVideo, selectVideo] = useState();
   const [description, setDescription] = useState("");
-  const [modalDeleteFile, ShowModalDeleteFile] = useState(false);
   const changeValue = (e) => {
     setDescription(e.target.value);
   };
@@ -116,15 +113,7 @@ const ReportGallery = ({ id, data }) => {
   };
   const queryClient = useQueryClient();
   const { mutate: deleteFiles, isPending: loading } = useDeleteReportFile();
-  const deleteFile = (e) => {
-    deleteFiles(
-      {
-        id,
-        fileName: e.fileName,
-      },
-      { onSuccess: (e) => console.log(e), onError: (e) => console.log(e) },
-    );
-  };
+
   return (
     <div>
       <div className="mt-6 flex justify-between px-4">
@@ -203,59 +192,18 @@ const ReportGallery = ({ id, data }) => {
 
       {filterFile(data, "gallery")?.length ? (
         <Gallery>
-          <>
-            {data?.map((file) => {
-              return (
-                <>
-                  {(file.fileFormat === "image" ||
-                    file.fileFormat === "video") && (
-                      <SwiperSlide
-                        key={file.fileName}
-                        className="rounded-custom overflow-hidden !h-[220px] relative"
-                      >
-                        <span
-                          onClick={() => ShowModalDeleteFile(true)}
-                          className="absolute top-2 right-2 text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
-                        >
-                          <FaTrash />
-                        </span>
-                        {file.fileFormat === "image" && (
-                          <Image
-                            className="object-cover w-full h-full"
-                            src={file.fileURL}
-                            alt={file.description}
-                            rootClassName="w-full h-full"
-                            preview={{
-                              mask: "بزرگ نمایی",
-                            }}
-                            fallback="/images/download.png"
-                          />
-                        )}
-                        {file.fileFormat === "video" && (
-                          <video
-                            className="bg-custom-primary-color-300/50 w-full h-full"
-                            controls
-                            src={file.fileURL}
-                            alt={file.description}
-                            crossOrigin="anonymous"
-                          />
-                        )}
-                        <CustomConfirm
-                          onCancel={() => ShowModalDeleteFile(false)}
-                          cancelText={"خیر"}
-                          loading={loading}
-                          okHandler={() => deleteFile(file)}
-                          okText={"بله"}
-                          description={"آیا از حذف فایل مطمئن هستید"}
-                          open={modalDeleteFile}
-                          title="حذف فایل "
-                        />
-                      </SwiperSlide>
-                    )}
-                </>
-              );
-            })}
-          </>
+          {data?.map((file) => (
+            <SwiperSlide
+              key={file.fileName}
+              className="overflow-hidden relative"
+            >
+              <ImageVideoSlide
+                file={file}
+                deleteFilePending={loading}
+                deleteFileMutate={deleteFiles}
+              />
+            </SwiperSlide>
+          ))}
         </Gallery>
       ) : (
         <div>

@@ -13,8 +13,8 @@ function ProjectsReportsModal() {
   const { id } = useParams();
   const [reportSearchValue, setReportSearchValue] = useState("");
   const [value] = useDebounce(reportSearchValue, 500);
-  const [currentPage, setCurrentPage] = useState(undefined);
-  const { projectsReportsData, projectsReportsError, projectsReportsLoading } =
+  const [currentPage, setCurrentPage] = useState(1);
+  const { projectsReports, projectsReportsError, projectsReportsLoading } =
     useProjectsReports(id, value, 5, currentPage);
   const navigate = useNavigate();
 
@@ -45,13 +45,13 @@ function ProjectsReportsModal() {
         </div>
       ) : (
         <div className="flex flex-col mt-5 gap-[1px] bg-black">
-          {projectsReportsData?.reports.length === 0 ? (
+          {projectsReports?.reports?.length === 0 ? (
             <Empty
               className="bg-white m-0 h-80 flex flex-col justify-center items-center"
               description="گزارشی وجود ندارد"
             />
           ) : (
-            projectsReportsData?.reports.map((report) => (
+            projectsReports?.reports?.map((report) => (
               <div
                 key={report._id}
                 className="flex justify-start items-center py-4 bg-white flex-wrap"
@@ -71,10 +71,10 @@ function ProjectsReportsModal() {
           )}
         </div>
       )}
-      {projectsReportsData?.reports.length !== 0 && (
+      {projectsReports?.reports?.length !== 0 && (
         <CustomPagination
           onChange={(page) => setCurrentPage(page)}
-          total={projectsReportsData?.totalReports}
+          total={projectsReports?.totalReports}
           pageSize={5}
         />
       )}
