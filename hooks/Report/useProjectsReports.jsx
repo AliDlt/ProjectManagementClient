@@ -1,25 +1,35 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { getAllProjectsReports } from "../../services/reports";
-import { useEffect } from "react";
 import { useToast } from "../../Context/ToastContext";
+import { useEffect, useState } from "react";
 
 function useProjectsReports(projectId, search, count, page) {
   const toast = useToast();
+  const [projectsReports, setProjectsReports] = useState(false);
+
   const {
-    data: projectsReportsData,
-    isLoading: projectsReportsLoading,
+    mutateAsync: getProjectReports,
+    isPending: projectsReportsLoading,
     error: projectsReportsError,
-  } = useQuery({
-    queryKey: ["get-project-reports", projectId, search, count, page],
-    queryFn: () => getAllProjectsReports(projectId, search, count, page),
+  } = useMutation({
+    mutationKey: ["get-project-reports"],
+    mutationFn: () => getAllProjectsReports(projectId, search, count, page),
+    onError: () => {
+      toast(projectsReportsError?.response?.data?.message, "error");
+    },
   });
 
-  useEffect(() => {
-    if (!projectsReportsLoading && projectsReportsError)
-      toast(projectsReportsError?.response?.data?.message, "error");
-  }, [projectsReportsError, projectsReportsLoading]);
+  // Fetch Projects Reports
+  const fetchProjectsReports = async () => {
+    const res = await getProjectReports(projectId, search, count, page);
+    return res;
+  };
 
-  return { projectsReportsData, projectsReportsLoading, projectsReportsError };
+  useEffect(() => {
+    fetchProjectsReports().then((data) => setProjectsReports(data));
+  }, [setProjectsReports, projectId, search, count, page]);
+
+  return { projectsReports, projectsReportsLoading, projectsReportsError };
 }
 
 export default useProjectsReports;
