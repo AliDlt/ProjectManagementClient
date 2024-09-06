@@ -5,10 +5,12 @@ import { MdDelete } from "react-icons/md";
 import IconFile from "../ui/IconFile";
 import CustomModal from "./CustomModal";
 import { useToast } from "../../Context/ToastContext";
+import { getFileFormat } from "../../utils/tools";
 
 const CustomSlideFIle = ({ item, mutate, isPending }) => {
   const toast = useToast();
   const [modal, showModal] = useState(false);
+
   const deleteFile = () => {
     mutate(
       { id: item.sectionId, fileName: item.fileName },
@@ -33,10 +35,10 @@ const CustomSlideFIle = ({ item, mutate, isPending }) => {
           <MdDelete />
         </CustomButton>
         <span className="text-4xl text-black text-opacity-50">
-          <IconFile type={item.fileFormat} />
+          <IconFile type={getFileFormat(item.fileName)} />
         </span>
       </div>
-      <p className="text-14 absolute right-3 bottom-3">اسم فایل </p>
+      <p className="text-14 absolute right-3 bottom-3"> {item.description} </p>
       <CustomModal title={"حدف فایل"} onCancel={showModal} open={modal}>
         <h3 className="mt-3">آیا از حذف فایل مطمئن هستید ؟</h3>
         <div className="flex gap-2 justify-end items-center">

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Empty } from "antd";
 
 function ReportsSection() {
-  const { reportsData, isLoading, error } = useReports(3);
+  const { reportsData, isLoading, error } = useReports(3,1);
   const navigate = useNavigate();
 
   // Handle Error

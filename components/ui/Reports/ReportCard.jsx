@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const ReportCard = ({ title, description, id }) => {
   return (
     <div className="p-3 flex gap-2 border-2 border-custom-primary-color rounded-custom items-center justify-between  ">
-      <div className="flex gap-4">
+      <div className="flex gap-4 line-clamp-1 items-center">
         <h5 className="text-14 text-nowrap">{title} :</h5>
         <p className="line-clamp-1 text-12 text-start">{description}</p>
       </div>

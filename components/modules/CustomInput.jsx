@@ -22,6 +22,7 @@ export default function CustomInput({
       <Input
         onChange={(e) => onChange(e)}
         value={value}
+       
         dir="rtl"
         type={type}
         classNames={{
@@ -58,6 +59,7 @@ export default function CustomInput({
 
             dir="rtl"
             type={type}
+            
             prefix={icon}
             placeholder={placeholder}
             status={error && "error"}

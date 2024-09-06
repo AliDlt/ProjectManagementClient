@@ -2,9 +2,11 @@ import React from "react";
 import CustomButton from "../../modules/CustomButton";
 import Message from "./Message";
 import useGetMessages from "../../../hooks/useGetMessages";
+import { Empty } from "antd";
 
 const Messages = () => {
   const { data } = useGetMessages();
+  console.log(data);
   return (
     <div className="flex  items-end h-full ">
       <div className="bg-white w-full flex flex-col  align gap-8 rounded-custom p-7 h-[95%] border-custom-primary-color-300 border-l-4  border-t-4 shadow-custom">
@@ -15,24 +17,26 @@ const Messages = () => {
               <CustomButton className="">همه پیام ها</CustomButton>
             </div>
             <div className="flex flex-col  gap-3 h-full ">
-              {data?.data.data.tickets.map(({ _id, title, description }, index) => {
-                return (
-                  index < 4 && (
-                    <Message
-                      title={title}
-                      description={description}
-                      id={_id}
-                      key={index}
-                    />
-                  )
-                );
-              })}
+              {data?.data.data.tickets.map(
+                ({ _id, title, messages }, index) => {
+                  return (
+                    index < 4 && (
+                      <Message
+                        title={title}
+                        description={messages[0].content}
+                        id={_id}
+                        key={index}
+                      />
+                    )
+                  );
+                },
+              )}
             </div>
           </>
         ) : (
           <div className="flex items-center justify-center h-full">
             {" "}
-            پیامی برای شما وجود ندارد{" "}
+            <Empty description= 'پیغامی برای شما وجود ندارد' />
           </div>
         )}
       </div>

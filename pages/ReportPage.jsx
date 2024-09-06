@@ -16,7 +16,6 @@ import { useQueryClient } from "@tanstack/react-query";
 const ReportPage = () => {
   const { id } = useParams();
   const { data, error, isLoading } = useGetReport(id);
-  console.log(data);
   const [modalDelete, showModalDelete] = useState(false);
   const { mutate, isPending } = useDeleteReport();
   const queryClient = useQueryClient();
@@ -58,9 +57,7 @@ const ReportPage = () => {
             </span>
           </CustomButton>
         </h3>
-        <ReportBox
-          data={data}
-        />
+        <ReportBox data={data} />
         <div className="mt-4  flex items-center  ">
           <CustomButton className="py-5  ">
             <Link to={`/projects/${data?.projectId}`}>نمایش پروژه مرتبط </Link>

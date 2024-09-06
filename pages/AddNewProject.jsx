@@ -59,6 +59,7 @@ function AddNewProject() {
 
   // On Submit
   const onSubmit = async (values) => {
+    console.log(values)
     try {
       await addProject(values);
       reset();

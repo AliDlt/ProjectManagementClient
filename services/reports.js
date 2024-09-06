@@ -1,10 +1,14 @@
+import { CiLineHeight } from "react-icons/ci";
 import http from "./http";
+import dayjs from "dayjs";
 
-export const getReports = async (count, page, value = '') => {
-  
-  const res = await http.get(
-    `/report/getAllReportsSearchByToken/?count=${count}&page=${page}&search=${value}`,
-  );
+export const getReports = async (count, page, value = "", date = undefined) => {
+  const res = await http.post(`/report/getAllReportsSearchByToken/`, {
+    count: count,
+    page: page,
+    search: value,
+    reportDate: date,
+  });
   return res.data;
 };
 
@@ -52,8 +56,7 @@ export const updateReport = async (data) => {
   return response.data;
 };
 
-export const userReports = async (id, page = undefined, value='') => {
-
+export const userReports = async (id, page = undefined, value = "") => {
   const resp = await http.get(
     `/report/getAllReportsSearchByUserId?userId=${id}&page=${page}&search=${value}`,
   );

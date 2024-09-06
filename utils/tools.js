@@ -30,7 +30,7 @@ export function convertDate(dateString) {
 
   const jalaliDate = date.format("YYYY/MM/DD");
   const time = date.format("HH:mm");
-  
+
   return ` ${time} - ${jalaliDate} `;
 }
 
@@ -54,4 +54,11 @@ export const filterFile = (files, type) => {
       (file) => file.fileFormat !== "image" && file.fileFormat !== "video",
     );
   }
+};
+
+export const getFileFormat = (file) => {
+  console.log(file);
+  const index = file.lastIndexOf(".");
+  const fileFormat = file.substring(index + 1);
+  return fileFormat;
 };

@@ -25,12 +25,14 @@ const Message = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const [allMessages, setAllMessages] = useState([]);
+  
   const {
     data: messages,
     error: errorMessage,
 
     isPending,
   } = useGetMessages(id, page);
+  console.log(errorMessage)
   const queryClient = useQueryClient();
 
   const successDeleteTicket = (e) => {

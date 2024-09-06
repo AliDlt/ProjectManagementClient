@@ -69,7 +69,7 @@ const ShowFiles = ({ data }) => {
     upload(
       {
         file: selectedFile.file,
-        fileFormat: selectedFile.file.type,
+        fileFormat: 'file',
         id,
         description,
       },

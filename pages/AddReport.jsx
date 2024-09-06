@@ -54,6 +54,7 @@ const AddReport = () => {
 
   const addReport = (e) => {
     console.log(e);
+    console.log(e.createAt);
     mutate(
       {
         name: e.name,
@@ -68,7 +69,7 @@ const AddReport = () => {
 
   const setDateReport = (e) => {
     console.log(dayjs(e));
-    setValue("createAt", dayjs(e));
+    setValue("createAt", e);
   };
   return (
     <div className="container-grid">

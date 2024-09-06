@@ -58,6 +58,10 @@ const ReportBox = ({ data }) => {
     <div>
       <section className="border-2 flex justify-between  bg-white rounded-custom  border-custom-primary-color p-4 md:px-6 md:py-4 ">
         <div>
+          <h3>
+            {" "}
+            <h4> تاریخ : {convertToLocalDate(data?.date)}</h4>
+          </h3>
           <div className="flex justify-between">
             <div className=" flex gap-2 items-center">
               <div className="text-10 md:text-16 mt-2 ">

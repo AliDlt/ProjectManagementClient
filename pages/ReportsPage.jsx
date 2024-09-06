@@ -16,38 +16,48 @@ import CustomInput from "../components/modules/CustomInput";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
 import { useForm } from "react-hook-form";
 import CustomDatePicker from "../components/modules/CustomDatePicker";
+import dayjs from "dayjs";
+import { convertToLocalDate } from "../utils/tools";
 
 function ReportsPage() {
   const { pathname } = useLocation();
   const [params, setParams] = useSearchParams();
-  const changeDate = (e) => {
-    setParams({
-      date: "sss",
-    });
-  };
-  const { control, watch, setValue } = useForm({
+  const { control, watch, setValue, getValues } = useForm({
     mode: "onChange",
-    defaultValues: { search: params.get("search") || "" },
   });
-
   const [page, setPage] = useState(params.get("page") || 1);
-  const [value] = useDebounce(watch("search"), 500);
+  const [searchParams, setSearchParams] = useState(params.get("search") || "");
+
+  const [value] = useDebounce(searchParams, 500);
+
   const navigate = useNavigate();
-  const { reportsData, isPending, error } = useReports(10, page, value);
 
   const changePage = (e) => {
     setPage(e);
   };
-  const searchHandler = useDebouncedCallback((e) => {
+
+  const searchHandler = useDebouncedCallback((e, type) => {
     const current = new URLSearchParams(Array.from(params.entries()));
-    const value = e.target.value.trim();
-    value ? current.set("search", e.target.value) : current.delete("search");
+    const value = e.trim();
+    value ? current.set(type, e) : current.delete(type);
     const search = current.toString();
-    console.log(search);
     const query = search ? `?${search}` : "";
-    console.log(query);
     navigate(`${pathname}${query}`);
   }, 1000);
+
+  const changeDate = (e) => {
+    console.log(e);
+    setValue("date", e);
+    searchHandler(convertToLocalDate(dayjs(e)), "date");
+  };
+  console.log(getValues("date"));
+  const { reportsData, isPending, error } = useReports(
+    10,
+    page,
+    value,
+    getValues("date"),
+  );
+  console.log(getValues("date"));
 
   if (isPending) {
     return (
@@ -70,22 +80,23 @@ function ReportsPage() {
           </CustomButton>
         </div>
 
-        <div className="my-4 flex justify-between">
+        <div className="my-4 flex gap-2 lg:gap-0 justify-between">
           <div className="w-1/2">
             <CustomInput
-              className=" px-3 py-2 w-1/2"
+              
+              className=" px-3 py-2 lg:w-1/2"
               placeholder="جستجو"
-              control={control}
               name="search"
+              value={searchParams}
               onChange={(e) => {
-                setValue("search", e.target.value);
-                searchHandler(e);
+                setSearchParams(e.target.value);
+                searchHandler(e.target.value, "search");
               }}
             />
           </div>
           <div className="w-1/2 flex items-center ">
             <CustomDatePicker
-              className=" px-3 py-2 w-1/2"
+              className=" px-3 py-2 lg:w-1/2"
               control={control}
               name="date"
               changeHandler={changeDate}
@@ -114,8 +125,8 @@ function ReportsPage() {
           })}
         </section>
       </div>
-      {reportsData?.reports.length !== 0 ||
-        (error?.response.status === 404 && (
+      {reportsData?.reports.length !== 0 &&
+        (error?.response.status !== 404 && (
           <div
             className="col-span-1 lg:col-span-11"
             style={{ direction: "ltr" }}

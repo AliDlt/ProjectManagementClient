@@ -47,18 +47,18 @@ const NewPasswordPage = ({ phoneNumber, otpCode }) => {
       </h3>
       <form
         onSubmit={handleSubmit(confirmResetPassword)}
-        className="flex flex-col gap-8 "
+        className="flex flex-col gap-8 w-full "
       >
         <CustomPasswordInput
           control={control}
           name="password"
           error={errors.password}
           placeholder=" رمز عبور جدید"
-          className="md:text-2xl p-3"
+          className="md:text-2xl md:p-3"
         />
         <CustomPasswordInput
           placeholder="تکرار رمز عبور جدید"
-          className="md:text-2xl p-3"
+          className="md:text-2xl md:p-3"
           name="passwordConfirmation"
           control={control}
           error={errors.passwordConfirmation}
@@ -66,7 +66,7 @@ const NewPasswordPage = ({ phoneNumber, otpCode }) => {
         <CustomButton
           loading={loading}
           type="submit"
-          className=" p-6 mx-auto rounded-lg text-2xl  "
+          className=" p-6 mx-auto rounded-lg text-xl md:text-2xl  "
         >
           ثبت تغییرات
         </CustomButton>

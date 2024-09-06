@@ -3,15 +3,14 @@ import { getReports } from "../services/reports";
 import { useToast } from "../Context/ToastContext";
 import { useEffect } from "react";
 
-const useReports = (count, page, value) => {
+const useReports = (count, page, value, date) => {
   const toast = useToast();
   const { data, isLoading, error, isPending } = useQuery({
-    queryKey: ["reports", page, value],
-    queryFn: () => getReports(count, page, value),
+    queryKey: ["reports", page, value, date],
+    queryFn: () => getReports(count, page, value, date),
   });
-
   useEffect(() => {
-    console.log(data);
+    console.log(error)
     if (!isLoading && error) {
       if (error?.response?.data?.errors) {
         toast(error?.response?.data?.errors[0], "error");
