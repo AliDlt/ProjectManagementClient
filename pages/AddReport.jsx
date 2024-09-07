@@ -53,18 +53,20 @@ const AddReport = () => {
   const { mutate, isPending } = useAddReport();
 
   const addReport = (e) => {
-    console.log(e);
+    const newDate = new Date(e.min).getMinutes()
+    console.log(newDate)
     console.log(e.createAt);
-    mutate(
-      {
-        name: e.name,
-        description: e.description,
-        projectId: e.project.id,
-        createdBy: user._id,
-        date: e.createAt,
-      },
-      { onSuccess: successAdd, onError: (e) => console.log(e) },
-    );
+    // mutate(
+    //   {
+    //     name: e.name,
+    //     description: e.description,
+    //     projectId: e.project.id,
+    //     createdBy: user._id,
+    //     date: e.createAt,
+        
+    //   },
+    //   { onSuccess: successAdd, onError: (e) => console.log(e) },
+    // );
   };
 
   const setDateReport = (e) => {
@@ -96,6 +98,7 @@ const AddReport = () => {
           <CustomDatePicker
             className="  px-4 py-2 "
             control={control}
+            
             name={"createAt"}
             changeHandler={setDateReport}
             error={errors.createAt}
@@ -104,7 +107,11 @@ const AddReport = () => {
         </div>
         <div className="flex items-center gap-3 ">
           <p>ساعت شروع کار :</p>
+          <span>
+            ساعت
+          </span>
           <CustomHourSelector control={control} nameHour="hour" />
+          <span> دقیقه </span>
           <CustomMinSelector control={control} nameMin="min" />
         </div>
         {errors?.project && (
@@ -115,6 +122,7 @@ const AddReport = () => {
           <CustomInput
             className="p-2"
             name="name"
+            
             control={control}
             error={errors.name}
             placeholder="عنوان گزارش"
