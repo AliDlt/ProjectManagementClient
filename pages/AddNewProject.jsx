@@ -172,7 +172,11 @@ function AddNewProject() {
                 open={isOpenMapModal}
                 onCancel={() => setIsOpenMapModal(false)}
               >
-                <Map position={position} onSetPosition={mapHandler} />
+                <Map
+                  position={position}
+                  onSetPosition={mapHandler}
+                  setPosition={setPosition}
+                />
               </CustomModal>
             </div>
           </div>
