@@ -19,11 +19,16 @@ function useUserGeolocation() {
         setLoading(false);
       },
       (error) => {
+        setLoading(false);
+        if (error.code === 1)
+          return toast(
+            "دسترسی داده نشد ، لطفا دسترسی به موقعیت مکانی دهید",
+            "error",
+          );
         toast(
           "متاسفانه موقعیت مکانی تان را دریافت نکردیم ، لطفا دوباره تلاش کنید.",
           "error",
         );
-        setLoading(false);
       },
     );
   };

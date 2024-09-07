@@ -246,10 +246,14 @@ function ProjectInfo({ projectInfoData }) {
               </div>
             </div>
             <Map
-              position={[getValues("latitude"), getValues("longitude")]}
+              position={[watch("latitude"), watch("longitude")]}
               showPosition
               onSetPosition={mapHandler}
               markerPosition={[latitude, longitude]}
+              setPosition={(userGeo) => {
+                setValue("latitude", userGeo[0]);
+                setValue("longitude", userGeo[1]);
+              }}
             />
           </CustomModal>
           <CustomButton className="mt-7" type="submit">
