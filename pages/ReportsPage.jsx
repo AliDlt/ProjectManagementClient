@@ -14,15 +14,15 @@ import {
 } from "react-router-dom";
 import CustomInput from "../components/modules/CustomInput";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
-import { useForm } from "react-hook-form";
+import { get, useForm } from "react-hook-form";
 import CustomDatePicker from "../components/modules/CustomDatePicker";
 import dayjs from "dayjs";
-import { convertToLocalDate } from "../utils/tools";
+import { convertMillisecondsToDate, convertToLocalDate } from "../utils/tools";
 
 function ReportsPage() {
   const { pathname } = useLocation();
   const [params, setParams] = useSearchParams();
-  const { control, watch, setValue, getValues } = useForm({
+  const { control, setValue, getValues } = useForm({
     mode: "onChange",
   });
   const [page, setPage] = useState(params.get("page") || 1);
@@ -33,12 +33,15 @@ function ReportsPage() {
   const navigate = useNavigate();
 
   const changePage = (e) => {
+    searchHandler(e, "page");
     setPage(e);
   };
 
   const searchHandler = useDebouncedCallback((e, type) => {
     const current = new URLSearchParams(Array.from(params.entries()));
-    const value = e.trim();
+    const value = e?.trim();
+    console.log(!!value)
+
     value ? current.set(type, e) : current.delete(type);
     const search = current.toString();
     const query = search ? `?${search}` : "";
@@ -46,16 +49,18 @@ function ReportsPage() {
   }, 1000);
 
   const changeDate = (e) => {
-    console.log(e);
     setValue("date", e);
-    searchHandler(convertToLocalDate(dayjs(e)), "date");
+    e ? searchHandler(convertToLocalDate(dayjs(e)), "date") : searchHandler('','date');
   };
+  console.log(convertMillisecondsToDate(getValues("date")));
   console.log(getValues("date"));
   const { reportsData, isPending, error } = useReports(
     10,
     page,
     value,
-    getValues("date"),
+    getValues("date")
+      ? convertMillisecondsToDate(getValues("date"))
+      : undefined,
   );
   console.log(getValues("date"));
 
@@ -83,7 +88,6 @@ function ReportsPage() {
         <div className="my-4 flex gap-2 lg:gap-0 justify-between">
           <div className="w-1/2">
             <CustomInput
-              
               className=" px-3 py-2 lg:w-1/2"
               placeholder="جستجو"
               name="search"
@@ -125,20 +129,16 @@ function ReportsPage() {
           })}
         </section>
       </div>
-      {reportsData?.reports.length !== 0 &&
-        (error?.response.status !== 404 && (
-          <div
-            className="col-span-1 lg:col-span-11"
-            style={{ direction: "ltr" }}
-          >
-            <Pagination
-              align="center"
-              defaultCurrent={1}
-              onChange={changePage}
-              total={reportsData?.totalReports}
-            />
-          </div>
-        ))}
+      {reportsData?.reports.length !== 0 && error?.response.status !== 404 && (
+        <div className="col-span-1 lg:col-span-11" style={{ direction: "ltr" }}>
+          <Pagination
+            align="center"
+            defaultCurrent={1}
+            onChange={changePage}
+            total={reportsData?.totalReports}
+          />
+        </div>
+      )}
       <MetaTag title="گزارش های شما" description="گزارش شما" />
     </div>
   );

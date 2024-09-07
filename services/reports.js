@@ -3,6 +3,7 @@ import http from "./http";
 import dayjs from "dayjs";
 
 export const getReports = async (count, page, value = "", date = undefined) => {
+  console.log(date)
   const res = await http.post(`/report/getAllReportsSearchByToken/`, {
     count: count,
     page: page,
@@ -28,16 +29,20 @@ export const addReport = async (data) => {
 };
 
 export const deleteReportFile = async (data) => {
-  console.log(data);
-  const res = await http.delete("/report/deleteFile", data);
+  const res = await http.delete("/report/deleteFile", {
+    data,
+  });
   return res.data;
 };
 
 // Get All project's Reports
 export const getAllProjectsReports = async (projectId, search, count, page) => {
-  const res = await http.get(
-    `/report/getAllReportsByProjectId?id=${projectId}&search=${search}&count=${count}&page=${page}`,
-  );
+  const res = await http.post("/report/getAllReportsByProjectId", {
+    projectId,
+    search,
+    count,
+    page,
+  });
   return res.data?.data;
 };
 

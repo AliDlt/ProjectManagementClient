@@ -7,19 +7,17 @@ import { useForm } from "react-hook-form";
 import { addNewProjectSchema } from "../yup/yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import CustomUsersList from "../components/ui/projects/CustomUsersList";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAddProject from "../hooks/projects/useAddProject";
 import CustomConfirm from "../components/modules/CustomConfirm";
 import { useNavigate } from "react-router-dom";
 import MetaTag from "../components/modules/MetaTag";
 import { useToast } from "../Context/ToastContext";
 import CustomModal from "../components/modules/CustomModal";
-import useUserGeolocation from "../hooks/useUserGeolocation";
 import Map from "../components/ui/projects/Map";
 
 function AddNewProject() {
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const { location } = useUserGeolocation();
   const [isOpenMapModal, setIsOpenMapModal] = useState(false);
   const [position, setPosition] = useState([
     35.68942549867877, 51.39404296875001,
@@ -47,15 +45,6 @@ function AddNewProject() {
     resolver: yupResolver(addNewProjectSchema),
     mode: "onChange",
   });
-
-  useEffect(() => {
-    if (location) {
-      setPosition({
-        lat: location?.latitude,
-        lng: location?.longitude,
-      });
-    }
-  }, [location, setPosition]);
 
   // On Submit
   const onSubmit = async (values) => {

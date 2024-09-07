@@ -1,35 +1,34 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useToast } from "../Context/ToastContext";
 
 function useUserGeolocation() {
-  const [location, setLocation] = useState(null);
-  const [error, setError] = useState(null);
+  const [location, setLocation] = useState(false);
+  const [loading, setLoading] = useState(false);
   const toast = useToast();
 
-  const refresh = () => {
-    setLocation(null);
-    setError(null);
+  const getLocation = () => {
+    if (!navigator.geolocation)
+      return toast("مرورگر شما از مکان پشتیبانی نمیکند", "error");
+    setLoading(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setLocation({
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+        });
+        setLoading(false);
+      },
+      (error) => {
+        toast(
+          "متاسفانه موقعیت مکانی تان را دریافت نکردیم ، لطفا دوباره تلاش کنید.",
+          "error",
+        );
+        setLoading(false);
+      },
+    );
   };
 
-  useEffect(() => {
-    if (!navigator.geolocation) {
-      toast("موقعیت جغرافیایی توسط این مرورگر پشتیبانی نمی شود", "", "⚠️");
-      return;
-    }
-
-    function handleSuccess(position) {
-      const { latitude, longitude } = position.coords;
-      setLocation({ latitude, longitude });
-    }
-
-    function handleError(error) {
-      setError(error.message);
-    }
-
-    navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
-  }, []);
-
-  return { location, error, refresh };
+  return { location, loading, getLocation };
 }
 
 export default useUserGeolocation;

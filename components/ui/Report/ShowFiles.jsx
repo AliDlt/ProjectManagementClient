@@ -60,16 +60,17 @@ const ShowFiles = ({ data }) => {
   const successUpload = (e) => {
     toast(e?.data?.message, "success");
     setShow(false);
+    selectFile("");
     setDescription("");
     queryClient.invalidateQueries("get-report", id);
   };
   const uploadFile = () => {
-    console.log(selectedFile.file.fileFormat,);
+    console.log(selectedFile.file.fileFormat);
 
     upload(
       {
         file: selectedFile.file,
-        fileFormat: 'file',
+        fileFormat: "file",
         id,
         description,
       },
@@ -155,6 +156,7 @@ const ShowFiles = ({ data }) => {
           <div>
             <CustomTextAria
               placeholder={"توضیحات (الزامی)"}
+              value={description}
               onChange={changeValue}
             />
           </div>

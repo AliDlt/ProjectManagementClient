@@ -44,12 +44,12 @@ const ListAside = () => {
             ])
           }
         >
-          <div className="flex justify-center items-center"></div>
-          <img src={icon} alt={name} />
-          <span>{name}</span>
+          <div className="flex justify-center gap-4 items-center">
+            <img src={icon} alt={name} />
+            <span>{name}</span>
+          </div>
         </NavLink>
       ))}
-     
     </div>
   );
 };
