@@ -183,7 +183,7 @@ const ReportGallery = ({ id, data }) => {
           <div className="flex justify-center items-center  ">
             <CustomButton
               onClick={() => setShow(true)}
-              className=" rounded-xl p-3 transition border-2 border-custom-primary-color "
+              className=" rounded-xl p-3 transition border-2 border-custom-primary-color !text-12 "
             >
               اضافه کردن عکس یا ویدیو
             </CustomButton>
