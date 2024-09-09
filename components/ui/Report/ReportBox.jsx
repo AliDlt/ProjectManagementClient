@@ -114,15 +114,15 @@ const ReportBox = ({ data }) => {
         <CustomModal
 
           onCancel={() => showEditor(false)}
-          className="p-4 min-h-[450px]"
+          className="p-4 min-h-[480px]"
           open={editor}
           title="ویرایش گزارش"
         >
           <form
             onSubmit={handleSubmit(updateReport)}
-            className="p-2 flex flex-col gap-4 "
+            className="p-2 flex flex-col gap-4 justify-center h-full mt-5 "
           >
-            <div>
+            <div className="flex flex-col gap-2">
               <label> عنوان گزارش : </label>
               <CustomInput
                 className="p-1 rounded-lg"
@@ -132,17 +132,7 @@ const ReportBox = ({ data }) => {
                 name={"name"}
               />
             </div>
-            <div className="flex flex-col gap-2">
-              <label> متن گزارش : </label>
-              <CustomTextAria
-                className="rounded-lg resize-y"
-                error={errors.description}
-                name={"description"}
-                placeholder={"متن گزارش ..."}
-                control={control}
-              />
-            </div>
-            <div className="flex gap-2 md:items-center flex-col md:flex-row">
+            <div className="flex gap-2  flex-col ">
               <label> تاریخ گزارش : </label>
               <CustomDatePicker
                 error={errors.createAt}
@@ -157,6 +147,17 @@ const ReportBox = ({ data }) => {
                 <CustomHourSelector control={control} nameHour={"hour"} />
               </div>
             </div>
+            <div className="flex flex-col gap-2">
+              <label> متن گزارش : </label>
+              <CustomTextAria
+                className="rounded-lg resize-y"
+                error={errors.description}
+                name={"description"}
+                placeholder={"متن گزارش ..."}
+                control={control}
+              />
+            </div>
+          
             <div>
               <CustomButton
                 loading={isPending}
