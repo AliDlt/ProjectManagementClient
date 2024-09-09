@@ -97,9 +97,9 @@ function SingleProjectPage() {
 
   return (
     <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10">
-      <div className="flex justify-between items-center flex-wrap gap-3">
-        <h1 className="text-32">نام پروژه : {name}</h1>
-        <div className="flex justify-end items-center gap-5 flex-wrap mr-auto">
+      <div className="flex justify-between lg:items-center  gap-3 flex-col lg:flex-row">
+        <h1 className=" text-24 lg:text-32 ">نام پروژه : {name}</h1>
+        <div className="flex lg:justify-end items-center gap-5 flex-wrap ">
           {!userLoading && user.userRole === 0 && (
             <CustomButton onClick={() => setOpenDeleteProjectModal(true)}>
               <span>حذف پروژه</span>

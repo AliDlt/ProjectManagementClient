@@ -10,11 +10,13 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "https://projectmanagment.liara.run",
+        // target: "http://localhost:3000/",
         changeOrigin: true,
         secure: true,
       },
       "/uploads": {
         target: "https://projectmanagment.liara.run",
+        // target: "http://localhost:3000/",
         changeOrigin: true,
         secure: true,
       },

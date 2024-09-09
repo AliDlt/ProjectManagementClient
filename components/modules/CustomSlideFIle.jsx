@@ -1,21 +1,26 @@
 import React, { useState } from "react";
-import { SwiperSlide } from "swiper/react";
+
 import CustomButton from "./CustomButton";
 import { MdDelete } from "react-icons/md";
 import IconFile from "../ui/IconFile";
 import CustomModal from "./CustomModal";
 import { useToast } from "../../Context/ToastContext";
+import { getFileFormat } from "../../utils/tools";
+import { IoMdDownload } from "react-icons/io";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CustomSlideFIle = ({ item, mutate, isPending }) => {
   const toast = useToast();
   const [modal, showModal] = useState(false);
+  const queryClient = useQueryClient();
   const deleteFile = () => {
     mutate(
       { id: item.sectionId, fileName: item.fileName },
       {
         onSuccess: (e) => {
-          console.log(e);
-          console.log("ss");
+          toast(e.message, "success");
+          queryClient.invalidateQueries(["get-report", item.sectionId]);
+          showModal(false);
         },
         onError: (e) => {
           console.log(e);
@@ -27,17 +32,26 @@ const CustomSlideFIle = ({ item, mutate, isPending }) => {
   return (
     <div className="h-full flex justify-center items-center flex-col gap-2">
       <div className="relative w-full  rounded-custom  bg-black bg-opacity-5 h-[150px] flex flex-col justify-center items-center  border-2 border-custom-primary-color ">
-        <CustomButton
-          onClick={() => showModal(true)}
-          className="absolute bg-white hover:text-white  p-1 h-8 border-2 border-custom-primary-color border-solid w-8 rounded-full text-20 text-custom-primary-color  left-4 top-4"
-        >
-          <MdDelete />
-        </CustomButton>
+        <div className="absolute left-2 top-2 flex gap-1">
+          <CustomButton
+            onClick={() => showModal(true)}
+            className=" bg-white hover:text-white  p-1 h-10  w-10 border-2 border-custom-primary-color border-solid rounded-full text-20 text-custom-primary-color  "
+          >
+            <MdDelete size={25} />
+          </CustomButton>
+          {console.log(item)}
+          <CustomButton className=" bg-white hover:text-white  p-1 h-10  w-10 border-2 border-custom-primary-color border-solid  rounded-full text-20 text-custom-primary-color  ">
+            <a href={item.fileURL}>
+              <IoMdDownload size={25} />
+            </a>
+          </CustomButton>
+        </div>
+
         <span className="text-4xl text-black text-opacity-50">
-          <IconFile type={item.fileFormat} />
+          <IconFile type={getFileFormat(item.fileName)} />
         </span>
       </div>
-      <p className="text-14 absolute right-3 bottom-3">اسم فایل </p>
+      <p className="text-14 absolute right-3 bottom-3"> {item.description} </p>
       <CustomModal title={"حدف فایل"} onCancel={showModal} open={modal}>
         <h3 className="mt-3">آیا از حذف فایل مطمئن هستید ؟</h3>
         <div className="flex gap-2 justify-end items-center">

@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
 import { addTicket } from "../../services/messages";
 
 const useAddTicket = () => {
@@ -10,3 +9,4 @@ const useAddTicket = () => {
 };
 
 export default useAddTicket;
+

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Children, useState } from "react";
 import CustomInput from "../components/modules/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,6 +15,13 @@ import { useToast } from "../Context/ToastContext";
 import useUser from "../hooks/useUser";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import CustomDatePicker from "../components/modules/CustomDatePicker";
+import dayjs from "dayjs";
+import {
+  CustomHourSelector,
+  CustomMinSelector,
+} from "../components/modules/CustomClockSelector";
+import { convertMillisecondsToDate } from "../utils/tools";
 
 const AddReport = () => {
   const [show, setShow] = useState(false);
@@ -37,7 +44,6 @@ const AddReport = () => {
   };
   const navigate = useNavigate();
   const toast = useToast();
-  const { mutate, isPending } = useAddReport();
   const queryClient = useQueryClient();
   const successAdd = (e) => {
     toast(e.message, "success");
@@ -45,16 +51,31 @@ const AddReport = () => {
     queryClient.invalidateQueries("reports");
   };
 
+  const { mutate, isPending } = useAddReport();
+
   const addReport = (e) => {
+    const newMin = new Date(e.min).getMinutes();
+    const newHour = new Date(e.hour).getHours();
+    const startTime = `${newHour.toString().padStart(2,'0')}:${newMin.toString().padStart(2,'0')}`;
+    console.log(startTime);
+    console.log();
+    console.log(convertMillisecondsToDate(Number(e.createAt)));
     mutate(
       {
         name: e.name,
+        startTime,
         description: e.description,
         projectId: e.project.id,
         createdBy: user._id,
+        date: convertMillisecondsToDate(Number(e.createAt)),
       },
       { onSuccess: successAdd, onError: (e) => console.log(e) },
     );
+  };
+
+  const setDateReport = (e) => {
+    console.log(dayjs(e));
+    setValue("createAt", e);
   };
   return (
     <div className="container-grid">
@@ -63,9 +84,9 @@ const AddReport = () => {
         onSubmit={handleSubmit(addReport)}
         className="col-span-1 lg:col-span-9 flex gap-4 flex-col"
       >
-        <div>
+        <div className="flex items-center gap-3">
           <CustomButton
-            className={`bg-transparent border-2  ${errors?.project ? "border-red-500 text-red-500 hover:bg-red-500" : "border-custom-primary-color text-custom-primary-color bg-custom-primary-color text-white "}  hover:text-white transition-all !text-18`}
+            className={`bg-transparent border-2  ${errors?.project ? "border-red-500 text-red-500 hover:bg-red-500" : "border-custom-primary-color  bg-custom-primary-color text-white "}  hover:text-white transition-all !text-18`}
             onClick={() => setShow(true)}
           >
             {getValues().project ? (
@@ -77,8 +98,23 @@ const AddReport = () => {
               <MdAdd />
             </span>
           </CustomButton>
+
+          <CustomDatePicker
+            className="  px-4 py-2 "
+            control={control}
+            name={"createAt"}
+            changeHandler={setDateReport}
+            error={errors.createAt}
+            placeholder={"تاریخ گزارش "}
+          />
         </div>
-        {console.log(errors?.project)}
+        <div className="flex items-center gap-3 ">
+          <p>ساعت شروع کار :</p>
+          <span>ساعت</span>
+          <CustomHourSelector control={control} nameHour="hour" />
+          <span> دقیقه </span>
+          <CustomMinSelector control={control} nameMin="min" />
+        </div>
         {errors?.project && (
           <p className="py-2 text-red-500">{errors?.project.message}</p>
         )}

@@ -15,7 +15,7 @@ import { useToast } from "../../../Context/ToastContext";
 import IconFile from "../IconFile";
 import useUploadReportFile from "../../../hooks/Report/useUploadReportFile";
 import { useParams } from "react-router-dom";
-import { filterFile } from "../../../utils/tools";
+import { filterFile, imageTypes, videoFormats } from "../../../utils/tools";
 import { useQueryClient } from "@tanstack/react-query";
 const popoverContent = (
   <div className="flex flex-col gap-2 text-12">
@@ -46,6 +46,13 @@ const ShowFiles = ({ data }) => {
   const toast = useToast();
   const { mutate: upload, isPending: loading } = useUploadReportFile();
   const customUploadFile = (file) => {
+    const checkImage = imageTypes.includes(file.file.type);
+    const videoFormat = videoFormats.includes(file.file.type);
+    console.log(checkImage)
+    if (checkImage || videoFormat) {
+      return toast("تصاویر و ویدیو را نمیتوان بارگزاری کرد", "error");
+    }
+
     const fileSizeInMB = (file.file.size / (1024 * 1024)).toFixed(2);
     console.log(file);
     if (file.filename !== "file") {
@@ -60,15 +67,17 @@ const ShowFiles = ({ data }) => {
   const successUpload = (e) => {
     toast(e?.data?.message, "success");
     setShow(false);
+    selectFile("");
     setDescription("");
     queryClient.invalidateQueries("get-report", id);
   };
   const uploadFile = () => {
-    console.log(selectedFile.file);
+    console.log(selectedFile.file.fileFormat);
+
     upload(
       {
         file: selectedFile.file,
-        fileFormat: selectedFile.file.type,
+        fileFormat: "file",
         id,
         description,
       },
@@ -78,7 +87,7 @@ const ShowFiles = ({ data }) => {
 
   const { mutate, isPending } = useDeleteReportFile();
   return (
-    <div className="my-6">
+    <div className="my-6 ">
       <div className="my-6 flex justify-between px-4">
         <div className="flex w-full gap-2 text-20 items-center">
           <h4 className="text-base">اسناد</h4>
@@ -104,18 +113,15 @@ const ShowFiles = ({ data }) => {
           </CustomButton>
         </div>
       </div>
-      {console.log()}
       {filterFile(data.file, "file")?.length ? (
         <Files>
-          {console.log(data)}
           <>
             {data?.file?.map((item, key) => {
               return (
-                <>
+                <div key={key}>
                   {item.fileFormat !== "image" &&
                     item.fileFormat !== "video" && (
                       <SwiperSlide
-                      
                         key={key}
                         className="flex items-center justify-center"
                       >
@@ -124,10 +130,9 @@ const ShowFiles = ({ data }) => {
                           isPending={isPending}
                           item={item}
                         />
-
                       </SwiperSlide>
                     )}
-                </>
+                </div>
               );
             })}
           </>
@@ -158,6 +163,7 @@ const ShowFiles = ({ data }) => {
           <div>
             <CustomTextAria
               placeholder={"توضیحات (الزامی)"}
+              value={description}
               onChange={changeValue}
             />
           </div>

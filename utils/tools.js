@@ -17,11 +17,11 @@ export const convertToInternational = (phone) => {
 export const userRol = (rol) => {
   switch (rol) {
     case 0:
-      return "مدیر";
+      return "مدیر کل";
     case 1:
-      return "ناظر";
+      return "سر پرست پروژه";
     case 2:
-      return "پیمانکار";
+      return "ناظر پروژه";
   }
 };
 
@@ -55,3 +55,49 @@ export const filterFile = (files, type) => {
     );
   }
 };
+
+export const getFileFormat = (file) => {
+  console.log(file);
+  const index = file.lastIndexOf(".");
+  const fileFormat = file.substring(index + 1);
+  return fileFormat;
+};
+
+export function convertMillisecondsToDate(milliseconds) {
+  const date = new Date(milliseconds);
+
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+
+  return `${year}/${month}/${day}`;
+}
+
+export const imageTypes = [
+  "image/jpeg",
+  "image/png",
+  "image/gif",
+  "image/bmp",
+  "image/webp",
+  "image/svg+xml",
+  "image/tiff",
+  "image/x-icon",
+];
+
+export const videoFormats = [
+  "video/mp4",
+  "video/quicktime",
+  "video/x-ms-wmv",
+  "video/x-msvideo",
+  "video/x-flv",
+  "video/x-matroska",
+  "video/webm",
+  "video/mpeg",
+  "video/3gpp",
+  "video/x-m4v",
+  "video/ogg",
+  "application/mxf",
+  "video/mp2t",
+  "video/x-f4v",
+  "video/dvd",
+];

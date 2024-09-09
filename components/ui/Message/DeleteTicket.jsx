@@ -4,7 +4,7 @@ import CustomButton from "../../modules/CustomButton";
 const DeleteTicket = ({ deleteTicket, loading }) => {
   return (
     <div className="py-3">
-      <h3>آیا از حذف تیکت مطمئن هستید ؟ </h3>
+      <h3>آیا از حذف تیکت مطمئن هسید ؟ </h3>
       <div className="flex justify-end gap-3 p-1">
         <CustomButton onClick={deleteTicket} loading={loading}>
           بله

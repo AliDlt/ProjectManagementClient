@@ -30,9 +30,9 @@ const ChangeData = ({ type, value, setShow, title, userId }) => {
     setShow(false);
   };
   const role = [
-    { name: "مدیر", id: "2" },
-    { name: "پیمان کار", id: "1" },
-    { name: "ناظر", id: "0" },
+    { name: "مدیریت کل", id: "0" },
+    { name: "سر پرست پروژه", id: "1" },
+    { name: "ناظر پروژه", id: "2" },
   ];
   const {
     control,

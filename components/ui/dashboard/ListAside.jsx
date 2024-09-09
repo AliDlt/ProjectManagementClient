@@ -26,6 +26,14 @@ const ListAside = () => {
         path: "/users",
       });
     }
+    if (!isLoading && user && user?.userRole === 0) {
+      pagesList.push({
+        name: "اضافه کردن کاربر",
+        icon: "/icons/add-user.svg",
+        path: "/add-user",
+      });
+    }
+    
     return pagesList;
   }, [user, isLoading]);
 
@@ -38,18 +46,18 @@ const ListAside = () => {
           to={path}
           className={({ isActive }) =>
             cn([
-              "flex justify-start px-8 py-6 gap-5 items-center text-custom-textFaint-color hover:text-custom-textFaint-color border-r-8 border-transparent",
+              "flex justify-start px-8 py-6  gap-4 items-center text-custom-textFaint-color hover:text-custom-textFaint-color border-r-8 border-transparent",
               isActive &&
                 "font-extrabold bg-custom-primary-color/20 text-black focus:text-black border-custom-primary-color",
             ])
           }
         >
-          <div className="flex justify-center items-center"></div>
-          <img src={icon} alt={name} />
-          <span>{name}</span>
+          <div className="flex justify-center gap-2 items-center">
+            <img className="w-8 h-7" src={icon} alt={name} />
+            <span>{name}</span>
+          </div>
         </NavLink>
       ))}
-     
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { IoEyeSharp } from "react-icons/io5";
 import CustomModal from "../modules/CustomModal";
 import CustomConfirm from "../modules/CustomConfirm";
 import cn from "../../utils/cn";
+import { IoMdDownload } from "react-icons/io";
 
 function ImageVideoSlide({ file, deleteFileMutate, deleteFilePending }) {
   const [openDeleteFileModal, setOpenDeleteFileModal] = useState(false);
@@ -21,20 +22,27 @@ function ImageVideoSlide({ file, deleteFileMutate, deleteFilePending }) {
     } catch (error) {}
   };
 
+  console.log(file);
+
   return (
-    <>
-      <span
-        className="absolute top-2 right-2 text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
-        onClick={() => setOpenDeleteFileModal(true)}
-      >
-        <FaTrash />
-      </span>
-      <span
-        className="absolute top-2 right-14 text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
-        onClick={() => setOpenFileInfoModal(true)}
-      >
-        <IoEyeSharp size={25} />
-      </span>
+    <div className="relative">
+      <div className="absolute top-2 right-2 z-20 flex gap-2 ">
+        <span
+          className="text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
+          onClick={() => setOpenDeleteFileModal(true)}
+        >
+          <FaTrash />
+        </span>
+        <span
+          className=" text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
+          onClick={() => setOpenFileInfoModal(true)}
+        >
+          <IoEyeSharp size={25} />
+        </span>
+        <a href={file.fileURL} download className=" text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10">
+          <IoMdDownload size={25} />
+        </a>
+      </div>
       {file.fileFormat === "image" && (
         <>
           <Image
@@ -107,7 +115,7 @@ function ImageVideoSlide({ file, deleteFileMutate, deleteFilePending }) {
           {file.description}
         </p>
       </CustomModal>
-    </>
+    </div>
   );
 }
 

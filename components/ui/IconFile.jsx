@@ -4,18 +4,32 @@ import { FaFilePdf, FaFileWord } from "react-icons/fa6";
 import { MdTextSnippet } from "react-icons/md";
 
 const IconFile = ({ type, size }) => {
+  console.log(type);
   switch (type) {
     case "application/pdf":
-      return <FaFilePdf size={size && size} />;
+    case "pdf":
+      return <FaFilePdf size={size} />;
+      
     case "text/plain":
-      return <MdTextSnippet size={size && size} />;
+    case "txt":
+      return <MdTextSnippet size={size} />;
+      
     case "application/zip":
-      return <FaFileArchive size={size && size} />;
-
+    case "zip":
+      return <FaFileArchive size={size} />;
+      
     case "application/vnd.rar":
-      return <FaFileArchive size={size && size} />;
+    case "rar":
+      return <FaFileArchive size={size} />;
+      
     case "application/msword":
-      return <FaFileWord size={size && size} />;
+    case "msword":
+      return <FaFileWord size={size} />;
+      
+    default:
+      // در صورتی که هیچ شرطی برقرار نباشد، یک آیکون پیش‌فرض یا پیام مناسب نمایش دهید
+      return <div>نوع فایل نامشخص است</div>;
   }
 };
+
 export default IconFile;

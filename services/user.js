@@ -2,7 +2,7 @@ import http from "./http";
 
 export const userInfo = async (id) => {
   console.log(id);
-  const response = await http.post(`/user/getUserById`, {id  });
+  const response = await http.post(`/user/getUserById`, {id});
   return response.data;
 };
 

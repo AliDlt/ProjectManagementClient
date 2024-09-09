@@ -14,10 +14,13 @@ export default http;
 http.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response && error.response.status === 500)
-      return toast.error("مشکلی در سرور بوجود آمده", {
+    if (error.response && error.response.status === 500) {
+      toast.error("مشکلی در سرور بوجود آمده", {
         position: "left-bottom",
       });
+      console.log(error)
+      // throw new Error()
+    }
 
     return Promise.reject(error);
   },

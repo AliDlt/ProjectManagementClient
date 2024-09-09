@@ -19,16 +19,20 @@ const Message = () => {
   const [deleteModal, showDeleteModal] = useState(false);
 
   const [page, setPage] = useState(1);
-  const { data, error } = useGetTicket(id);
+
+  const { data, error, isLoading: loadingMessages } = useGetTicket(id);
+
   const navigate = useNavigate();
   const toast = useToast();
   const [allMessages, setAllMessages] = useState([]);
+  
   const {
     data: messages,
     error: errorMessage,
 
     isPending,
   } = useGetMessages(id, page);
+  console.log(errorMessage)
   const queryClient = useQueryClient();
 
   const successDeleteTicket = (e) => {

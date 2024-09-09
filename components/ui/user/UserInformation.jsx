@@ -1,8 +1,5 @@
 import React from "react";
 import InformationBox from "./InformationBox";
-import StatusBadge from "../../modules/StatusBadge";
-import useUserName from "../../../hooks/useUserName";
-import { useParams } from "react-router-dom";
 import CustomLoading from "../../modules/CustomLoading";
 import { convertFromInternational, userRol } from "../../../utils/tools";
 
@@ -20,7 +17,10 @@ const UserInformation = ({ error, isPending, user, userRole }) => {
     },
     {
       title: "شماره موبایل",
-      children: user && convertFromInternational(user?.phoneNumber),
+      children:
+        user?.phoneNumber[0] === "+"
+          ? convertFromInternational(user?.phoneNumber)
+          : user?.phoneNumber,
       type: "phoneNumber",
     },
     {
@@ -37,6 +37,7 @@ const UserInformation = ({ error, isPending, user, userRole }) => {
 
   return (
     <>
+      {console.log(user?.phoneNumber)}
       {isPending ? (
         <CustomLoading />
       ) : (

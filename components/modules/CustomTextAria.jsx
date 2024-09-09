@@ -52,7 +52,6 @@ const CustomTextAria = ({
         return (
           <div className="flex flex-col gap-2 h-full">
             <TextArea
-              style={{ resize: "none" }}
               onBlurCapture={() => {
                 onBlur && onBlur;
               }}

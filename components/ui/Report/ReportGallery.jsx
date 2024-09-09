@@ -12,8 +12,9 @@ import { useToast } from "../../../Context/ToastContext";
 import useUploadReportFile from "../../../hooks/Report/useUploadReportFile";
 import useDeleteReportFile from "../../../hooks/Report/useDeleteReportFile";
 import { useQueryClient } from "@tanstack/react-query";
-import { filterFile } from "../../../utils/tools";
+import { filterFile, imageTypes, videoFormats } from "../../../utils/tools";
 import ImageVideoSlide from "../ImageVideoSlide";
+import { IoClose } from "react-icons/io5";
 const popoverContent = (
   <div className="flex flex-col gap-2 text-12">
     <p>ویدئو ها با حجم 10 مگابایت</p>
@@ -21,7 +22,7 @@ const popoverContent = (
   </div>
 );
 
-const PreviewVideo = memo(({ video }) => {
+const PreviewVideo = memo(({ video, closeVideo }) => {
   return (
     <div className="w-[90%] h-20 relative flex justify-center items-center z-50">
       <video
@@ -29,11 +30,21 @@ const PreviewVideo = memo(({ video }) => {
         className="w-full h-full rounded-lg"
         src={URL.createObjectURL(video)}
       />
+
+      <span
+        className="absolute bg-white rounded-full border-2 border-custom-primary-color top-1 right-1"
+        onClick={(e) => {
+          e.stopPropagation();
+          closeVideo(false);
+        }}
+      >
+        <IoClose />
+      </span>
     </div>
   );
 });
 
-const PreviewImage = memo(({ file }) => {
+const PreviewImage = memo(({ file, closeImage }) => {
   return (
     <div
       className="w-[90%] h-20 relative flex justify-center items-center z-50"
@@ -46,6 +57,16 @@ const PreviewImage = memo(({ file }) => {
         src={URL.createObjectURL(file)}
         alt="image preview"
       />
+
+      <span
+        className="absolute bg-white rounded-full border-2 border-custom-primary-color top-1 right-1"
+        onClick={(e) => {
+          e.stopPropagation();
+          closeImage(false);
+        }}
+      >
+        <IoClose />
+      </span>
     </div>
   );
 });
@@ -87,16 +108,27 @@ const ReportGallery = ({ id, data }) => {
   };
 
   const uploadCustomFile = (info) => {
+    const videoFormat = videoFormats.includes(info.file.type);
+    const imageFormat = imageTypes.includes(info.file.type);
+    if (!videoFormat && !imageFormat) {
+      return toast("فایل را در این قسمت نمیتوانید وارد کنید", "error");
+    }
     if (
-      info.file.type === ("image/jpeg" || "image/jpg" || "image/png") &&
-      info.file.size > 10485760
-    )
-      return toast("حجم تصویر باید کمتر از 10 مگابایت باشد", "error");
+      (info.file.type === "image/jpeg" ||
+        info.file.type === "image/jpg" ||
+        info.file.type === "image/png") &&
+      info.file.size > 2097152 // 2 مگابایت
+    ) {
+      return toast("حجم تصویر باید کمتر از 2 مگابایت باشد", "error");
+    }
+
     if (
-      info.file.type === ("video/mp4" || "video/mpeg") &&
-      info.file.size > 20971520
-    )
-      return toast("حجم ویدئو باید کمتر از 20 مگابایت باشد", "error");
+      (info.file.type === "video/mp4" || info.file.type === "video/mpeg") &&
+      info.file.size > 10485760 // 10 مگابایت
+    ) {
+      return toast("حجم ویدئو باید کمتر از 10 مگابایت باشد", "error");
+    }
+
     if (info.file.type.includes("image")) {
       selectImage(info.file);
     }
@@ -105,15 +137,30 @@ const ReportGallery = ({ id, data }) => {
       selectVideo(info.file);
     }
   };
+
+  const queryClient = useQueryClient();
+
   const uploadFileHandler = async () => {
     const promises = [];
     selectedImage && promises.push(uploadFile(selectedImage, "image"));
     selectedVideo && promises.push(uploadFile(selectedVideo, "video"));
     await Promise.all(promises);
   };
-  const queryClient = useQueryClient();
   const { mutate: deleteFiles, isPending: loading } = useDeleteReportFile();
-
+  const deleteMediaSuccess = (e) => {
+    toast(e.message, "success");
+    setShow(false);
+    queryClient.invalidateQueries("get-report", id);
+  };
+  const deleteFile = (e) => {
+    deleteFiles(
+      {
+        id,
+        fileName: e.fileName,
+      },
+      { onSuccess: deleteMediaSuccess, onError: (e) => console.log(e) },
+    );
+  };
   return (
     <div>
       <div className="mt-6 flex justify-between px-4">
@@ -148,7 +195,12 @@ const ReportGallery = ({ id, data }) => {
                   customRequest={uploadCustomFile}
                   title="آپلود تصویر"
                   preview={
-                    selectedImage && <PreviewImage file={selectedImage} />
+                    selectedImage && (
+                      <PreviewImage
+                        file={selectedImage}
+                        closeImage={selectImage}
+                      />
+                    )
                   }
                   className="w-full text-black/50"
                   icon={<FaImage size={25} />}
@@ -158,7 +210,12 @@ const ReportGallery = ({ id, data }) => {
                 <CustomUpload
                   customRequest={uploadCustomFile}
                   preview={
-                    selectedVideo && <PreviewVideo video={selectedVideo} />
+                    selectedVideo && (
+                      <PreviewVideo
+                        video={selectedVideo}
+                        closeVideo={selectVideo}
+                      />
+                    )
                   }
                   title="آپلود ویدئو"
                   className="w-full text-black/50"
@@ -192,18 +249,22 @@ const ReportGallery = ({ id, data }) => {
 
       {filterFile(data, "gallery")?.length ? (
         <Gallery>
-          {data?.map((file) => (
-            <SwiperSlide
-              key={file.fileName}
-              className="overflow-hidden relative"
-            >
-              <ImageVideoSlide
-                file={file}
-                deleteFilePending={loading}
-                deleteFileMutate={deleteFiles}
-              />
-            </SwiperSlide>
-          ))}
+          {console.log(data)}
+          {data?.map(
+            (file) =>
+              (file.fileFormat === "video" || file.fileFormat === "image") && (
+                <SwiperSlide
+                  key={file.fileName}
+                  className="overflow-hidden relative"
+                >
+                  <ImageVideoSlide
+                    file={file}
+                    deleteFilePending={loading}
+                    deleteFileMutate={deleteFile}
+                  />
+                </SwiperSlide>
+              ),
+          )}
         </Gallery>
       ) : (
         <div>

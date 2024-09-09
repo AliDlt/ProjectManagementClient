@@ -12,6 +12,8 @@ import useDeleteReport from "../hooks/Report/useDeleteReport";
 import { useToast } from "../Context/ToastContext";
 import CustomLoading from "../components/modules/CustomLoading";
 import { useQueryClient } from "@tanstack/react-query";
+import dayjs from "dayjs";
+import { date } from "yup";
 
 const ReportPage = () => {
   const { id } = useParams();
@@ -39,9 +41,16 @@ const ReportPage = () => {
     );
   }
   if (error) {
-    toast(error.response.data.message,'error');
+    toast(error.response.data.message, "error");
     navigate("/reports");
   }
+  const checkDate = () => {
+    console.log(dayjs(data.date))
+    const now = dayjs(new Date());
+    const createAt = dayjs(data.date);
+    return now.diff(createAt,'hour')
+  };
+  console.log(checkDate())
   return (
     <div className="container-grid ">
       <div className="col-span-1 lg:col-span-11">
@@ -56,18 +65,18 @@ const ReportPage = () => {
             </span>
           </CustomButton>
         </h3>
-        <ReportBox description={data?.description} />
+        <ReportBox data={data} />
+        <div className="mt-4  flex items-center  ">
+          <CustomButton className="py-5  ">
+            <Link to={`/projects/${data?.projectId}`}>نمایش پروژه مرتبط </Link>
+          </CustomButton>
+        </div>
         <ShowFiles
           action="/api/report/uploadFile"
           data={{ id: data?._id, file: data?.files }}
         />
         {console.log()}
         <ReportGallery id={data?._id} data={data?.files} />
-        <div className="mt-4 px-4  flex items-center justify-center ">
-          <CustomButton className="py-5 lg:p-7 ">
-            <Link to={`/projects/${data?.projectId}`}>نمایش پروژه مرتبط </Link>
-          </CustomButton>
-        </div>
       </div>
       <CustomModal
         onCancel={showModalDelete}
