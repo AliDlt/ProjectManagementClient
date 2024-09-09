@@ -18,10 +18,9 @@ const AddUser = () => {
   } = useForm({ mode: "onChange", resolver: yupResolver(addUserSchema) });
 
   const userRol = [
-    { name: "مدیر پروژه", id: 0 },
-    { name: "ناظر", id: 1 },
-    { name: "پیمانکار", id: 2 },
-    { name: "منشی", id: 3 },
+    { name: "مدیریت کل", id: 0 },
+    { name: "سر پرست پروژه", id: 1 },
+    { name: "ناظر پروژه", id: 2 },
   ];
 
   const toast = useToast();
@@ -43,7 +42,7 @@ const AddUser = () => {
   };
   return (
     <div className="container-grid">
-      <div className="col-span-1 flex flex-col gap-5 lg:col-span-7">
+      <div className="col-span-1 flex flex-col gap-5 lg:col-span-11">
         <h4 className="text-24 font-bold">اضافه کردن کاربر</h4>
         <form
           onSubmit={handleSubmit(submitUser)}

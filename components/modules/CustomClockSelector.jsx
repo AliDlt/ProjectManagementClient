@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TimePicker } from "antd";
 import { Controller } from "react-hook-form";
 
-export const CustomHourSelector = ({ control, nameHour }) => {
+export const CustomHourSelector = ({ control, nameHour, onChange }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -15,12 +15,13 @@ export const CustomHourSelector = ({ control, nameHour }) => {
             needConfirm={false}
             value={value}
             onChange={(time) => {
-              console.log('first')
-              onChange(time); // به‌روزرسانی مقدار زمان
-              setOpen(false); // بستن پنجره پس از انتخاب
+              console.log("first");
+              console.log(value);
+              onChange(time);
+              setOpen(false);
             }}
             open={open}
-            onOpenChange={setOpen} // کنترل وضعیت باز یا بسته بودن پنجره
+            onOpenChange={setOpen}
             className="custom-time-picker rounded-full border-2"
             format="HH"
             placeholder="ساعت"
@@ -43,10 +44,14 @@ export const CustomMinSelector = ({ control, nameMin }) => {
       render={({ field: { onChange, value } }) => (
         <div className="flex gap-2 items-center">
           <TimePicker
+            onOk={(e) => {
+              console.log(e);
+            }}
             value={value}
             onChange={(time) => {
-              onChange(time); // به‌روزرسانی مقدار دقیقه
-              setOpen(false); // بستن پنجره پس از انتخاب
+              console.log(time);
+              onChange(time);
+              setOpen(false);
             }}
             open={open}
             onOpenChange={setOpen}

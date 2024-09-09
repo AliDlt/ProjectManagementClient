@@ -4,7 +4,6 @@ import useReports from "../hooks/useReports";
 import CustomLoading from "../components/modules/CustomLoading";
 import { Empty, Pagination } from "antd";
 import CustomButton from "../components/modules/CustomButton";
-import { IoAdd } from "react-icons/io5";
 import MetaTag from "../components/modules/MetaTag";
 import {
   Link,
@@ -14,7 +13,7 @@ import {
 } from "react-router-dom";
 import CustomInput from "../components/modules/CustomInput";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
-import { get, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import CustomDatePicker from "../components/modules/CustomDatePicker";
 import dayjs from "dayjs";
 import { convertMillisecondsToDate, convertToLocalDate } from "../utils/tools";
@@ -40,7 +39,7 @@ function ReportsPage() {
   const searchHandler = useDebouncedCallback((e, type) => {
     const current = new URLSearchParams(Array.from(params.entries()));
     const value = e?.trim();
-    console.log(!!value)
+    console.log(!!value);
 
     value ? current.set(type, e) : current.delete(type);
     const search = current.toString();
@@ -49,8 +48,11 @@ function ReportsPage() {
   }, 1000);
 
   const changeDate = (e) => {
+    console.log(e);
     setValue("date", e);
-    e ? searchHandler(convertToLocalDate(dayjs(e)), "date") : searchHandler('','date');
+    e
+      ? searchHandler(convertToLocalDate(dayjs(e)), "date")
+      : searchHandler("", "date");
   };
   console.log(convertMillisecondsToDate(getValues("date")));
   console.log(getValues("date"));
@@ -85,10 +87,10 @@ function ReportsPage() {
           </CustomButton>
         </div>
 
-        <div className="my-4 flex gap-2 lg:gap-0 justify-between">
-          <div className="w-1/2">
+        <div className="my-4 flex gap-6 flex-col lg:flex-row lg:gap-4 justify-between">
+          <div className=" w-full lg:w-1/2">
             <CustomInput
-              className=" px-3 py-2 lg:w-1/2"
+              className=" px-3 py-2 w-full "
               placeholder="جستجو"
               name="search"
               value={searchParams}
@@ -98,15 +100,36 @@ function ReportsPage() {
               }}
             />
           </div>
-          <div className="w-1/2 flex items-center ">
+
+          <div className="w-full flex gap-2 items-center ">
             <CustomDatePicker
-              className=" px-3 py-2 lg:w-1/2"
+              className=" px-3 py-2 w-full lg:w-1/2"
               control={control}
               name="date"
               changeHandler={changeDate}
             />
           </div>
+
+          <div className="flex gap-4 items-center justify-center">
+            <CustomButton
+              onClick={() => changeDate(dayjs(new Date()).add(-1, "day"))}
+              className="w-1/3 px-8"
+            >
+              دیروز
+            </CustomButton>
+            <CustomButton
+              onClick={() => changeDate(dayjs(new Date()))}
+              className="w-1/3 px-8"
+            >
+              امروز
+            </CustomButton>
+            <CustomButton 
+              onClick={() => changeDate()}
+            
+            className="w-1/3  px-8">کل گزارشات</CustomButton>
+          </div>
         </div>
+
         {!reportsData?.reports.length && (
           <div className="container-grid">
             <div className="col-span-1 lg:col-span-11 flex min-h-[500px] justify-center items-center flex-col gap-7">

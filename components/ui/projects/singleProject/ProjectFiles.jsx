@@ -10,7 +10,7 @@ import { useToast } from "../../../../Context/ToastContext";
 import IconFile from "../../IconFile";
 import Files from "../../Files";
 import { SwiperSlide } from "swiper/react";
-import { filterFile } from "../../../../utils/tools";
+import { filterFile, imageTypes, videoFormats } from "../../../../utils/tools";
 import { Empty } from "antd";
 import CustomSlideFIle from "../../../modules/CustomSlideFIle";
 import useUser from "../../../../hooks/useUser";
@@ -39,6 +39,16 @@ function ProjectFiles({ projectId, files }) {
 
   //   Custom Upload File
   const customUploadFile = (file) => {
+    const checkImage = imageTypes.includes(file.file.type);
+    const videoFormat = videoFormats.includes(file.file.type);
+
+    if (checkImage && videoFormat) {
+      return toast(
+        "تصاویر و ویدیو  را در این قسمت نمیتوانید وارد کنید .",
+        "error",
+      );
+    }
+
     if (file.filename !== "file")
       return toast("لطفا یک فایل را انتخاب کنید", "error");
     if (file.file.size > filesSize.file)

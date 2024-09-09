@@ -1,7 +1,7 @@
 import { IoClose } from "react-icons/io5";
 import { Popover } from "antd";
 import { BsExclamationLg } from "react-icons/bs";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { FaVideo, FaImage } from "react-icons/fa6";
 import { SwiperSlide } from "swiper/react";
 import CustomButton from "../../../modules/CustomButton";
@@ -19,6 +19,7 @@ import "swiper/css/pagination";
 import useUser from "../../../../hooks/useUser";
 import { filesSize, image, video } from "../../../../utils/uploadFileInfo";
 import ImageVideoSlide from "../../ImageVideoSlide";
+import { imageTypes, videoFormats } from "../../../../utils/tools";
 
 // Popover Content
 const popoverContent = (
@@ -27,6 +28,32 @@ const popoverContent = (
     <p>عکس ها تا حجم 10 مگابایت</p>
   </div>
 );
+
+const ShowVideo = memo(({ selectedVideo, setSelectedVideo }) => {
+  return (
+    <div
+      className=" w-[90%] h-20 relative flex justify-center items-center z-50"
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
+      <video
+        controls
+        className="w-full h-full rounded-lg"
+        src={URL.createObjectURL(selectedVideo)}
+      />
+      <span
+        className="absolute bg-white rounded-full border-2 border-custom-primary-color top-1 right-1"
+        onClick={(e) => {
+          e.stopPropagation();
+          setSelectedVideo(false);
+        }}
+      >
+        <IoClose />
+      </span>
+    </div>
+  );
+});
 
 function ProjectGallery({ projectGalleryData, projectId }) {
   const { isLoading, user } = useUser();
@@ -46,7 +73,12 @@ function ProjectGallery({ projectGalleryData, projectId }) {
   // Custom Uploader Request
   const customUploaderRequest = (info) => {
     const fileSize = info.file.size;
-
+    console.log(info.file.type)
+    const videoFormat = videoFormats.includes(info.file.type)
+    const imageFormat = imageTypes.includes(info.file.type)
+    if(!videoFormat&&!imageFormat){
+      return toast('فایل را در این قسمت نمیتوانید وارد کنید', 'error')
+    }
     // check file size
     if (info.filename === "image" && fileSize > filesSize.image)
       return toast("حجم تصویر باید کمتر از 10 مگابایت باشد", "error");
@@ -178,27 +210,10 @@ function ProjectGallery({ projectGalleryData, projectId }) {
                   customRequest={customUploaderRequest}
                   preview={
                     selectedVideo && (
-                      <div
-                        className=" w-[90%] h-20 relative flex justify-center items-center z-50"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                        }}
-                      >
-                        <video
-                          controls
-                          className="w-full h-full rounded-lg"
-                          src={URL.createObjectURL(selectedVideo)}
-                        />
-                        <span
-                          className="absolute bg-white rounded-full border-2 border-custom-primary-color top-1 right-1"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSelectedVideo(false);
-                          }}
-                        >
-                          <IoClose />
-                        </span>
-                      </div>
+                      <ShowVideo
+                        selectedVideo={selectedVideo}
+                        setSelectedVideo={setSelectedVideo}
+                      />
                     )
                   }
                 />

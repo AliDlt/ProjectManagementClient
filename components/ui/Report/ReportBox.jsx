@@ -13,6 +13,13 @@ import CustomDatePicker from "../../modules/CustomDatePicker";
 import { convertDate, convertToLocalDate } from "../../../utils/tools";
 import CustomInput from "../../modules/CustomInput";
 import useUpdateReport from "../../../hooks/Report/useUpdateReport";
+import {
+  CustomHourSelector,
+  CustomMinSelector,
+} from "../../modules/CustomClockSelector";
+import { useToast } from "../../../Context/ToastContext";
+import { useQueryClient } from "@tanstack/react-query";
+import { date } from "yup";
 
 const ReportBox = ({ data }) => {
   console.log(data);
@@ -36,32 +43,53 @@ const ReportBox = ({ data }) => {
 
     setValue("createAt", newDate);
   };
+  const queryClient = useQueryClient();
   const { mutate, isPending } = useUpdateReport();
   console.log(errors);
+  const [editor, showEditor] = useState(false);
+  const toast = useToast();
+  const successUpdate = (e) => {
+    toast(e.message, "success");
+    showEditor(false);
+    console.log(data._id);
+    queryClient.invalidateQueries(["get-report", data._id]);
+  };
   const updateReport = (e) => {
+    const newMin = new Date(e.min).getMinutes();
+    const newHour = new Date(e.hour).getHours();
+    const startTime = `${newHour}:${newMin}`;
     const newData = {
-      data: e.createAt,
+      date: e.createAt,
       description: e.description,
       name: e.name,
       project: data?.projectId,
-      id: data?._id,
+      id: data._id,
+      startTime,
     };
-    console.log(newData);
+
     mutate(newData, {
-      onSuccess: (e) => console.log(e),
-      onError: (e) => console.log(e),
+      onSuccess: successUpdate,
+      onError: (e) => {
+        toast(e.response.data.errors[0], "error");
+      },
     });
-    console.log(e);
   };
-  const [editor, showEditor] = useState(false);
   return (
     <div>
       <section className="border-2 flex justify-between  bg-white rounded-custom  border-custom-primary-color p-4 md:px-6 md:py-4 ">
         <div>
-          <h3>
+          <div className="flex gap-2 flex-col ">
             {" "}
-            <h4> تاریخ : {convertToLocalDate(data?.date)}</h4>
-          </h3>
+            <h4>
+              {" "}
+              <span className="font-bold">تاریخ :</span>{" "}
+              <span>{convertToLocalDate(data?.date)}</span>
+            </h4>
+            <h4>
+              {" "}
+              <span className="font-bold">ساعت شروع :</span> {data.startTime}
+            </h4>
+          </div>
           <div className="flex justify-between">
             <div className=" flex gap-2 items-center">
               <div className="text-10 md:text-16 mt-2 ">
@@ -69,7 +97,6 @@ const ReportBox = ({ data }) => {
                 <span className="font-semibold"> {data?.createdBy?.name} </span>
               </div>
             </div>
-            <div className=" flex gap-2 "></div>
           </div>
 
           <div className="mt-2 text-10 md:text-16">
@@ -124,9 +151,17 @@ const ReportBox = ({ data }) => {
                 control={control}
                 name={"createAt"}
               />
+              <div className="flex gap-2">
+                <CustomMinSelector control={control} nameMin={"min"} />
+                <CustomHourSelector control={control} nameHour={"hour"} />
+              </div>
             </div>
             <div>
-              <CustomButton type="submit" className="rounded-lg">
+              <CustomButton
+                loading={isPending}
+                type="submit"
+                className="rounded-lg"
+              >
                 ثبت تغیرات
               </CustomButton>
             </div>

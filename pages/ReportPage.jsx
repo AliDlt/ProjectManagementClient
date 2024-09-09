@@ -12,6 +12,8 @@ import useDeleteReport from "../hooks/Report/useDeleteReport";
 import { useToast } from "../Context/ToastContext";
 import CustomLoading from "../components/modules/CustomLoading";
 import { useQueryClient } from "@tanstack/react-query";
+import dayjs from "dayjs";
+import { date } from "yup";
 
 const ReportPage = () => {
   const { id } = useParams();
@@ -42,7 +44,13 @@ const ReportPage = () => {
     toast(error.response.data.message, "error");
     navigate("/reports");
   }
-
+  const checkDate = () => {
+    console.log(dayjs(data.date))
+    const now = dayjs(new Date());
+    const createAt = dayjs(data.date);
+    return now.diff(createAt,'hour')
+  };
+  console.log(checkDate())
   return (
     <div className="container-grid ">
       <div className="col-span-1 lg:col-span-11">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
@@ -10,22 +10,27 @@ const icon = new Icon({
   iconSize: [25, 25],
 });
 
-function Map({ position, onSetPosition, showPosition, markerPosition }) {
+function Map({
+  position,
+  onSetPosition,
+  showPosition,
+  markerPosition,
+  setPosition,
+}) {
   const { location, getLocation, loading } = useUserGeolocation();
-  const [mapCenter, setMapCenter] = useState(position);
 
   useEffect(() => {
-    if (location) setMapCenter([location.lat, location.lng]);
+    if (location) setPosition([location.lat, location.lng]);
   }, [location]);
 
   return (
     <div className="h-96 overflow-hidden relative">
-      <MapContainer center={mapCenter} zoom={10} scrollWheelZoom={false}>
+      <MapContainer center={position} zoom={10} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <LoadMap position={mapCenter} />
+        <LoadMap position={position} />
         <MapZoom />
         {onSetPosition && <AddMapPosition onSetPosition={onSetPosition} />}
         {onSetPosition && (
@@ -60,7 +65,7 @@ export default Map;
 const LoadMap = ({ position }) => {
   const map = useMap();
 
-  map.setView(position);
+  map.setView(position, 16);
 
   useEffect(() => {
     map.invalidateSize();
@@ -75,7 +80,7 @@ const AddMapPosition = ({ onSetPosition }) => {
 
   return (
     <CustomButton
-      className="mt-5  z-[999] absolute bottom-2 right-2"
+      className="mt-5 z-[999] absolute bottom-2 right-2"
       onClick={() => onSetPosition(map.getCenter())}
     >
       ثبت مکان پروژه
