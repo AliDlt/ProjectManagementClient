@@ -3,6 +3,7 @@ import CustomButton from "../../modules/CustomButton";
 import Message from "./Message";
 import useGetMessages from "../../../hooks/useGetMessages";
 import { Empty } from "antd";
+import { Link } from "react-router-dom";
 
 const Messages = () => {
   const { data } = useGetMessages();
@@ -14,7 +15,9 @@ const Messages = () => {
           <>
             <div className="flex justify-between items-center">
               <h3 className="text-lg">پیام ها</h3>
-              <CustomButton className="">همه پیام ها</CustomButton>
+              <Link to={'/messages'}>
+                <CustomButton className="">همه پیام ها</CustomButton>
+              </Link>
             </div>
             <div className="flex flex-col  gap-3 h-full ">
               {data?.data.data.tickets.map(
@@ -36,7 +39,7 @@ const Messages = () => {
         ) : (
           <div className="flex items-center justify-center h-full">
             {" "}
-            <Empty description= 'پیغامی برای شما وجود ندارد' />
+            <Empty description="پیغامی برای شما وجود ندارد" />
           </div>
         )}
       </div>
