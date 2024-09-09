@@ -13,7 +13,7 @@ function Header() {
   const { setShow } = useSideBar();
   const [modal, showModal] = useState(false);
   return (
-    <header className="lg:col-span-9 2xl:col-span-10 rounded-br-custom rounded-bl-custom lg:rounded-custom shadow-custom border-b-4 border-custom-primary-color/50 lg:top-5 bg-white z-10">
+    <header className=" sticky top-0 lg:col-span-9  2xl:col-span-10 rounded-br-custom rounded-bl-custom lg:rounded-custom shadow-custom border-b-4 border-custom-primary-color/50 lg:top-5 bg-white z-10">
       <div className="flex justify-between items-center p-5 lg:px-8 gap-2">
         <IoMenu
           className="text-custom-primary-color lg:hidden cursor-pointer"
