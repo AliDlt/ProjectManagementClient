@@ -23,7 +23,7 @@ const CustomModal = ({ title, children, open, onCancel, className }) => {
     >
       <div
         className={cn([
-          "flex justify-between items-center text-xl pb-3 ",
+          "flex justify-between items-center text-xl pb-3  ",
           title && "border-opacity-55 border-black border-b",
         ])}
       >
