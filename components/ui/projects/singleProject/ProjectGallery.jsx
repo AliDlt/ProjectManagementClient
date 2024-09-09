@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/pagination";
 import useUser from "../../../../hooks/useUser";
-import { filesSize, image, video } from "../../../../utils/uploadFileInfo";
+import { filesSize } from "../../../../utils/uploadFileInfo";
 import ImageVideoSlide from "../../ImageVideoSlide";
 import { imageTypes, videoFormats } from "../../../../utils/tools";
 
@@ -166,7 +166,7 @@ function ProjectGallery({ projectGalleryData, projectId }) {
                   title="بارگزاری تصویر"
                   className="w-full"
                   icon={<FaImage size={25} />}
-                  accept={image}
+                  accept={imageTypes}
                   name="image"
                   customRequest={customUploaderRequest}
                   preview={
@@ -203,7 +203,7 @@ function ProjectGallery({ projectGalleryData, projectId }) {
                   title="بارگزاری ویدئو"
                   className="w-full"
                   icon={<FaVideo size={25} />}
-                  accept={video}
+                  accept={videoFormats}
                   name="video"
                   customRequest={customUploaderRequest}
                   preview={
