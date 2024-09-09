@@ -22,24 +22,26 @@ function ImageVideoSlide({ file, deleteFileMutate, deleteFilePending }) {
     } catch (error) {}
   };
 
-  console.log(file);
-
   return (
     <div className="relative">
       <div className="absolute top-2 right-2 z-20 flex gap-2 ">
         <span
-          className="text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
+          className="text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
           onClick={() => setOpenDeleteFileModal(true)}
         >
           <FaTrash />
         </span>
         <span
-          className=" text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
+          className=" text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
           onClick={() => setOpenFileInfoModal(true)}
         >
           <IoEyeSharp size={25} />
         </span>
-        <a href={file.fileURL} download className=" text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10">
+        <a
+          href={file.fileURL}
+          download
+          className=" text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
+        >
           <IoMdDownload size={25} />
         </a>
       </div>

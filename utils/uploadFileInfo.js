@@ -1,5 +1,3 @@
-export const video = ".mp4  , .avi , .mov , .mkv";
-export const image = ".png , .jpg , .jpeg";
 export const file =
   ".pdf , .docx , .doc , .txt , .xls , .xlsx , .csv , .ppt , .pptx";
 

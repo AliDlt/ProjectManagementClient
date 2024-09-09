@@ -41,7 +41,7 @@ function UserProjectsPage() {
     );
 
   return (
-    <section className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 ">
+    <section className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 mb-5">
       <h3 className="text-20">
         نام کاربر : {userData?.user?.name} {userData?.user?.surName}
       </h3>
