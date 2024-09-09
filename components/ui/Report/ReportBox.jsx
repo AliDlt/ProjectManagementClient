@@ -112,8 +112,9 @@ const ReportBox = ({ data }) => {
           </CustomButton>
         </div>
         <CustomModal
+
           onCancel={() => showEditor(false)}
-          className="p-4"
+          className="p-4 min-h-[450px]"
           open={editor}
           title="ویرایش گزارش"
         >
