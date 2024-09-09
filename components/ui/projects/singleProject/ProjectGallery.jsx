@@ -13,7 +13,6 @@ import CustomTextAria from "../../../modules/CustomTextAria";
 import { useToast } from "../../../../Context/ToastContext";
 import useUploadProjectFile from "../../../../hooks/projects/useUploadProjectFile";
 import { useNavigate } from "react-router-dom";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import useUser from "../../../../hooks/useUser";
@@ -73,11 +72,10 @@ function ProjectGallery({ projectGalleryData, projectId }) {
   // Custom Uploader Request
   const customUploaderRequest = (info) => {
     const fileSize = info.file.size;
-    console.log(info.file.type)
-    const videoFormat = videoFormats.includes(info.file.type)
-    const imageFormat = imageTypes.includes(info.file.type)
-    if(!videoFormat&&!imageFormat){
-      return toast('فایل را در این قسمت نمیتوانید وارد کنید', 'error')
+    const videoFormat = videoFormats.includes(info.file.type);
+    const imageFormat = imageTypes.includes(info.file.type);
+    if (!videoFormat && !imageFormat) {
+      return toast("فایل را در این قسمت نمیتوانید وارد کنید", "error");
     }
     // check file size
     if (info.filename === "image" && fileSize > filesSize.image)

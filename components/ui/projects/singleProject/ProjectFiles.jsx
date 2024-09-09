@@ -42,12 +42,11 @@ function ProjectFiles({ projectId, files }) {
     const checkImage = imageTypes.includes(file.file.type);
     const videoFormat = videoFormats.includes(file.file.type);
 
-    if (checkImage && videoFormat) {
+    if (checkImage || videoFormat)
       return toast(
         "تصاویر و ویدیو  را در این قسمت نمیتوانید وارد کنید .",
         "error",
       );
-    }
 
     if (file.filename !== "file")
       return toast("لطفا یک فایل را انتخاب کنید", "error");
