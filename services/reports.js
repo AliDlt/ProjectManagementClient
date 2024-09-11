@@ -61,9 +61,9 @@ export const updateReport = async (data) => {
   return response.data;
 };
 
-export const userReports = async (id, page = undefined, value = "") => {
+export const userReports = async (id, page = 1, value = "") => {
   const resp = await http.get(
-    `/report/getAllReportsSearchByUserId?userId=${id}&page=${page}&search=${value}`,
+    `/report/getAllReportsSearchByUserId?userId=${id}&page=${page}&search=${value}&count=10`,
   );
   return resp.data;
 };
