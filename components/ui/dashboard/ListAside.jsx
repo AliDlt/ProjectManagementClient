@@ -26,13 +26,7 @@ const ListAside = () => {
         path: "/users",
       });
     }
-    if (!isLoading && user && user?.userRole === 0) {
-      pagesList.push({
-        name: "اضافه کردن کاربر",
-        icon: "/icons/add-user.svg",
-        path: "/add-user",
-      });
-    }
+    
     
     return pagesList;
   }, [user, isLoading]);

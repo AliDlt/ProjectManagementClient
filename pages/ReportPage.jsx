@@ -45,12 +45,12 @@ const ReportPage = () => {
     navigate("/reports");
   }
   const checkDate = () => {
-    console.log(dayjs(data.date))
+    console.log(dayjs(data.date));
     const now = dayjs(new Date());
     const createAt = dayjs(data.date);
-    return now.diff(createAt,'hour')
+    return now.diff(createAt, "hour");
   };
-  console.log(checkDate())
+  console.log(checkDate());
   return (
     <div className="container-grid ">
       <div className="col-span-1 lg:col-span-11">
@@ -72,11 +72,16 @@ const ReportPage = () => {
           </CustomButton>
         </div>
         <ShowFiles
+          isEditable={data?.isEditable}
           action="/api/report/uploadFile"
           data={{ id: data?._id, file: data?.files }}
         />
         {console.log()}
-        <ReportGallery id={data?._id} data={data?.files} />
+        <ReportGallery
+          isEditable={data?.isEditable}
+          id={data?._id}
+          data={data?.files}
+        />
       </div>
       <CustomModal
         onCancel={showModalDelete}

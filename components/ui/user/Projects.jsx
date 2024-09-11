@@ -6,7 +6,8 @@ import CustomLoading from "../../modules/CustomLoading";
 import { Empty } from "antd";
 
 const Projects = ({ projects, error, isPending }) => {
-  console.log(projects);
+  const {id} = useParams()
+  console.log(id)
   return (
     <div className="flex flex-col gap-4 order-1 h-full">
       <h4 className="pr-4">پروژه ها</h4>
@@ -40,7 +41,7 @@ const Projects = ({ projects, error, isPending }) => {
             </div>
             {projects.length && (
               <div>
-                <Link to={''}>
+                <Link to={`/users/project/${id}`}>
                   <CustomButton>دیگر پروژه ها</CustomButton>
                 </Link>
               </div>

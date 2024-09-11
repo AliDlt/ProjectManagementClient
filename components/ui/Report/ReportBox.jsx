@@ -103,16 +103,17 @@ const ReportBox = ({ data }) => {
             <p>{data?.description}</p>
           </div>
         </div>
-        <div>
-          <CustomButton
-            onClick={() => showEditor(true)}
-            className="rounded-full h-10 w-10 p-2 !text-20"
-          >
-            <MdEdit />
-          </CustomButton>
-        </div>
+        {data?.isEditable && (
+          <div>
+            <CustomButton
+              onClick={() => showEditor(true)}
+              className="rounded-full h-10 w-10 p-2 !text-20"
+            >
+              <MdEdit />
+            </CustomButton>
+          </div>
+        )}
         <CustomModal
-
           onCancel={() => showEditor(false)}
           className="p-4 min-h-[480px]"
           open={editor}
@@ -157,7 +158,7 @@ const ReportBox = ({ data }) => {
                 control={control}
               />
             </div>
-          
+
             <div>
               <CustomButton
                 loading={isPending}
