@@ -34,8 +34,6 @@ const ApplicantsCategoryPage = () => {
   const navigate = useNavigate();
   const { control, watch, handleSubmit, reset, setValue } = useForm();
 
-  console.log(categoriesData);
-
   // Set Edit Category Value To Form
   useEffect(() => {
     if (editCategory) {
@@ -141,7 +139,7 @@ const ApplicantsCategoryPage = () => {
       <h1 className="text-2xl w-full  py-4">دسته بندی متقاضیان</h1>
       <div className="flex justify-between items-center flex-wrap mt-5 gap-5">
         <CustomInput
-          className=" py-1 rounded-custom w-72  md:flex lg:py-2.5 "
+          className=" py-1 rounded-custom  sm:w-72  md:flex lg:py-2.5 "
           placeholder="جستجو"
           value={applicantSearchValue}
           onChange={searchHandler}

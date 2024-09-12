@@ -22,7 +22,7 @@ function SingleApplicantCategoryPage() {
       <h1 className="text-2xl w-full  py-4">دسته بندی {category?.name}</h1>
       <div className="flex justify-between items-center flex-wrap mt-5 gap-5">
         <CustomInput
-          className=" py-1 rounded-custom w-72  md:flex"
+          className=" py-1 rounded-custom  sm:w-72 md:flex"
           placeholder="جستجو"
           //   value={applicantSearchValue}
           //   onChange={(e) => {
