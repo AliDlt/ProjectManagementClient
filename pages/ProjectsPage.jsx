@@ -4,7 +4,7 @@ import { Empty } from "antd";
 import CustomButton from "../components/modules/CustomButton";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import ProjectItem from "../components/ui/projects/ProjectItem";
-import { Fragment, useCallback, useMemo, useState } from "react";
+import { useState } from "react";
 import MetaTag from "../components/modules/MetaTag";
 import CustomPagination from "../components/modules/CustomPagination";
 import CustomInput from "../components/modules/CustomInput";
@@ -52,6 +52,8 @@ function ProjectsPage() {
       </div>
     );
 
+  console.log(data);
+
   return (
     <section className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 ">
       <div className="flex justify-between items-center">
@@ -78,7 +80,7 @@ function ProjectsPage() {
         />
       </div>
       <div className=" grid grid-cols-1 md:grid-cols-2 mt-10 gap-5">
-        {data?.projects.length === 0 && (
+        {data?.projects?.length === 0 && (
           <Empty
             className="w-full col-span-full h-80 flex flex-col justify-center items-center"
             description=" پروژه ای وجود ندارد"
@@ -96,15 +98,15 @@ function ProjectsPage() {
               projectIndex={index}
               progress={project.progress}
               projectName={project.name}
-              name={project.createdBy.name}
-              surName={project.createdBy.surName}
+              name={project?.createdBy?.name}
+              surName={project?.createdBy?.surName}
               description={project.description}
               seeProjectBtn
             />
           ))
         )}
       </div>
-      {!isLoading && data?.projects.length !== 0 && (
+      {!isLoading && data && (
         <CustomPagination
           rootClassName="!my-16"
           align="center"

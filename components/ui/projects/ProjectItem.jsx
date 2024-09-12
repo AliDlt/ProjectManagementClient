@@ -15,7 +15,7 @@ function ProjectItem({
   const navigate = useNavigate();
 
   return (
-    <div className="flex justify-between flex-wrap items-end gap-2 p-7  bg-white rounded-custom">
+    <div className="flex justify-between flex-wrap items-end gap-2 p-7 bg-white rounded-custom shadow">
       <div className="flex flex-col gap-5 min-[375px]:flex-row w-full">
         <ProjectProgress
           projectIndex={projectIndex}

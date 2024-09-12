@@ -20,6 +20,7 @@ const CustomTextAria = ({
     return (
       <div className="flex flex-col gap-2 w-full ">
         <TextArea
+          id={name}
           value={value}
           onBlurCapture={() => {
             onBlur && onBlur();
@@ -52,6 +53,7 @@ const CustomTextAria = ({
         return (
           <div className="flex flex-col gap-2 h-full">
             <TextArea
+              id={name}
               onBlurCapture={() => {
                 onBlur && onBlur;
               }}

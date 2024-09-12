@@ -39,7 +39,6 @@ function ReportsPage() {
   const searchHandler = useDebouncedCallback((e, type) => {
     const current = new URLSearchParams(Array.from(params.entries()));
     const value = e?.trim();
-    console.log(!!value);
 
     value ? current.set(type, e) : current.delete(type);
     const search = current.toString();
@@ -48,14 +47,11 @@ function ReportsPage() {
   }, 1000);
 
   const changeDate = (e) => {
-    console.log(e);
     setValue("date", e);
     e
       ? searchHandler(convertToLocalDate(dayjs(e)), "date")
       : searchHandler("", "date");
   };
-  console.log(convertMillisecondsToDate(getValues("date")));
-  console.log(getValues("date"));
   const { reportsData, isPending, error } = useReports(
     10,
     page,
@@ -64,14 +60,12 @@ function ReportsPage() {
       ? convertMillisecondsToDate(getValues("date"))
       : undefined,
   );
-  console.log(getValues("date"));
 
   if (isPending) {
     return (
       <div className="container-grid">
-        {" "}
         <div className="col-span-1 lg:col-span-11">
-          <CustomLoading />{" "}
+          <CustomLoading />
         </div>
       </div>
     );
@@ -123,10 +117,9 @@ function ReportsPage() {
             >
               امروز
             </CustomButton>
-            <CustomButton 
-              onClick={() => changeDate()}
-            
-            className="w-1/3  px-8">کل گزارشات</CustomButton>
+            <CustomButton onClick={() => changeDate()} className="w-1/3  px-8">
+              کل گزارشات
+            </CustomButton>
           </div>
         </div>
 

@@ -58,7 +58,7 @@ function ProjectSection() {
                   <div className="flex items-center gap-1 text-nowrap lg:w-[228px] truncate">
                     <span className="font-bold">مدیر پروژه : </span>
                     <span className="truncate max-w-28">
-                      {project.createdBy.name} {project.createdBy.surName}
+                      {project?.createdBy?.name} {project?.createdBy?.surName}
                     </span>
                   </div>
                   <div className="flex items-center gap-1 text-nowrap">

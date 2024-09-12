@@ -1,5 +1,5 @@
 import React from "react";
-import { ConfigProvider, DatePicker } from "antd";
+import { ConfigProvider } from "antd";
 import fa_IR from "antd/es/locale/fa_IR";
 import cn from "../../utils/cn";
 import { Controller } from "react-hook-form";
@@ -40,6 +40,7 @@ function CustomDatePicker({
                 changeHandler && changeHandler(date ? date.valueOf() : null);
                 onChange(date ? date.valueOf() : null);
               }}
+              id={name}
               ref={ref}
               value={value ? dayjs(value) : null}
               onBlur={onBlur}

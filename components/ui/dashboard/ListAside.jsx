@@ -26,6 +26,25 @@ const ListAside = () => {
         path: "/users",
       });
     }
+    if (!isLoading && user && user?.userRole === 0) {
+      pagesList.push({
+        name: "اضافه کردن کاربر",
+        icon: "/icons/add-user.svg",
+        path: "/add-user",
+      });
+
+      if (
+        (!isLoading && user && user?.userRole === 0) ||
+        user?.userRole === 3
+      ) {
+        pagesList.push({
+          name: "متقاضیان",
+          icon: "/icons/Group 6.svg",
+          path: "/applicants",
+        });
+      }
+    }
+
     
     
     return pagesList;
@@ -40,7 +59,7 @@ const ListAside = () => {
           to={path}
           className={({ isActive }) =>
             cn([
-              "flex justify-start px-8 py-6  gap-4 items-center text-custom-textFaint-color hover:text-custom-textFaint-color border-r-8 border-transparent",
+              "flex justify-start px-8 py-6  gap-4 items-center text-custom-textFaint-color hover:text-custom-textFaint-color border-r-8 border-transparent text-nowrap",
               isActive &&
                 "font-extrabold bg-custom-primary-color/20 text-black focus:text-black border-custom-primary-color",
             ])

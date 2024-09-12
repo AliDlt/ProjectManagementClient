@@ -16,7 +16,10 @@ function useAddProject() {
       toast("پروژه اضافه شد", "success");
     },
     onError: (error) => {
-      toast(error?.response?.data?.message, "error");
+      if (error.response.data.errors?.length > 0)
+        return toast(error?.response?.data?.errors[0], "error");
+
+      return toast(error?.response?.data?.message, "error");
     },
   });
 
