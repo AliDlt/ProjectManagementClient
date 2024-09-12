@@ -26,8 +26,25 @@ const ListAside = () => {
         path: "/users",
       });
     }
-    
-    
+    if (!isLoading && user && user?.userRole === 0) {
+      pagesList.push({
+        name: "اضافه کردن کاربر",
+        icon: "/icons/add-user.svg",
+        path: "/add-user",
+      });
+
+      if (
+        (!isLoading && user && user?.userRole === 0) ||
+        user?.userRole === 3
+      ) {
+        pagesList.push({
+          name: "متقاضیان",
+          icon: "/icons/Group 6.svg",
+          path: "/applicants",
+        });
+      }
+    }
+
     return pagesList;
   }, [user, isLoading]);
 
