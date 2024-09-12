@@ -150,7 +150,7 @@ const ReportGallery = ({ id, data, isEditable }) => {
   const deleteMediaSuccess = (e) => {
     toast(e.message, "success");
     setShow(false);
-    queryClient.invalidateQueries("get-report", id);
+    queryClient.invalidateQueries("reports");
   };
   const deleteFile = (e) => {
     deleteFiles(
@@ -164,7 +164,7 @@ const ReportGallery = ({ id, data, isEditable }) => {
   return (
     <div>
       <div className="mt-6 flex justify-between px-4">
-        <div className="flex w-full gap-2 text-20 items-center">
+        <div className="flex w-full gap-2 text-20 items-center my-4">
           <h4 className="text-base">گالری عکس ها</h4>
           <Popover
             content={popoverContent}
