@@ -34,7 +34,8 @@ const Preview = (file) => {
   );
 };
 
-const ShowFiles = ({ data }) => {
+const ShowFiles = ({ data, isEditable }) => {
+  console.log(isEditable)
   const [description, setDescription] = useState();
   const [show, setShow] = useState();
   const [selectedFile, selectFile] = useState();
@@ -48,7 +49,7 @@ const ShowFiles = ({ data }) => {
   const customUploadFile = (file) => {
     const checkImage = imageTypes.includes(file.file.type);
     const videoFormat = videoFormats.includes(file.file.type);
-    console.log(checkImage)
+    console.log(checkImage);
     if (checkImage || videoFormat) {
       return toast("تصاویر و ویدیو را نمیتوان بارگزاری کرد", "error");
     }
@@ -104,14 +105,16 @@ const ShowFiles = ({ data }) => {
             </span>
           </Popover>
         </div>
-        <div className="flex justify-center items-center ">
-          <CustomButton
-            onClick={() => setShow(true)}
-            className=" rounded-xl  p-3  transition border-2 border-custom-primary-color "
-          >
-            اضافه کردن فایل
-          </CustomButton>
-        </div>
+        {isEditable && (
+          <div className="flex justify-center items-center ">
+            <CustomButton
+              onClick={() => setShow(true)}
+              className=" rounded-xl  p-3  transition border-2 border-custom-primary-color "
+            >
+              اضافه کردن فایل
+            </CustomButton>
+          </div>
+        )}
       </div>
       {filterFile(data.file, "file")?.length ? (
         <Files>

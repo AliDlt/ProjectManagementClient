@@ -3,7 +3,6 @@ import { TimePicker } from "antd";
 import { Controller } from "react-hook-form";
 
 export const CustomHourSelector = ({ control, nameHour, onChange }) => {
-  const [open, setOpen] = useState(false);
 
   return (
     <Controller
@@ -18,10 +17,7 @@ export const CustomHourSelector = ({ control, nameHour, onChange }) => {
               console.log("first");
               console.log(value);
               onChange(time);
-              setOpen(false);
             }}
-            open={open}
-            onOpenChange={setOpen}
             className="custom-time-picker rounded-full border-2"
             format="HH"
             placeholder="ساعت"
@@ -35,7 +31,6 @@ export const CustomHourSelector = ({ control, nameHour, onChange }) => {
 };
 
 export const CustomMinSelector = ({ control, nameMin }) => {
-  const [open, setOpen] = useState(false);
 
   return (
     <Controller
@@ -44,17 +39,12 @@ export const CustomMinSelector = ({ control, nameMin }) => {
       render={({ field: { onChange, value } }) => (
         <div className="flex gap-2 items-center">
           <TimePicker
-            onOk={(e) => {
-              console.log(e);
-            }}
+        
             value={value}
             onChange={(time) => {
               console.log(time);
               onChange(time);
-              setOpen(false);
             }}
-            open={open}
-            onOpenChange={setOpen}
             className="custom-time-picker rounded-full border-2"
             format="mm"
             needConfirm={false}

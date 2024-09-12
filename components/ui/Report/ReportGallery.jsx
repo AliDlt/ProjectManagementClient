@@ -70,7 +70,7 @@ const PreviewImage = memo(({ file, closeImage }) => {
     </div>
   );
 });
-const ReportGallery = ({ id, data }) => {
+const ReportGallery = ({ id, data, isEditable }) => {
   const [show, setShow] = useState();
   const toast = useToast();
   const [selectedImage, selectImage] = useState();
@@ -181,13 +181,14 @@ const ReportGallery = ({ id, data }) => {
         </div>
         <div className="flex items-center justify-center">
           <div className="flex justify-center items-center  ">
-            <CustomButton
-              onClick={() => setShow(true)}
-              className=" rounded-xl p-3 transition border-2 border-custom-primary-color "
-            >
-              اضافه کردن عکس یا ویدیو
-            </CustomButton>
-
+            {isEditable && (
+              <CustomButton
+                onClick={() => setShow(true)}
+                className=" rounded-xl p-3 transition border-2 border-custom-primary-color !text-12 "
+              >
+                اضافه کردن عکس یا ویدیو
+              </CustomButton>
+            )}
             <CustomModal onCancel={setShow} open={show} title="بارگزاری فایل">
               <div className="flex flex-col justify-center items-center gap-5 mt-5 md:flex-row">
                 {/* Image */}
