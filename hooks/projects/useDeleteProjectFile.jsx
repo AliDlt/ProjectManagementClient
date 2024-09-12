@@ -10,7 +10,6 @@ function useDeleteProjectFile(projectId) {
     mutationKey: ["delete-project-file"],
     mutationFn: deleteProjectFile,
     onSuccess: () => {
-      toast("فایل حذف شد", "success");
       queryClient.invalidateQueries("project", projectId);
     },
     onError: (error) => {

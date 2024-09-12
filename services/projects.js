@@ -1,13 +1,15 @@
 import http from "./http";
 
-export const getAllProjects = async (
+export const getAllProjects = async ({
   count = "",
   search = "",
   page = undefined,
-) => {
-  const res = await http.get(
-    `/project/getAllProjectsSearchByToken?count=${count}&search=${search}&page=${page}`,
-  );
+}) => {
+  const res = await http.post("/project/getAllProjectsSearchByToken", {
+    count,
+    search,
+    page,
+  });
 
   return res.data;
 };

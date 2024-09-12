@@ -29,20 +29,19 @@ import NotFound from "../pages/NotFound";
 import UserReports from "../pages/UserReports";
 import dayjs from "dayjs";
 import UserProjectsPage from "../pages/UserProjectsPage";
+import ApplicantsCategoryPage from "../pages/ApplicantsCategoryPage";
+import SingleApplicantCategoryPage from "../pages/SingleApplicantCategoryPage";
 
 function App() {
-   dayjs.calendar("jalali");
+  dayjs.calendar("jalali");
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
         retry: 0,
         refetchOnWindowFocus: false,
-        
       },
     },
   });
-
- 
 
   return (
     <ToastMessageProvider>
@@ -118,6 +117,14 @@ function App() {
                 <Route path="/add-ticket" element={<AddMessage />} />
                 <Route path="/message/:id" element={<Message />} />
                 <Route path="/projects" element={<ProjectsPage />} />
+                <Route
+                  path="/applicants"
+                  element={<ApplicantsCategoryPage />}
+                />
+                <Route
+                  path="/applicants/:applicantId"
+                  element={<SingleApplicantCategoryPage />}
+                />
                 <Route
                   path="/projects/new-project"
                   element={<AddNewProject />}

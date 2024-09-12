@@ -22,11 +22,11 @@ export default function CustomInput({
       <Input
         onChange={(e) => onChange(e)}
         value={value}
-       
+        id={name}
         dir="rtl"
         type={type}
         classNames={{
-          input: "placeholder:text-black/50 font-medium",
+          input: "placeholder:text-black/50 font-medium ",
         }}
         className={cn([
           "rounded-custom border-2 border-custom-primary-color",
@@ -46,26 +46,22 @@ export default function CustomInput({
       render={({ field }) => (
         <div className={cn(["flex flex-col gap-2", containerClassName])}>
           <Input
+            id={name}
             {...field}
-
             classNames={{
-              input: "placeholder:text-black/50 font-medium",
+              input: "placeholder:text-black/50 font-medium ",
             }}
             className={cn([
               "rounded-custom border-2 border-custom-primary-color",
               error && "border-red-500",
               className,
             ])}
-
             dir="rtl"
             type={type}
-            
             prefix={icon}
             placeholder={placeholder}
             status={error && "error"}
             {...rest}
-            
-
           />
           {!noErrorMessage && error && (
             <p className="text-red-500 text-sm">{error.message}</p>

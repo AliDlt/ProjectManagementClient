@@ -103,7 +103,7 @@ function ProjectInfo({ projectInfoData }) {
           <div className="flex flex-1 text-nowrap">
             <span>مدیر پروژه : </span>&nbsp;
             <span>
-              {createdBy.name} {createdBy.surName}
+              {createdBy?.name} {createdBy?.surName}
             </span>
           </div>
           <div>
