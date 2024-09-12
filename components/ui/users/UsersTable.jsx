@@ -35,10 +35,10 @@ function UsersTable({
         indicator: <CustomLoading className="p-0 w-auto h-auto" />,
       }}
       locale={{
-        emptyText: (
+        emptyText: !loading && (
           <Empty
             description={emptyText || "کاربری وجود ندارد"}
-            className={cn(["my-24", emptyClassName])}
+            className={cn(["my-24 mr-12", emptyClassName])}
           />
         ),
       }}
