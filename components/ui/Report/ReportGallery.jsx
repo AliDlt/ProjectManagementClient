@@ -150,7 +150,7 @@ const ReportGallery = ({ id, data, isEditable }) => {
   const deleteMediaSuccess = (e) => {
     toast(e.message, "success");
     setShow(false);
-    queryClient.invalidateQueries("reports");
+    queryClient.invalidateQueries("get-report", id);
   };
   const deleteFile = (e) => {
     deleteFiles(

@@ -30,6 +30,7 @@ const ReportPage = () => {
   };
   const deleteReportFn = () => {
     mutate(id, { onSuccess: deleteSuccess, onError: (e) => console.log(e) });
+    
   };
   if (isLoading) {
     return (
