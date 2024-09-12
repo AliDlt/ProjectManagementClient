@@ -8,6 +8,7 @@ const profile = {
 };
 const Profile = () => {
   const { user } = useUser();
+   console.log(user)
   return (
     <div className="w-full justify-center flex">
       <div className="flex flex-col gap-3 mt-10  items-center  ">
