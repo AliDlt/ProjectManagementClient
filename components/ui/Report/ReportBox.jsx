@@ -19,9 +19,9 @@ import {
 } from "../../modules/CustomClockSelector";
 import { useToast } from "../../../Context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
-import { date } from "yup";
 
 const ReportBox = ({ data }) => {
+
   console.log(data);
   const {
     control,
@@ -32,7 +32,10 @@ const ReportBox = ({ data }) => {
     mode: "onChange",
     resolver: yupResolver(addReportSchema),
     defaultValues: {
+      createAt:dayjs(data?.date),
       description: data?.description,
+      min: data?.startTime.split(":")[1],
+      hour: data?.startTime.split(":")[0],
       project: { id: data?.projectId },
       name: data?.name,
     },
@@ -55,9 +58,7 @@ const ReportBox = ({ data }) => {
     queryClient.invalidateQueries(["get-report", data._id]);
   };
   const updateReport = (e) => {
-    const newMin = new Date(e.min).getMinutes();
-    const newHour = new Date(e.hour).getHours();
-    const startTime = `${newHour}:${newMin}`;
+    const startTime = `${e.hour}:${e.min}`;
     const newData = {
       date: e.createAt,
       description: e.description,
@@ -92,14 +93,14 @@ const ReportBox = ({ data }) => {
           </div>
           <div className="flex justify-between">
             <div className=" flex gap-2 items-center">
-              <div className="text-10 md:text-16 mt-2 ">
+              <div className="text-14 md:text-16 mt-2 ">
                 <span className="font-semibold ">نویسنده : </span>
-                <span className="font-semibold"> {data?.createdBy?.name} </span>
+                <span className="font-semibold"> {data?.createdBy?.name} {data?.createdBy?.surName} </span>
               </div>
             </div>
           </div>
 
-          <div className="mt-2 text-10 md:text-16">
+          <div className="mt-2 text-14 md:text-16">
             <p>{data?.description}</p>
           </div>
         </div>
@@ -143,9 +144,30 @@ const ReportBox = ({ data }) => {
                 control={control}
                 name={"createAt"}
               />
+              <p className="my-1">ساعت شروع</p>
               <div className="flex gap-2">
-                <CustomMinSelector control={control} nameMin={"min"} />
-                <CustomHourSelector control={control} nameHour={"hour"} />
+                <div>
+                  <CustomInput
+                    control={control}
+                    type={"number"}
+                    min={0}
+                    error={errors.min}
+                    max={23}
+                    placeholder={"ساعت"}
+                    name={"hour"}
+                  />
+                </div>{" "}
+                <div>
+                  <CustomInput
+                    control={control}
+                    min={0}
+                    max={59}
+                    type={"number"}
+                    name={"min"}
+                    placeholder={"دقیقه"}
+                    error={errors.hour}
+                  />
+                </div>
               </div>
             </div>
             <div className="flex flex-col gap-2">

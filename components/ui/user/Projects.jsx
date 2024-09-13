@@ -6,8 +6,8 @@ import CustomLoading from "../../modules/CustomLoading";
 import { Empty } from "antd";
 
 const Projects = ({ projects, error, isPending }) => {
-  const {id} = useParams()
-  console.log(id)
+  const { id } = useParams();
+  console.log(id);
   return (
     <div className="flex flex-col gap-4 order-1 h-full">
       <h4 className="pr-4">پروژه ها</h4>
@@ -17,21 +17,25 @@ const Projects = ({ projects, error, isPending }) => {
           <CustomLoading />
         ) : (
           <>
-            <div className="grid gap-y-4 grid-cols-2 w-full h-full md:gap-4 lg:gap-2 ">
+            <div className="grid gap-4 pl-4   grid-cols-1 m-auto h-full md:gap-4 lg:gap-2 w-11/12 ">
               {projects.length ? (
                 <>
-                  {projects.map(({ name, description, progress }, index) => {
-                    return (
-                      <>
-                        <ChartProjects
-                          key={index}
-                          data={progress}
-                          name={name}
-                          description={description}
-                        />
-                      </>
-                    );
-                  })}
+                  {console.log(projects)}
+                  {projects.map(
+                    ({ name, description, progress, _id }, index) => {
+                      if (index<2)
+                      return (
+                        <Link to={`/projects/${_id}`}>
+                          <ChartProjects
+                            key={index}
+                            data={progress}
+                            name={name}
+                            description={description}
+                          />
+                        </Link>
+                      );
+                    },
+                  )}
                 </>
               ) : (
                 <div className="flex justify-center items-center col-span-2 ">
@@ -39,8 +43,8 @@ const Projects = ({ projects, error, isPending }) => {
                 </div>
               )}
             </div>
-            {projects.length && (
-              <div>
+            {projects.length !== 0 && (
+              <div className="justify-end">
                 <Link to={`/users/project/${id}`}>
                   <CustomButton>دیگر پروژه ها</CustomButton>
                 </Link>

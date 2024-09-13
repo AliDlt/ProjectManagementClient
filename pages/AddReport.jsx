@@ -54,12 +54,7 @@ const AddReport = () => {
   const { mutate, isPending } = useAddReport();
 
   const addReport = (e) => {
-    const newMin = new Date(e.min).getMinutes();
-    const newHour = new Date(e.hour).getHours();
-    const startTime = `${newHour.toString().padStart(2,'0')}:${newMin.toString().padStart(2,'0')}`;
-    console.log(startTime);
-    console.log();
-    console.log(convertMillisecondsToDate(Number(e.createAt)));
+    const startTime = `${e.min.toString().padStart(2, "0")}:${e.hour.toString().padStart(2, "0")}`;
     mutate(
       {
         name: e.name,
@@ -110,10 +105,24 @@ const AddReport = () => {
         </div>
         <div className="flex items-center gap-3 ">
           <p>ساعت شروع کار :</p>
-          <span>ساعت</span>
-          <CustomHourSelector control={control} nameHour="hour" />
-          <span> دقیقه </span>
-          <CustomMinSelector control={control} nameMin="min" />
+          <CustomInput
+            control={control}
+            error={errors.hour}
+            min={0}
+            max={23}
+            name="hour"
+            placeholder={"ساعت"}
+            type={"number"}
+          />
+          <CustomInput
+            control={control}
+            error={errors.min}
+            name="min"
+            min={0}
+            max={59}
+            placeholder={"دقیقه"}
+            type={"number"}
+          />
         </div>
         {errors?.project && (
           <p className="py-2 text-red-500">{errors?.project.message}</p>

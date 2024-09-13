@@ -51,7 +51,12 @@ const CustomSlideFIle = ({ item, mutate, isPending }) => {
           <IconFile type={getFileFormat(item.fileName)} />
         </span>
       </div>
-      <p className="text-14 absolute right-3 bottom-3"> {item.description} </p>
+      <div className=" absolute right-2 bottom-2  line-clamp-1 w-10/12  ">
+        <p className="text-14   ">
+          {" "}
+          {item.description}{" "}
+        </p>
+      </div>
       <CustomModal title={"حدف فایل"} onCancel={showModal} open={modal}>
         <h3 className="mt-3">آیا از حذف فایل مطمئن هستید ؟</h3>
         <div className="flex gap-2 justify-end items-center">

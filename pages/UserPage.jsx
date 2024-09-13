@@ -85,6 +85,7 @@ const UserPage = () => {
           isPending={isPending}
           error={error}
         />
+        {console.log(data)}
         <Reports
           reports={data?.data.reports}
           isPending={isPending}

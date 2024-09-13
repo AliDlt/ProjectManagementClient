@@ -61,6 +61,8 @@ function CustomDonutChart({ colors, data, innerLabel = false, option }) {
         },
       },
       responsive: [
+        ...option
+        ,
         {
           breakpoint: 768,
           options: {
