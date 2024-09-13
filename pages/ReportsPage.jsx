@@ -23,11 +23,14 @@ function ReportsPage() {
   const [params, setParams] = useSearchParams();
   const { control, setValue, getValues } = useForm({
     mode: "onChange",
+    defaultValues: {
+      date: undefined,
+    },
   });
   const [page, setPage] = useState(params.get("page") || 1);
   const [searchParams, setSearchParams] = useState(params.get("search") || "");
 
-  const [value] = useDebounce(searchParams, 500);
+  const [value] = useDebounce(searchParams, 200);
 
   const navigate = useNavigate();
 
@@ -61,16 +64,6 @@ function ReportsPage() {
       : undefined,
   );
 
-  if (isPending) {
-    return (
-      <div className="container-grid">
-        <div className="col-span-1 lg:col-span-11">
-          <CustomLoading />
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="container-grid ">
       <div className="lg:col-span-11">
@@ -103,47 +96,82 @@ function ReportsPage() {
               changeHandler={changeDate}
             />
           </div>
-
           <div className="flex gap-4 items-center justify-center">
+            {console.log(convertToLocalDate(dayjs(new Date()).add(-1, "day")))}
+            {console.log(convertToLocalDate(dayjs(getValues("date"))))}
+
             <CustomButton
               onClick={() => changeDate(dayjs(new Date()).add(-1, "day"))}
-              className="w-1/3 px-8"
+              className={`w-1/3 px-8 
+                border-custom-primary-color
+                ${
+                  convertToLocalDate(dayjs(new Date()).add(-1, "day")) ===
+                    convertToLocalDate(dayjs(getValues("date"))) &&
+                  "bg-transparent border  text-custom-primary-color hover:bg-custom-primary-color-300 hover:text-white transition-all"
+                }`}
             >
               دیروز
             </CustomButton>
             <CustomButton
               onClick={() => changeDate(dayjs(new Date()))}
-              className="w-1/3 px-8"
+              className={`w-1/3 px-8   
+                border-custom-primary-color
+                ${
+                  convertToLocalDate(dayjs(new Date())) ===
+                    convertToLocalDate(dayjs(getValues("date"))) &&
+                  params.get("date") &&
+                  "bg-transparent border  text-custom-primary-color hover:bg-custom-primary-color-300 hover:text-white transition-all"
+                }`}
             >
               امروز
             </CustomButton>
-            <CustomButton onClick={() => changeDate()} className="w-1/3  px-8">
+            <CustomButton
+              onClick={() => {
+                setValue("date", "");
+                changeDate(undefined);
+              }}
+              className={`w-1/3  px-8 
+                border-custom-primary-color
+                ${
+                  !params.get("date") &&
+                  "bg-transparent border  text-custom-primary-color hover:bg-custom-primary-color-300 hover:text-white transition-all"
+                }`}
+            >
               کل گزارشات
             </CustomButton>
           </div>
         </div>
 
-        {!reportsData?.reports.length && (
+        {!reportsData?.reports.length && !isPending && (
           <div className="container-grid">
             <div className="col-span-1 lg:col-span-11 flex min-h-[500px] justify-center items-center flex-col gap-7">
               <Empty description="گزارشی وجود ندارد" />
             </div>
           </div>
         )}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {reportsData?.reports.map(({ name, description, _id }, index) => {
-            return (
-              <>
-                <ReportCard
-                  key={index}
-                  id={_id}
-                  title={name}
-                  description={description}
-                />
-              </>
-            );
-          })}
-        </section>
+
+        {isPending ? (
+          <div className="container-grid">
+            <div className="col-span-1 lg:col-span-11">
+              <CustomLoading />
+            </div>
+          </div>
+        ) : (
+          <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {reportsData?.reports.map(({ name, description, _id }, index) => {
+              return (
+                <>
+                  <ReportCard
+                    key={index}
+                    id={_id}
+                    title={name}
+                    description={description}
+                  />
+                </>
+              );
+            })}
+          </section>
+        )}
       </div>
       {reportsData?.reports.length !== 0 && error?.response.status !== 404 && (
         <div className="col-span-1 lg:col-span-11" style={{ direction: "ltr" }}>

@@ -7,8 +7,8 @@ const ChartProjects = ({ name, description, data }) => {
       breakpoint: 768,
       options: {
         chart: {
-          width: "98px",
-          height: "98px",
+          width: "150px",
+          height: "150px",
         },
       },
     },
@@ -16,8 +16,8 @@ const ChartProjects = ({ name, description, data }) => {
       breakpoint: 1080,
       options: {
         chart: {
-          width: "140",
-          height: "140",
+          width: "140px",
+          height: "140px",
         },
       },
     },
@@ -31,7 +31,7 @@ const ChartProjects = ({ name, description, data }) => {
       },
     },
     {
-      breakpoint: 1080, 
+      breakpoint: 1280, 
       options: {
         chart: {
           width: "130px",
@@ -41,8 +41,8 @@ const ChartProjects = ({ name, description, data }) => {
     },
   ];
   return (
-    <div className="flex  items-center justify-center">
-      <div className="flex items-center  overflow-hidden  ">
+    <div className="flex  items-center justify-center ">
+      <div className="flex items-center  overflow-hidden h-full ">
         <CustomDonutChart
           colors={["#15ABFF", "#E5F6FF"]}
           data={data ? data : 0}
@@ -52,7 +52,7 @@ const ChartProjects = ({ name, description, data }) => {
         />
       </div>
       <div className="   flex flex-col w-1/2 gap-2 justify-center items-center flex-nowrap ">
-        <p className="text-14 lg:text-16 text-center font-bold">{name}</p>
+        <p className="text-14 lg:text-16 text-center font-bold line-clamp-1">{name}</p>
         <p className="text-8 md:text-12   font-bold text-ellipsis text-nowrap">
           {description}
         </p>
