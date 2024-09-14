@@ -41,7 +41,7 @@ const UserInformation = ({ error, isPending, user, userRole }) => {
       {isPending ? (
         <CustomLoading />
       ) : (
-        <div className="p-1 gap-1 rounded-lg  grid grid-cols-1 lg:grid-cols-2 ">
+        <div className="p-1 gap-1 rounded-lg gap-y-4  grid grid-cols-1 lg:grid-cols-2 ">
           {customData.map(({ title, children, type }, index) => (
             <InformationBox
               key={index}

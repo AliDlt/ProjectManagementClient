@@ -1,5 +1,5 @@
 import React from "react";
-import { FaFileArchive } from "react-icons/fa";
+import { FaFile, FaFileArchive } from "react-icons/fa";
 import { FaFilePdf, FaFileWord, FaRegFileExcel } from "react-icons/fa6";
 import { MdTextSnippet } from "react-icons/md";
 
@@ -28,10 +28,10 @@ const IconFile = ({ type, size }) => {
 
     case "application/xslx":
     case "xslx":
-      return <FaRegFileExcel />;
+      return <FaRegFileExcel size={size} />;
 
     default:
-      return <div className="text-14">نوع فایل نامشخص است</div>;
+      return <FaFile size={size} /> 
   }
 };
 

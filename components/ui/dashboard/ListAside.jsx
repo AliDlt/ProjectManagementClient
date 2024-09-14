@@ -18,7 +18,6 @@ const ListAside = () => {
       { name: "گزارش ها", icon: "/icons/آیکون-گزارش ها.svg", path: "/reports" },
       { name: "پیام ها", icon: "/icons/آیکون-پیام ها.svg", path: "/messages" },
     ];
-
     if (!isLoading && user && user?.userRole !== 2) {
       pagesList.push({
         name: "کاربران",
@@ -33,7 +32,6 @@ const ListAside = () => {
         path: "/applicants",
       });
     }
-
     return pagesList;
   }, [user, isLoading]);
 
