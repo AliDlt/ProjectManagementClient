@@ -6,7 +6,7 @@ function useUpdateProject(projectId) {
   const queryClient = useQueryClient();
   const toast = useToast();
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending: updateProjectLoading } = useMutation({
     mutationKey: ["update-product"],
     mutationFn: (projectInfo) => updateProject(projectInfo, projectId),
     onSuccess: () => {
@@ -20,7 +20,7 @@ function useUpdateProject(projectId) {
     },
   });
 
-  return { mutateAsync };
+  return { mutateAsync, updateProjectLoading };
 }
 
 export default useUpdateProject;

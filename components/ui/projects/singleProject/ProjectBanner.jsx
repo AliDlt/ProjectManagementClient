@@ -9,7 +9,9 @@ function ProjectBanner({ projectBannerData }) {
   // Select First Image
   useEffect(() => {
     if (files.length !== 0) {
-      files.map((file) => file.fileFormat === "image" && setFirstImage(file));
+      files
+        .toReversed()
+        .map((file) => file.fileFormat === "image" && setFirstImage(file));
     } else {
       setFirstImage(false);
     }
@@ -21,10 +23,10 @@ function ProjectBanner({ projectBannerData }) {
         <Empty
           className="bg-gray-200 rounded-custom h-full w-full m-0 flex items-center justify-center"
           image={<CiImageOff className="size-12 lg:size-20 text-gray-400" />}
+          description={false}
           imageStyle={{
             display: "flex",
           }}
-          description={false}
         />
       ) : (
         <Image
@@ -32,7 +34,6 @@ function ProjectBanner({ projectBannerData }) {
             mask: "بزرگ نمایی",
           }}
           rootClassName="w-full h-full"
-          className="object-cover w-full h-full rounded-custom"
           src={firstImage.fileURL}
           alt={firstImage.description}
           fallback="/images/download.png"

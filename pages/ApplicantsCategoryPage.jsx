@@ -4,7 +4,6 @@ import MetaTag from "../components/modules/MetaTag";
 import CustomInput from "../components/modules/CustomInput";
 import CustomButton from "../components/modules/CustomButton";
 import { GrSearch } from "react-icons/gr";
-import useAllCategories from "../hooks/applicants/useAllCategories";
 import CustomLoading from "../components/modules/CustomLoading";
 import CustomModal from "../components/modules/CustomModal";
 import CustomTextAria from "../components/modules/CustomTextAria";
@@ -14,20 +13,21 @@ import useAddCategory from "../hooks/applicants/useAddCategory";
 import { useDebounce } from "use-debounce";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useUpdateCategory from "../hooks/applicants/useUpdateCategory";
+import useCategories from "../hooks/applicants/useCategories";
 
 const ApplicantsCategoryPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [editCategory, setEditCategory] = useState(false);
   const [applicantSearchValue, setApplicantSearchValue] = useState(
-    searchParams.get("search") || "",
+    searchParams.get("search") || undefined,
   );
   const [currentPage, setCurrentPage] = useState(
     searchParams.get("page") || undefined,
   );
   const [value] = useDebounce(applicantSearchValue, 500);
   const { categoriesData, categoriesDataError, categoriesDataLoading } =
-    useAllCategories(value, 12, currentPage);
+    useCategories(value, 12, currentPage);
   const { addCategoryFn, addCategoryPending } = useAddCategory();
   const { updateCategoryFn, updateCategoryPending } = useUpdateCategory();
   const categories = categoriesData?.data?.categories;
@@ -54,7 +54,7 @@ const ApplicantsCategoryPage = () => {
   // Search Handler
   const searchHandler = (e) => {
     const value = e.target.value.trim();
-    setApplicantSearchValue(value);
+    setApplicantSearchValue(value === "" ? undefined : value);
     const currentParams = new URLSearchParams(
       Array.from(searchParams.entries()),
     );
@@ -71,7 +71,7 @@ const ApplicantsCategoryPage = () => {
     navigate(`/applicants${query}`);
   };
 
-  //   Add Category Handler
+  // Add Category Handler
   const addCategoryHandler = async (values) => {
     try {
       await addCategoryFn(values);
@@ -80,7 +80,7 @@ const ApplicantsCategoryPage = () => {
     } catch (error) {}
   };
 
-  //   Edit Category Handler
+  // Edit Category Handler
   const editCategoryHandler = async (values) => {
     try {
       await updateCategoryFn({ id: editCategory._id, categoryData: values });
@@ -89,7 +89,7 @@ const ApplicantsCategoryPage = () => {
     } catch (error) {}
   };
 
-  //   Render Categories
+  // Render Categories
   const RenderCategories = () => {
     // Loading
     if (categoriesDataLoading)
@@ -117,6 +117,7 @@ const ApplicantsCategoryPage = () => {
         <div className="grid grid-cols-1 mt-10 gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {categories.map((category) => (
             <CategoryCard
+              setCurrentPage={setCurrentPage}
               category={category}
               key={category._id}
               onEdit={handleEdit}
@@ -124,19 +125,13 @@ const ApplicantsCategoryPage = () => {
           ))}
         </div>
       );
-
-    return (
-      <div className="h-96 flex justify-center items-center">
-        <p>دسته بندی وجود ندارد</p>
-      </div>
-    );
   };
 
   // Component Render
   return (
     <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10">
       {/* Header */}
-      <h1 className="text-2xl w-full  py-4">دسته بندی متقاضیان</h1>
+      <h1 className="text-2xl w-full py-4">دسته بندی متقاضیان</h1>
       <div className="flex justify-between items-center flex-wrap mt-5 gap-5">
         <CustomInput
           className=" py-1 rounded-custom  sm:w-72  md:flex lg:py-2.5 "
@@ -204,7 +199,7 @@ const ApplicantsCategoryPage = () => {
       </CustomModal>
       {categories && (
         <CustomPagination
-          current={categoriesData?.data?.currentPage}
+          current={currentPage}
           onChange={(page) => {
             setSearchParams({
               page,

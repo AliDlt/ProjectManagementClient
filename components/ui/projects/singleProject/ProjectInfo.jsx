@@ -31,7 +31,7 @@ function ProjectInfo({ projectInfoData }) {
   } = projectInfoData;
   const [open, setOpen] = useState(false);
   const [isOpenMapModal, setIsOpenMapModal] = useState(false);
-  const { mutateAsync } = useUpdateProject(_id);
+  const { mutateAsync, updateProjectLoading } = useUpdateProject(_id);
   const toast = useToast();
 
   const {
@@ -256,7 +256,11 @@ function ProjectInfo({ projectInfoData }) {
               }}
             />
           </CustomModal>
-          <CustomButton className="mt-7" type="submit">
+          <CustomButton
+            className="mt-7"
+            type="submit"
+            loading={updateProjectLoading}
+          >
             ثبت تغییرات
           </CustomButton>
         </form>

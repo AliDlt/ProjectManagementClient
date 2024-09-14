@@ -3,7 +3,7 @@ import CustomButton from "../../modules/CustomButton";
 import CustomLoading from "../../modules/CustomLoading";
 import { Empty } from "antd";
 import useProjects from "../../../hooks/projects/useProjects";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ProjectProgress from "../projects/ProjectProgress";
 
 function ProjectSection() {
@@ -40,7 +40,10 @@ function ProjectSection() {
           !!data?.projects?.length &&
           data?.projects?.map((project, index) => (
             <Fragment key={project._id}>
-              <div className="flex flex-col sm:flex-row gap-5 justify-start items-center lg:flex-row">
+              <Link
+                to={`/projects/${project._id}`}
+                className="flex flex-col sm:flex-row gap-5 justify-start items-center lg:flex-row"
+              >
                 <ProjectProgress
                   projectIndex={index}
                   progress={project.progress}
@@ -68,7 +71,7 @@ function ProjectSection() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </Link>
               {index + 1 !== data?.projects?.length && (
                 <hr className="my-5 border-0 h-[1px] bg-black/50 lg:my-8" />
               )}

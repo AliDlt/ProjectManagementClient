@@ -1,16 +1,16 @@
 import http from "./http";
 
 // Get All Users
-export const getAllUsers = async (
-  userRole = "",
-  page = "",
-  count = "",
-  search = "",
-  sort = "",
-) => {
-  const res = await http.get(
-    `/user/getAllUsers?filterRole=${userRole}&page=${page}&count=${count}&search=${search}&sort=${sort}`,
-  );
+export const getAllUsers = async (userRole, page, count, search, sort) => {
+  const res = await http.get("/user/getAllUsers", {
+    params: {
+      filterRole: userRole,
+      page,
+      count,
+      search,
+      sort,
+    },
+  });
   return res.data.data;
 };
 

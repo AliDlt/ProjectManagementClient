@@ -141,6 +141,20 @@ input:focus-visible {
   @apply h-full;
 }
 
+.ant-table-pagination .ant-pagination-next,
+.ant-table-pagination .ant-pagination-prev {
+  @apply m-0 flex justify-center items-center;
+}
+
+.ant-table-pagination .ant-pagination-next svg,
+.ant-table-pagination .ant-pagination-prev svg {
+  @apply m-0;
+}
+
+.ant-table-pagination .ant-pagination-item {
+  @apply m-0;
+}
+
 /* Pagination */
 .ant-pagination {
   @apply mt-5;
@@ -150,11 +164,11 @@ input:focus-visible {
   @apply flex justify-center items-center bg-transparent max-[320px]:m-0;
 }
 
-.ant-pagination-item>* {
+.ant-pagination-item > * {
   @apply w-max border-b-2 border-transparent rounded-none font-extrabold;
 }
 
-.ant-pagination-item.ant-pagination-item-active>* {
+.ant-pagination-item.ant-pagination-item-active > * {
   @apply border-custom-primary-color;
 }
 
@@ -173,7 +187,8 @@ input:focus-visible {
   @apply bg-transparent rounded-custom before:hidden px-2.5 hover:text-black;
 }
 
-.user-role-filter-radio .ant-radio-button-wrapper.ant-radio-button-wrapper-checked {
+.user-role-filter-radio
+  .ant-radio-button-wrapper.ant-radio-button-wrapper-checked {
   @apply bg-custom-primary-color text-white;
 }
 
@@ -214,7 +229,6 @@ input:focus-visible {
 }
 
 /* Map */
-
 .leaflet-container {
   height: 100%;
 }
@@ -222,4 +236,3 @@ input:focus-visible {
 .leaflet-bottom.leaflet-right {
   @apply hidden;
 }
-

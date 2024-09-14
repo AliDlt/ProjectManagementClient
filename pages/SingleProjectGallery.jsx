@@ -10,6 +10,7 @@ import CustomConfirm from "../components/modules/CustomConfirm";
 import useDeleteProjectFile from "../hooks/projects/useDeleteProjectFile";
 import { IoEyeSharp } from "react-icons/io5";
 import CustomModal from "../components/modules/CustomModal";
+import BackButton from "../components/modules/BackButton";
 import cn from "../utils/cn";
 
 function SingleProjectGallery() {
@@ -53,7 +54,10 @@ function SingleProjectGallery() {
 
   return (
     <section className="container lg:col-span-9 2xl:col-span-10 lg:p-0">
-      <h1 className=" text-24 lg:text-32">نام پروژه : {project?.name}</h1>
+      <div className="flex items-center gap-5">
+        <BackButton />
+        <h1 className=" text-24">نام پروژه : {project?.name}</h1>
+      </div>
       {isPending && (
         <div className="flex justify-center items-center container lg:col-span-9 2xl:col-span-10 lg:px-0 h-96">
           <CustomLoading />

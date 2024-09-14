@@ -18,7 +18,6 @@ const ListAside = () => {
       { name: "گزارش ها", icon: "/icons/آیکون-گزارش ها.svg", path: "/reports" },
       { name: "پیام ها", icon: "/icons/آیکون-پیام ها.svg", path: "/messages" },
     ];
-
     if (!isLoading && user && user?.userRole !== 2) {
       pagesList.push({
         name: "کاربران",
@@ -26,18 +25,13 @@ const ListAside = () => {
         path: "/users",
       });
     }
-
-    if (
-      (!isLoading && user && user?.userRole === 0) ||
-      user?.userRole === 3
-    ) {
+    if ((!isLoading && user && user?.userRole === 0) || user?.userRole === 3) {
       pagesList.push({
         name: "متقاضیان",
         icon: "/icons/Group 6.svg",
         path: "/applicants",
       });
     }
-
     return pagesList;
   }, [user, isLoading]);
 

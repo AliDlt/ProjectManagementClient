@@ -3,7 +3,7 @@ import { getAllCategories } from "../../services/applicants";
 import { useEffect } from "react";
 import { useToast } from "../../Context/ToastContext";
 
-function useAllCategories(search, count, page) {
+function useCategories(search, count, page) {
   const toast = useToast();
   const {
     data: categoriesData,
@@ -27,4 +27,4 @@ function useAllCategories(search, count, page) {
   return { categoriesData, categoriesDataLoading, categoriesDataError };
 }
 
-export default useAllCategories;
+export default useCategories;

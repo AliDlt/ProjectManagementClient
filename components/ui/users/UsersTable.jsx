@@ -13,16 +13,17 @@ function UsersTable({
   paginationClassName,
   emptyText,
   emptyClassName,
+  pageSize,
   ...rest
 }) {
   const [current, setCurrent] = useState(1);
 
   const data = users?.map((user) => {
-    const { name, surName, _id, ...rest } = user;
+    const { name, surName, _id, ...userData } = user;
     return {
       fullName: `${name} ${surName}`,
       key: _id,
-      ...rest,
+      ...userData,
     };
   });
 
@@ -47,7 +48,7 @@ function UsersTable({
         position: ["bottomCenter"],
         current,
         onChange: (pageNum) => setCurrent(pageNum),
-        pageSize: 5,
+        pageSize: pageSize || 5,
         hideOnSinglePage: true,
         showLessItems: true,
         prevIcon: () => (
