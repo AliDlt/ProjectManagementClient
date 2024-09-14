@@ -26,7 +26,12 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
   );
   const [searchedProductUsers, setSearchedProductUsers] =
     useState(projectUsers);
-  const { isLoading, users: allUsers } = useUsers("", "", "", value);
+  const { isLoading, users: allUsers } = useUsers(
+    undefined,
+    undefined,
+    undefined,
+    value,
+  );
   const [selectedRowKeys, setSelectedRowKeys] = useState(() =>
     projectUsers?.map((user) => user._id),
   );
@@ -46,12 +51,12 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           : user?.fullName + user.phoneNumber;
 
         if (
-          searchValue.length !== 0 &&
+          searchValue?.length !== 0 &&
           userInfo.toLowerCase().trim().includes(searchValue)
         ) {
           return user;
         }
-        if (searchValue.length === 0) {
+        if (searchValue?.length === 0) {
           return user;
         }
       });
@@ -151,12 +156,12 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
       </div>
       {/* Modal */}
       <CustomModal
+        title="اضافه کردن کاربر به پروژه"
         open={openAddUsersModal}
         onCancel={() => {
           setOpenAddUsersModal(false);
           setSearchAllUsers("");
         }}
-        title="اضافه کردن کاربر به پروژه"
       >
         <CustomInput
           className="hidden py-1 rounded-custom w-72 ml-auto  md:flex mt-5"
@@ -173,6 +178,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           users={allUsers}
           rowSelection={rowSelection}
           rowClassName="lg:border-t lg:border-black lg:last:border-b"
+          pageSize={4}
         >
           <Column
             title="نام و نام خانوادگی"

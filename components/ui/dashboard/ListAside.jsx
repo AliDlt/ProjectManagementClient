@@ -26,23 +26,12 @@ const ListAside = () => {
         path: "/users",
       });
     }
-    if (!isLoading && user && user?.userRole === 0) {
+    if ((!isLoading && user && user?.userRole === 0) || user?.userRole === 3) {
       pagesList.push({
-        name: "اضافه کردن کاربر",
-        icon: "/icons/add-user.svg",
-        path: "/add-user",
+        name: "متقاضیان",
+        icon: "/icons/Group 6.svg",
+        path: "/applicants",
       });
-
-      if (
-        (!isLoading && user && user?.userRole === 0) ||
-        user?.userRole === 3
-      ) {
-        pagesList.push({
-          name: "متقاضیان",
-          icon: "/icons/Group 6.svg",
-          path: "/applicants",
-        });
-      }
     }
 
     return pagesList;

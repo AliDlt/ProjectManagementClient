@@ -15,6 +15,7 @@ import MetaTag from "../components/modules/MetaTag";
 import CustomModal from "../components/modules/CustomModal";
 import ProjectsReportsModal from "../components/ui/projects/singleProject/ProjectsReportsModal";
 import ProjectFiles from "../components/ui/projects/singleProject/ProjectFiles";
+import BackButton from "../components/modules/BackButton";
 
 function SingleProjectPage() {
   const { user, isLoading: userLoading } = useUser();
@@ -97,8 +98,11 @@ function SingleProjectPage() {
 
   return (
     <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10">
-      <div className="flex justify-between lg:items-center  gap-3 flex-col lg:flex-row">
-        <h1 className=" text-24 lg:text-32 ">نام پروژه : {name}</h1>
+      <div className="flex justify-between lg:items-center gap-3 flex-col lg:flex-row">
+        <div className="flex flex-wrap items-center gap-5">
+          <BackButton />
+          <h1 className="text-24">نام پروژه : {name}</h1>
+        </div>
         <div className="flex lg:justify-end items-center gap-5 flex-wrap ">
           {!userLoading && user.userRole === 0 && (
             <CustomButton onClick={() => setOpenDeleteProjectModal(true)}>

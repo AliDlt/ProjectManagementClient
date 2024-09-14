@@ -57,7 +57,7 @@ function ProjectsPage() {
   return (
     <section className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 ">
       <div className="flex justify-between items-center">
-        <h1 className=" text-24 lg:text-32">پروژه ها</h1>
+        <h1 className=" text-24">پروژه ها</h1>
         {!userLoading && user.userRole === 0 && (
           <CustomButton onClick={() => navigate("new-project")}>
             ایجاد پروژه جدید

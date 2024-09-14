@@ -13,9 +13,9 @@ export default function UsersPage() {
   const { user, isLoading: userLoading } = useUser();
   const [searchParams] = useSearchParams();
   const userRole = searchParams.get("userRole") || user?.userRole;
-  const userSeach = searchParams.get("search") || "";
-  const userSort = searchParams.get("sort") || "";
-  const { users, isLoading } = useUsers(userRole, "", "", userSeach, userSort);
+  const userSeach = searchParams.get("search");
+  const userSort = searchParams.get("sort");
+  const { users, isLoading } = useUsers(userRole, userSeach, userSort);
   const navigate = useNavigate();
   const toast = useToast();
 

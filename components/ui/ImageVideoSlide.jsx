@@ -48,10 +48,10 @@ function ImageVideoSlide({ file, deleteFileMutate, deleteFilePending }) {
       {file.fileFormat === "image" && (
         <>
           <Image
-            className="object-cover w-full h-full rounded-custom"
+            className="object-cover w-full h-[220px] rounded-custom"
             src={file.fileURL}
             alt={file.description}
-            rootClassName="w-full h-[220px] rounded-custom"
+            rootClassName="w-full rounded-custom"
             preview={{
               mask: "بزرگ نمایی",
             }}

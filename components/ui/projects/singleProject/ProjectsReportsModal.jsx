@@ -30,22 +30,24 @@ function ProjectsReportsModal() {
 
   return (
     <>
-      <CustomInput
-        className="hidden py-1 rounded-custom w-72 ml-auto md:flex mt-5"
-        placeholder="جستجو"
-        value={reportSearchValue}
-        onChange={(e) => setReportSearchValue(e.target.value)}
-        icon={
-          <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
-        }
-      />
+      {projectsReports && (
+        <CustomInput
+          className="hidden py-1 rounded-custom w-72 ml-auto md:flex mt-5"
+          placeholder="جستجو"
+          value={reportSearchValue}
+          onChange={(e) => setReportSearchValue(e.target.value)}
+          icon={
+            <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
+          }
+        />
+      )}
       {projectsReportsLoading ? (
         <div className="h-80">
           <CustomLoading />
         </div>
       ) : (
         <div className="flex flex-col mt-5 gap-[1px] bg-black">
-          {projectsReports?.reports?.length === 0 ? (
+          {!projectsReports ? (
             <Empty
               className="bg-white m-0 h-80 flex flex-col justify-center items-center"
               description="گزارشی وجود ندارد"
@@ -71,7 +73,7 @@ function ProjectsReportsModal() {
           )}
         </div>
       )}
-      {projectsReports?.reports?.length !== 0 && (
+      {projectsReports && projectsReports?.reports?.length !== 0 && (
         <CustomPagination
           onChange={(page) => setCurrentPage(page)}
           total={projectsReports?.totalReports}

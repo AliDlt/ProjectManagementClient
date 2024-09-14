@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import { FaTrash } from "react-icons/fa6";
 import { MdModeEdit } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useDeleteCategory from "../../../hooks/applicants/useDeleteCategory";
 import CustomConfirm from "../../modules/CustomConfirm";
 
-const CategoryCard = ({ category, onEdit }) => {
+const CategoryCard = ({ category, onEdit, setCurrentPage }) => {
   const { name, description, _id } = category;
   const { deleteCategoryFn, deleteCategoryPending } = useDeleteCategory();
   const [openDeleteCategoryConfirm, setOpenDeleteCategoryConfirm] =
     useState(false);
+  const navigate = useNavigate();
 
   // Delete Category Handler
   const deleteCategoryHandler = async () => {
     try {
       await deleteCategoryFn(_id);
       setOpenDeleteCategoryConfirm(false);
+      navigate("/applicants");
+      setCurrentPage(1);
     } catch (error) {}
   };
 

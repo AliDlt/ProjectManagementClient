@@ -107,17 +107,21 @@ function UsersPageTable({ users, loading }) {
           dataIndex="userProject"
           key="userProject"
           width={100}
-          render={(_, record) => (
-            <CustomButton
-              className="py-1 h-auto"
-              onClick={(e) => {
-                e.stopPropagation();
-                navigate(`project/${record.key}`);
-              }}
-            >
-              مشاهده پروژه ها
-            </CustomButton>
-          )}
+          render={(_, record) =>
+            record?.totalProjects === 0 ? (
+              "پروژه ای ندارد"
+            ) : (
+              <CustomButton
+                className="py-1 h-auto"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`project/${record.key}`);
+                }}
+              >
+                مشاهده پروژه ها
+              </CustomButton>
+            )
+          }
         />
       </UsersTable>
       <CustomConfirm

@@ -42,7 +42,7 @@ const ShowVideo = memo(({ selectedVideo, setSelectedVideo }) => {
         src={URL.createObjectURL(selectedVideo)}
       />
       <span
-        className="absolute bg-white rounded-full border-2 border-custom-primary-color top-1 right-1"
+        className="absolute bg-white rounded-full border-2 border-custom-primary-color top-1 right-1 size-5 flex justify-center items-center"
         onClick={(e) => {
           e.stopPropagation();
           setSelectedVideo(false);
@@ -71,10 +71,15 @@ function ProjectGallery({ projectGalleryData, projectId }) {
 
   // Custom Uploader Request
   const customUploaderRequest = (info) => {
+    const filename = info.filename;
     const fileSize = info.file.size;
     const videoFormat = videoFormats.includes(info.file.type);
     const imageFormat = imageTypes.includes(info.file.type);
-    if (!videoFormat && !imageFormat) {
+
+    if (filename === "video" && !videoFormat) {
+      return toast("فایل را در این قسمت نمیتوانید وارد کنید", "error");
+    }
+    if (filename === "image" && !imageFormat) {
       return toast("فایل را در این قسمت نمیتوانید وارد کنید", "error");
     }
     // check file size
@@ -183,7 +188,7 @@ function ProjectGallery({ projectGalleryData, projectId }) {
                           alt="image preview"
                         />
                         <span
-                          className="absolute bg-white rounded-full border-2 border-custom-primary-color top-1 right-1"
+                          className="absolute bg-white rounded-full border-2 border-custom-primary-color top-1 right-1 size-5 flex justify-center items-center"
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedImage(false);

@@ -18,7 +18,7 @@ function useUsers(userRole, page, count, search, sort) {
     if (!isLoading && error) toast(error?.response?.data?.message, "error");
   }, [error, isLoading]);
 
-  const users = data?.users;
+  const users = data?.users || [];
 
   return {
     users,

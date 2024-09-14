@@ -6,6 +6,7 @@ import CustomButton from "../components/modules/CustomButton";
 import { GrSearch } from "react-icons/gr";
 import MetaTag from "../components/modules/MetaTag";
 import CustomModal from "../components/modules/CustomModal";
+import BackButton from "../components/modules/BackButton";
 import AddApplicantForm from "../components/ui/Applicants/AddApplicantForm";
 import UsersTable from "../components/ui/users/UsersTable";
 
@@ -19,7 +20,10 @@ function SingleApplicantCategoryPage() {
   return (
     <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10">
       {/* Header */}
-      <h1 className="text-2xl w-full  py-4">دسته بندی {category?.name}</h1>
+      <div className="flex items-center gap-5">
+        <BackButton />
+        <h1 className="text-2xl w-full  py-4">دسته بندی {category?.name}</h1>
+      </div>
       <div className="flex justify-between items-center flex-wrap mt-5 gap-5">
         <CustomInput
           className=" py-1 rounded-custom  sm:w-72 md:flex"

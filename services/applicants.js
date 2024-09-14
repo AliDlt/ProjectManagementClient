@@ -8,9 +8,13 @@ export const addCategory = async (categoryData) => {
 
 // Get All Categories
 export const getAllCategories = async (search, count, page) => {
-  const res = await http.get(
-    `/category?search=${search}&count=${count}&page=${page}`,
-  );
+  const res = await http.get("/category", {
+    params: {
+      search,
+      count: search ? undefined : count,
+      page: search ? undefined : page,
+    },
+  });
   return res.data;
 };
 
