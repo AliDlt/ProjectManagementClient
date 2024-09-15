@@ -11,7 +11,7 @@ const Profile = () => {
    console.log(user)
   return (
     <div className="w-full justify-center flex">
-      <div className="flex flex-col gap-3 mt-10  items-center  ">
+      <div className="flex flex-col gap-3 mt-4  items-center  ">
         <p className="text-sm lg:text-base font-medium">
           <span>{user?.name}</span>
           <span> {user?.surName}</span>
