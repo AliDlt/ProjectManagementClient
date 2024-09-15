@@ -107,7 +107,7 @@ function ReportsPage() {
                 ${
                   convertToLocalDate(dayjs(new Date()).add(-1, "day")) ===
                     convertToLocalDate(dayjs(getValues("date"))) &&
-                  "bg-transparent border  text-custom-primary-color hover:bg-custom-primary-color-300 hover:text-white transition-all"
+                  "bg-transparent border  text-custom-primary-color hover:text-white transition-all"
                 }`}
             >
               دیروز
@@ -120,7 +120,7 @@ function ReportsPage() {
                   convertToLocalDate(dayjs(new Date())) ===
                     convertToLocalDate(dayjs(getValues("date"))) &&
                   params.get("date") &&
-                  "bg-transparent border  text-custom-primary-color hover:bg-custom-primary-color-300 hover:text-white transition-all"
+                  "bg-transparent border  text-custom-primary-color hover:text-white transition-all"
                 }`}
             >
               امروز
@@ -134,7 +134,7 @@ function ReportsPage() {
                 border-custom-primary-color
                 ${
                   !params.get("date") &&
-                  "bg-transparent border  text-custom-primary-color hover:bg-custom-primary-color-300 hover:text-white transition-all"
+                  "bg-transparent border  text-custom-primary-color hover:text-white transition-all "
                 }`}
             >
               کل گزارشات
@@ -158,9 +158,10 @@ function ReportsPage() {
           </div>
         ) : (
           <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {reportsData?.reports.map(({ name, description, _id }, index) => {
+            {reportsData?.reports.map(({ name, description, _id,createAt,date, }, index) => {
               return (
                 <>
+                  {console.log(reportsData.reports[index])}
                   <ReportCard
                     key={index}
                     id={_id}
