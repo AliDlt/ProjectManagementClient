@@ -32,6 +32,7 @@ import UserProjectsPage from "../pages/UserProjectsPage";
 import ApplicantsCategoryPage from "../pages/ApplicantsCategoryPage";
 import SingleApplicantCategoryPage from "../pages/SingleApplicantCategoryPage";
 import { ErrorBoundary } from "react-error-boundary";
+import ErrorBoundaryComponent from "../layout/ErrorBoundaryComponnet";
 
 function App() {
   dayjs.calendar("jalali");
@@ -45,7 +46,7 @@ function App() {
   });
 
   return (
-    <ErrorBoundary  FallbackComponent= {ErrorBoundary}>
+    <ErrorBoundary FallbackComponent={ErrorBoundaryComponent}>
       <ToastMessageProvider>
         <StyleProvider layer>
           <ConfigProvider
@@ -111,7 +112,11 @@ function App() {
                     index
                     element={<Navigate to={"/dashboard"} replace />}
                   />
-                  <Route path="/dashboard" element={<DashboardPage />} />
+                  <Route
+                    path="/dashboard"
+                    element={<DashboardPage key={Date.now()} />}
+                  />
+
                   <Route path="/setting" element={<SettingPage />} />
                   <Route path="/reports" element={<ReportsPage />} />
                   <Route path="/userReports/:id" element={<UserReports />} />

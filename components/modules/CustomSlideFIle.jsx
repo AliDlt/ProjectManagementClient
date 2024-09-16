@@ -8,9 +8,11 @@ import { useToast } from "../../Context/ToastContext";
 import { getFileFormat } from "../../utils/tools";
 import { IoMdDownload } from "react-icons/io";
 import { useQueryClient } from "@tanstack/react-query";
+import { AiOutlineInfo } from "react-icons/ai";
 
 const CustomSlideFIle = ({ item, mutate, isPending }) => {
   const toast = useToast();
+  const [description, showDescription] = useState(false);
   const [modal, showModal] = useState(false);
   const queryClient = useQueryClient();
   const deleteFile = () => {
@@ -34,15 +36,21 @@ const CustomSlideFIle = ({ item, mutate, isPending }) => {
       <div className="relative w-full  rounded-custom  bg-black bg-opacity-5 h-[150px] flex flex-col justify-center items-center  border-2 border-custom-primary-color ">
         <div className="absolute left-2 top-2 flex gap-1">
           <CustomButton
+            onClick={() => showDescription(true)}
+            className=" bg-white hover:text-white  p-1 h-10  w-10 border-2 border-custom-primary-color border-solid rounded-full text-20 text-custom-primary-color  "
+          >
+            <AiOutlineInfo size={20} />
+          </CustomButton>
+          <CustomButton
             onClick={() => showModal(true)}
             className=" bg-white hover:text-white  p-1 h-10  w-10 border-2 border-custom-primary-color border-solid rounded-full text-20 text-custom-primary-color  "
           >
-            <MdDelete size={25} />
+            <MdDelete size={20} />
           </CustomButton>
-          {console.log(item)}
+
           <CustomButton className=" bg-white hover:text-white  p-1 h-10  w-10 border-2 border-custom-primary-color border-solid  rounded-full text-20 text-custom-primary-color  ">
             <a href={item.fileURL}>
-              <IoMdDownload size={25} />
+              <IoMdDownload size={20} />
             </a>
           </CustomButton>
         </div>
@@ -52,10 +60,7 @@ const CustomSlideFIle = ({ item, mutate, isPending }) => {
         </span>
       </div>
       <div className=" absolute right-2 bottom-2  line-clamp-1 w-10/12  ">
-        <p className="text-14   ">
-          {" "}
-          {item.description}{" "}
-        </p>
+        <p className="text-14   "> {item.description} </p>
       </div>
       <CustomModal title={"حدف فایل"} onCancel={showModal} open={modal}>
         <h3 className="mt-3">آیا از حذف فایل مطمئن هستید ؟</h3>
@@ -76,6 +81,13 @@ const CustomSlideFIle = ({ item, mutate, isPending }) => {
             خیر{" "}
           </CustomButton>
         </div>
+      </CustomModal>
+      <CustomModal
+        onCancel={showDescription}
+        title={"توضیحات فایل"}
+        open={description}
+      >
+        <p className="pt-4">{item?.description}</p>
       </CustomModal>
     </div>
   );

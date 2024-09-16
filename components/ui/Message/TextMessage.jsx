@@ -5,6 +5,7 @@ import { convertToLocalDate } from "../../../utils/tools";
 import useUser from "../../../hooks/useUser";
 
 const TextMessage = ({ message }) => {
+  console.log(message)
   const { user, isLoading } = useUser();
   // console.log()
   return (

@@ -21,7 +21,6 @@ import { useToast } from "../../../Context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
 
 const ReportBox = ({ data }) => {
-
   console.log(data);
   const {
     control,
@@ -32,7 +31,7 @@ const ReportBox = ({ data }) => {
     mode: "onChange",
     resolver: yupResolver(addReportSchema),
     defaultValues: {
-      createAt:dayjs(data?.date),
+      createAt: dayjs(data?.date),
       description: data?.description,
       min: data?.startTime.split(":")[1],
       hour: data?.startTime.split(":")[0],
@@ -78,7 +77,7 @@ const ReportBox = ({ data }) => {
   return (
     <div>
       <section className="border-2 flex justify-between  bg-white rounded-custom  border-custom-primary-color p-4 md:px-6 md:py-4 ">
-        <div>
+        <div className="flex flex-col ">
           <div className="flex gap-2 flex-col ">
             {" "}
             <h4>
@@ -95,12 +94,15 @@ const ReportBox = ({ data }) => {
             <div className=" flex gap-2 items-center">
               <div className="text-14 md:text-16 mt-2 ">
                 <span className="font-semibold ">نویسنده : </span>
-                <span className="font-semibold"> {data?.createdBy?.name} {data?.createdBy?.surName} </span>
+                <span className="font-semibold">
+                  {" "}
+                  {data?.createdBy?.name} {data?.createdBy?.surName}{" "}
+                </span>
               </div>
             </div>
           </div>
 
-          <div className="mt-2 text-14 md:text-16">
+          <div className="mt-2 text-14 md:text-16 text-wrap w-full wor ">
             <p>{data?.description}</p>
           </div>
         </div>
