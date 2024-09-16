@@ -31,7 +31,7 @@ import dayjs from "dayjs";
 import UserProjectsPage from "../pages/UserProjectsPage";
 import ApplicantsCategoryPage from "../pages/ApplicantsCategoryPage";
 import SingleApplicantCategoryPage from "../pages/SingleApplicantCategoryPage";
-import ErrorBoundary from "antd/es/alert/ErrorBoundary";
+import { ErrorBoundary } from "react-error-boundary";
 
 function App() {
   dayjs.calendar("jalali");
