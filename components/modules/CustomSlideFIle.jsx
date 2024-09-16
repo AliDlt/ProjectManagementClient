@@ -39,18 +39,18 @@ const CustomSlideFIle = ({ item, mutate, isPending }) => {
             onClick={() => showDescription(true)}
             className=" bg-white hover:text-white  p-1 h-10  w-10 border-2 border-custom-primary-color border-solid rounded-full text-20 text-custom-primary-color  "
           >
-            <AiOutlineInfo size={20} />
+            <AiOutlineInfo size={25} />
           </CustomButton>
           <CustomButton
             onClick={() => showModal(true)}
             className=" bg-white hover:text-white  p-1 h-10  w-10 border-2 border-custom-primary-color border-solid rounded-full text-20 text-custom-primary-color  "
           >
-            <MdDelete size={20} />
+            <MdDelete size={25} />
           </CustomButton>
 
           <CustomButton className=" bg-white hover:text-white  p-1 h-10  w-10 border-2 border-custom-primary-color border-solid  rounded-full text-20 text-custom-primary-color  ">
             <a href={item.fileURL}>
-              <IoMdDownload size={20} />
+              <IoMdDownload size={25} />
             </a>
           </CustomButton>
         </div>

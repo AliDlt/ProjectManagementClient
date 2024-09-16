@@ -32,7 +32,6 @@ const Message = () => {
 
     isPending,
   } = useGetMessages(id, page);
-  console.log(errorMessage)
   const queryClient = useQueryClient();
 
   const successDeleteTicket = (e) => {
@@ -94,6 +93,7 @@ const Message = () => {
               </CustomButton>
             )}
           </div>
+          {console.log(allMessages)}
           {allMessages?.map((message, index) => {
             return <TextMessage message={message} key={index} />;
           })}
