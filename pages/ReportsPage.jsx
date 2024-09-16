@@ -158,19 +158,23 @@ function ReportsPage() {
           </div>
         ) : (
           <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {reportsData?.reports.map(({ name, description, _id,createAt,date, }, index) => {
-              return (
-                <>
-                  {console.log(reportsData.reports[index])}
-                  <ReportCard
-                    key={index}
-                    id={_id}
-                    title={name}
-                    description={description}
-                  />
-                </>
-              );
-            })}
+            {reportsData?.reports.map(
+              ({ name, description, _id, createdBy, date }, index) => {
+                return (
+                  <>
+                    {console.log(reportsData.reports[index])}
+                    <ReportCard
+                      date={date}
+                      createBy={createdBy}
+                      key={index}
+                      id={_id}
+                      title={name}
+                      description={description}
+                    />
+                  </>
+                );
+              },
+            )}
           </section>
         )}
       </div>

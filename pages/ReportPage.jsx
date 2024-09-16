@@ -12,8 +12,8 @@ import useDeleteReport from "../hooks/Report/useDeleteReport";
 import { useToast } from "../Context/ToastContext";
 import CustomLoading from "../components/modules/CustomLoading";
 import { useQueryClient } from "@tanstack/react-query";
-import dayjs from "dayjs";
-import { date } from "yup";
+
+import { AiOutlineInfo } from "react-icons/ai";
 
 const ReportPage = () => {
   const { id } = useParams();
@@ -30,7 +30,6 @@ const ReportPage = () => {
   };
   const deleteReportFn = () => {
     mutate(id, { onSuccess: deleteSuccess, onError: (e) => console.log(e) });
-    
   };
   if (isLoading) {
     return (
@@ -45,18 +44,12 @@ const ReportPage = () => {
     toast(error.response.data.message, "error");
     navigate("/reports");
   }
-  const checkDate = () => {
-    console.log(dayjs(data.date));
-    const now = dayjs(new Date());
-    const createAt = dayjs(data.date);
-    return now.diff(createAt, "hour");
-  };
-  console.log(checkDate());
+
   return (
     <div className="container-grid ">
       <div className="col-span-1 lg:col-span-11">
         <h3 className=" my-6 flex items-center justify-between px-5">
-          <span className="text-24 font-bold">{data?.name}</span>{" "}
+          <span className="lg:text-24 text-base  font-bold">{data?.name}</span>{" "}
           <CustomButton
             onClick={() => showModalDelete(true)}
             className="bg-white hover:text-white  w-9 h-9  p-2 text-custom-primary-color transition-all border-2 border-custom-primary-color border-solid rounded-full"
@@ -66,6 +59,17 @@ const ReportPage = () => {
             </span>
           </CustomButton>
         </h3>
+        {!data?.isEditable && (
+          <p className="flex items-center gap-2 my-4 bg-custom-primary-color/10 p-2 text-custom-primary-color rounded-lg">
+            {" "}
+            <span className="border border-custom-primary-color p-1 rounded-full">
+              <AiOutlineInfo />
+            </span>{" "}
+            <span>
+              زمان ویرایش  به اتمام رسیده است
+            </span>
+          </p>
+        )}
         <ReportBox data={data} />
         <div className="mt-4  flex items-center  ">
           <CustomButton className="py-5  ">
