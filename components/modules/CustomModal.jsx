@@ -9,7 +9,11 @@ const CustomModal = ({
   open,
   onCancel,
   className,
+<<<<<<< HEAD
   headerClassName,
+=======
+  notClose,
+>>>>>>> 24a2bdc05cd59929d860995bacc46a1858b6ca42
   ...rest
 }) => {
   return (
@@ -35,8 +39,13 @@ const CustomModal = ({
           headerClassName,
         ])}
       >
+<<<<<<< HEAD
         <div className="flex justify-between items-center text-xl">
           <h3>{title}</h3>
+=======
+        <h3>{title}</h3>
+        {!notClose && (
+>>>>>>> 24a2bdc05cd59929d860995bacc46a1858b6ca42
           <span
             className="text-custom-primary-color text-24 cursor-pointer"
             onClick={() => {
@@ -45,8 +54,12 @@ const CustomModal = ({
           >
             <IoCloseSharp />
           </span>
+<<<<<<< HEAD
         </div>
         {title && <hr className="w-full h-[1px] border-black/50 mt-4" />}
+=======
+        )}
+>>>>>>> 24a2bdc05cd59929d860995bacc46a1858b6ca42
       </div>
       <div className="p-6 pt-0">{children}</div>
     </Modal>

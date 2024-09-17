@@ -41,9 +41,6 @@ export const signupSchema = Yup.object({
 // Login Schema
 export const loginSchema = Yup.object({
   username: Yup.string()
-    .required("این فیلد اجباری است.")
-    .min(3, "حد اقل 3 کاراکتر لازم است")
-    .max(25, "حد اکثر 25 کاراکتر لازم است")
     .matches(
       /^[a-zA-Z]{1,}\d*$/,
       "نام کاربری باید انگلیسی باشد و با حروف آغاز شود",
@@ -139,7 +136,7 @@ export const addUserSchema = Yup.object({
 
 export const addReportSchema = Yup.object({
   name: Yup.string()
-    .min(3, " طول عنوان گزارش باید حداقل 3 کاراکتر باشد/")
+    .min(3, " طول عنوان گزارش باید حداقل 3 کاراکتر باشد ")
     .required("این فیلد اجباری است."),
   description: Yup.string().required("این فیلد اجباری است."),
   project: Yup.object().required("یک پروژه برای گزارش انتخاب کنید"),

@@ -14,6 +14,7 @@ import CustomLoading from "../components/modules/CustomLoading";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { AiOutlineInfo } from "react-icons/ai";
+import BackButton from "../components/modules/BackButton";
 
 const ReportPage = () => {
   const { id } = useParams();
@@ -48,6 +49,7 @@ const ReportPage = () => {
   return (
     <div className="container-grid ">
       <div className="col-span-1 lg:col-span-11">
+      <BackButton />
         <h3 className=" my-6 flex items-center justify-between px-5">
           <span className="lg:text-24 text-base  font-bold">{data?.name}</span>{" "}
           <CustomButton
