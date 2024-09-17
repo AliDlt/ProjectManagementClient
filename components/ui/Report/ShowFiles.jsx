@@ -35,7 +35,7 @@ const Preview = (file) => {
 };
 
 const ShowFiles = ({ data, isEditable }) => {
-  console.log(isEditable)
+  console.log(isEditable);
   const [description, setDescription] = useState();
   const [show, setShow] = useState();
   const [selectedFile, selectFile] = useState();
@@ -111,7 +111,7 @@ const ShowFiles = ({ data, isEditable }) => {
               onClick={() => setShow(true)}
               className=" rounded-xl  p-3  transition border-2 border-custom-primary-color "
             >
-              اضافه کردن فایل
+              افزودن فایل
             </CustomButton>
           </div>
         )}

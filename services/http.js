@@ -14,11 +14,19 @@ export default http;
 http.interceptors.response.use(
   (response) => response,
   (error) => {
+    const expectedError =
+      error.response && error.response >= 400 && error.response < 500;
+
+    if (!expectedError) {
+      toast.error("خطایی در ارتباط با سرور به وجود آمد.", {
+        position: "left-bottom",
+      });
+    }
+
     if (error.response && error.response.status === 500) {
       toast.error("مشکلی در سرور بوجود آمده", {
         position: "left-bottom",
       });
-      console.log(error)
       // throw new Error()
     }
 

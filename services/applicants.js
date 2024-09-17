@@ -32,7 +32,7 @@ export const updateCategory = async ({ id, categoryData }) => {
 
 // Delete Category
 export const deleteCategory = async (id) => {
-  const res = await http.delete(`/category/${id}`);
+  const res = await http.delete(`/category?id=${id}`);
   return res.data;
 };
 
@@ -43,9 +43,16 @@ export const addApplicant = async (applicantData) => {
 };
 
 // Get All Applicants
-export const getAllApplicants = async () => {
-  const res = await http.get("/applicant");
-  return res.data;
+export const getAllApplicants = async ({ page, count, category, search }) => {
+  const res = await http.get("/applicant", {
+    params: {
+      page,
+      count,
+      category,
+      search,
+    },
+  });
+  return res.data.data;
 };
 
 // Get Applicant by ID
@@ -55,13 +62,13 @@ export const getApplicantById = async (id) => {
 };
 
 // Update Applicant
-export const updateApplicant = async (id, applicantData) => {
+export const updateApplicant = async ({ id, applicantData }) => {
   const res = await http.put(`/applicant/${id}`, applicantData);
   return res.data;
 };
 
 // Delete Applicant
 export const deleteApplicant = async (id) => {
-  const res = await http.delete(`/applicant/${id}`);
+  const res = await http.delete(`/applicant?id=${id}`);
   return res.data;
 };

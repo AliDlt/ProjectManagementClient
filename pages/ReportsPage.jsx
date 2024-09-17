@@ -77,7 +77,7 @@ function ReportsPage() {
         <div className="flex justify-between items-center mb-5">
           <h3 className="text-24 flex itec  "> گزارش ها </h3>
           <CustomButton className=" rounded-xl border-2 text-14 border-solid border-custom-primary-color !p-4 text-white ">
-            <Link to="/add-report">اضافه کردن گزارش</Link>
+            <Link to="/add-report">افزودن گزارش</Link>
           </CustomButton>
         </div>
 

@@ -4,8 +4,10 @@ import { MdModeEdit } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import useDeleteCategory from "../../../hooks/applicants/useDeleteCategory";
 import CustomConfirm from "../../modules/CustomConfirm";
+import useUser from "../../../hooks/useUser";
 
 const CategoryCard = ({ category, onEdit, setCurrentPage }) => {
+  const { user, isLoading } = useUser();
   const { name, description, _id } = category;
   const { deleteCategoryFn, deleteCategoryPending } = useDeleteCategory();
   const [openDeleteCategoryConfirm, setOpenDeleteCategoryConfirm] =
@@ -18,7 +20,7 @@ const CategoryCard = ({ category, onEdit, setCurrentPage }) => {
       await deleteCategoryFn(_id);
       setOpenDeleteCategoryConfirm(false);
       navigate("/applicants");
-      setCurrentPage(1);
+      setCurrentPage(undefined);
     } catch (error) {}
   };
 
@@ -32,28 +34,32 @@ const CategoryCard = ({ category, onEdit, setCurrentPage }) => {
         <div className="flex-1">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold ">{name}</h3>
-            <div className="flex gap-2">
-              <span
-                className="text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setOpenDeleteCategoryConfirm(true);
-                }}
-              >
-                <FaTrash />
-              </span>
-              <span
-                className="text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  onEdit(category);
-                }}
-              >
-                <MdModeEdit size={25} />
-              </span>
-            </div>
+            {!isLoading &&
+              user &&
+              (user.userRole === 0 || category?.createdBy === user._id) && (
+                <div className="flex gap-2">
+                  <span
+                    className="text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setOpenDeleteCategoryConfirm(true);
+                    }}
+                  >
+                    <FaTrash />
+                  </span>
+                  <span
+                    className="text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onEdit(category);
+                    }}
+                  >
+                    <MdModeEdit size={25} />
+                  </span>
+                </div>
+              )}
           </div>
           <p className="text-sm text-gray-600 break-words line-clamp-2">
             {description}

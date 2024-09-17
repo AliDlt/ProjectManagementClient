@@ -32,7 +32,7 @@ function CustomDatePicker({
           <>
             <DatePickerJalali
               className={cn([
-                "border-2 border-custom-primary-color rounded-custom px-2 py-0.5",
+                "border-2 border-custom-primary-color rounded-custom px-2 py-0.5 [&_input]:text-black",
                 className,
                 error && "border-red-500",
               ])}

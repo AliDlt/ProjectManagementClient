@@ -6,6 +6,7 @@ import { useToast } from "../Context/ToastContext";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Empty } from "antd";
+import BackButton from "../components/modules/BackButton";
 
 function UserProjectsPage() {
   const toast = useToast();
@@ -42,9 +43,12 @@ function UserProjectsPage() {
 
   return (
     <section className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 mb-5">
-      <h3 className="text-20">
-        نام کاربر : {userData?.user?.name} {userData?.user?.surName}
-      </h3>
+      <div className="flex flex-wrap items-center gap-5">
+        <BackButton />
+        <h3 className="text-20">
+          نام کاربر : {userData?.user?.name} {userData?.user?.surName}
+        </h3>
+      </div>
       {userData?.projects?.length === 0 ? (
         <div className="flex justify-center items-center h-96">
           <Empty

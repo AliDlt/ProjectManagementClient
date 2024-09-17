@@ -42,10 +42,11 @@ function SingleProjectPage() {
   // Error
   if (!isLoading && error)
     return (
-      <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-96 flex justify-center items-center">
+      <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-[30rem] flex flex-col justify-center items-center gap-5">
         {error.response.data.errors
           ? error.response.data.errors[0]
           : error.response.data.message}
+        <BackButton />
       </div>
     );
 

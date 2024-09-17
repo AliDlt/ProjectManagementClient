@@ -19,9 +19,9 @@ function UsersTable({
   const [current, setCurrent] = useState(1);
 
   const data = users?.map((user) => {
-    const { name, surName, _id, ...userData } = user;
+    const { name, surName, _id, firstName, lastName, ...userData } = user;
     return {
-      fullName: `${name} ${surName}`,
+      fullName: `${name || firstName} ${surName || lastName}`,
       key: _id,
       ...userData,
     };

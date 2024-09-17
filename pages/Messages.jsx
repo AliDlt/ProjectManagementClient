@@ -21,7 +21,7 @@ const Messages = () => {
         <div className="col-span-1 lg:col-span-11 mt-60 flex-col gap-5  flex items-center justify-center">
           <Empty description="پیامی وجود ندارد" />
           <CustomButton>
-            <Link to='/add-ticket'>ارسال پیام جدید</Link>
+            <Link to="/add-ticket">ارسال پیام جدید</Link>
           </CustomButton>
         </div>
       </div>
@@ -42,7 +42,7 @@ const Messages = () => {
           <div className="flex justify-between">
             <h3 className="text-24">پیام ها</h3>
             <CustomButton className=" rounded-xl border-2 text-14 border-solid border-custom-primary-color !p-4 text-white ">
-              <Link to="/add-ticket">اضافه کردن پیغام</Link>
+              <Link to="/add-ticket">افزودن پیغام</Link>
             </CustomButton>
           </div>
           <div className=" mt-5 grid md:grid-cols-2 grid-cols-1 gap gap-5">

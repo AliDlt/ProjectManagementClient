@@ -31,6 +31,7 @@ import dayjs from "dayjs";
 import UserProjectsPage from "../pages/UserProjectsPage";
 import ApplicantsCategoryPage from "../pages/ApplicantsCategoryPage";
 import SingleApplicantCategoryPage from "../pages/SingleApplicantCategoryPage";
+import ProtectApplicantsPage from "../pages/ProtectApplicantsPage";
 
 function App() {
   dayjs.calendar("jalali");
@@ -117,14 +118,16 @@ function App() {
                 <Route path="/add-ticket" element={<AddMessage />} />
                 <Route path="/message/:id" element={<Message />} />
                 <Route path="/projects" element={<ProjectsPage />} />
-                <Route
-                  path="/applicants"
-                  element={<ApplicantsCategoryPage />}
-                />
-                <Route
-                  path="/applicants/:applicantId"
-                  element={<SingleApplicantCategoryPage />}
-                />
+                <Route element={<ProtectApplicantsPage />}>
+                  <Route
+                    path="/applicants"
+                    element={<ApplicantsCategoryPage />}
+                  />
+                  <Route
+                    path="/applicants/:applicantId"
+                    element={<SingleApplicantCategoryPage />}
+                  />
+                </Route>
                 <Route
                   path="/projects/new-project"
                   element={<AddNewProject />}

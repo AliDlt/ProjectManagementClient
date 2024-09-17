@@ -97,7 +97,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
         <div className="flex justify-center items-center gap-5 mr-auto">
           {!userLoading && user.userRole !== 2 && (
             <CustomButton onClick={() => setOpenAddUsersModal(true)}>
-              اضافه / ویرایش لیست کاربران
+              افزودن / ویرایش لیست کاربران
             </CustomButton>
           )}
         </div>
@@ -156,7 +156,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
       </div>
       {/* Modal */}
       <CustomModal
-        title="اضافه کردن کاربر به پروژه"
+        title="افزودن کاربر به پروژه"
         open={openAddUsersModal}
         onCancel={() => {
           setOpenAddUsersModal(false);
@@ -233,7 +233,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             setOpenAddUsersModal(false);
           }}
         >
-          اضافه کردن
+          افزودن
         </CustomButton>
       </CustomModal>
     </div>
