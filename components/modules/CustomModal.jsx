@@ -9,7 +9,6 @@ const CustomModal = ({
   open,
   onCancel,
   className,
-
   headerClassName,
   notClose,
   ...rest
@@ -37,13 +36,8 @@ const CustomModal = ({
           headerClassName,
         ])}
       >
-
         <div className="flex justify-between items-center text-xl">
           <h3>{title}</h3>
-
-        <h3>{title}</h3>
-        {!notClose && (
-
           <span
             className="text-custom-primary-color text-24 cursor-pointer"
             onClick={() => {
@@ -52,10 +46,8 @@ const CustomModal = ({
           >
             <IoCloseSharp />
           </span>
-
         </div>
         {title && <hr className="w-full h-[1px] border-black/50 mt-4" />}
-        )}
       </div>
       <div className="p-6 pt-0">{children}</div>
     </Modal>

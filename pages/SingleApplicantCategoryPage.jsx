@@ -25,6 +25,7 @@ function SingleApplicantCategoryPage() {
   const [open, setOpen] = useState(false);
   const applicantInfo = useRef();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [openCategoryDescription, setOpenCategoryDescription] = useState(false);
   const [openAddApplicantModal, setOpenAddApplicantModal] = useState(false);
   const [applicantSearchValue, setApplicantSearchValue] = useState(
     searchParams.get("search" || ""),
@@ -70,9 +71,20 @@ function SingleApplicantCategoryPage() {
   return (
     <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10">
       {/* Header */}
-      <div className="flex items-center gap-5">
+      <div className="flex flex-wrap items-center gap-5">
         <BackButton />
-        <h1 className="text-2xl w-full  py-4">دسته بندی {category?.name}</h1>
+        <h1 className="text-2xl py-4">دسته بندی {category?.name}</h1>
+      </div>
+      <div className="flex justify-between items-center gap-3 mb-10 mt-2">
+        <p className="line-clamp-1">{category?.description}</p>
+        {category?.description?.length > 150 && (
+          <CustomButton
+            className="px-10 py-0"
+            onClick={() => setOpenCategoryDescription(true)}
+          >
+            بیشتر
+          </CustomButton>
+        )}
       </div>
       <div className="flex justify-between items-center flex-wrap mt-5 gap-5">
         <CustomInput
@@ -223,6 +235,14 @@ function SingleApplicantCategoryPage() {
         description="آیا از حذف این متقاضی اطمینان دارید ؟"
         loading={deleteApplicantPending}
       />
+      <CustomModal
+        open={openCategoryDescription}
+        onCancel={() => setOpenCategoryDescription(false)}
+      >
+        <p className="lg:text-16 text-justify max-h-[530px] overflow-auto pl-2">
+          {category?.description}
+        </p>
+      </CustomModal>
     </section>
   );
 }

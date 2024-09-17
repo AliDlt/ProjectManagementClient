@@ -41,7 +41,7 @@ function UserRoleFilter() {
           <Radio.Button value="0">مدیران</Radio.Button>
         </>
       )}
-      <Radio.Button value="1">پیمان کاران</Radio.Button>
+      <Radio.Button value="1">سرپرست ها</Radio.Button>
       <Radio.Button value="2">ناظران</Radio.Button>
     </Radio.Group>
   );
