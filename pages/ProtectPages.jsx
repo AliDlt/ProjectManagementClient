@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useToast } from "../Context/ToastContext";
 import useUser from "../hooks/useUser";
@@ -7,6 +7,7 @@ export default function ProtectPages({ children }) {
   const { user, isLoading } = useUser();
   const toast = useToast();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   let isAuthenticated = false;
   if (user) isAuthenticated = true;
@@ -15,6 +16,14 @@ export default function ProtectPages({ children }) {
     if (!isLoading && !isAuthenticated) {
       toast("لطفا وارد حساب کاربری خود شوید", false, "⚠️");
       navigate("/auth/login", { replace: true });
+    }
+    if (
+      !isLoading &&
+      isAuthenticated &&
+      user.userRole === 3 &&
+      !pathname.startsWith("/applicants")
+    ) {
+      navigate("/applicants", { replace: true });
     }
   }, [isAuthenticated, isLoading]);
 
