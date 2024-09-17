@@ -11,23 +11,18 @@ const http = axios.create({
 
 export default http;
 
+const httpCode = [403, 401, 404];
+
 http.interceptors.response.use(
   (response) => response,
   (error) => {
     const expectedError =
-      error.response && error.response >= 400 && error.response < 500;
+      error.response && !httpCode.includes(error.response.status);
 
-    if (!expectedError) {
+    if (expectedError) {
       toast.error("خطایی در ارتباط با سرور به وجود آمد.", {
         position: "left-bottom",
       });
-    }
-
-    if (error.response && error.response.status === 500) {
-      toast.error("مشکلی در سرور بوجود آمده", {
-        position: "left-bottom",
-      });
-      // throw new Error()
     }
 
     return Promise.reject(error);

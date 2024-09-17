@@ -43,6 +43,9 @@ function UserRoleFilter() {
       )}
       <Radio.Button value="1">سرپرست ها</Radio.Button>
       <Radio.Button value="2">ناظران</Radio.Button>
+      {user && user.userRole === 0 && (
+        <Radio.Button value="3">پذیرش</Radio.Button>
+      )}
     </Radio.Group>
   );
 }
