@@ -15,7 +15,13 @@ export default function UsersPage() {
   const userRole = searchParams.get("userRole") || user?.userRole;
   const userSeach = searchParams.get("search");
   const userSort = searchParams.get("sort");
-  const { users, isLoading } = useUsers(userRole, userSeach, userSort);
+  const { users, isLoading } = useUsers(
+    userRole,
+    null,
+    null,
+    userSeach,
+    userSort,
+  );
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -35,7 +41,7 @@ export default function UsersPage() {
             className="py-2 h-7"
             onClick={() => navigate("/add-user")}
           >
-            <span>اضافه کردن کاربر</span>
+            <span>افزودن کاربر</span>
           </CustomButton>
         </div>
         <UserRoleFilter />
@@ -56,7 +62,7 @@ export default function UsersPage() {
               className="py-1 h-7"
               onClick={() => navigate("/add-user")}
             >
-              <span>اضافه کردن کاربر</span>
+              <span>افزودن کاربر</span>
             </CustomButton>
           </div>
           <UserRoleFilter />

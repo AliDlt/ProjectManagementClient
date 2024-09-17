@@ -9,6 +9,8 @@ const CustomModal = ({
   open,
   onCancel,
   className,
+
+  headerClassName,
   notClose,
   ...rest
 }) => {
@@ -20,7 +22,7 @@ const CustomModal = ({
       footer={null}
       classNames={{
         content: cn([
-          "ring-2  ring-custom-primary-color rounded-custom  ",
+          "ring-2 ring-custom-primary-color rounded-custom p-0",
           className,
         ]),
       }}
@@ -31,12 +33,17 @@ const CustomModal = ({
     >
       <div
         className={cn([
-          "flex justify-between items-center text-xl pb-3  ",
-          title && "border-opacity-55 border-black border-b",
+          "flex flex-col text-xl !pb-4 p-5 bg-white z-10 rounded-3xl",
+          headerClassName,
         ])}
       >
+
+        <div className="flex justify-between items-center text-xl">
+          <h3>{title}</h3>
+
         <h3>{title}</h3>
         {!notClose && (
+
           <span
             className="text-custom-primary-color text-24 cursor-pointer"
             onClick={() => {
@@ -45,9 +52,12 @@ const CustomModal = ({
           >
             <IoCloseSharp />
           </span>
+
+        </div>
+        {title && <hr className="w-full h-[1px] border-black/50 mt-4" />}
         )}
       </div>
-      <div>{children}</div>
+      <div className="p-6 pt-0">{children}</div>
     </Modal>
   );
 };

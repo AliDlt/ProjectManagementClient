@@ -48,7 +48,7 @@ function AddNewProject() {
 
   // On Submit
   const onSubmit = async (values) => {
-    console.log(values)
+    console.log(values);
     try {
       await addProject(values);
       reset();
@@ -206,7 +206,7 @@ function AddNewProject() {
         title="بارگزاری عکس ، فیلم و فایل"
         okText="بله"
         cancelText="خیر"
-        description="آیا میخواهید به پروژه عکس ، فیلم و یا فایل اضافه کنید ؟"
+        description="آیا میخواهید به پروژه عکس ، فیلم و یا فایل افزودن کنید ؟"
         open={open}
         onCancel={() => {
           setOpen(false);

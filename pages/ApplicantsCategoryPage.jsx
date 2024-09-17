@@ -108,11 +108,7 @@ const ApplicantsCategoryPage = () => {
     }
 
     // Categories
-    if (
-      !categoriesDataLoading &&
-      categoriesData &&
-      categoriesData?.length !== 0
-    )
+    if (!categoriesDataLoading && categories && categoriesData?.length !== 0)
       return (
         <div className="grid grid-cols-1 mt-10 gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {categories.map((category) => (
@@ -125,6 +121,12 @@ const ApplicantsCategoryPage = () => {
           ))}
         </div>
       );
+
+    return (
+      <div className="h-96 flex justify-center items-center">
+        دسته بندی ای یافت نشد
+      </div>
+    );
   };
 
   // Component Render
@@ -164,7 +166,7 @@ const ApplicantsCategoryPage = () => {
           onSubmit={handleSubmit(
             editCategory ? editCategoryHandler : addCategoryHandler,
           )}
-          className="mt-5 flex flex-col gap-5"
+          className="flex flex-col gap-5"
         >
           <div className="flex flex-col gap-2">
             <label htmlFor="name" className="lg:text-base">
@@ -193,11 +195,11 @@ const ApplicantsCategoryPage = () => {
             type="submit"
             loading={editCategory ? updateCategoryPending : addCategoryPending}
           >
-            {editCategory ? "ویرایش دسته بندی" : " اضافه کردن دسته بندی"}
+            {editCategory ? "ویرایش دسته بندی" : " افزودن دسته بندی"}
           </CustomButton>
         </form>
       </CustomModal>
-      {categories && (
+      {!categoriesDataLoading && categories && (
         <CustomPagination
           current={currentPage}
           onChange={(page) => {

@@ -45,10 +45,11 @@ function SingleProjectGallery() {
 
   if (!isPending && error)
     return (
-      <div className="flex justify-center items-center container lg:col-span-9 2xl:col-span-10 lg:px-0 h-96">
+      <div className="flex flex-col gap-5 justify-center items-center container lg:col-span-9 2xl:col-span-10 lg:px-0 h-[30rem]">
         {error?.response?.data?.errors
           ? error?.response?.data?.errors[0]
           : error.response.data.message}
+        <BackButton />
       </div>
     );
 

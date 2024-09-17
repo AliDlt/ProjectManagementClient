@@ -146,7 +146,9 @@ export const addReportSchema = Yup.object({
 });
 
 export const addTicket = Yup.object({
-  name: Yup.string().min(3, "حد اقل 3 کاراکتر وارد کنید").required("این فیلد اجباری است."),
+  name: Yup.string()
+    .min(3, "حد اقل 3 کارکتر وارد کنید")
+    .required("این فیلد اجباری است."),
   content: Yup.string().required("این فیلد اجباری است."),
   assignedTo: Yup.object().required("یک کاربر را انتخاب کنید"),
 });
@@ -176,4 +178,22 @@ export const changePassword = Yup.object({
     .required("کد اعتبار سنجی اجباری است")
     .max(4, "کد اعتبار سنجی 4 رقمی میباشد")
     .min(4, "کد اعتبار سنجی 4 رقمی میباشد"),
+});
+
+// Add Applicant
+export const applicant = Yup.object({
+  firstName: Yup.string().required("این فیلد اجباری است."),
+  lastName: Yup.string().required("این فیلد اجباری است."),
+  postalCode: Yup.string().matches(
+    /^[0-9]{10}$/,
+    "لطفا کد پستی معتبر وارد کنید",
+  ),
+  nationalCode: Yup.string().matches(
+    /^(?!(\d)\1{9})\d{10}$/,
+    "کد ملی باید 10 رقمی باشد",
+  ),
+  phoneNumber: Yup.string().matches(
+    /^((\+98|0)9\d{9})$/,
+    "لطفا شماره تلفن معتبر وارد کنید",
+  ),
 });

@@ -186,7 +186,7 @@ const ReportGallery = ({ id, data, isEditable }) => {
                 onClick={() => setShow(true)}
                 className=" rounded-xl p-3 transition border-2 border-custom-primary-color !text-12 "
               >
-                اضافه کردن عکس یا ویدیو
+                افزودن عکس یا ویدیو
               </CustomButton>
             )}
             <CustomModal onCancel={setShow} open={show} title="بارگزاری فایل">

@@ -13,7 +13,7 @@ function useAddProject() {
     mutationKey: ["add-project"],
     mutationFn: addNewProject,
     onSuccess: () => {
-      toast("پروژه اضافه شد", "success");
+      toast("پروژه افزودن شد", "success");
     },
     onError: (error) => {
       if (error.response.data.errors?.length > 0)
