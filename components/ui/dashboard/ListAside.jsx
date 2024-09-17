@@ -32,6 +32,17 @@ const ListAside = () => {
         path: "/applicants",
       });
     }
+
+    if (!isLoading && user && user?.userRole === 3) {
+      return [
+        {
+          name: "متقاضیان",
+          icon: "/icons/Group 6.svg",
+          path: "/applicants",
+        },
+      ];
+    }
+
     return pagesList;
   }, [user, isLoading]);
 

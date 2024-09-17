@@ -15,6 +15,7 @@ const userRoleOptions = [
   { name: "مدیر کل", id: 0 },
   { name: "سرپرست پروژه", id: 1 },
   { name: "ناظر پروژه", id: 2 },
+  { name: "پذیرش", id: 3 },
 ];
 
 function SignupForm({ formData, setStep }) {
