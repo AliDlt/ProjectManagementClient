@@ -207,7 +207,6 @@ function ProjectInfo({ projectInfoData }) {
               name="progress"
               className="px-2 py-1.5 w-16"
               placeholder="100"
-              type="number"
               icon={"%"}
               error={errors.progress}
               noErrorMessage
