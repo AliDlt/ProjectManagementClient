@@ -17,23 +17,37 @@ const Projects = ({ projects, error, isPending }) => {
           <CustomLoading />
         ) : (
           <>
-            <div className="grid gap-4 pl-4   grid-cols-1 m-auto h-full md:gap-4 lg:gap-2 w-11/12 ">
+            <div className="grid gap pl-4  justify-center grid-cols-1  h-full md:gap-4 lg:gap-2 ">
               {projects.length ? (
                 <>
                   {console.log(projects)}
                   {projects.map(
-                    ({ name, description, progress, _id }, index) => {
-                      if (index<2)
-                      return (
-                        <Link to={`/projects/${_id}`}>
-                          <ChartProjects
-                            key={index}
-                            data={progress}
-                            name={name}
-                            description={description}
-                          />
-                        </Link>
-                      );
+                    (
+                      {
+                        name,
+                        description,
+                        progress,
+                        _id,
+                        createdBy,
+                        startDate,
+                      },
+                      index,
+                    ) => {
+                      if (index < 2)
+                        return (
+                          <Link to={`/projects/${_id}`}>
+                            {console.log(projects)}
+                            <ChartProjects
+                              key={index}
+                              data={progress}
+                              name={name}
+                              id={_id}
+                              createdBy={createdBy}
+                              startDate={startDate}
+                              description={description}
+                            />
+                          </Link>
+                        );
                     },
                   )}
                 </>

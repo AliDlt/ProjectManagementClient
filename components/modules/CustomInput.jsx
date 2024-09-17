@@ -49,26 +49,10 @@ export default function CustomInput({
         name={name}
         render={({ field }) => (
           <div className={cn(["flex flex-col gap-2", containerClassName])}>
-            {/* <Input
-              id={name}
-              {...field}
-              classNames={{
-                input: "placeholder:text-black/50 font-medium ",
-              }}
-              className={cn([
-                "rounded-custom border-2 border-custom-primary-color",
-                error && "border-red-500",
-                className,
-              ])}
-              dir="rtl"
-              type={type}
-              prefix={icon}
-              placeholder={placeholder}
-              status={error && "error"}
-              {...rest}
-            /> */}
+       
             <InputNumber
               {...field}
+              type="number"
               className={`border px-2 py-1  ${error? "border-red-500" : "border-custom-primary-color"} ltr`}
               min={min}
               max={max}
