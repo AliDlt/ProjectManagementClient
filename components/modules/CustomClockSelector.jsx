@@ -10,6 +10,8 @@ export const CustomHourSelector = ({ control, nameHour, onChange }) => {
       name={nameHour}
       render={({ field: { onChange, value } }) => (
         <div className="flex gap-2 items-center">
+          <span>ساعت</span>
+
           <TimePicker
             needConfirm={false}
             value={value}
@@ -36,10 +38,12 @@ export const CustomMinSelector = ({ control, nameMin }) => {
     <Controller
       control={control}
       name={nameMin}
+      
       render={({ field: { onChange, value } }) => (
         <div className="flex gap-2 items-center">
+          <span>دقیقه</span>
           <TimePicker
-        
+            
             value={value}
             onChange={(time) => {
               console.log(time);

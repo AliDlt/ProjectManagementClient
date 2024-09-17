@@ -32,10 +32,22 @@ const SettingPage = () => {
             <InformationBox
               userRole={user?.userRole}
               userId={user?._id}
-              title="نام و نام خانوادگی"
+              title="نام "
               type="name"
             >
               {user?.name}
+            </InformationBox>
+          )}
+        </div>
+        <div>
+          {user?.surName && (
+            <InformationBox
+              userRole={user?.userRole}
+              userId={user?._id}
+              title="نام خانوادگی"
+              type="surName"
+            >
+              {user?.surName}
             </InformationBox>
           )}
         </div>

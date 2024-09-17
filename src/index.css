@@ -236,3 +236,8 @@ input:focus-visible {
 .leaflet-bottom.leaflet-right {
   @apply hidden;
 }
+
+.swiper-pagination-bullets{
+
+  @apply !bottom-4
+}

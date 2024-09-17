@@ -15,6 +15,7 @@ const Messages = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const { data, error, isPending } = useGetMessages(page);
+  console.log(data)
   if (!isPending && !data?.data.data.tickets) {
     return (
       <div className="container-grid ">
