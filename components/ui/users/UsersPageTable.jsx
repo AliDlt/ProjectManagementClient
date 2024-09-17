@@ -102,27 +102,6 @@ function UsersPageTable({ users, loading }) {
             return convertToLocalDate(lastLogin);
           }}
         />
-        <Column
-          title="پروژه های کاربر"
-          dataIndex="userProject"
-          key="userProject"
-          width={100}
-          render={(_, record) =>
-            record?.totalProjects === 0 ? (
-              "پروژه ای ندارد"
-            ) : (
-              <CustomButton
-                className="py-1 h-auto"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  navigate(`project/${record.key}`);
-                }}
-              >
-                مشاهده پروژه ها
-              </CustomButton>
-            )
-          }
-        />
       </UsersTable>
       <CustomConfirm
         title="حذف کاربر"

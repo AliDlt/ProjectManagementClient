@@ -37,12 +37,14 @@ export default function UsersPage() {
       <div className="flex items-center gap-3 flex-wrap lg:hidden">
         <div className="flex justify-center items-center gap-3">
           <h3 className="text-24">لیست کاربران</h3>
-          <CustomButton
-            className="py-2 h-7"
-            onClick={() => navigate("/add-user")}
-          >
-            <span>افزودن کاربر</span>
-          </CustomButton>
+          {!userLoading && user?.userRole === 0 && (
+            <CustomButton
+              className="py-2 h-7"
+              onClick={() => navigate("/add-user")}
+            >
+              <span>افزودن کاربر</span>
+            </CustomButton>
+          )}
         </div>
         <UserRoleFilter />
       </div>
@@ -58,12 +60,14 @@ export default function UsersPage() {
         <div className="lg:flex lg:items-center lg:gap-3 hidden">
           <div className="flex justify-center items-center gap-3">
             <h3 className="text-16">لیست کاربران</h3>
-            <CustomButton
-              className="py-1 h-7"
-              onClick={() => navigate("/add-user")}
-            >
-              <span>افزودن کاربر</span>
-            </CustomButton>
+            {!userLoading && user?.userRole === 0 && (
+              <CustomButton
+                className="py-1 h-7"
+                onClick={() => navigate("/add-user")}
+              >
+                <span>افزودن کاربر</span>
+              </CustomButton>
+            )}
           </div>
           <UserRoleFilter />
         </div>
