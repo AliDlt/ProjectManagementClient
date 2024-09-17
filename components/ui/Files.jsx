@@ -10,7 +10,6 @@ import "swiper/css/navigation";
 // import required modules
 import { Grid, Navigation, Pagination } from "swiper/modules";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import { Empty } from "antd";
 
 export default function Files({ children }) {
   return (
@@ -20,6 +19,9 @@ export default function Files({ children }) {
         navigation={{
           prevEl: ".prev-btn",
           nextEl: ".next-btn",
+        }}
+        pagination={{
+          clickable: true, // این گزینه به کاربران اجازه می‌دهد که روی نقاط کلیک کنند
         }}
         breakpoints={{
           0: {
@@ -37,18 +39,16 @@ export default function Files({ children }) {
         }}
         spaceBetween={30}
         modules={[Grid, Pagination, Navigation]}
-        className="mySwiper "
+        className="mySwiper !py-14 "
       >
         {children}
-
-        <div
-          className="prev-btn absolute top-1/2 right-5 -translate-y-1/2 z-10 cursor-pointer 
-"
-        >
-          <FaChevronRight className="text-custom-primary-color size-7 z-50 " />
-        </div>
-        <div className="next-btn absolute top-1/2 left-5 -translate-y-1/2 z-10 cursor-pointer ">
-          <FaChevronLeft className="text-custom-primary-color size-7 z-50 " />
+        <div className="absolute top-0 left-0 flex gap-4">
+          <div className="prev-btn  z-10 cursor-pointer">
+            <FaChevronRight className="text-custom-primary-color size-7 z-50 " />
+          </div>
+          <div className="next-btn 2 z-10 cursor-pointer">
+            <FaChevronLeft className="text-custom-primary-color size-7 z-50 " />
+          </div>
         </div>
       </Swiper>
     </>
