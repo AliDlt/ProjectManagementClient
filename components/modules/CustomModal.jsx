@@ -9,6 +9,7 @@ const CustomModal = ({
   open,
   onCancel,
   className,
+  notClose,
   ...rest
 }) => {
   return (
@@ -35,14 +36,16 @@ const CustomModal = ({
         ])}
       >
         <h3>{title}</h3>
-        <span
-          className="text-custom-primary-color text-24 cursor-pointer"
-          onClick={() => {
-            onCancel(false);
-          }}
-        >
-          <IoCloseSharp />
-        </span>
+        {!notClose && (
+          <span
+            className="text-custom-primary-color text-24 cursor-pointer"
+            onClick={() => {
+              onCancel(false);
+            }}
+          >
+            <IoCloseSharp />
+          </span>
+        )}
       </div>
       <div>{children}</div>
     </Modal>

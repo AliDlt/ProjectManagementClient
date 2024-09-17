@@ -3,23 +3,24 @@ import CustomModal from "../components/modules/CustomModal";
 import CustomButton from "../components/modules/CustomButton";
 import { useNavigate } from "react-router-dom";
 
-const ErrorBoundaryComponent = () => {
+const ErrorBoundaryComponent = (props) => {
+  console.log(props)
   const navigate = useNavigate();
   const [hasError, setHasError] = useState(true);
 
   useEffect(() => {
-    // اگر کامپوننت دوباره رندر شد و به صفحه داشبورد رفت، وضعیت ارور را ریست کن
+   
     if (!hasError) {
       navigate("/dashboard", { replace: true });
     }
   }, [hasError, navigate]);
 
   const handleNavigate = () => {
-    // ابتدا وضعیت ارور را ریست می‌کنیم و سپس هدایت انجام می‌شود
+   
     setHasError(false);
   };
 
-  if (!hasError) return null; // زمانی که ارور ریست شد، کامپوننت ارور رندر نمی‌شود
+  if (!hasError) return null; 
 
   return (
     <CustomModal title={"مشکلی پیش آمده"} open={true}>

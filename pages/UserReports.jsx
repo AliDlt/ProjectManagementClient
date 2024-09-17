@@ -52,7 +52,7 @@ const UserReports = () => {
   }
   return (
     <div className="container-grid">
-      <h3 className="text-24 col-span-11">گزارش های {user?.data.user.name} </h3>
+      <h3 className="text-24 col-span-1 lg:col-span-11">گزارش های {user?.data.user.name} </h3>
       <div className="col-span-1 lg:col-span-11">
         <div className="mb-4">
           <div>
@@ -61,7 +61,7 @@ const UserReports = () => {
                 setValue("search", e.target.value);
                 handelSearch(e);
               }}
-              className="w-1/3 p-2"
+              className=" w-2/3 lg:w-1/3 p-2"
               placeholder={"جستجو"}
               control={control}
               name="search"
@@ -69,12 +69,14 @@ const UserReports = () => {
           </div>
           <div></div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {console.log(data?.data.reports)}
           {data?.data.reports.map((report, key) => {
             return (
               <ReportCard
                 description={report.description}
                 id={report._id}
+                date={report.date}
                 title={report.name}
                 key={key}
               />
