@@ -40,6 +40,11 @@ const ListAside = () => {
           icon: "/icons/Group 6.svg",
           path: "/applicants",
         },
+        {
+          name: "پیام ها",
+          icon: "/icons/آیکون-پیام ها.svg",
+          path: "/messages",
+        },
       ];
     }
 

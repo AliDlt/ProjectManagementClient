@@ -21,11 +21,12 @@ export default function ProtectPages({ children }) {
       !isLoading &&
       isAuthenticated &&
       user.userRole === 3 &&
-      !pathname.startsWith("/applicants")
+      !pathname.startsWith("/applicants") &&
+      !pathname.startsWith("/messages")
     ) {
       navigate("/applicants", { replace: true });
     }
-  }, [isAuthenticated, isLoading]);
+  }, [isAuthenticated, isLoading, pathname]);
 
   return isAuthenticated && children;
 }

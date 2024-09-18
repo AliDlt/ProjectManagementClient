@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Empty } from "antd";
 
 function ReportsSection() {
-  const { reportsData, isLoading, error } = useReports(3,1);
+  const { reportsData, isLoading, error } = useReports(4, 1);
   const navigate = useNavigate();
 
   // Handle Error
@@ -21,7 +21,7 @@ function ReportsSection() {
     );
 
   return (
-    <div className="shadow-custom p-6 flex flex-col gap-3 rounded-custom border-b-4 border-r-4 h-[95%] border-custom-primary-color/50 lg:p-7 bg-white">
+    <div className="shadow-custom p-6 flex flex-col gap-3 rounded-custom border-b-4 border-r-4 border-custom-primary-color/50 lg:p-7 bg-white">
       <h3 className="text-lg">گزارش ها</h3>
       {!isLoading && !reportsData?.reports?.length && (
         <Empty
@@ -31,7 +31,9 @@ function ReportsSection() {
       )}
       <div className="flex flex-col gap-3">
         {isLoading ? (
-          <CustomLoading />
+          <div className="h-96">
+            <CustomLoading />
+          </div>
         ) : (
           reportsData.reports?.map((report) => (
             <ReportItem
@@ -44,7 +46,7 @@ function ReportsSection() {
       </div>
       {!isLoading && !!reportsData?.reports?.length && (
         <CustomButton
-          className="self-end text-sm mt-auto "
+          className="self-end text-sm mt-[2.6rem] "
           onClick={() => navigate("/reports")}
         >
           همه گزارش ها
