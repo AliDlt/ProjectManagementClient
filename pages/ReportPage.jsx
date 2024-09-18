@@ -15,6 +15,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { AiOutlineInfo } from "react-icons/ai";
 import BackButton from "../components/modules/BackButton";
+import { Empty } from "antd";
 
 const ReportPage = () => {
   const { id } = useParams();
@@ -43,15 +44,35 @@ const ReportPage = () => {
   }
   if (error) {
     toast(error.response.data.message, "error");
-    navigate("/reports");
+    return (
+      <div className="container-grid">
+        <div className="flex items-center justify-center flex-col mt-52 col-span-1 lg:col-span-11 gap-3">
+          <div>
+            <Empty
+              description={"گزاشت یافت نشد !"}
+              style={{ fontSize: "24px" }}
+            />
+          </div>
+          <CustomButton
+            onClick={() => {
+              navigate("/reports", { replace: true });
+            }}
+          >
+            بازگشت به صفحه گزارش ها
+          </CustomButton>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="container-grid ">
       <div className="col-span-1 lg:col-span-11">
-      <BackButton />
-        <h3 className=" my-6 flex items-center justify-between px-5">
-          <span className="lg:text-24 text-base  font-bold">{data?.name}</span>{" "}
+        <BackButton />
+        <h3 className=" my-6 flex items-center justify-between px-5 gap-4 break-words ">
+          <span className="lg:text-24 text-base   overflow-hidden  font-bold">
+            {data?.name}
+          </span>{" "}
           <CustomButton
             onClick={() => showModalDelete(true)}
             className="bg-white hover:text-white  w-9 h-9  p-2 text-custom-primary-color transition-all border-2 border-custom-primary-color border-solid rounded-full"
@@ -67,9 +88,7 @@ const ReportPage = () => {
             <span className="border border-custom-primary-color p-1 rounded-full">
               <AiOutlineInfo />
             </span>{" "}
-            <span>
-              زمان ویرایش  به اتمام رسیده است
-            </span>
+            <span>زمان ویرایش به اتمام رسیده است</span>
           </p>
         )}
         <ReportBox data={data} />

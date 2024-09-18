@@ -13,10 +13,7 @@ import CustomDatePicker from "../../modules/CustomDatePicker";
 import { convertDate, convertToLocalDate } from "../../../utils/tools";
 import CustomInput from "../../modules/CustomInput";
 import useUpdateReport from "../../../hooks/Report/useUpdateReport";
-import {
-  CustomHourSelector,
-  CustomMinSelector,
-} from "../../modules/CustomClockSelector";
+
 import { useToast } from "../../../Context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -77,7 +74,7 @@ const ReportBox = ({ data }) => {
   return (
     <div>
       <section className="border-2 flex justify-between  bg-white rounded-custom  border-custom-primary-color p-4 md:px-6 md:py-4 ">
-        <div className="flex flex-col ">
+        <div className="flex flex-col overflow-hidden ">
           <div className="flex gap-2 flex-col ">
             {" "}
             <h4>
@@ -102,8 +99,8 @@ const ReportBox = ({ data }) => {
             </div>
           </div>
 
-          <div className="mt-2 text-14 md:text-16 text-wrap w-full wor ">
-            <p>{data?.description}</p>
+          <div className="mt-2 text-14 md:text-16 text-wrap w-full  ">
+            <p className="break-words ">{data?.description}</p>
           </div>
         </div>
         {data?.isEditable && (

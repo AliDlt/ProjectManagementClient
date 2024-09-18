@@ -2,9 +2,13 @@ import React from "react";
 import ReportChart from "../charts/ReportChart";
 import useChartReportDashboard from "../../../hooks/useChartReportDashboard";
 import CustomLoading from "../../modules/CustomLoading";
+import useUser from "../../../hooks/useUser";
 
 const ReportChartSection = () => {
-  const { data, error, isLoading } = useChartReportDashboard();
+  const {user} = useUser()
+  console.log(user)
+  const { data, error, isLoading } = useChartReportDashboard(user?._id);
+  console.log(data)
   console.log(error)
   return (
     <div className="bg-white shadow-custom p-4 lg:p-7  text-lg rounded-custom border-custom-primary-color/50 border-r-4 border-b-4 ">

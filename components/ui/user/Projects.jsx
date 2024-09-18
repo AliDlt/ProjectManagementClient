@@ -60,7 +60,7 @@ const Projects = ({ projects, error, isPending }) => {
             {projects.length !== 0 && (
               <div className="justify-end">
                 <Link to={`/users/project/${id}`}>
-                  <CustomButton>دیگر پروژه ها</CustomButton>
+                  <CustomButton>همه پروژه ها</CustomButton>
                 </Link>
               </div>
             )}

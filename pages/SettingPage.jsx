@@ -4,7 +4,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import InformationBox from "../components/ui/user/InformationBox";
 import CustomLoading from "../components/modules/CustomLoading";
 import { userRol } from "../utils/tools";
-import CustomPasswordInput from "../components/modules/CustomPasswordInput";
 import ChangePasswordForm from "../components/ui/setting/ChangePasswordForm";
 
 const SettingPage = () => {

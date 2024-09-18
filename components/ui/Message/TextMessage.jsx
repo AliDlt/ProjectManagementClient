@@ -4,9 +4,7 @@ import { convertToLocalDate } from "../../../utils/tools";
 import useUser from "../../../hooks/useUser";
 
 const TextMessage = ({ message }) => {
-  console.log(message);
   const { user, isLoading } = useUser();
-  console.log(user);
   return (
     <div
       className={`flex ${message.sender?._id === user._id ? "justify-start" : "justify-end"} `}
