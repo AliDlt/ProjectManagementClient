@@ -83,7 +83,7 @@ function ProjectSection() {
           className="self-end text-sm"
           onClick={() => navigate("/projects")}
         >
-          دیگر پروژه ها
+          همه پروژه ها
         </CustomButton>
       )}
     </div>
