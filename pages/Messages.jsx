@@ -15,7 +15,7 @@ const Messages = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const { data, error, isPending } = useGetMessages(page);
-  console.log(data)
+  console.log(data);
   if (!isPending && !data?.data.data.tickets) {
     return (
       <div className="container-grid ">
@@ -47,10 +47,13 @@ const Messages = () => {
             </CustomButton>
           </div>
           <div className=" mt-5 grid md:grid-cols-2 grid-cols-1 gap gap-5">
+            {console.log(data?.data?.data.tickets)}
             {data?.data?.data.tickets.map(
-              ({ title, _id: id, messages }, index) => (
+              ({ title, _id: id, messages, createdBy, assignedTo }, index) => (
                 <>
                   <SmsCart
+                    assignedTo={assignedTo}
+                    createdBy={createdBy}
                     title={title}
                     description={messages[0]?.content}
                     id={id}

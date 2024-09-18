@@ -22,6 +22,8 @@ export const userRol = (rol) => {
       return "سر پرست پروژه";
     case 2:
       return "ناظر پروژه";
+    case 3:
+      return "پذیرش";
   }
 };
 

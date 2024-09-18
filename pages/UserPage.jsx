@@ -79,19 +79,21 @@ const UserPage = () => {
         isPending={isPending}
         error={error}
       />
-      <div className="gap-2 grid grid-cols-1 lg:grid-cols-2  items-start">
-        <Projects
-          projects={data?.data.projects}
-          isPending={isPending}
-          error={error}
-        />
-        {console.log(data)}
-        <Reports
-          reports={data?.data.reports}
-          isPending={isPending}
-          error={error}
-        />
-      </div>
+      {user?.userRole !== 2 && (
+        <div className="gap-2 grid grid-cols-1 lg:grid-cols-2  items-start">
+          <Projects
+            projects={data?.data.projects}
+            isPending={isPending}
+            error={error}
+          />
+          {console.log(data)}
+          <Reports
+            reports={data?.data.reports}
+            isPending={isPending}
+            error={error}
+          />
+        </div>
+      )}
     </section>
   );
 };

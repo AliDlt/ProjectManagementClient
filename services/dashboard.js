@@ -5,9 +5,9 @@ export const messagesDashboard = async () => {
   return response.data;
 };
 
-export const reportDayOfWeek = async () => {
+export const reportDayOfWeek = async (id) => {
   const response = await http.get(
-    "/report/getReportCountByDayOfWeek?userId=8",
+    `/report/getReportCountByDayOfWeek?userId=${id}`,
     {
       id: 8,
     },

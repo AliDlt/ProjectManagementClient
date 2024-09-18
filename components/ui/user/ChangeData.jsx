@@ -33,6 +33,7 @@ const ChangeData = ({ type, value, setShow, title, userId }) => {
     { name: "مدیریت کل", id: "0" },
     { name: "سر پرست پروژه", id: "1" },
     { name: "ناظر پروژه", id: "2" },
+    { name: "پذیرش", id: "3" },
   ];
   const {
     control,
