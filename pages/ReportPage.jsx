@@ -16,6 +16,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { AiOutlineInfo } from "react-icons/ai";
 import BackButton from "../components/modules/BackButton";
 import { Empty } from "antd";
+import useUser from "../hooks/useUser";
 
 const ReportPage = () => {
   const { id } = useParams();
@@ -23,6 +24,7 @@ const ReportPage = () => {
   const [modalDelete, showModalDelete] = useState(false);
   const { mutate, isPending } = useDeleteReport();
   const queryClient = useQueryClient();
+  const { user } = useUser();
   const toast = useToast();
   const navigate = useNavigate();
   const deleteSuccess = (e) => {
@@ -49,7 +51,7 @@ const ReportPage = () => {
         <div className="flex items-center justify-center flex-col mt-52 col-span-1 lg:col-span-11 gap-3">
           <div>
             <Empty
-              description={"گزاشت یافت نشد !"}
+              description={"گزاشی یافت نشد ."}
               style={{ fontSize: "24px" }}
             />
           </div>
@@ -82,7 +84,7 @@ const ReportPage = () => {
             </span>
           </CustomButton>
         </h3>
-        {!data?.isEditable && (
+        {!data?.isEditable && user.userRole !== 0 && (
           <p className="flex items-center gap-2 my-4 bg-custom-primary-color/10 p-2 text-custom-primary-color rounded-lg">
             {" "}
             <span className="border border-custom-primary-color p-1 rounded-full">

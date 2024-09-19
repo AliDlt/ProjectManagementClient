@@ -22,6 +22,7 @@ import {
   CustomMinSelector,
 } from "../components/modules/CustomClockSelector";
 import { convertMillisecondsToDate } from "../utils/tools";
+import BackButton from "../components/modules/BackButton";
 
 const AddReport = () => {
   const [show, setShow] = useState(false);
@@ -66,6 +67,61 @@ const AddReport = () => {
       },
       { onSuccess: successAdd, onError: (e) => console.log(e) },
     );
+    mutate(
+      {
+        name: e.name,
+        startTime,
+        description: e.description,
+        projectId: e.project.id,
+        createdBy: user._id,
+        date: convertMillisecondsToDate(Number(e.createAt)),
+      },
+      { onSuccess: successAdd, onError: (e) => console.log(e) },
+    );
+    mutate(
+      {
+        name: e.name,
+        startTime,
+        description: e.description,
+        projectId: e.project.id,
+        createdBy: user._id,
+        date: convertMillisecondsToDate(Number(e.createAt)),
+      },
+      { onSuccess: successAdd, onError: (e) => console.log(e) },
+    );
+    mutate(
+      {
+        name: e.name,
+        startTime,
+        description: e.description,
+        projectId: e.project.id,
+        createdBy: user._id,
+        date: convertMillisecondsToDate(Number(e.createAt)),
+      },
+      { onSuccess: successAdd, onError: (e) => console.log(e) },
+    );
+    mutate(
+      {
+        name: e.name,
+        startTime,
+        description: e.description,
+        projectId: e.project.id,
+        createdBy: user._id,
+        date: convertMillisecondsToDate(Number(e.createAt)),
+      },
+      { onSuccess: successAdd, onError: (e) => console.log(e) },
+    );
+    mutate(
+      {
+        name: e.name,
+        startTime,
+        description: e.description,
+        projectId: e.project.id,
+        createdBy: user._id,
+        date: convertMillisecondsToDate(Number(e.createAt)),
+      },
+      { onSuccess: successAdd, onError: (e) => console.log(e) },
+    );
   };
 
   const setDateReport = (e) => {
@@ -74,6 +130,9 @@ const AddReport = () => {
   };
   return (
     <div className="container-grid">
+      <div className="block col-span-1 lg:col-span-11">
+        <BackButton />
+      </div>
       <h5 className="text-24 col-span-1 lg:col-span-9">گزارش جدید</h5>
       <form
         onSubmit={handleSubmit(addReport)}

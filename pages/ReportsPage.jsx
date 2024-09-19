@@ -178,6 +178,7 @@ function ReportsPage() {
           </section>
         )}
       </div>
+        {console.log(reportsData)}
       {reportsData?.reports.length !== 0 && error?.response.status !== 404 && (
         <div className="col-span-1 lg:col-span-11" style={{ direction: "ltr" }}>
           <Pagination
@@ -185,6 +186,8 @@ function ReportsPage() {
             defaultCurrent={1}
             onChange={changePage}
             total={reportsData?.totalReports}
+            showLessItems={false}
+            defaultPageSize={reportsData?.totalPage}
           />
         </div>
       )}
