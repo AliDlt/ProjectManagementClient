@@ -241,3 +241,6 @@ input:focus-visible {
 
   @apply !bottom-4
 }
+.ant-pagination-options{
+  display: none;
+}

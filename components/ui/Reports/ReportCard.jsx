@@ -5,9 +5,7 @@ import dayjs from "dayjs";
 import { convertToLocalDate } from "../../../utils/tools";
 
 const ReportCard = (props) => {
-  console.log(props)
   const { title, description, id, date, createBy } = props
-  console.log(date)
   return (
     <div className="p-3 flex gap-2 border-2 border-custom-primary-color rounded-custom items-center justify-between  ">
       <div className="flex flex-col gap-4  w-full">
