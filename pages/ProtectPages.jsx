@@ -10,7 +10,7 @@ export default function ProtectPages({ children }) {
   const toast = useToast();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const isUserRole3Access = useRef(true);
+  const isUserRole3Access = useRef(false);
 
   let isAuthenticated = false;
   if (user) isAuthenticated = true;
