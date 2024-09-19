@@ -3,7 +3,7 @@ import { getProjectFiles } from "../../services/projects";
 import { useEffect, useState } from "react";
 import { useToast } from "../../Context/ToastContext";
 
-function useProjectFiles(data) {
+function useProjectFiles(data, refetchRef) {
   const toast = useToast();
   const [projectFile, setProjectFile] = useState(false);
 
@@ -25,7 +25,7 @@ function useProjectFiles(data) {
 
   useEffect(() => {
     fetchProjectFiles();
-  }, [data?.page]);
+  }, [data?.page, refetchRef]);
 
   return { projectFile, isPending, error };
 }

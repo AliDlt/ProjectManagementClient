@@ -12,6 +12,7 @@ import { IoEyeSharp } from "react-icons/io5";
 import CustomModal from "../components/modules/CustomModal";
 import BackButton from "../components/modules/BackButton";
 import cn from "../utils/cn";
+import ImageVideoSlide from "../components/ui/ImageVideoSlide";
 
 function SingleProjectGallery() {
   const projectInfo = useRef(null);
@@ -20,17 +21,23 @@ function SingleProjectGallery() {
   const [openDeleteFileModal, setOpenDeleteFileModal] = useState(false);
   const [openFileInfoModal, setOpenFileInfoModal] = useState(false);
   const { project } = useProject(projectId);
-  const { deleteFile, isPending: deleteFileLoading } =
-    useDeleteProjectFile(projectId);
+  const {
+    deleteFile,
+    isPending: deleteFileLoading,
+    isSuccess,
+  } = useDeleteProjectFile(projectId);
   const [currentPage, setCurrentPage] = useState(
     searchParams.get("page") || undefined,
   );
-  const { projectFile, isPending, error } = useProjectFiles({
-    id: +projectId,
-    fileFormats: ["image", "video"],
-    page: currentPage,
-    limit: 12,
-  });
+  const { projectFile, isPending, error } = useProjectFiles(
+    {
+      id: +projectId,
+      fileFormats: ["image", "video"],
+      page: currentPage,
+      limit: 12,
+    },
+    isSuccess,
+  );
 
   // Delete File Handler
   const deleteFileHandler = async () => {
@@ -67,54 +74,12 @@ function SingleProjectGallery() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5 mt-10">
         {!isPending &&
           projectFile.files?.map((file) => (
-            <div key={file.createdAt} className="relative">
-              <span
-                className="absolute top-2 right-2 text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
-                onClick={() => {
-                  setOpenDeleteFileModal(true);
-                  projectInfo.current = file;
-                }}
-              >
-                <FaTrash />
-              </span>
-              <span
-                className="absolute top-2 right-14 text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10"
-                onClick={() => {
-                  setOpenFileInfoModal(true);
-                  projectInfo.current = file;
-                }}
-              >
-                <IoEyeSharp size={25} />
-              </span>
-              <div className="flex flex-col ">
-                {file.fileFormat === "image" ? (
-                  <>
-                    <Image
-                      className="object-cover rounded-custom h-[220px]"
-                      src={file.fileURL}
-                      alt={file.description}
-                      rootClassName="rounded-custom h-full"
-                      preview={{
-                        mask: "بزرگ نمایی",
-                      }}
-                      fallback="/images/download.png"
-                    />
-                    <p className="truncate mt-2">{file.description}</p>
-                  </>
-                ) : (
-                  <>
-                    <video
-                      className="bg-custom-primary-color-300/50 h-[220px] rounded-custom "
-                      controls
-                      src={file.fileURL}
-                      alt={file.description}
-                      crossOrigin="anonymous"
-                    />
-                    <p className="truncate mt-2">{file.description}</p>
-                  </>
-                )}
-              </div>
-            </div>
+            <ImageVideoSlide
+              deleteFilePending={deleteFileLoading}
+              deleteFileMutate={deleteFile}
+              file={file}
+              key={file.fileName}
+            />
           ))}
       </div>
       {!isPending && projectFile?.files?.length !== 0 && (
