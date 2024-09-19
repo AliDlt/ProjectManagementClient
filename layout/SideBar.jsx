@@ -11,7 +11,15 @@ function SideBar() {
   const [touchEnd, setTouchEnd] = useState(0);
 
   const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX);
+    const touchX = e.targetTouches[0].clientX;
+    // اگر منو باز نیست، بررسی کنیم که سوایپ از لبه راست صفحه شروع می‌شود
+    if (!show && touchX > window.innerWidth - 30) {
+      setTouchStart(touchX);
+    }
+    // اگر منو باز است، سوایپ از داخل منو برای بستن آن را بررسی می‌کنیم
+    if (show && touchX < 250) { // 250px به عرض منو بستگی دارد
+      setTouchStart(touchX);
+    }
   };
 
   const handleTouchMove = (e) => {
@@ -19,10 +27,17 @@ function SideBar() {
   };
 
   const handleTouchEnd = () => {
-    // If swipe from right to left and distance is more than 100px, open the sidebar
-    if (touchStart - touchEnd > 100) {
+    // باز کردن منو با سوایپ از راست به چپ
+    if (!show && touchStart > 0 && touchStart - touchEnd > 50) {
       setShow(true);
     }
+    // بستن منو با سوایپ از چپ به راست
+    if (show && touchStart > 0 && touchEnd - touchStart > 50) {
+      setShow(false);
+    }
+    // Reset touch positions
+    setTouchStart(0);
+    setTouchEnd(0);
   };
 
   useEffect(() => {
@@ -37,7 +52,7 @@ function SideBar() {
       window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [touchStart, touchEnd]);
+  }, [touchStart, touchEnd, show]);
 
   return (
     <>
