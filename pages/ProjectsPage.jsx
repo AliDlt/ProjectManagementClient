@@ -64,7 +64,7 @@ function ProjectsPage() {
       </div>
       <div className="mt-10">
         <CustomInput
-          className="lg:py-2.5 rounded-custom w-52 md:w-80 ml-auto"
+          className=" py-2 lg:py-2.5 rounded-custom w-full lg:w-1/3 md:w-80 ml-auto"
           placeholder="جستجو"
           onChange={(event) => {
             setSearch(event.target.value.trim());

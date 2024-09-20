@@ -18,8 +18,11 @@ const CustomTextAria = ({
 }) => {
   if (!control) {
     return (
-      <div className="flex flex-col gap-2 w-full ">
+      <div className="flex flex-col gap-2 w-full resize-none ">
         <TextArea
+      
+
+          showCount
           id={name}
           value={value}
           onBlurCapture={() => {
@@ -60,7 +63,7 @@ const CustomTextAria = ({
               {...field}
               className={cn([
                 className,
-                "rounded-custom border-2 border-custom-primary-color p-2.5",
+                "rounded-custom border-2 border-custom-primary-color p-2.5 resize-none",
                 error && "border-red-500",
               ])}
               placeholder={placeholder}

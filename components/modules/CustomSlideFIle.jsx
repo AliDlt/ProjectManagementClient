@@ -9,6 +9,7 @@ import { getFileFormat } from "../../utils/tools";
 import { IoMdDownload } from "react-icons/io";
 import { useQueryClient } from "@tanstack/react-query";
 import { AiOutlineInfo } from "react-icons/ai";
+import { IoEyeSharp } from "react-icons/io5";
 
 const CustomSlideFIle = ({ item, mutate, isPending }) => {
   const toast = useToast();
@@ -39,7 +40,7 @@ const CustomSlideFIle = ({ item, mutate, isPending }) => {
             onClick={() => showDescription(true)}
             className=" bg-white hover:text-white  p-1 h-10  w-10 border-2 border-custom-primary-color border-solid rounded-full text-20 text-custom-primary-color  "
           >
-            <AiOutlineInfo size={25} />
+            <IoEyeSharp size={25} />
           </CustomButton>
           <CustomButton
             onClick={() => showModal(true)}

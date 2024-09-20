@@ -7,7 +7,7 @@ const SmsCart = ({ title, description, id }) => {
   // data
 
   return (
-    <div className="border-2 border-custom-primary-color rounded-es-none rounded-custom p-3">
+    <div className=" rounded-es-none rounded-custom p-3 shadow bg-white">
       <p className="text-12 md:text-14 lg:text-16">{title}</p>
       <div className="flex items-center gap-x-2 justify-between">
         <p className="text-10 truncate md:text-14 lg:text-16">{description}  </p>

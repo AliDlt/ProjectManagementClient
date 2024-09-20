@@ -30,7 +30,7 @@ function ReportsPage() {
   const [page, setPage] = useState(params.get("page") || 1);
   const [searchParams, setSearchParams] = useState(params.get("search") || "");
 
-  const [value] = useDebounce(searchParams, 200);
+  const [value] = useDebounce(searchParams, 500);
 
   const navigate = useNavigate();
 
@@ -38,8 +38,7 @@ function ReportsPage() {
     searchHandler(e, "page");
     setPage(e);
   };
-
-  const searchHandler = useDebouncedCallback((e, type) => {
+  const addUrl = (e, type) => {
     const current = new URLSearchParams(Array.from(params.entries()));
     const value = e?.trim();
 
@@ -47,13 +46,14 @@ function ReportsPage() {
     const search = current.toString();
     const query = search ? `?${search}` : "";
     navigate(`${pathname}${query}`);
+  };
+  const searchHandler = useDebouncedCallback((e, type) => {
+    addUrl(e, type);
   }, 1000);
 
   const changeDate = (e) => {
     setValue("date", e);
-    e
-      ? searchHandler(convertToLocalDate(dayjs(e)), "date")
-      : searchHandler("", "date");
+    e ? addUrl(convertToLocalDate(dayjs(e)), "date") : addUrl("", "date");
   };
   const { reportsData, isPending, error } = useReports(
     10,
@@ -97,10 +97,8 @@ function ReportsPage() {
             />
           </div>
           <div className="flex gap-4 items-center justify-center">
-            {console.log(convertToLocalDate(dayjs(new Date()).add(-1, "day")))}
-            {console.log(convertToLocalDate(dayjs(getValues("date"))))}
-
             <CustomButton
+              disabled={isPending}
               onClick={() => changeDate(dayjs(new Date()).add(-1, "day"))}
               className={`w-1/3 px-8 
                 border-custom-primary-color
@@ -113,6 +111,7 @@ function ReportsPage() {
               دیروز
             </CustomButton>
             <CustomButton
+              disabled={isPending}
               onClick={() => changeDate(dayjs(new Date()))}
               className={`w-1/3 px-8   
                 border-custom-primary-color
@@ -126,6 +125,7 @@ function ReportsPage() {
               امروز
             </CustomButton>
             <CustomButton
+              disabled={isPending}
               onClick={() => {
                 setValue("date", "");
                 changeDate(undefined);
@@ -162,7 +162,6 @@ function ReportsPage() {
               ({ name, description, _id, createdBy, date }, index) => {
                 return (
                   <>
-                    {console.log(reportsData.reports[index])}
                     <ReportCard
                       date={date}
                       createBy={createdBy}
@@ -178,7 +177,6 @@ function ReportsPage() {
           </section>
         )}
       </div>
-        {console.log(reportsData)}
       {reportsData?.reports.length !== 0 && error?.response.status !== 404 && (
         <div className="col-span-1 lg:col-span-11" style={{ direction: "ltr" }}>
           <Pagination

@@ -1,6 +1,7 @@
 import http from "./http";
 
 export const getAllProjects = async ({ count, search, page = undefined }) => {
+  console.log(count)
   const res = await http.post("/project/getAllProjectsSearchByToken", {
     count: search ? undefined : count,
     search,

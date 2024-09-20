@@ -15,6 +15,7 @@ import MetaTag from "../components/modules/MetaTag";
 import { useToast } from "../Context/ToastContext";
 import CustomModal from "../components/modules/CustomModal";
 import Map from "../components/ui/projects/Map";
+import BackButton from "../components/modules/BackButton";
 
 function AddNewProject() {
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -78,8 +79,10 @@ function AddNewProject() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onSubmitError)}
-      className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 flex flex-col"
-    >
+      className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 flex flex-col">
+        <div className="my-3">
+          <BackButton />
+        </div>
       <div className="flex justify-between items-center">
         <h1 className=" text-24 lg:text-32">پروژه جدید</h1>
         <CustomButton type="submit" loading={isPending}>

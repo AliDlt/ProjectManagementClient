@@ -86,11 +86,11 @@ const Message = () => {
             </p>
             <h5 className="mt-2"> عنوان : {data?.data.ticket.title}</h5>
           </div>
-          <CustomButton onClick={() => showDeleteModal(true)}>
-            <MdDelete />
+          <CustomButton className='rounded-full h-10 w-10 p-2' onClick={() => showDeleteModal(true)}>
+            <MdDelete size={30} />
           </CustomButton>
         </div>
-        <div className="flex flex-col gap-4 h-full px-3">
+        <div className="flex flex-col gap-2 h-full px-3">
           <div className="flex items-center justify-center">
             {data?.data.totalMessages > 10 && (
               <CustomButton loading={isPending} onClick={loadMore}>
@@ -98,7 +98,6 @@ const Message = () => {
               </CustomButton>
             )}
           </div>
-          {console.log(allMessages)}
           {allMessages?.map((message, index) => {
             return <TextMessage message={message} key={index} />;
           })}

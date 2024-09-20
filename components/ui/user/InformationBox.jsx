@@ -10,7 +10,7 @@ const InformationBox = ({ title, children, type, userId, userRole }) => {
   const [visible, setVisible] = useState(false);
   return (
     <div className="bg-background rounded-lg px-4  flex flex-col gap-1  ">
-      <span>{title}</span>
+      <span className="pr-2 pb-2">{title}</span>
       <div className="flex justify-between px-2 items-center gap-2   py-2 h-12 rounded-custom border-2 border-custom-primary-color">
         <span className="text-14 text-nowrap text-ellipsis overflow-hidden rounded-md ">
           {children}
