@@ -11,6 +11,7 @@ import AddUsers from "../components/ui/AddMessage/AddUsers";
 import useAddTicket from "../hooks/Message/useAddTicket";
 import { useToast } from "../Context/ToastContext";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../components/modules/BackButton";
 
 const AddMessage = () => {
   const {
@@ -51,6 +52,9 @@ const AddMessage = () => {
   return (
     <div className="container-grid ">
       <div className="col-span-1 lg:col-span-8">
+        <div className="my-3">
+          <BackButton />
+        </div>
         <h3 className="mb-4 text-24 font-bold">ارسال پیام جدید</h3>
         <div className="my-4">
           <CustomButton onClick={() => showAddUser(true)}>

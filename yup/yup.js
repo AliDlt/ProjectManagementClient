@@ -72,7 +72,7 @@ export const textAria = Yup.object({
 });
 export const messageSchema = Yup.object({
   messageText: Yup.string()
-    .required("پیغام نمیتونه خالی باشه .")
+    .required("حداقل 3 کاراکتر وارد کنید .")
     .min(3, "حداقل 3 کاراکتر وارد کنید"),
 });
 

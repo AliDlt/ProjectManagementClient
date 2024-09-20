@@ -13,12 +13,12 @@ import useUpdateUser from "../hooks/useUpdateUser";
 import { useQueryClient } from "@tanstack/react-query";
 import useUser from "../hooks/useUser";
 import dayjs from "dayjs";
+import BackButton from "../components/modules/BackButton";
 
 const UserPage = () => {
   const { id } = useParams();
   const toast = useToast();
   const { data, isPending, error } = useUserName(id);
-  console.log(data);
 
   const { user, isLoading } = useUser(id);
   console.log(user);
@@ -45,6 +45,10 @@ const UserPage = () => {
   };
   return (
     <section className="container p-4  flex flex-col  grid-cols-1 gap-10 lg:gap-5 lg:p-0   lg:col-span-9 2xl:col-span-10">
+      <div>
+        <BackButton />
+      </div>
+
       <div className="flex justify-between ">
         <div>
           <h3 className="text-24 font-bold mb-3 px-2">اطلاعات کاربر</h3>
@@ -79,7 +83,8 @@ const UserPage = () => {
         isPending={isPending}
         error={error}
       />
-      {user?.userRole !== 2 && (
+
+      {user?.userRole !== (2 || 3) && data?.data.user.userRole !== 3 && (
         <div className="gap-2 grid grid-cols-1 lg:grid-cols-2  items-start">
           <Projects
             projects={data?.data.projects}

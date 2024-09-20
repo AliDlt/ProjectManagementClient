@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import CustomInput from "../../modules/CustomInput";
 import { GrSearch } from "react-icons/gr";
 import useProjects from "../../../hooks/projects/useProjects";
-import { Card, Empty, Pagination } from "antd";
+import {  Empty, Pagination } from "antd";
 import { convertToLocalDate } from "../../../utils/tools";
 import CustomLoading from "../../modules/CustomLoading";
 
 const SelectProject = ({ setProject }) => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const { data, error, isLoading } = useProjects(10, search, page);
+  const { data, error, isLoading } = useProjects(5, search, page);
   console.log(data)
   console.log(error)
   const changePage = (e) => {

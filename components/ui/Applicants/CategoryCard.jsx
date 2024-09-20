@@ -28,7 +28,7 @@ const CategoryCard = ({ category, onEdit, setCurrentPage }) => {
     <>
       <Link
         to={`/applicants/${_id}`}
-        className=" bg-white rounded-lg shadow p-4 flex flex-col justify-between border-2 border-white hover:border-custom-primary-color"
+        className=" bg-white rounded-custom shadow p-4 flex flex-col justify-between border-2 transition-all border-white hover:border-custom-primary-color"
       >
         {/* Card Content */}
         <div className="flex-1">
@@ -39,7 +39,7 @@ const CategoryCard = ({ category, onEdit, setCurrentPage }) => {
               (user.userRole === 0 || category?.createdBy === user._id) && (
                 <div className="flex gap-2">
                   <span
-                    className="text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
+                    className="text-custom-primary-color transition-all bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();

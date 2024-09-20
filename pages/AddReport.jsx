@@ -67,61 +67,7 @@ const AddReport = () => {
       },
       { onSuccess: successAdd, onError: (e) => console.log(e) },
     );
-    mutate(
-      {
-        name: e.name,
-        startTime,
-        description: e.description,
-        projectId: e.project.id,
-        createdBy: user._id,
-        date: convertMillisecondsToDate(Number(e.createAt)),
-      },
-      { onSuccess: successAdd, onError: (e) => console.log(e) },
-    );
-    mutate(
-      {
-        name: e.name,
-        startTime,
-        description: e.description,
-        projectId: e.project.id,
-        createdBy: user._id,
-        date: convertMillisecondsToDate(Number(e.createAt)),
-      },
-      { onSuccess: successAdd, onError: (e) => console.log(e) },
-    );
-    mutate(
-      {
-        name: e.name,
-        startTime,
-        description: e.description,
-        projectId: e.project.id,
-        createdBy: user._id,
-        date: convertMillisecondsToDate(Number(e.createAt)),
-      },
-      { onSuccess: successAdd, onError: (e) => console.log(e) },
-    );
-    mutate(
-      {
-        name: e.name,
-        startTime,
-        description: e.description,
-        projectId: e.project.id,
-        createdBy: user._id,
-        date: convertMillisecondsToDate(Number(e.createAt)),
-      },
-      { onSuccess: successAdd, onError: (e) => console.log(e) },
-    );
-    mutate(
-      {
-        name: e.name,
-        startTime,
-        description: e.description,
-        projectId: e.project.id,
-        createdBy: user._id,
-        date: convertMillisecondsToDate(Number(e.createAt)),
-      },
-      { onSuccess: successAdd, onError: (e) => console.log(e) },
-    );
+ 
   };
 
   const setDateReport = (e) => {

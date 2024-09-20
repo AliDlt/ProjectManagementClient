@@ -23,7 +23,7 @@ const Logout = ({ close }) => {
   return (
     <div className="mt-4">
       <p className="text-18">ایا میخواهید از حساب خارج شوید ؟</p>
-      <div className="mt-5 flex flex-row-reverse gap-3">
+      <div className="mt-5 flex flex-row-reverse gap-3 items-center">
         <CustomButton
           onClick={logoutAccount}
           className="px-7  h-10 !text-18 text-black bg-white border-custom-primary-color border-2 border-solid hover:text-white"

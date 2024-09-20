@@ -72,15 +72,15 @@ const ReportPage = () => {
       <div className="col-span-1 lg:col-span-11">
         <BackButton />
         <h3 className=" my-6 flex items-center justify-between px-5 gap-4 break-words ">
-          <span className="lg:text-24 text-base   overflow-hidden  font-bold">
+          <span className="lg:text-24 text-base font-bold line-clamp-1">
             {data?.name}
           </span>{" "}
           <CustomButton
             onClick={() => showModalDelete(true)}
-            className="bg-white hover:text-white  w-9 h-9  p-2 text-custom-primary-color transition-all border-2 border-custom-primary-color border-solid rounded-full"
+            className="bg-white hover:text-white ml-1 w-10 h-10   text-custom-primary-color transition-all border-2 border-custom-primary-color border-solid rounded-full"
           >
             <span className="flex items-center justify-center   text-24">
-              <MdDelete />
+              <MdDelete size={24} />
             </span>
           </CustomButton>
         </h3>
@@ -93,7 +93,7 @@ const ReportPage = () => {
             <span>زمان ویرایش به اتمام رسیده است</span>
           </p>
         )}
-        <ReportBox data={data} />
+        <ReportBox data={data} userRole={user?.userRole} />
         <div className="mt-4  flex items-center  ">
           <CustomButton className="py-5  ">
             <Link to={`/projects/${data?.projectId}`}>نمایش پروژه مرتبط </Link>
@@ -101,6 +101,7 @@ const ReportPage = () => {
         </div>
         <ShowFiles
           isEditable={data?.isEditable}
+          userRole={user.userRole}
           action="/api/report/uploadFile"
           data={{ id: data?._id, file: data?.files }}
         />
@@ -109,6 +110,7 @@ const ReportPage = () => {
           isEditable={data?.isEditable}
           id={data?._id}
           data={data?.files}
+          userRole={user.userRole}
         />
       </div>
       <CustomModal

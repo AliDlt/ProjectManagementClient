@@ -17,7 +17,7 @@ import useUpdateReport from "../../../hooks/Report/useUpdateReport";
 import { useToast } from "../../../Context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
 
-const ReportBox = ({ data }) => {
+const ReportBox = ({ data, userRole }) => {
   console.log(data);
   const {
     control,
@@ -80,11 +80,12 @@ const ReportBox = ({ data }) => {
             <h4>
               {" "}
               <span className="font-bold">تاریخ :</span>{" "}
-              <span>{convertToLocalDate(data?.date)}</span>
+              <span>{convertToLocalDate(data?.date && data?.date)}</span>
             </h4>
             <h4>
               {" "}
-              <span className="font-bold">ساعت شروع :</span> {data.startTime}
+              <span className="font-bold">ساعت شروع :</span>{" "}
+              {data.startTime && data.startTime}
             </h4>
           </div>
           <div className="flex justify-between">
@@ -103,8 +104,9 @@ const ReportBox = ({ data }) => {
             <p className="break-words ">{data?.description}</p>
           </div>
         </div>
-        {data?.isEditable && (
-          <div>
+        {console.log(data?.isEditable)}
+        {(data?.isEditable || userRole === 0) && (
+          <div >
             <CustomButton
               onClick={() => showEditor(true)}
               className="rounded-full h-10 w-10 p-2 !text-20"
