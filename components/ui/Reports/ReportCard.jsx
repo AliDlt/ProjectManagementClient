@@ -11,7 +11,7 @@ const ReportCard = (props) => {
       <div className="flex flex-col gap-4  w-full">
         <div className="flex justify-between items-center">
           <h5 className="text-14 line-clamp-1 w-11/12"> عنوان : {title} </h5>
-          <div className="flex items-center text-10">
+          <div className="flex items-center text-10 text-nowrap">
             <span className="text-nowrap"> تاریخ : </span>
             <span>{convertToLocalDate(date)}</span>
           </div>
