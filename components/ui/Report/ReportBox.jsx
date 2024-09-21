@@ -30,8 +30,8 @@ const ReportBox = ({ data, userRole }) => {
     defaultValues: {
       createAt: dayjs(data?.date),
       description: data?.description,
-      min: data?.startTime.split(":")[1],
-      hour: data?.startTime.split(":")[0],
+      min: data?.startTime.split(":")[0],
+      hour: data?.startTime.split(":")[1],
       project: { id: data?.projectId },
       name: data?.name,
     },
@@ -188,7 +188,7 @@ const ReportBox = ({ data, userRole }) => {
                 type="submit"
                 className="rounded-lg"
               >
-                ثبت تغیرات
+                ثبت تغییرات
               </CustomButton>
             </div>
           </form>

@@ -11,9 +11,19 @@ const UserInformation = ({ error, isPending, user, userRole }) => {
   // Assuming data structure
   const customData = [
     {
-      title: "نام و نام خانوادگی",
+      title: "نام ",
       children: user?.name,
       type: "name",
+    },
+    {
+      title: "نام خانوادگی ",
+      children: user?.surName,
+      type: "name",
+    },
+    {
+      title: "نام کاربری",
+      children: user?.username,
+      type: "username",
     },
     {
       title: "شماره موبایل",
@@ -23,17 +33,20 @@ const UserInformation = ({ error, isPending, user, userRole }) => {
           : user?.phoneNumber,
       type: "phoneNumber",
     },
-    {
-      title: "کد ملی",
-      children: user?.nationalCode,
-      type: "nationalCode",
-    },
+
     {
       title: "نقش کاربری",
       children: userRol(user?.userRole),
       type: "userRole",
     },
   ];
+  if (user?.nationalCode) {
+    customData.push({
+      title: "کد ملی",
+      children: user?.nationalCode,
+      type:"nationalCode",
+    });
+  }
 
   return (
     <>

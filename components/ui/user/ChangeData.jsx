@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import React from "react";
-import { useForm } from "react-hook-form";
+import { get, useForm } from "react-hook-form";
 import { IoCloseSharp } from "react-icons/io5";
 import { signupSchema } from "../../../yup/yup";
 import CustomInput from "../../modules/CustomInput";
@@ -15,12 +15,10 @@ import CustomSelectInput from "../../modules/CustomSelectInput";
 
 const ChangeData = ({ type, value, setShow, title, userId }) => {
   // Create a schema for the specific type
-
   const fieldSchema = yup.object({
     [type]: signupSchema.fields[type],
   });
-  console.log(type);
-  console.log(fieldSchema.fields[type]);
+
   const toast = useToast();
   const queryClient = useQueryClient();
 
@@ -38,12 +36,14 @@ const ChangeData = ({ type, value, setShow, title, userId }) => {
   const {
     control,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm({
     mode: "onChange",
-    defaultValues: { [type]: value },
+    defaultValues: { [type]: value, isForeign: false },
     resolver: yupResolver(fieldSchema),
   });
+  console.log(getValues('isForeign'))
   console.log(errors.name);
   const { id } = useParams();
   const { mutate, isPending } = useUpdateUser();
@@ -58,7 +58,7 @@ const ChangeData = ({ type, value, setShow, title, userId }) => {
 
   return (
     <div>
-      <div className="mt-8">
+      <div className="mt-0">
         <form
           onSubmit={handleSubmit(updateData)}
           className="flex gap-4 flex-col "

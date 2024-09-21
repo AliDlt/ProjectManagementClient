@@ -1,6 +1,6 @@
 import React from "react";
 import CustomInput from "../components/modules/CustomInput";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addUserSchema } from "../yup/yup";
 import CustomSelectInput from "../components/modules/CustomSelectInput";
@@ -10,10 +10,13 @@ import useAddUser from "../hooks/useAddUser";
 import { useToast } from "../Context/ToastContext";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../components/modules/BackButton";
+import { Checkbox } from "antd";
+import {  convertToInternational } from "../utils/tools";
 
 const AddUser = () => {
   const {
     control,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(addUserSchema) });
@@ -21,8 +24,8 @@ const AddUser = () => {
   const userRol = [
     { name: "مدیریت کل", id: 0 },
     { name: "سر پرست پروژه", id: 1 },
-    { name: "ناظر پروژه", id: 2 },  
-    { name: "پذیرش", id: 3 },  
+    { name: "ناظر پروژه", id: 2 },
+    { name: "پذیرش", id: 3 },
   ];
 
   const toast = useToast();
@@ -33,11 +36,13 @@ const AddUser = () => {
     navigate(`/users/${res.data._id}`);
   };
   const errorAddUser = (res) => {
+    console.log(res);
     toast(res.response.data.message, "error");
   };
 
   const submitUser = (e) => {
-    mutate(e, {
+    const copy = { ...e, phoneNumber: convertToInternational(e.phoneNumber) };
+    mutate(copy, {
       onSuccess: successAddUser,
       onError: errorAddUser,
     });
@@ -49,54 +54,78 @@ const AddUser = () => {
           <BackButton />
         </div>
         <h4 className="text-24 font-bold">افزودن کاربر</h4>
-        <form
-          onSubmit={handleSubmit(submitUser)}
-          className="flex flex-col gap-5 lg:grid grid-cols-2  "
-        >
-          <CustomInput
-            control={control}
-            placeholder={"نام و نام خانوادگی"}
-            className="p-3"
-            name="name"
-            error={errors["name"]}
-          />
-          <CustomInput
-            control={control}
-            placeholder={"نام کاربری"}
-            className="p-3"
-            name="username"
-            error={errors["username"]}
-          />
-          <CustomInput
-            control={control}
-            placeholder={"کد ملی"}
-            className="p-3"
-            name="nationalCode"
-            error={errors["nationalCode"]}
-          />
-          <CustomInput
-            control={control}
-            placeholder={"شماره همراه"}
-            className="p-3"
-            name="phoneNumber"
-            error={errors["phoneNumber"]}
-          />
-          <CustomPasswordInput
-            control={control}
-            placeholder={"رمز عبور"}
-            className="p-3"
-            name="password"
-            error={errors["password"]}
-          />
-          <CustomSelectInput
-            options={userRol}
-            control={control}
-            placeholder={"نقش کاربری"}
-            className="py-6"
-            name="userRole"
-            error={errors["userRole"]}
-          />
+        <form onSubmit={handleSubmit(submitUser)} className="  ">
+          <div className="flex flex-col gap-5 lg:grid grid-cols-2 ">
+            <CustomInput
+              control={control}
+              placeholder={"نام "}
+              className="p-3"
+              name="name"
+              error={errors["name"]}
+            />
+            <CustomInput
+              control={control}
+              placeholder={" نام خانوادگی"}
+              className="p-3"
+              name="surName"
+              error={errors["surName"]}
+            />
+            <CustomInput
+              control={control}
+              placeholder={"نام کاربری"}
+              className="p-3"
+              name="username"
+              error={errors["username"]}
+            />
+            {!watch("isForeign") && (
+              <CustomInput
+                control={control}
+                placeholder={"کد ملی"}
+                className="p-3"
+                name="nationalCode"
+                error={errors["nationalCode"]}
+              />
+            )}
+            <CustomInput
+              control={control}
+              placeholder={"شماره همراه"}
+              className="p-3"
+              name="phoneNumber"
+              error={errors["phoneNumber"]}
+            />
+            <CustomPasswordInput
+              control={control}
+              placeholder={"رمز عبور"}
+              className="p-3"
+              name="password"
+              error={errors["password"]}
+            />
+            <CustomSelectInput
+              options={userRol}
+              control={control}
+              placeholder={"نقش کاربری"}
+              className="py-6"
+              name="userRole"
+              error={errors["userRole"]}
+            />
+          </div>
           <div>
+            <Controller
+              control={control}
+              name="isForeign"
+              render={({ field: { value, ...rest } }) => (
+                <Checkbox
+                  className="text-nowrap text-12 mt-4 md:text-base"
+                  onChange={(e) => onChange(e.target.checked)}
+                  checked={value}
+                  {...rest}
+                >
+                  اتباع خارجی هستم
+                </Checkbox>
+              )}
+            />
+          </div>
+          <div className="mt-4">
             <CustomButton loading={isPending} type="submit">
               ثبت کاربر
             </CustomButton>

@@ -17,8 +17,8 @@ import ImageVideoSlide from "../ImageVideoSlide";
 import { IoClose } from "react-icons/io5";
 const popoverContent = (
   <div className="flex flex-col gap-2 text-12">
-    <p>ویدئو ها با حجم 10 مگابایت</p>
-    <p>عکس ها با حجم 2 مگابایت</p>
+    <p>ویدئو ها با حجم 50 مگابایت</p>
+    <p>عکس ها با حجم 50 مگابایت</p>
   </div>
 );
 
@@ -117,16 +117,16 @@ const ReportGallery = ({ id, data, isEditable }) => {
       (info.file.type === "image/jpeg" ||
         info.file.type === "image/jpg" ||
         info.file.type === "image/png") &&
-      info.file.size > 2097152 // 2 مگابایت
+      info.file.size > 5197152 // 
     ) {
-      return toast("حجم تصویر باید کمتر از 2 مگابایت باشد", "error");
+      return toast("حجم تصویر باید کمتر از 50 مگابایت باشد", "error");
     }
 
     if (
       (info.file.type === "video/mp4" || info.file.type === "video/mpeg") &&
-      info.file.size > 10485760 // 10 مگابایت
+      info.file.size > 51485760 //
     ) {
-      return toast("حجم ویدئو باید کمتر از 10 مگابایت باشد", "error");
+      return toast("حجم ویدئو باید کمتر از 50 مگابایت باشد", "error");
     }
 
     if (info.file.type.includes("image")) {

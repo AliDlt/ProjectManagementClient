@@ -40,11 +40,10 @@ export const signupSchema = Yup.object({
 
 // Login Schema
 export const loginSchema = Yup.object({
-  username: Yup.string()
-    .matches(
-      /^[a-zA-Z]{1,}\d*$/,
-      "نام کاربری باید انگلیسی باشد و با حروف آغاز شود",
-    ),
+  username: Yup.string().matches(
+    /^[a-zA-Z]{1,}\d*$/,
+    "نام کاربری باید انگلیسی باشد و با حروف آغاز شود",
+  ),
   password: Yup.string().required("این فیلد اجباری است."),
 });
 
@@ -111,6 +110,12 @@ export const addUserSchema = Yup.object({
 
     .max(25, "حد اکثر 25 کاراکتر وارد کنید")
     .matches(/[\u0600-\u06FF]/, "لطفا فارسی وارد کنید"),
+  surName: Yup.string()
+    .required("این فیلد اجباری است.")
+    .min(3, "حد اقل 3 کاراکتر وارد کنید")
+
+    .max(25, "حد اکثر 25 کاراکتر وارد کنید")
+    .matches(/[\u0600-\u06FF]/, "لطفا فارسی وارد کنید"),
   phoneNumber: Yup.string()
     .required("این فیلد اجباری است.")
     .matches(/^((\+98|0)9\d{9})$/, "لطفا شماره تلفن معتبر وارد کنید"),
@@ -127,10 +132,16 @@ export const addUserSchema = Yup.object({
     .required("این فیلد اجباری است.")
     .min(5, "حد اقل 5 کاراکتر وارد کنید")
     .max(25, "حداکثر 25 کاراکتر وارد کنید"),
-  nationalCode: Yup.string().matches(
-    /^(?!(\d)\1{9})\d{10}$/,
-    "کد ملی باید 10 رقمی باشد",
-  ),
+  isForeign: Yup.boolean(),
+
+  nationalCode: Yup.string().when("isForeign", {
+    is: false,
+    then: (schema) =>
+      schema
+        .required("این فیلد اجباری است.")
+        .matches(/^(?!(\d)\1{9})\d{10}$/, "کد ملی باید 10 رقمی باشد"),
+  }),
+
   userRole: Yup.number().required("این فیلد اجباری است "),
 });
 
