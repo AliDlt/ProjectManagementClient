@@ -19,7 +19,7 @@ import { filterFile, imageTypes, videoFormats } from "../../../utils/tools";
 import { useQueryClient } from "@tanstack/react-query";
 const popoverContent = (
   <div className="flex flex-col gap-2 text-12">
-    <p>اسناد با حجم حد اکثر 5 مگابایت</p>
+    <p>اسناد با حجم حد اکثر 50 مگابایت</p>
   </div>
 );
 
@@ -58,8 +58,8 @@ const ShowFiles = ({ data, isEditable }) => {
     console.log(file);
     if (file.filename !== "file") {
       return toast("لطفا یک فایل را انتخاب کنید", "error");
-    } else if (fileSizeInMB > 20) {
-      return toast("فایل انختابی شما حد اکثر باید 10 مگابایت باشد", "error");
+    } else if (fileSizeInMB > 50) {
+      return toast("فایل انختابی شما حد اکثر باید 50 مگابایت باشد", "error");
     } else {
       selectFile(file);
     }
@@ -116,7 +116,7 @@ const ShowFiles = ({ data, isEditable }) => {
           </div>
         )}
       </div>
-      {filterFile(data.file, "file")?.length ? (
+      {filterFile(data.file, "file")?.length!==0 ? (
         <Files>
           <>
             {data?.file?.map((item, key) => {

@@ -59,7 +59,7 @@ const UserPage = () => {
             />
             {user?.userRole === 0 && (
               <CustomButton
-                loading={loading}
+                loading={loading || isLoading}
                 onClick={changeStatus}
                 className="text-12 font-bold flex  items-center gap-2  text-white bg-custom-primary-color px-3 py-1 rounded-xl"
               >

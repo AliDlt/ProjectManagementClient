@@ -22,7 +22,6 @@ const CustomTextAria = ({
         <TextArea
       
 
-          showCount
           id={name}
           value={value}
           onBlurCapture={() => {
