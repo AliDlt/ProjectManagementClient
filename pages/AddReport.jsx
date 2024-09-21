@@ -55,7 +55,7 @@ const AddReport = () => {
   const { mutate, isPending } = useAddReport();
 
   const addReport = (e) => {
-    const startTime = `${e.min.toString().padStart(2, "0")}:${e.hour.toString().padStart(2, "0")}`;
+    const startTime = `${e.min.toString().padStart(2, "0")} : ${e.hour.toString().padStart(2, "0")}`;
     mutate(
       {
         name: e.name,
