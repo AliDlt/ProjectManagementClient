@@ -6,6 +6,7 @@ import CustomModal from "../modules/CustomModal";
 import CustomConfirm from "../modules/CustomConfirm";
 import cn from "../../utils/cn";
 import { IoMdDownload } from "react-icons/io";
+import CustomLoading from "../modules/CustomLoading";
 
 function ImageVideoSlide({ file, deleteFileMutate, deleteFilePending }) {
   const [openDeleteFileModal, setOpenDeleteFileModal] = useState(false);
@@ -56,6 +57,7 @@ function ImageVideoSlide({ file, deleteFileMutate, deleteFilePending }) {
               mask: "بزرگ نمایی",
             }}
             fallback="/images/download.png"
+            placeholder={<CustomLoading />}
           />
           <p className="truncate">{file.description}</p>
         </>

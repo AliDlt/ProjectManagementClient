@@ -164,7 +164,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
         }}
       >
         <CustomInput
-          className="hidden py-1 rounded-custom w-72 ml-auto  md:flex mt-5"
+          className="hidden py-1 rounded-custom w-72 ml-auto md:flex"
           placeholder="جستجو"
           value={searchAllUsers}
           onChange={(e) => setSearchAllUsers(e.target.value)}

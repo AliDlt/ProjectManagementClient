@@ -23,8 +23,8 @@ import { imageTypes, videoFormats } from "../../../../utils/tools";
 // Popover Content
 const popoverContent = (
   <div className="flex flex-col gap-2 text-12">
-    <p>ویدئو ها تا حجم 30 مگابایت</p>
-    <p>عکس ها تا حجم 10 مگابایت</p>
+    <p>ویدئو ها تا حجم 50 مگابایت</p>
+    <p>عکس ها تا حجم 50 مگابایت</p>
   </div>
 );
 
@@ -84,9 +84,9 @@ function ProjectGallery({ projectGalleryData, projectId }) {
     }
     // check file size
     if (info.filename === "image" && fileSize > filesSize.image)
-      return toast("حجم تصویر باید کمتر از 10 مگابایت باشد", "error");
+      return toast("حجم تصویر باید کمتر از 50 مگابایت باشد", "error");
     if (info.filename === "video" && fileSize > filesSize.video)
-      return toast("حجم ویدئو باید کمتر از 30 مگابایت باشد", "error");
+      return toast("حجم ویدئو باید کمتر از 50 مگابایت باشد", "error");
 
     // set preview
     if (info.filename === "image") {
@@ -163,10 +163,10 @@ function ProjectGallery({ projectGalleryData, projectId }) {
           onCancel={() => setOpenAddFileModal(false)}
         >
           <form>
-            <div className="flex flex-col justify-center sm:items-center gap-5 mt-5 sm:flex-row">
+            <div className="flex flex-col justify-center sm:items-center gap-5 sm:flex-row">
               {/* Image */}
               <div className="flex flex-col flex-1 gap-2">
-                <span>عکس ها با حجم 10 مگابایت</span>
+                <span>عکس ها با حجم 50 مگابایت</span>
                 <CustomUpload
                   title="بارگزاری تصویر"
                   className="w-full"
@@ -203,7 +203,7 @@ function ProjectGallery({ projectGalleryData, projectId }) {
               </div>
               {/* Video */}
               <div className="flex flex-col flex-1 gap-2 ">
-                <span>ویدئو ها با حجم 30 مگابایت</span>
+                <span>ویدئو ها با حجم 50 مگابایت</span>
                 <CustomUpload
                   title="بارگزاری ویدئو"
                   className="w-full"

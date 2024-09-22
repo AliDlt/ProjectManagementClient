@@ -61,7 +61,7 @@ const CategoryCard = ({ category, onEdit, setCurrentPage }) => {
                 </div>
               )}
           </div>
-          <p className="text-sm text-gray-600 break-words line-clamp-2">
+          <p className="text-sm text-gray-600 break-words line-clamp-1">
             {description}
           </p>
         </div>

@@ -116,7 +116,7 @@ function AddApplicantForm({
       onSubmit={handleSubmit(
         !applicantInfo ? addApplicantHandler : updateApplicantHanler,
       )}
-      className="grid grid-cols-1 gap-x-10 gap-y-5 mt-5 sm:grid-cols-2 lg:grid-cols-3"
+      className="grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2 lg:grid-cols-3"
     >
       <div className="flex flex-col gap-2">
         <label htmlFor="firstName">نام :</label>

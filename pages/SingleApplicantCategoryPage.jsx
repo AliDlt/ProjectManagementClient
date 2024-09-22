@@ -72,7 +72,7 @@ function SingleApplicantCategoryPage() {
     <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10">
       {/* Header */}
       <div className="flex flex-wrap items-center gap-5">
-        <BackButton />
+        <BackButton customPath="/applicants" />
         <h1 className="text-2xl py-4">دسته بندی {category?.name}</h1>
       </div>
       <div className="flex justify-between items-center gap-3 mb-10 mt-2">
