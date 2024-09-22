@@ -151,7 +151,7 @@ function ProjectInfo({ projectInfoData }) {
         onCancel={() => setOpen(false)}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex justify-between items-center mt-5">
+          <div className="flex justify-between items-center">
             <div className="flex justify-center items-center gap-2">
               <span className="hidden md:block">شروع</span>
               <CustomDatePicker

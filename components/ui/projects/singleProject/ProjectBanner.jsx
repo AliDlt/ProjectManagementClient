@@ -1,6 +1,7 @@
 import { Empty, Image } from "antd";
 import { useEffect, useState } from "react";
 import { CiImageOff } from "react-icons/ci";
+import CustomLoading from "../../../modules/CustomLoading";
 
 function ProjectBanner({ projectBannerData }) {
   const { _id, files } = projectBannerData;
@@ -37,6 +38,7 @@ function ProjectBanner({ projectBannerData }) {
           src={firstImage.fileURL}
           alt={firstImage.description}
           fallback="/images/download.png"
+          placeholder={<CustomLoading />}
         />
       )}
       <span className="absolute bg-white flex rounded-lg top-5 right-5 px-3 py-1 border-2 border-custom-primary-color text-12">
