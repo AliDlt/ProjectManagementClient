@@ -58,6 +58,7 @@ function ImageVideoSlide({ file, deleteFileMutate, deleteFilePending }) {
             }}
             fallback="/images/download.png"
             placeholder={<CustomLoading />}
+            loading="lazy"
           />
           <p className="truncate">{file.description}</p>
         </>
