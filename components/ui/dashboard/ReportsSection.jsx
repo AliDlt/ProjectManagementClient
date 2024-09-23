@@ -35,7 +35,7 @@ function ReportsSection() {
             <CustomLoading />
           </div>
         ) : (
-          reportsData.reports?.map((report) => (
+          reportsData?.reports?.map((report) => (
             <ReportItem
               key={report._id}
               desc={report.description}
