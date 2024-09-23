@@ -18,7 +18,11 @@ const ReportCard = (props) => {
         </div>
         <p className="text-12">
           <span>نویسنده : </span>
+          {createBy ?
           <span> {createBy?.name} {createBy?.surName} </span>
+         : <span>
+            کاربر حذف شده
+          </span>}
         </p>
         <p className="line-clamp-1 text-12 text-start">
           {" "}

@@ -73,15 +73,26 @@ const ReportBox = ({ data, userRole }) => {
   };
   return (
     <div>
-      <section className="border-2 flex justify-between  bg-white rounded-custom  border-custom-primary-color p-4 md:px-6 md:py-4 ">
-        <div className="flex flex-col overflow-hidden ">
+      <section className="border-2  relative flex justify-between  bg-white rounded-custom  border-custom-primary-color p-4 md:px-6 md:py-4 ">
+        <div className="flex flex-col overflow-hidden w-full ">
           <div className="flex gap-2 flex-col ">
             {" "}
-            <h4>
-              {" "}
-              <span className="font-bold">تاریخ :</span>{" "}
-              <span>{convertToLocalDate(data?.date && data?.date)}</span>
-            </h4>
+            <div className="flex  gap-3 flex-wrap mb-3 items-center  ">
+              <h4>
+                {" "}
+                {console.log(data)}
+                <span className="font-bold">تاریخ بارگذاری:</span>{" "}
+                <span>
+                  {convertToLocalDate(data?.createdAt && data?.createdAt)}
+                </span>
+                
+              </h4>
+              <h4>
+                {" "}
+                <span className="font-bold">تاریخ گزارش:</span>{" "}
+                <span>{convertToLocalDate(data?.date && data?.date)}</span>
+              </h4>
+            </div>
             <h4>
               {" "}
               <span className="font-bold">ساعت شروع :</span>{" "}
@@ -92,21 +103,22 @@ const ReportBox = ({ data, userRole }) => {
             <div className=" flex gap-2 items-center">
               <div className="text-14 md:text-16 mt-2 ">
                 <span className="font-semibold ">نویسنده : </span>
+                {data?.createdBy ? 
                 <span className="font-semibold">
-                  {" "}
                   {data?.createdBy?.name} {data?.createdBy?.surName}{" "}
                 </span>
+                : <span className="font-semibold"> کاربر حذف شده </span>}
               </div>
             </div>
           </div>
 
-          <div className="mt-2 text-14 md:text-16 text-wrap w-full  ">
+          <div className="mt-6 border-t border-custom-primary-color pt-4 text-14 md:text-16 text-wrap w-full  ">
             <p className="break-words ">{data?.description}</p>
           </div>
         </div>
         {console.log(data?.isEditable)}
         {(data?.isEditable || userRole === 0) && (
-          <div >
+          <div className="absolute left-4 top-4">
             <CustomButton
               onClick={() => showEditor(true)}
               className="rounded-full h-10 w-10 p-2 !text-20"
