@@ -6,7 +6,7 @@ function useUser() {
 
   const userFromCache = queryClient.getQueryData(["user"]);
 
-  const { data: user, isLoading } = useQuery({
+  const { data: user, isLoading ,error} = useQuery({
     queryKey: ["user"],
     queryFn: getUser,
     initialData: userFromCache,
@@ -14,7 +14,7 @@ function useUser() {
     retry: false,
   });
 
-  return { user, isLoading };
+  return { user, isLoading,error };
 }
 
 export default useUser;

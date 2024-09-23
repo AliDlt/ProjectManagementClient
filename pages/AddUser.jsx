@@ -11,7 +11,7 @@ import { useToast } from "../Context/ToastContext";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../components/modules/BackButton";
 import { Checkbox } from "antd";
-import {  convertToInternational } from "../utils/tools";
+import { convertToInternational } from "../utils/tools";
 
 const AddUser = () => {
   const {
@@ -41,7 +41,12 @@ const AddUser = () => {
   };
 
   const submitUser = (e) => {
-    const copy = { ...e, phoneNumber: convertToInternational(e.phoneNumber) };
+    console.log(e);
+
+    let copy = { ...e, phoneNumber: convertToInternational(e.phoneNumber) };
+    if (!e.isForeign) {
+      copy.isForeign = false;
+    }
     mutate(copy, {
       onSuccess: successAddUser,
       onError: errorAddUser,

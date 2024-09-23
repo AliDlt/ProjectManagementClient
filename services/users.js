@@ -20,7 +20,7 @@ export const deleteUser = async (userId) => {
   return res.data.data;
 };
 
-export const allUsers = async () => {
-  const res = await http.get(`/user/getAllUsers`);
+export const allUsers = async (count  = 10 , page =  1 ) => {
+  const res = await http.get(`/user/getAllUsers?count=${count}&page=${page}`);
   return res.data;
 };
