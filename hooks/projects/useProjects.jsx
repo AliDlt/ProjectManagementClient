@@ -14,12 +14,6 @@ const useProjects = (count, search, page) => {
   } = useMutation({
     mutationKey: ["projects"],
     mutationFn: getAllProjects,
-    onError: (error) => {
-      if (error.response.data.errors?.length > 0)
-        return toast(error?.response?.data?.errors[0], "error");
-
-      return toast(error?.response?.data?.message, "error");
-    },
   });
 
   const fetchProjects = async () => {

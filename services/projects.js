@@ -11,12 +11,14 @@ export const getAllProjects = async ({ count, search, page = undefined }) => {
 };
 
 // Get A Project
-export const getProject = async (projectId = "", search = "") => {
-  const res = await http.get(
-    `/project/getProjectById?id=${projectId}&search=${search}`,
-  );
-
-  return res.data;
+export const getProject = async (projectId, search) => {
+  const res = await http.get("/project/getProjectById", {
+    params: {
+      id: projectId,
+      search,
+    },
+  });
+  return res?.data;
 };
 
 // Get Projects Total Pages

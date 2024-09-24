@@ -41,7 +41,8 @@ function SingleApplicantCategoryPage() {
     applicantId,
     value,
   );
-  const { categoryData, categoryLoading } = useCategory(applicantId);
+  const { categoryData, categoryLoading, categoryError } =
+    useCategory(applicantId);
   const category = categoryData?.data;
   const applicants = allApplicants?.applicants || [];
 
@@ -58,6 +59,20 @@ function SingleApplicantCategoryPage() {
       <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10 flex flex-col justify-center items-center h-96 gap-5">
         <CustomLoading />
       </section>
+    );
+
+  if (categoryError)
+    return (
+      <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-[30rem] flex flex-col gap-5 justify-center items-center">
+        <Empty
+          description={
+            categoryError.response.data.errors
+              ? categoryError.response.data.errors[0]
+              : categoryError.response.data.message
+          }
+        />
+        <BackButton title="صفحه دسته بندی متقاضیان" />
+      </div>
     );
 
   // No Category
@@ -144,7 +159,7 @@ function SingleApplicantCategoryPage() {
             dataIndex={["address", "addressDetail"]}
             key="addressDetail"
             width={100}
-            render={(value, record) => <p className="line-clamp-2">{value}</p>}
+            render={(value) => <p className="line-clamp-2">{value || "-"}</p>}
           />
           <Column
             title="تغییرات"
