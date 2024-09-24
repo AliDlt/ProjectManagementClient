@@ -15,7 +15,13 @@ function useUsers(userRole, page, count, search, sort) {
   });
 
   useEffect(() => {
-    if (!isLoading && error) toast(error?.response?.data?.message, "error");
+    if (!isLoading && error) {
+      if (error?.response?.data?.errors) {
+        toast(error?.response?.data?.errors[0], "error");
+      } else if (error?.response?.data?.message) {
+        toast(error?.response?.data?.message, "error");
+      }
+    }
   }, [error, isLoading]);
 
   const users = data?.users || [];

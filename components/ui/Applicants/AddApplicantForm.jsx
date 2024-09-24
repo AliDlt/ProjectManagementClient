@@ -30,6 +30,11 @@ function AddApplicantForm({
     clearErrors,
     reset,
   } = useForm({
+    defaultValues: {
+      birthDate: null,
+      addressDetail: null,
+      additionalNotes: null,
+    },
     resolver: yupResolver(applicant),
     mode: "onChange",
   });
@@ -67,18 +72,28 @@ function AddApplicantForm({
 
   // Add Applicant Handler
   const addApplicantHandler = async (values) => {
-    const { city, addressDetail, postalCode, province, phoneNumber, ...rest } =
-      values;
+    const {
+      city,
+      addressDetail,
+      postalCode,
+      province,
+      phoneNumber,
+      additionalNotes,
+      birthDate,
+      ...rest
+    } = values;
     const data = {
       ...rest,
       address: {
-        city,
-        addressDetail,
         postalCode,
-        province,
+        ...(addressDetail !== "" ? addressDetail : {}),
+        ...(city !== "" ? city : {}),
+        ...(province !== "" ? province : {}),
       },
       phoneNumber: convertToInternational(phoneNumber),
       category: applicantId,
+      ...(birthDate !== "" ? birthDate : {}),
+      ...(additionalNotes !== "" ? additionalNotes : {}),
     };
 
     try {
@@ -116,7 +131,7 @@ function AddApplicantForm({
       onSubmit={handleSubmit(
         !applicantInfo ? addApplicantHandler : updateApplicantHanler,
       )}
-      className="grid grid-cols-1 gap-x-10 gap-y-5 mt-5 sm:grid-cols-2 lg:grid-cols-3"
+      className="grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2 lg:grid-cols-3"
     >
       <div className="flex flex-col gap-2">
         <label htmlFor="firstName">نام :</label>

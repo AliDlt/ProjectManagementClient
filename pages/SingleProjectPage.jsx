@@ -16,6 +16,7 @@ import CustomModal from "../components/modules/CustomModal";
 import ProjectsReportsModal from "../components/ui/projects/singleProject/ProjectsReportsModal";
 import ProjectFiles from "../components/ui/projects/singleProject/ProjectFiles";
 import BackButton from "../components/modules/BackButton";
+import { Empty } from "antd";
 
 function SingleProjectPage() {
   const { user, isLoading: userLoading } = useUser();
@@ -43,12 +44,16 @@ function SingleProjectPage() {
   if (!isLoading && error)
     return (
       <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-[30rem] flex flex-col justify-center items-center gap-5">
-        {error.response.data.errors
-          ? error.response.data.errors[0]
-          : error.response.data.message}
-       <CustomButton onClick={()=>navigate('/projects',{replace:true})}>
-        بازگشت به صفحه پروژه ها
-       </CustomButton>
+        <Empty
+          description={
+            error?.response?.data?.errors
+              ? error?.response?.data?.errors[0]
+              : error?.response?.data?.message
+          }
+        />
+        <CustomButton onClick={() => navigate("/projects", { replace: true })}>
+          بازگشت به صفحه پروژه ها
+        </CustomButton>
       </div>
     );
 
@@ -57,6 +62,17 @@ function SingleProjectPage() {
     return (
       <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-96">
         <CustomLoading />
+      </div>
+    );
+
+  // No Data
+  if (!project)
+    return (
+      <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 flex flex-col gap-5 justify-center items-center h-[30rem]">
+        <Empty description="پروژه یافت نشد" className="text-16" />
+        <CustomButton onClick={() => navigate("/projects", { replace: true })}>
+          بازگشت به صفحه پروژه ها
+        </CustomButton>
       </div>
     );
 

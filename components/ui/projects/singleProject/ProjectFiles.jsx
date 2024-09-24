@@ -51,7 +51,7 @@ function ProjectFiles({ projectId, files }) {
     if (file.filename !== "file")
       return toast("لطفا یک فایل را انتخاب کنید", "error");
     if (file.file.size > filesSize.file)
-      return toast("فایل انتخابی شما حد اکثر باید 10 مگابایت باشد", "error");
+      return toast("فایل انتخابی شما حد اکثر باید 50 مگابایت باشد", "error");
 
     setSelectedFile(file);
   };
@@ -128,11 +128,11 @@ function ProjectFiles({ projectId, files }) {
         onCancel={() => setOpenAddFileModal(false)}
       >
         <form>
-          <div className="flex flex-col justify-center sm:items-center gap-5 mt-5 sm:flex-row">
+          <div className="flex flex-col justify-center sm:items-center gap-5 sm:flex-row">
             {/* File */}
             <div className="flex flex-col flex-1 gap-2">
               <div className="flex flex-col flex-1 gap-2">
-                <p>اسناد با حجم حداکثر 10 مگابایت</p>
+                <p>اسناد با حجم حداکثر 50 مگابایت</p>
                 <CustomUpload
                   customRequest={customUploadFile}
                   preview={selectedFile && Preview(selectedFile)}

@@ -1,21 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import { getProjectFiles } from "../../services/projects";
 import { useEffect, useState } from "react";
-import { useToast } from "../../Context/ToastContext";
 
-function useProjectFiles(data) {
-  const toast = useToast();
+function useProjectFiles(data, refetchRef) {
   const [projectFile, setProjectFile] = useState(false);
 
   const { mutateAsync, isPending, error } = useMutation({
     mutationKey: ["get-project-files"],
     mutationFn: getProjectFiles,
-    onError: (error) => {
-      if (error.response.data.errors?.length > 0)
-        return toast(error?.response?.data?.errors[0], "error");
-
-      return toast(error?.response?.data?.message, "error");
-    },
   });
 
   const fetchProjectFiles = async () => {
@@ -25,7 +17,7 @@ function useProjectFiles(data) {
 
   useEffect(() => {
     fetchProjectFiles();
-  }, [data?.page]);
+  }, [data?.page, refetchRef]);
 
   return { projectFile, isPending, error };
 }

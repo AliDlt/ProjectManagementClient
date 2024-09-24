@@ -19,6 +19,7 @@ import CustomConfirm from "../components/modules/CustomConfirm";
 import useDeleteApplicant from "../hooks/applicants/useDeleteApplicant";
 import CustomLoading from "../components/modules/CustomLoading";
 import { useDebounce } from "use-debounce";
+import { Empty } from "antd";
 
 function SingleApplicantCategoryPage() {
   const { applicantId } = useParams();
@@ -40,7 +41,8 @@ function SingleApplicantCategoryPage() {
     applicantId,
     value,
   );
-  const { categoryData, categoryLoading } = useCategory(applicantId);
+  const { categoryData, categoryLoading, categoryError } =
+    useCategory(applicantId);
   const category = categoryData?.data;
   const applicants = allApplicants?.applicants || [];
 
@@ -59,11 +61,25 @@ function SingleApplicantCategoryPage() {
       </section>
     );
 
+  if (categoryError)
+    return (
+      <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-[30rem] flex flex-col gap-5 justify-center items-center">
+        <Empty
+          description={
+            categoryError.response.data.errors
+              ? categoryError.response.data.errors[0]
+              : categoryError.response.data.message
+          }
+        />
+        <BackButton title="صفحه دسته بندی متقاضیان" />
+      </div>
+    );
+
   // No Category
   if (!categoryLoading && !category)
     return (
       <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10 flex flex-col justify-center items-center h-[30rem] gap-5">
-        <span>دسته بندی یافت نشد</span>
+        <Empty className="text-14" description="دسته بندی یافت نشد" />
         <BackButton />
       </section>
     );
@@ -72,7 +88,7 @@ function SingleApplicantCategoryPage() {
     <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10">
       {/* Header */}
       <div className="flex flex-wrap items-center gap-5">
-        <BackButton />
+        <BackButton customPath="/applicants" />
         <h1 className="text-2xl py-4">دسته بندی {category?.name}</h1>
       </div>
       <div className="flex justify-between items-center gap-3 mb-10 mt-2">
@@ -143,7 +159,7 @@ function SingleApplicantCategoryPage() {
             dataIndex={["address", "addressDetail"]}
             key="addressDetail"
             width={100}
-            render={(value, record) => <p className="line-clamp-2">{value}</p>}
+            render={(value) => <p className="line-clamp-2">{value || "-"}</p>}
           />
           <Column
             title="تغییرات"

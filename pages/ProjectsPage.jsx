@@ -63,27 +63,31 @@ function ProjectsPage() {
         )}
       </div>
       <div className="mt-10">
-        <CustomInput
-          className=" py-2 lg:py-2.5 rounded-custom w-full lg:w-1/3 md:w-80 ml-auto"
-          placeholder="جستجو"
-          onChange={(event) => {
-            setSearch(event.target.value.trim());
-            searchHandler(event);
-          }}
-          value={search}
-          icon={
-            <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
-          }
-          type="search"
-        />
+        {data && (
+          <CustomInput
+            className=" py-2 lg:py-2.5 rounded-custom w-full lg:w-1/3 md:w-80 ml-auto"
+            placeholder="جستجو"
+            onChange={(event) => {
+              setSearch(event.target.value.trim());
+              searchHandler(event);
+            }}
+            value={search}
+            icon={
+              <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
+            }
+            type="search"
+          />
+        )}
       </div>
-      <div className=" grid grid-cols-1 md:grid-cols-2 mt-10 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 mt-10">
         {!isLoading && !data && (
           <Empty
             className="w-full col-span-full h-80 flex flex-col justify-center items-center"
             description=" پروژه ای وجود ندارد"
           />
         )}
+      </div>
+      <div className=" grid grid-cols-1 md:grid-cols-2 gap-5">
         {isLoading ? (
           <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-96">
             <CustomLoading />

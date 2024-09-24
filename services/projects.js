@@ -11,12 +11,14 @@ export const getAllProjects = async ({ count, search, page = undefined }) => {
 };
 
 // Get A Project
-export const getProject = async (projectId = "", search = "") => {
-  const res = await http.get(
-    `/project/getProjectById?id=${projectId}&search=${search}`,
-  );
-
-  return res.data;
+export const getProject = async (projectId, search) => {
+  const res = await http.get("/project/getProjectById", {
+    params: {
+      id: projectId,
+      search,
+    },
+  });
+  return res?.data;
 };
 
 // Get Projects Total Pages
@@ -72,6 +74,18 @@ export const deleteProject = async (projectId) => {
 // Get Project Files
 export const getProjectFiles = async (data) => {
   const res = await http.post("/project/downloadFile", data);
+
+  return res.data;
+};
+
+// Get User Projects
+export const getUserProject = async (userId, page) => {
+  const res = await http.get("/project/getAllProjectsByUserId", {
+    params: {
+      userId,
+      page,
+    },
+  });
 
   return res.data;
 };

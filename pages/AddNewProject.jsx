@@ -78,19 +78,20 @@ function AddNewProject() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onSubmitError)}
-      className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 flex flex-col">
-        <div className="my-3">
-          <BackButton />
-        </div>
+      className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 flex flex-col"
+    >
       <div className="flex justify-between items-center">
-        <h1 className=" text-24 lg:text-32">پروژه جدید</h1>
+        <div className=" flex items-center gap-5">
+          <BackButton />
+          <h1 className="text-24">پروژه جدید</h1>
+        </div>
         <CustomButton type="submit" loading={isPending}>
           ثبت پروژه
         </CustomButton>
       </div>
       <div>
         {/* Project Info */}
-        <div className="bg-white p-5 border-2 border-custom-primary-color rounded-custom mt-10 xl:flex xl:gap-10 xl:justify-between">
+        <div className="bg-white p-5 border-2 border-custom-primary-color rounded-custom mt-5 xl:flex xl:gap-10 xl:justify-between">
           <div>
             <div className="flex justify-between items-center md:justify-start xl:order-2 md:gap-5">
               <div className="flex justify-center items-center gap-2">
@@ -141,7 +142,6 @@ function AddNewProject() {
                   name="progress"
                   className="px-2 py-1.5 w-16"
                   placeholder="0"
-                  type="number"
                   icon={"%"}
                   error={errors.progress}
                   noErrorMessage

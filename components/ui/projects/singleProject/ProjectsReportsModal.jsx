@@ -2,12 +2,13 @@ import { useState } from "react";
 import CustomInput from "../../../modules/CustomInput";
 import { GrSearch } from "react-icons/gr";
 import useProjectsReports from "../../../../hooks/Report/useProjectsReports";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import CustomLoading from "../../../modules/CustomLoading";
 import CustomPagination from "../../../modules/CustomPagination";
-import CustomButton from "../../../modules/CustomButton";
 import { useDebounce } from "use-debounce";
 import { Empty } from "antd";
+import dayjs from "dayjs";
+import { convertToLocalDate } from "../../../../utils/tools";
 
 function ProjectsReportsModal() {
   const { id } = useParams();
@@ -16,7 +17,6 @@ function ProjectsReportsModal() {
   const [currentPage, setCurrentPage] = useState(1);
   const { projectsReports, projectsReportsError, projectsReportsLoading } =
     useProjectsReports(id, value, 5, currentPage);
-  const navigate = useNavigate();
 
   // Error
   if (!projectsReportsLoading && projectsReportsError)
@@ -54,21 +54,7 @@ function ProjectsReportsModal() {
             />
           ) : (
             projectsReports?.reports?.map((report) => (
-              <div
-                key={report._id}
-                className="flex justify-start items-center py-4 bg-white flex-wrap"
-              >
-                <span className="font-bold">{report.name} : </span>&nbsp;
-                <p className="flex-1 text-16 truncate ml-2.5">
-                  {report.description}
-                </p>
-                <CustomButton
-                  className="text-sm py-1.5 px-3 h-auto"
-                  onClick={() => navigate(`/reports/${report._id}`)}
-                >
-                  مشاهده گزارش
-                </CustomButton>
-              </div>
+              <ProjectsReportItem key={report._id} {...report} />
             ))
           )}
         </div>
@@ -85,3 +71,24 @@ function ProjectsReportsModal() {
 }
 
 export default ProjectsReportsModal;
+
+// Project's Report Item
+const ProjectsReportItem = ({ name, description, _id, createdBy, date }) => {
+  return (
+    <Link
+      to={`/reports/${_id}`}
+      className="flex flex-col gap-3 py-4 bg-white hover:"
+    >
+      <div className="flex justify-between items-center flex-wrap">
+        <span>
+          نویسنده : {createdBy?.name} {createdBy?.surName}
+        </span>
+        <span>تاریخ : {convertToLocalDate(dayjs(date))}</span>
+      </div>
+      <div className="truncate ml-2.5 flex-1 flex">
+        <span className="font-bold">{name} : </span>&nbsp;
+        <p className="flex-1 text-16 truncate">{description}</p>
+      </div>
+    </Link>
+  );
+};

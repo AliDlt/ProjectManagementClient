@@ -1,10 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { getAllProjectsReports } from "../../services/reports";
-import { useToast } from "../../Context/ToastContext";
 import { useEffect, useState } from "react";
 
 function useProjectsReports(projectId, search, count, page) {
-  const toast = useToast();
   const [projectsReports, setProjectsReports] = useState(false);
 
   const {
@@ -14,9 +12,6 @@ function useProjectsReports(projectId, search, count, page) {
   } = useMutation({
     mutationKey: ["get-project-reports"],
     mutationFn: () => getAllProjectsReports(projectId, search, count, page),
-    onError: () => {
-      toast(projectsReportsError?.response?.data?.message, "error");
-    },
   });
 
   // Fetch Projects Reports

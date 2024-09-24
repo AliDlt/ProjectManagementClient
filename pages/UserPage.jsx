@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import UserInformation from "../components/ui/user/UserInformation";
 import Projects from "../components/ui/user/Projects";
 import Reports from "../components/ui/user/Reports";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useUserName from "../hooks/useUserName";
 import StatusBadge from "../components/modules/StatusBadge";
 import { convertToLocalDate } from "../utils/tools";
@@ -148,7 +148,7 @@ const UserPage = () => {
         description={"آیا از حذف کاربر مطمئن هستید ؟ "}
         okText={"بله"}
         open={userDelete}
-        onCancel={showDeleteUser}
+        onCancel={() => showDeleteUser(false)}
         loading={deleteUserPending}
         okHandler={deleteUser}
         title={"حذف کاربر "}
