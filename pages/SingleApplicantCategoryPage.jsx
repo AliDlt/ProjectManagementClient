@@ -19,6 +19,7 @@ import CustomConfirm from "../components/modules/CustomConfirm";
 import useDeleteApplicant from "../hooks/applicants/useDeleteApplicant";
 import CustomLoading from "../components/modules/CustomLoading";
 import { useDebounce } from "use-debounce";
+import { Empty } from "antd";
 
 function SingleApplicantCategoryPage() {
   const { applicantId } = useParams();
@@ -63,7 +64,7 @@ function SingleApplicantCategoryPage() {
   if (!categoryLoading && !category)
     return (
       <section className="container lg:col-span-9 lg:p-0 2xl:col-span-10 flex flex-col justify-center items-center h-[30rem] gap-5">
-        <span>دسته بندی یافت نشد</span>
+        <Empty className="text-14" description="دسته بندی یافت نشد" />
         <BackButton />
       </section>
     );

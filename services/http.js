@@ -11,7 +11,7 @@ const http = axios.create({
 
 export default http;
 
-const httpCode = [403, 401, 404];
+const httpCode = [403, 401, 404, 400];
 
 http.interceptors.response.use(
   (response) => response,

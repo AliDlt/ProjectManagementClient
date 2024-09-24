@@ -3,16 +3,25 @@ import CustomLoading from "../components/modules/CustomLoading";
 import ProjectItem from "../components/ui/projects/ProjectItem";
 import useUser from "../hooks/useUser";
 import { useToast } from "../Context/ToastContext";
-import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Empty } from "antd";
 import BackButton from "../components/modules/BackButton";
+import useUserProjects from "../hooks/projects/useUserProjects";
+import CustomPagination from "../components/modules/CustomPagination";
+import CustomButton from "../components/modules/CustomButton";
 
 function UserProjectsPage() {
   const toast = useToast();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { user, isLoading: userLoading } = useUser();
   const { userId } = useParams();
-  const { data, isLoading, error } = useUserName(userId);
+  const { data } = useUserName(userId);
+  const [currentPage, setCurrentPage] = useState(
+    searchParams.get("page") || undefined,
+  );
+  const { userProjectsData, userProjectsLoading, userProjectsError } =
+    useUserProjects(userId, currentPage);
   const userData = data?.data;
   const navigate = useNavigate();
 
@@ -23,18 +32,19 @@ function UserProjectsPage() {
     }
   }, [userLoading, user]);
 
-  if (!isLoading && error)
+  if (!userProjectsLoading && userProjectsError)
     return (
-      <div className="container-grid flex justify-center items-center h-96">
+      <div className="container-grid flex flex-col justify-center items-center h-[30rem]">
         <p>
-          {error?.response?.data?.errors
-            ? error?.response?.data?.errors[0]
-            : error?.response?.data?.message}
+          {userProjectsError?.response?.data?.errors
+            ? userProjectsError?.response?.data?.errors[0]
+            : userProjectsError?.response?.data?.message}
         </p>
+        <BackButton />
       </div>
     );
 
-  if (isLoading)
+  if (userProjectsLoading)
     return (
       <div className="container-grid flex justify-center items-center h-96">
         <CustomLoading />
@@ -49,16 +59,19 @@ function UserProjectsPage() {
           نام کاربر : {userData?.user?.name} {userData?.user?.surName}
         </h3>
       </div>
-      {userData?.projects?.length === 0 ? (
-        <div className="flex justify-center items-center h-96">
+      {!userProjectsData?.projects ? (
+        <div className="flex flex-col justify-center items-center h-[30rem] gap-5">
           <Empty
-            className="w-full col-span-full h-80 flex flex-col justify-center items-center"
+            className="w-full col-span-full flex flex-col justify-center items-center"
             description="پروژه ای برای این کاربر وجود ندارد"
           />
+          <CustomButton onClick={() => navigate(`/users/${userId}`)}>
+            صفحه اطلاعات کاربر
+          </CustomButton>
         </div>
       ) : (
-        <div className=" grid grid-cols-1 md:grid-cols-2 mt-5 gap-5">
-          {userData?.projects.map((project, index) => (
+        <div className=" grid grid-cols-1 md:grid-cols-2 mt-10 gap-5">
+          {userProjectsData?.projects.map((project, index) => (
             <ProjectItem
               key={project._id}
               id={project._id}
@@ -72,6 +85,20 @@ function UserProjectsPage() {
             />
           ))}
         </div>
+      )}
+      {!userProjectsLoading && userProjectsData && (
+        <CustomPagination
+          align="center"
+          current={userProjectsData?.currentPage}
+          onChange={(page) => {
+            setSearchParams({
+              page,
+            });
+            setCurrentPage(page);
+          }}
+          total={userProjectsData?.totalProjects}
+          pageSize={10}
+        />
       )}
     </section>
   );
