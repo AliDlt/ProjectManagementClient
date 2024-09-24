@@ -13,9 +13,6 @@ function useDeleteProject() {
       toast("پروژه حذف شد", "success");
       queryClient.invalidateQueries("projects");
     },
-    onError: (error) => {
-      toast(error?.response?.data?.message, "error");
-    },
   });
 
   return { deleteProjectFn, isPending };

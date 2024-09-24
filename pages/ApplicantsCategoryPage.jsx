@@ -14,6 +14,7 @@ import { useDebounce } from "use-debounce";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useUpdateCategory from "../hooks/applicants/useUpdateCategory";
 import useCategories from "../hooks/applicants/useCategories";
+import { Empty } from "antd";
 
 const ApplicantsCategoryPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -86,6 +87,7 @@ const ApplicantsCategoryPage = () => {
       await updateCategoryFn({ id: editCategory._id, categoryData: values });
       reset();
       setOpenCategoryModal(false);
+      setEditCategory(false);
     } catch (error) {}
   };
 
@@ -98,17 +100,23 @@ const ApplicantsCategoryPage = () => {
           <CustomLoading />
         </div>
       );
+
     // Error
-    if (!categoriesDataLoading && categoriesDataError) {
-      <div className="h-96 flex justify-center items-center">
-        {categoriesDataError.response.data.errors
-          ? categoriesDataError.response.data.errors[0]
-          : categoriesDataError.response.data.message}
-      </div>;
-    }
+    if (!categoriesDataLoading && categoriesDataError)
+      return (
+        <div className="h-96 flex justify-center items-center">
+          <Empty
+            description={
+              categoriesDataError.response.data.errors
+                ? categoriesDataError.response.data.errors[0]
+                : categoriesDataError.response.data.message
+            }
+          />
+        </div>
+      );
 
     // Categories
-    if (!categoriesDataLoading && categories && categoriesData?.length !== 0)
+    if (!categoriesDataLoading && categories)
       return (
         <div className="grid grid-cols-1 mt-10 gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {categories.map((category) => (
@@ -124,7 +132,7 @@ const ApplicantsCategoryPage = () => {
 
     return (
       <div className="h-96 flex justify-center items-center">
-        دسته بندی ای یافت نشد
+        <Empty description="دسته بندی ای یافت نشد" />
       </div>
     );
   };
@@ -135,15 +143,17 @@ const ApplicantsCategoryPage = () => {
       {/* Header */}
       <h1 className="text-2xl w-full py-4">دسته بندی متقاضیان</h1>
       <div className="flex justify-between items-center flex-wrap mt-5 gap-5">
-        <CustomInput
-          className=" py-1 rounded-custom  sm:w-72  md:flex lg:py-2.5 "
-          placeholder="جستجو"
-          value={applicantSearchValue}
-          onChange={searchHandler}
-          icon={
-            <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
-          }
-        />
+        {!categoriesDataLoading && categories && (
+          <CustomInput
+            className=" py-1 rounded-custom  sm:w-72  md:flex lg:py-2.5 "
+            placeholder="جستجو"
+            value={applicantSearchValue}
+            onChange={searchHandler}
+            icon={
+              <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
+            }
+          />
+        )}
         <CustomButton
           className="mr-auto"
           onClick={() => setOpenCategoryModal(true)}

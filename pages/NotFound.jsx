@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useUser from "../hooks/useUser";
 import NotFoundSvg from "../public/images/404";
+import CustomLoading from "../components/modules/CustomLoading";
 
 function NotFound() {
   const { user, isLoading } = useUser();
@@ -11,6 +12,11 @@ function NotFound() {
       <NotFoundSvg />
       <div className="text-center flex flex-col gap-5">
         <p className="lg:text-20">صفحه مورد نظر یافت نشد</p>
+        {isLoading && (
+          <div className="px-2 py-1">
+            <CustomLoading size={26} className=" p-0" />
+          </div>
+        )}
         {!isLoading && !user && (
           <Link
             to="/auth/login"

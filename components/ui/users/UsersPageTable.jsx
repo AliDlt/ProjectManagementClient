@@ -11,9 +11,10 @@ import { MdModeEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa6";
 import CustomConfirm from "../../modules/CustomConfirm";
 import useDeleteUser from "../../../hooks/user/useDeleteUser";
-import CustomButton from "../../modules/CustomButton";
+import useUser from "../../../hooks/useUser";
 
 function UsersPageTable({ users, loading }) {
+  const { user, isLoading } = useUser();
   const [open, setOpen] = useState(false);
   const userId = useRef();
   const { deleteUserFn, isPending } = useDeleteUser();
@@ -86,15 +87,17 @@ function UsersPageTable({ users, loading }) {
                   navigate(`/users/${record.key}`);
                 }}
               />
-              <FaTrash
-                className="text-custom-primary-color cursor-pointer"
-                size={20}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  userId.current = record.key;
-                  setOpen(true);
-                }}
-              />
+              {!isLoading && user && user.userRole === 0 && (
+                <FaTrash
+                  className="text-custom-primary-color cursor-pointer"
+                  size={20}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    userId.current = record.key;
+                    setOpen(true);
+                  }}
+                />
+              )}
             </div>
           )}
         />

@@ -34,7 +34,9 @@ const LoginPage = () => {
       toast(message, "success");
       navigate("/", { replace: true });
     } catch (err) {
-      toast(err.response.data.message, "error");
+      if (err.response.data.message) {
+        toast(err.response.data.message, "error");
+      }
     }
   };
 

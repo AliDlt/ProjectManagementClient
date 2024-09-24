@@ -23,6 +23,19 @@ http.interceptors.response.use(
       toast.error("خطایی در ارتباط با سرور به وجود آمد.", {
         position: "left-bottom",
       });
+    } else {
+      if (error.response.data.errors?.length > 0) {
+        toast.error(error?.response?.data?.errors[0], {
+          position: "left-bottom",
+        });
+        return Promise.reject(error);
+      }
+      if (error.response.data.message) {
+        toast.error(error?.response?.data?.message, {
+          position: "left-bottom",
+        });
+        return Promise.reject(error);
+      }
     }
 
     return Promise.reject(error);

@@ -14,12 +14,6 @@ function useDeleteCategory() {
         toast(data?.message, "success");
         queryClient.invalidateQueries(["get-all-categories"]);
       },
-      onError: (error) => {
-        if (error.response.data.errors?.length > 0)
-          return toast(error?.response?.data?.errors[0], "error");
-
-        return toast(error?.response?.data?.message, "error");
-      },
     });
 
   return { deleteCategoryFn, deleteCategoryPending };
