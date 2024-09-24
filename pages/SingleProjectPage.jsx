@@ -46,9 +46,9 @@ function SingleProjectPage() {
         {error.response.data.errors
           ? error.response.data.errors[0]
           : error.response.data.message}
-       <CustomButton onClick={()=>navigate('/projects',{replace:true})}>
-        بازگشت به صفحه پروژه ها
-       </CustomButton>
+        <CustomButton onClick={() => navigate("/projects", { replace: true })}>
+          بازگشت به صفحه پروژه ها
+        </CustomButton>
       </div>
     );
 
