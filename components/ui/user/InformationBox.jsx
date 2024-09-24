@@ -6,7 +6,6 @@ import ChangeData from "./ChangeData";
 import CustomModal from "../../modules/CustomModal";
 
 const InformationBox = ({ title, children, type, userId, userRole }) => {
-  console.log(userRole)
   const [visible, setVisible] = useState(false);
   return (
     <div className="bg-background rounded-lg px-4  flex flex-col gap-1  ">

@@ -81,7 +81,6 @@ const ReportGallery = ({ id, data, isEditable }) => {
   };
   const { mutate, isPending } = useUploadReportFile();
   const successUpload = (e) => {
-    console.log(e);
     toast("با موفقیت بارگزاری شد", "success");
     selectImage("");
     selectVideo("");
@@ -100,7 +99,6 @@ const ReportGallery = ({ id, data, isEditable }) => {
       {
         onSuccess: successUpload,
         onError: (e) => {
-          console.log(e);
           return toast("مشکلی پیش آمده", "error");
         },
       },
@@ -158,7 +156,7 @@ const ReportGallery = ({ id, data, isEditable }) => {
         id,
         fileName: e.fileName,
       },
-      { onSuccess: deleteMediaSuccess, onError: (e) => console.log(e) },
+      { onSuccess: deleteMediaSuccess,  },
     );
   };
   return (
@@ -250,7 +248,6 @@ const ReportGallery = ({ id, data, isEditable }) => {
 
       {filterFile(data, "gallery")?.length ? (
         <Gallery>
-          {console.log(data)}
           {data?.map(
             (file) =>
               (file.fileFormat === "video" || file.fileFormat === "image") && (

@@ -13,6 +13,7 @@ import DeleteTicket from "../components/ui/Message/DeleteTicket";
 import useDeleteTicket from "../hooks/Message/useDeleteTicket";
 import { useToast } from "../Context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
+import { Empty } from "antd";
 
 const Message = () => {
   const { id } = useParams();
@@ -44,7 +45,7 @@ const Message = () => {
   const deleteTicket = () => {
     mutate(id, {
       onSuccess: successDeleteTicket,
-      onError: (e) => console.log(e),
+      onError: (e) => toast(e.response.data.message, "error"),
     });
   };
 
@@ -59,14 +60,9 @@ const Message = () => {
     }
   }, [messages]);
   const addMessage = (e) => {
-    console.log("first");
     setAllMessages((prev) => [...prev, e.data.data.replyTicket.messages[0]]);
     return;
   };
-  if (error) {
-    toast("مشکلی پیش آمده است", "error");
-    navigate("/messages");
-  }
   if (isPending && page === 1)
     return (
       <div className="container-grid justify-center">
@@ -76,17 +72,36 @@ const Message = () => {
       </div>
     );
 
+
+    if (error && !loadingMessages) {
+      return (
+        <div className="container-grid justify-center">
+          <div className="col-span-1 lg:col-span-11 flex items-center justify-center flex-col gap-4 mt-40 ">
+            {console.log(error)}
+            <Empty description={error.response.data.message} />
+            <CustomButton onClick={() => navigate("/messages")}>
+              بازگشت به صفحه پیام ها
+            </CustomButton>
+          </div>
+        </div>
+      );
+    }
+   
+
   return (
     <div className="container-grid w-full relative row-span-7 min-h-screen p-0 lg:p-4 ">
       <div className="col-span-1 lg:col-span-11   h-full flex justify-between flex-col">
         <div className="sticky flex justify-between top-20 lg:top-24 items-center font-bold mb-4  col-span-11 bg-white p-4 rounded-custom border-4 border-custom-primary-color z-50">
-          <div >
+          <div>
             <p className="font-bold">
               {data?.data.sender?.name} {data?.data.sender?.surName}
             </p>
             <h5 className="mt-2"> عنوان : {data?.data.ticket.title}</h5>
           </div>
-          <CustomButton className='rounded-full h-10 w-10 p-2' onClick={() => showDeleteModal(true)}>
+          <CustomButton
+            className="rounded-full h-10 w-10 p-2"
+            onClick={() => showDeleteModal(true)}
+          >
             <MdDelete size={30} />
           </CustomButton>
         </div>

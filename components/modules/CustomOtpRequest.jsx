@@ -23,7 +23,6 @@ const CustomOtpRequest = ({ control, name, error, className, placeholder }) => {
   const sendOtp = () => {
     mutate(user.phoneNumber, {
       onSuccess: successSendCode,
-      onError: (e) => console.log(e),
     });
   };
 

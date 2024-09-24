@@ -43,8 +43,6 @@ const ChangeData = ({ type, value, setShow, title, userId }) => {
     defaultValues: { [type]: value, isForeign: false },
     resolver: yupResolver(fieldSchema),
   });
-  console.log(getValues('isForeign'))
-  console.log(errors.name);
   const { id } = useParams();
   const { mutate, isPending } = useUpdateUser();
 
@@ -52,7 +50,7 @@ const ChangeData = ({ type, value, setShow, title, userId }) => {
     const idCustom = id ? id : userId;
     mutate(
       { data: { ...data, id: `${idCustom}` }, id: idCustom },
-      { onSuccess: success, onError: (e) => console.log(e) },
+      { onSuccess: success,  },
     );
   };
 

@@ -13,12 +13,8 @@ const Messages = () => {
       <div className="bg-white w-full flex flex-col align gap-8 rounded-custom p-7 h-[95%] border-custom-primary-color-300 border-l-4  border-t-4 shadow-custom">
         {data?.data ? (
           <>
-            <div className="flex justify-between items-center">
-              <h3 className="text-lg">پیام ها</h3>
-              <Link to={"/messages"}>
-                <CustomButton>همه پیام ها</CustomButton>
-              </Link>
-            </div>
+            <h3 className="text-lg">پیام ها</h3>
+
             <div className="flex flex-col gap-5 h-full">
               {data?.data.data.tickets.map(
                 ({ _id, title, messages }, index) => {
@@ -34,6 +30,11 @@ const Messages = () => {
                   );
                 },
               )}
+            </div>
+            <div className="flex justify-end">
+              <Link to={"/messages"}>
+                <CustomButton>همه پیام ها</CustomButton>
+              </Link>
             </div>
           </>
         ) : (

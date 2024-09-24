@@ -36,12 +36,10 @@ const AddUser = () => {
     navigate(`/users/${res.data._id}`);
   };
   const errorAddUser = (res) => {
-    console.log(res);
     toast(res.response.data.message, "error");
   };
 
   const submitUser = (e) => {
-    console.log(e);
 
     let copy = { ...e, phoneNumber: convertToInternational(e.phoneNumber) };
     if (!e.isForeign) {

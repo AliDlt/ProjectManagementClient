@@ -35,7 +35,6 @@ const Preview = (file) => {
 };
 
 const ShowFiles = ({ data, isEditable }) => {
-  console.log(isEditable);
   const [description, setDescription] = useState();
   const [show, setShow] = useState();
   const [selectedFile, selectFile] = useState();
@@ -49,13 +48,11 @@ const ShowFiles = ({ data, isEditable }) => {
   const customUploadFile = (file) => {
     const checkImage = imageTypes.includes(file.file.type);
     const videoFormat = videoFormats.includes(file.file.type);
-    console.log(checkImage);
     if (checkImage || videoFormat) {
       return toast("تصاویر و ویدیو را نمیتوان بارگزاری کرد", "error");
     }
 
     const fileSizeInMB = (file.file.size / (1024 * 1024)).toFixed(2);
-    console.log(file);
     if (file.filename !== "file") {
       return toast("لطفا یک فایل را انتخاب کنید", "error");
     } else if (fileSizeInMB > 50) {
@@ -73,8 +70,6 @@ const ShowFiles = ({ data, isEditable }) => {
     queryClient.invalidateQueries("get-report", id);
   };
   const uploadFile = () => {
-    console.log(selectedFile.file.fileFormat);
-
     upload(
       {
         file: selectedFile.file,
@@ -82,7 +77,7 @@ const ShowFiles = ({ data, isEditable }) => {
         id,
         description,
       },
-      { onError: (e) => console.log(e), onSuccess: successUpload },
+      { onError: (e) => toast(e.response.data.message), onSuccess: successUpload },
     );
   };
 
@@ -116,7 +111,7 @@ const ShowFiles = ({ data, isEditable }) => {
           </div>
         )}
       </div>
-      {filterFile(data.file, "file")?.length!==0 ? (
+      {filterFile(data.file, "file")?.length !== 0 ? (
         <Files>
           <>
             {data?.file?.map((item, key) => {
@@ -160,7 +155,6 @@ const ShowFiles = ({ data, isEditable }) => {
             className="mt-4  text-black/50 !text-20 "
             accept="application/pdf,text/plain,application/zip,application/msword,application/vnd.rar"
             title="بارگزاری فایل"
-            onChange={(e) => console.log(e)}
             icon={<FaFile />}
           />
           <div>

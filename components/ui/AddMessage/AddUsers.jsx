@@ -7,7 +7,6 @@ import getAllUsersNoSort from "../../../hooks/user/useGetAllUser";
 const AddUsers = ({ setUser }) => {
   const [page, setPage] = useState(1);
   const { data, isLoading,error } = getAllUsersNoSort(5, page);
-  console.log(error)
   if (isLoading) {
     return <CustomLoading />;
   }

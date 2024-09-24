@@ -6,7 +6,6 @@ import { Empty } from "antd";
 import { Link, useParams } from "react-router-dom";
 
 const Reports = ({ reports, isPending, error }) => {
-  console.log(reports)
   const {id} = useParams()
   return (
     <section className="h-full flex flex-col gap-4">

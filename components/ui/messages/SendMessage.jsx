@@ -13,12 +13,8 @@ const SendMessage = () => {
     handleSubmit,
   } = useForm({ mode: "onChange", resolver: yupResolver(messageSchema) });
 
-  const sendMessage = (e) => {
-    console.log(e);
-  };
-  {
-    console.log(errors);
-  }
+
+
   return (
     <form className="mt-5" onSubmit={handleSubmit(sendMessage)}>
       <CustomTextAria

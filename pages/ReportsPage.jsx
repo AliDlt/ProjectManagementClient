@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReportCard from "../components/ui/Reports/ReportCard";
 import useReports from "../hooks/useReports";
 import CustomLoading from "../components/modules/CustomLoading";
@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 import CustomDatePicker from "../components/modules/CustomDatePicker";
 import dayjs from "dayjs";
 import { convertMillisecondsToDate, convertToLocalDate } from "../utils/tools";
+import { GrSearch } from "react-icons/gr";
 
 function ReportsPage() {
   const { pathname } = useLocation();
@@ -27,12 +28,13 @@ function ReportsPage() {
       date: undefined,
     },
   });
+
   const [page, setPage] = useState(params.get("page") || 1);
   const [searchParams, setSearchParams] = useState(params.get("search") || "");
-
   const [value] = useDebounce(searchParams, 500);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const changePage = (e) => {
     searchHandler(e, "page");
@@ -55,7 +57,7 @@ function ReportsPage() {
     setValue("date", e);
     e ? addUrl(convertToLocalDate(dayjs(e)), "date") : addUrl("", "date");
   };
-  const { reportsData, isPending, error } = useReports(
+  const { reportsData, isPending, error, refetch } = useReports(
     10,
     page,
     value,
@@ -63,6 +65,16 @@ function ReportsPage() {
       ? convertMillisecondsToDate(getValues("date"))
       : undefined,
   );
+  useEffect(() => {
+    setValue("date", undefined);
+    refetch();
+  }, [params.get("date")]);
+  useEffect(() => {
+    params.get("search")
+      ? setSearchParams(params.get("search"))
+      : setSearchParams("");
+    refetch();
+  }, [params.get("search")]);
 
   return (
     <div className="container-grid ">
@@ -77,6 +89,9 @@ function ReportsPage() {
         <div className="my-4 flex gap-6 flex-col lg:flex-row lg:gap-4 justify-between">
           <div className=" w-full lg:w-1/2">
             <CustomInput
+              icon={
+                <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
+              }
               className=" px-3 py-2 w-full "
               placeholder="جستجو"
               name="search"
@@ -93,6 +108,7 @@ function ReportsPage() {
               className=" px-3 py-2 w-full lg:w-1/2"
               control={control}
               name="date"
+              placeholder={'تاریخ'}
               changeHandler={changeDate}
             />
           </div>

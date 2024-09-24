@@ -50,6 +50,18 @@ const SettingPage = () => {
             </InformationBox>
           )}
         </div>
+        <div>
+          {user?.phoneNumber && (
+            <InformationBox
+              userRole={user?.userRole}
+              userId={user?._id}
+              title="شماره موبایل"
+              type="surName"
+            >
+              {user?.phoneNumber}
+            </InformationBox>
+          )}
+        </div>
 
         <div>
           {!user?.userRol && (

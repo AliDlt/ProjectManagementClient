@@ -33,7 +33,10 @@ const ReportPage = () => {
     navigate("/reports");
   };
   const deleteReportFn = () => {
-    mutate(id, { onSuccess: deleteSuccess, onError: (e) => console.log(e) });
+    mutate(id, {
+      onSuccess: deleteSuccess,
+      onError: (e) => toast(e.response.data.message, "error"),
+    });
   };
   if (isLoading) {
     return (
@@ -50,10 +53,7 @@ const ReportPage = () => {
       <div className="container-grid">
         <div className="flex items-center justify-center flex-col mt-52 col-span-1 lg:col-span-11 gap-3">
           <div>
-            <Empty
-              description={"گزاشی یافت نشد ."}
-              style={{ fontSize: "24px" }}
-            />
+            <Empty description={error.response.data.errors[0]} />
           </div>
           <CustomButton
             onClick={() => {
@@ -71,18 +71,20 @@ const ReportPage = () => {
     <div className="container-grid ">
       <div className="col-span-1 lg:col-span-11">
         <BackButton />
-        <h3 className=" my-6 flex items-center justify-between px-5 gap-4 break-words ">
+        <h3 className=" my-6 flex items-center justify-between px-3 gap-4 break-words ">
           <span className="lg:text-24 text-base font-bold line-clamp-1">
             {data?.name}
           </span>{" "}
-          <CustomButton
-            onClick={() => showModalDelete(true)}
-            className="bg-white hover:text-white ml-1 w-10 h-10   text-custom-primary-color transition-all border-2 border-custom-primary-color border-solid rounded-full"
-          >
-            <span className="flex items-center justify-center   text-24">
-              <MdDelete size={24} />
-            </span>
-          </CustomButton>
+          {data?.isEditable && (
+            <CustomButton
+              onClick={() => showModalDelete(true)}
+              className="bg-white hover:text-white ml-1 w-10 h-10   text-custom-primary-color transition-all border-2 border-custom-primary-color border-solid rounded-full"
+            >
+              <span className="flex items-center justify-center   text-24">
+                <MdDelete size={24} />
+              </span>
+            </CustomButton>
+          )}
         </h3>
         {!data?.isEditable && user.userRole !== 0 && (
           <p className="flex items-center gap-2 my-4 bg-custom-primary-color/10 p-2 text-custom-primary-color rounded-lg">
@@ -105,7 +107,6 @@ const ReportPage = () => {
           action="/api/report/uploadFile"
           data={{ id: data?._id, file: data?.files }}
         />
-        {console.log()}
         <ReportGallery
           isEditable={data?.isEditable}
           id={data?._id}

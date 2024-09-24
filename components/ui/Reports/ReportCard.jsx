@@ -24,7 +24,7 @@ const ReportCard = (props) => {
             کاربر حذف شده
           </span>}
         </p>
-        <p className="line-clamp-1 text-12 text-start">
+        <p className="line-clamp-1 text-12 text-start border-t  pt-3 border-custom-primary-color">
           {" "}
           متن گزارش : {description}
         </p>

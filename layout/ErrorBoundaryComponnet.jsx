@@ -4,7 +4,6 @@ import CustomButton from "../components/modules/CustomButton";
 import { useNavigate } from "react-router-dom";
 
 const ErrorBoundaryComponent = (props) => {
-  console.log(props);
   const navigate = useNavigate();
   const [hasError, setHasError] = useState(true);
 

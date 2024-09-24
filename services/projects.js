@@ -1,7 +1,6 @@
 import http from "./http";
 
 export const getAllProjects = async ({ count, search, page = undefined }) => {
-  console.log(count)
   const res = await http.post("/project/getAllProjectsSearchByToken", {
     count: search ? undefined : count,
     search,
@@ -29,7 +28,6 @@ export const getProjectsTotalPages = async () => {
 
 // Delete Project File
 export const deleteProjectFile = async (fileInfo) => {
-  console.log(fileInfo);
   const res = await http.delete("/project/deleteFile", {
     data: fileInfo,
   });

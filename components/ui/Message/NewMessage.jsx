@@ -26,10 +26,13 @@ const NewMessage = ({ addMessage }) => {
     setValue("messageText", "");
     addMessage(e);
   };
+  const errorSendMessage = (e)=>{
+    toast(e.response.data.message)
+  }
   const submitMessage = (e) => {
     mutate(
       { id: id, content: { content: e.messageText } },
-      { onError: (e) => errorSendMessage, onSuccess: successMessage },
+      { onError:  errorSendMessage, onSuccess: successMessage },
     );
   };
   return (

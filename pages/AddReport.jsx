@@ -65,13 +65,12 @@ const AddReport = () => {
         createdBy: user._id,
         date: convertMillisecondsToDate(Number(e.createAt)),
       },
-      { onSuccess: successAdd, onError: (e) => console.log(e) },
+      { onSuccess: successAdd, onError: (e) =>toast(e.response.data.message,'error') },
     );
  
   };
 
   const setDateReport = (e) => {
-    console.log(dayjs(e));
     setValue("createAt", e);
   };
   return (

@@ -4,7 +4,6 @@ import { FaFilePdf, FaFileWord, FaRegFileExcel } from "react-icons/fa6";
 import { MdTextSnippet } from "react-icons/md";
 
 const IconFile = ({ type, size }) => {
-  console.log(type);
   switch (type) {
     case "application/pdf":
     case "pdf":

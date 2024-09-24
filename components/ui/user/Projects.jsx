@@ -7,7 +7,6 @@ import { Empty } from "antd";
 
 const Projects = ({ projects, error, isPending }) => {
   const { id } = useParams();
-  console.log(id);
   return (
     <div className="flex flex-col gap-4 order-1 h-full">
       <h4 className="pr-4">پروژه ها</h4>
@@ -20,7 +19,6 @@ const Projects = ({ projects, error, isPending }) => {
             <div className="grid gap pl-4  justify-center grid-cols-1  h-full md:gap-4 lg:gap-2 ">
               {projects.length ? (
                 <>
-                  {console.log(projects)}
                   {projects.map(
                     (
                       {
@@ -36,7 +34,6 @@ const Projects = ({ projects, error, isPending }) => {
                       if (index < 2)
                         return (
                           <Link to={`/projects/${_id}`}>
-                            {console.log(projects)}
                             <ChartProjects
                               key={index}
                               data={progress}

@@ -59,7 +59,6 @@ export const filterFile = (files, type) => {
 };
 
 export const getFileFormat = (file) => {
-  console.log(file);
   const index = file.lastIndexOf(".");
   const fileFormat = file.substring(index + 1);
   return fileFormat;
@@ -103,3 +102,10 @@ export const videoFormats = [
   "video/x-f4v",
   "video/dvd",
 ];
+
+export const getTime = (time) => {
+  const newTime = new Date(time);
+  const hour = newTime.getHours();
+  const min = newTime.getMinutes();
+  return `  ${hour}:${min} `;
+};
