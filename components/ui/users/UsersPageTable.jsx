@@ -49,6 +49,12 @@ function UsersPageTable({ users, loading }) {
           width={100}
         />
         <Column
+          title="نام کاربری"
+          dataIndex="username"
+          key="username"
+          width={100}
+        />
+        <Column
           title="شماره تماس "
           dataIndex="phoneNumber"
           key="phoneNumber"

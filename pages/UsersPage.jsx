@@ -78,7 +78,7 @@ export default function UsersPage() {
       {/* Meta Tag */}
       <MetaTag
         title="لیست کاربران"
-        description="لیست همه کاربران ( مدیر ، پیمانکار ، ناظر )"
+        description="لیست همه کاربران ( مدیر ، سرپرست ، ناظر ، پذیرش)"
       />
     </div>
   );

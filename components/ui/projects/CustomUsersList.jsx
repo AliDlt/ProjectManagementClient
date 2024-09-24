@@ -24,7 +24,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
   const [searchUsers, setSearchUsers] = useState(
     searchParams.get("search") || "",
   );
-  const [searchedProductUsers, setSearchedProductUsers] =
+  const [searchedProjectUsers, setSearchedProjectUsers] =
     useState(projectUsers);
   const { isLoading, users: allUsers } = useUsers(
     undefined,
@@ -60,7 +60,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           return user;
         }
       });
-    setSearchedProductUsers(searchedUsers);
+    setSearchedProjectUsers(searchedUsers);
   }, [searchParams, projectUsers]);
 
   // Table rowSelection
@@ -109,7 +109,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           emptyText={emptyText}
           emptyClassName="my-10"
           loading={false}
-          users={searchedProductUsers}
+          users={searchedProjectUsers}
           rowClassName="lg:border-t lg:border-black lg:last:border-b"
           onRow={(record) => {
             return {
@@ -123,6 +123,12 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             title="نام و نام خانوادگی"
             dataIndex="fullName"
             key="fullName"
+            width={100}
+          />
+          <Column
+            title="نام کاربری"
+            dataIndex="username"
+            key="username"
             width={100}
           />
           <Column
@@ -185,6 +191,13 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             className="text-nowrap"
             dataIndex="fullName"
             key="fullName"
+            width={100}
+          />
+          <Column
+            title="نام کاربری"
+            className="text-nowrap"
+            dataIndex="username"
+            key="username"
             width={100}
           />
           <Column
