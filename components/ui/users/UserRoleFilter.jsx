@@ -1,13 +1,14 @@
 import { Radio } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import useUser from "../../../hooks/useUser";
 
 function UserRoleFilter() {
   const { user } = useUser();
   const [searchParams] = useSearchParams();
-  const userRoleParam = searchParams.get("userRole") || String(user?.userRole);
-  const [userRole, setUserRole] = useState(userRoleParam);
+  const [userRole, setUserRole] = useState(
+    searchParams.get("userRole") || String(user?.userRole),
+  );
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -27,6 +28,10 @@ function UserRoleFilter() {
 
     navigate(`${pathname}${query}`);
   };
+
+  useEffect(() => {
+    setUserRole(searchParams.get("userRole") || String(user?.userRole));
+  }, [searchParams]);
 
   return (
     <Radio.Group

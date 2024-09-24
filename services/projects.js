@@ -76,3 +76,15 @@ export const getProjectFiles = async (data) => {
 
   return res.data;
 };
+
+// Get User Projects
+export const getUserProject = async (userId, page) => {
+  const res = await http.get("/project/getAllProjectsByUserId", {
+    params: {
+      userId,
+      page,
+    },
+  });
+
+  return res.data;
+};
