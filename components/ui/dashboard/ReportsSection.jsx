@@ -57,6 +57,20 @@ export default ReportsSection;
 const ReportItem = ({ report }) => {
   const navigate = useNavigate();
 
+  // return (
+  //   <div className="flex justify-center items-center px-2.5 py-3 border-2 border-custom-primary-color rounded-custom gap-3 lg:px-3 lg:py-4 xl:gap-10">
+  //     <div className="flex items-center truncate">
+  //       <span className="font-bold ml-2 xl:ml-10">گزارش {_id}</span>
+  //       <p className="text-sm truncate"> &nbsp; {description}</p>
+  //     </div>
+  //     <CustomButton
+  //       className="px-2 py-1 text-xs mr-auto mt-auto"
+  //       onClick={() => navigate(`/reports/${_id}`)}
+  //     >
+  //       مشاهده
+  //     </CustomButton>
+  //   </div>
+  // );
   return (
     <div className="flex justify-center items-center px-2.5 py-3 border-2 border-custom-primary-color rounded-custom gap-3 lg:px-3 lg:py-4 xl:gap-10">
       <div className="flex  truncate flex-col gap-2">
@@ -68,7 +82,9 @@ const ReportItem = ({ report }) => {
             <span>{convertToLocalDate(report.createdAt)}</span>
           </p>
         </div>
-        <p className="text-sm truncate text-gray-600 font-bold mb-2 "> نویسنده :  {report.createdBy.name} {report.createdBy.surName}</p>
+        <p className="text-sm truncate text-gray-600 font-bold mb-2 ">
+          نویسنده : {report.createdBy.name} {report.createdBy.surName}
+        </p>
         <p className="text-sm truncate "> {report.description}</p>
       </div>
       <CustomButton

@@ -115,7 +115,7 @@ const UserPage = () => {
           </div>
         </div>
         {data?.data.user.lastLogin && (
-          <div className="flex items-center flex-col gap-2   text-12">
+          <div className="flex items-center flex-col gap-2 text-14">
             <p>آخرین بازدید : </p>
             <span>{convertToLocalDate(dayjs(data?.data.user.lastLogin))}</span>
           </div>
@@ -129,7 +129,7 @@ const UserPage = () => {
       />
 
       {user?.userRole !== (2 || 3) && data?.data.user.userRole !== 3 && (
-        <div className="gap-2 grid grid-cols-1 lg:grid-cols-2  items-start">
+        <div className="gap-10 grid grid-cols-1 lg:grid-cols-2 items-start">
           <Projects
             projects={data?.data.projects}
             isPending={isPending}

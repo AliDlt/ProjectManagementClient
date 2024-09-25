@@ -41,7 +41,7 @@ export const signupSchema = Yup.object({
 // Login Schema
 export const loginSchema = Yup.object({
   username: Yup.string().matches(
-    /^[a-zA-Z]{1,}\d*$/,
+    /^[a-zA-Z0-9\s]+$/,
     "نام کاربری باید انگلیسی باشد و با حروف آغاز شود",
   ),
   password: Yup.string().required("این فیلد اجباری است."),

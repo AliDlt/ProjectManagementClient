@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getProjectsTotalPages } from "../../services/projects";
+import useHandleErrors from "../useHandleErrors";
 
 function useProjectsTotalPages() {
   const {
@@ -10,6 +11,7 @@ function useProjectsTotalPages() {
     queryKey: ["get-projects-total-pages"],
     queryFn: getProjectsTotalPages,
   });
+  useHandleErrors(totalPagesLoading, error);
 
   return { totalPages, totalPagesLoading, error };
 }

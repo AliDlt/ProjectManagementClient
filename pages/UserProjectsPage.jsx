@@ -10,6 +10,7 @@ import BackButton from "../components/modules/BackButton";
 import useUserProjects from "../hooks/projects/useUserProjects";
 import CustomPagination from "../components/modules/CustomPagination";
 import CustomButton from "../components/modules/CustomButton";
+import MetaTag from "../components/modules/MetaTag";
 
 function UserProjectsPage() {
   const toast = useToast();
@@ -35,11 +36,13 @@ function UserProjectsPage() {
   if (!userProjectsLoading && userProjectsError)
     return (
       <div className="container-grid flex flex-col justify-center items-center h-[30rem]">
-        <p>
-          {userProjectsError?.response?.data?.errors
-            ? userProjectsError?.response?.data?.errors[0]
-            : userProjectsError?.response?.data?.message}
-        </p>
+        <Empty
+          description={
+            userProjectsError?.response?.data?.errors
+              ? userProjectsError?.response?.data?.errors[0]
+              : userProjectsError?.response?.data?.message
+          }
+        />
         <BackButton />
       </div>
     );
@@ -54,10 +57,11 @@ function UserProjectsPage() {
   return (
     <section className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 mb-5">
       <div className="my-4">
-        <BackButton /> 
+        <BackButton />
       </div>
       <div className="flex flex-wrap items-center gap-5">
-        <h3 className="text-20">
+        <BackButton />
+        <h3 className="text-24">
           پروژه های {userData?.user?.name} {userData?.user?.surName}
         </h3>
       </div>
@@ -102,6 +106,10 @@ function UserProjectsPage() {
           pageSize={10}
         />
       )}
+      <MetaTag
+        title={` پروژه های ${userData?.user?.name} ${userData?.user?.surName}`}
+        description={` پروژه های ${userData?.user?.name} ${userData?.user?.surName}`}
+      />
     </section>
   );
 }

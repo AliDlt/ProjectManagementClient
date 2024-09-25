@@ -22,24 +22,24 @@ function ProjectItem({
           className={progressClassName}
           progress={progress}
         />
-        <div className="flex flex-col gap-1.5 text-14 lg:text-16">
+        <div className="flex flex-col gap-1.5 text-14 lg:text-16 flex-1 truncate">
           <div className="flex items-center gap-1">
             <span className="font-bold">پروژه</span>
             <span>{id}</span>
           </div>
           <div className="flex items-center gap-1 text-nowrap">
-            <span className="font-bold">عنوان پروژه : </span>
-            <span className="truncate max-w-16">{projectName}</span>
+            <span className="font-bold truncate">عنوان پروژه : </span>
+            <span>{projectName}</span>
           </div>
-          <div className="flex items-center gap-1 truncate">
+          <div className="flex items-center gap-1 ">
             <span className="font-bold">مدیر پروژه : </span>
             <span>
               {name} {surName}
             </span>
           </div>
-          <div className="flex items-center gap-1 text-nowrap">
+          <div className="flex items-center gap-1 text-nowrap ">
             <span className="font-bold">توضیحات پروژه : </span>
-            <span className="truncate max-w-16">{description}</span>
+            <p className="truncate">{description}</p>
           </div>
         </div>
       </div>

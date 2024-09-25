@@ -14,6 +14,12 @@ function useUpdateApplicant(categoryId) {
         toast(data?.message, "success");
         queryClient.invalidateQueries(["get-all-applicant", categoryId]);
       },
+      onError: (error) => {
+        if (error.response.data.errors?.length > 0)
+          return toast(error?.response?.data?.errors[0], "error");
+        if (error.response.data.message)
+          return toast(error?.response?.data?.message, "error");
+      },
     });
 
   return { updateApplicantFn, updateApplicantPending };

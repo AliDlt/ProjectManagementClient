@@ -17,6 +17,12 @@ function useAddApplicant(applicantId) {
       toast(data?.message, "success");
       queryClient.invalidateQueries(["get-category", applicantId]);
     },
+    onError: (error) => {
+      if (error.response.data.errors?.length > 0)
+        return toast(error?.response?.data?.errors[0], "error");
+      if (error.response.data.message)
+        return toast(error?.response?.data?.message, "error");
+    },
   });
 
   return { addApplicantFn, addApplicantLoading, addApplicantError };
