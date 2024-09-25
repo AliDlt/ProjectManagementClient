@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import CustomButton from "../../modules/CustomButton";
 
 const ReportItem = ({ title, report, id }) => {
-  console.log(report);
   return (
     <div className=" flex justify-between items-center	  gap-3 rounded-custom  p-3 border-2  border-custom-primary-color ">
       <div className="flex flex-col gap-2 overflow-hidden ">

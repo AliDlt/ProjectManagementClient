@@ -26,7 +26,6 @@ const CustomSlideFIle = ({ item, mutate, isPending }) => {
           showModal(false);
         },
         onError: (e) => {
-          console.log(e);
           return toast(e.response.data.message, "error");
         },
       },

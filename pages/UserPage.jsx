@@ -40,7 +40,7 @@ const UserPage = () => {
         id,
         data: { id: id, active: !data.data.user.active },
       },
-      { onError: (e) => console.log(e), onSuccess: changedStatus },
+      { onError: (e) => toast(e.response.data.message,'error'), onSuccess: changedStatus },
     );
   };
   const deleteUser = () => {
@@ -117,7 +117,6 @@ const UserPage = () => {
         {data?.data.user.lastLogin && (
           <div className="flex items-center flex-col gap-2   text-12">
             <p>آخرین بازدید : </p>
-            {console.log(data?.data.user.lastLogin)}
             <span>{convertToLocalDate(dayjs(data?.data.user.lastLogin))}</span>
           </div>
         )}
@@ -136,8 +135,8 @@ const UserPage = () => {
             isPending={isPending}
             error={error}
           />
-          {console.log(data)}
           <Reports
+            user = {data?.data.user}
             reports={data?.data.reports}
             isPending={isPending}
             error={error}

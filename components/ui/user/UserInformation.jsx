@@ -50,7 +50,6 @@ const UserInformation = ({ error, isPending, user, userRole }) => {
 
   return (
     <>
-      {console.log(user?.phoneNumber)}
       {isPending ? (
         <CustomLoading />
       ) : (

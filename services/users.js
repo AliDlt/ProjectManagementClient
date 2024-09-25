@@ -2,6 +2,7 @@ import http from "./http";
 
 // Get All Users
 export const getAllUsers = async (userRole, page, count, search, sort) => {
+  
   const res = await http.get("/user/getAllUsers", {
     params: {
       filterRole: userRole,

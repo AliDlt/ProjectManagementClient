@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 const NewPasswordPage = ({ phoneNumber, otpCode }) => {
   const [loading, setLoading] = useState(false);
-  console.log(otpCode);
   const {
     control,
     handleSubmit,
@@ -22,7 +21,6 @@ const NewPasswordPage = ({ phoneNumber, otpCode }) => {
   const navigate = useNavigate()
   const toast = useToast();
   const confirmResetPassword = async ({ password, passwordConfirmation }) => {
-    console.log(otpCode.current);
     try {
       const response = await resetPassword({
         phoneNumber,

@@ -18,7 +18,6 @@ import { useToast } from "../../../Context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
 
 const ReportBox = ({ data, userRole }) => {
-  console.log(data);
   const {
     control,
     handleSubmit,
@@ -37,20 +36,17 @@ const ReportBox = ({ data, userRole }) => {
     },
   });
   const handelDatePicker = (date) => {
-    console.log(date);
     const newDate = dayjs(date);
 
     setValue("createAt", newDate);
   };
   const queryClient = useQueryClient();
   const { mutate, isPending } = useUpdateReport();
-  console.log(errors);
   const [editor, showEditor] = useState(false);
   const toast = useToast();
   const successUpdate = (e) => {
     toast(e.message, "success");
     showEditor(false);
-    console.log(data._id);
     queryClient.invalidateQueries(["get-report", data._id]);
   };
   const updateReport = (e) => {
@@ -80,7 +76,6 @@ const ReportBox = ({ data, userRole }) => {
             <div className="flex  gap-3 flex-wrap mb-3 items-center  ">
               <h4>
                 {" "}
-                {console.log(data)}
                 <span className="font-bold">تاریخ بارگذاری:</span>{" "}
                 <span>
                   {convertToLocalDate(data?.createdAt && data?.createdAt)}
@@ -116,7 +111,6 @@ const ReportBox = ({ data, userRole }) => {
             <p className="break-words ">{data?.description}</p>
           </div>
         </div>
-        {console.log(data?.isEditable)}
         {(data?.isEditable || userRole === 0) && (
           <div className="absolute left-4 top-4">
             <CustomButton

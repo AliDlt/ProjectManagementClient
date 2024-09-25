@@ -5,7 +5,7 @@ import { useToast } from "../../Context/ToastContext";
 import { useNavigate } from "react-router-dom";
 
 const Logout = ({ close }) => {
-  const { mutate } = useLogout();
+  const { mutate, isPending } = useLogout();
   const toast = useToast();
   const logoutAccount = () => {
     mutate({}, { onError: errorLogout, onSuccess: successLogout });
@@ -13,9 +13,7 @@ const Logout = ({ close }) => {
   const navigate = useNavigate();
   const successLogout = (e) => {
     toast(e.message, "success");
-    navigate ('/auth/login')
-
-    window.location.reload();
+    window.location.replace("/auth/login");
   };
   const errorLogout = (e) => {
     toast("مشکلی پیش آمده است", "success");
@@ -26,7 +24,8 @@ const Logout = ({ close }) => {
       <div className="mt-5 flex flex-row-reverse gap-3 items-center">
         <CustomButton
           onClick={logoutAccount}
-          className="px-7  h-10 !text-18 text-black bg-white border-custom-primary-color border-2 border-solid hover:text-white"
+          loading={isPending}
+          className="px-7 bg-red-500 h-10 hover:bg-red-400 !text-18 text-white"
         >
           بله
         </CustomButton>
@@ -34,7 +33,7 @@ const Logout = ({ close }) => {
           onClick={() => {
             close(false);
           }}
-          className="px-7 bg-red-500 h-10 hover:bg-red-400 !text-18 text-white"
+          className="px-7  transition-all h-10 !text-18   border-custom-primary-color border-2 border-solid "
         >
           خیر
         </CustomButton>

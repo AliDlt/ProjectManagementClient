@@ -16,8 +16,6 @@ export const CustomHourSelector = ({ control, nameHour, onChange }) => {
             needConfirm={false}
             value={value}
             onChange={(time) => {
-              console.log("first");
-              console.log(value);
               onChange(time);
             }}
             className="custom-time-picker rounded-full border-2"
@@ -46,7 +44,6 @@ export const CustomMinSelector = ({ control, nameMin }) => {
             
             value={value}
             onChange={(time) => {
-              console.log(time);
               onChange(time);
             }}
             className="custom-time-picker rounded-full border-2"

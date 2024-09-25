@@ -1,7 +1,6 @@
 import http from "./http";
 
 export const getReports = async (count, page, value = "", date = undefined) => {
-  console.log(date);
   const res = await http.post(`/report/getAllReportsSearchByToken/`, {
     count: count,
     page: page,
@@ -45,7 +44,6 @@ export const getAllProjectsReports = async (projectId, search, count, page) => {
 };
 
 export const uploadReportFile = async (data) => {
-  console.log(data);
   const resp = await http.post("/report/uploadFile", data, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -60,9 +58,6 @@ export const updateReport = async (data) => {
 };
 
 export const userReports = async (id, page = 1, value = "") => {
-  // const resp = await http.get(
-  //   `/report/getAllReportsSearchByUserId?userId=${id}&page=${page}&search=${value}&count=10`,
-  // );
   const resp = await http.post(`/report/getAllReportsSearchByUserId`, {
     userId: id,
     page,

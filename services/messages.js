@@ -16,7 +16,6 @@ export const getTicket = async (id) => {
 };
 
 export const getMessagesById = async (id, page = 1) => {
-  console.log(page);
   const resp = await http.get(`/ticket/messages/${id}/?page=${page}&limit=10`);
   return resp.data;
 };
