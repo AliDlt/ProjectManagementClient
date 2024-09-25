@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getUserProject } from "../../services/projects";
+import useHandleErrors from "../useHandleErrors";
 
 function useUserProjects(userId, page) {
   const {
@@ -10,6 +11,7 @@ function useUserProjects(userId, page) {
     queryKey: ["user-projects", userId, page],
     queryFn: () => getUserProject(userId, page),
   });
+  useHandleErrors(userProjectsLoading, userProjectsError);
 
   const userProjectsData = data?.data;
 

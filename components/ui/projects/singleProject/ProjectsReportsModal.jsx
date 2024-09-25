@@ -16,7 +16,7 @@ function ProjectsReportsModal() {
   const [value] = useDebounce(reportSearchValue, 500);
   const [currentPage, setCurrentPage] = useState(1);
   const { projectsReports, projectsReportsError, projectsReportsLoading } =
-    useProjectsReports(id, value, 5, currentPage);
+    useProjectsReports(id, value, 3, currentPage);
 
   // Error
   if (!projectsReportsLoading && projectsReportsError)
@@ -32,7 +32,7 @@ function ProjectsReportsModal() {
     <>
       {projectsReports && (
         <CustomInput
-          className="hidden py-1 rounded-custom w-72 ml-auto md:flex mt-5"
+          className="hidden py-1 rounded-custom w-72 ml-auto md:flex"
           placeholder="جستجو"
           value={reportSearchValue}
           onChange={(e) => setReportSearchValue(e.target.value)}
@@ -46,7 +46,7 @@ function ProjectsReportsModal() {
           <CustomLoading />
         </div>
       ) : (
-        <div className="flex flex-col mt-5 gap-[1px] bg-black">
+        <div className="flex flex-col mt-10 gap-5">
           {!projectsReports ? (
             <Empty
               className="bg-white m-0 h-80 flex flex-col justify-center items-center"
@@ -63,7 +63,7 @@ function ProjectsReportsModal() {
         <CustomPagination
           onChange={(page) => setCurrentPage(page)}
           total={projectsReports?.totalReports}
-          pageSize={5}
+          pageSize={3}
         />
       )}
     </>
@@ -77,7 +77,7 @@ const ProjectsReportItem = ({ name, description, _id, createdBy, date }) => {
   return (
     <Link
       to={`/reports/${_id}`}
-      className="flex flex-col gap-3 py-4 bg-white hover:"
+      className="flex flex-col gap-3 py-4 bg-white border-2 border-custom-primary-color rounded-custom px-4 hover:bg-custom-primary-color/5"
     >
       <div className="flex justify-between items-center flex-wrap">
         <span>

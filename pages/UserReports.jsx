@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useUserReports from "../hooks/Report/useUserReports";
 import {
   useLocation,
@@ -6,92 +6,64 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
-import { GrSearch } from "react-icons/gr";
-
 import CustomLoading from "../components/modules/CustomLoading";
 import ReportCard from "../components/ui/Reports/ReportCard";
-import { Empty, Pagination } from "antd";
+import { Empty } from "antd";
 import useUserName from "../hooks/useUserName";
-import { useForm } from "react-hook-form";
 import CustomInput from "../components/modules/CustomInput";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
-import CustomButton from "../components/modules/CustomButton";
 import BackButton from "../components/modules/BackButton";
-import useUser from "../hooks/useUser";
+import { GrSearch } from "react-icons/gr";
+import CustomPagination from "../components/modules/CustomPagination";
 
 const UserReports = () => {
   const { id } = useParams();
   const [params, setParams] = useSearchParams();
-  const { control, watch, setValue } = useForm({
-    mode: "onChange",
-    defaultValues: { search: params.get("search") || "" },
-  });
+  const [search, setSearch] = useState(params.get("search") || "");
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [value] = useDebounce(watch("search"), 300);
-
-  const handelSearch = useDebouncedCallback((e) => {
-    const url = new URLSearchParams(Array.from(params.entries()));
-    url.delete("page");
-    setPage(1);
-    e.target.value.trim()
-      ? url.set("search", e.target.value)
-      : url.delete("search");
-    const search = url.toString();
-    const query = search ? `?${search}` : "";
-    navigate(`${pathname}${query}`);
-  });
-
+  const [value] = useDebounce(search, 500);
   const [page, setPage] = useState(1);
-  const { data, error, isPending } = useUserReports(id, page, value);
-  console.log(data);
-  const { data: user, isLoading } = useUserName(id);
-  const { user: userInfo, isLoading: userLoading } = useUser();
-  if (error && !isPending) {
-    return (
-      <div className="container-grid">
-        <div className="flex items-center justify-center flex-col mt-52 col-span-1 lg:col-span-11 gap-3">
-          <div>
-            <Empty
-              description={error.response.data.errors[0]}
-              style={{ fontSize: "24px" }}
-            />
-          </div>
-          <CustomButton
-            onClick={() => {
-              navigate("/dashboard", { replace: true });
-            }}
-          >
-            بازگشت به داشبورد
-          </CustomButton>
-        </div>
-      </div>
-    );
-  }
-  useEffect(() => {
-    if (!userLoading && userInfo && userInfo.userRole === 2) {
-      navigate("/", { replace: true });
-      toast("شما به این صفحه دسترسی ندارید .", "error");
-    }
-  }, [userLoading, user]);
+  const { data, isPending, error } = useUserReports(id, page, value);
+  const { data: user } = useUserName(id);
 
-  if (isPending || isLoading) {
+  // Search Param
+  const handelSearch = useDebouncedCallback((e) => {
+    const current = new URLSearchParams(Array.from(params.entries()));
+
+    if (!value) {
+      current.delete("search");
+    } else {
+      current.set("search", event.target.value);
+    }
+
+    const search = current.toString();
+    const query = search ? `?${search}` : "";
+
+    navigate(`${pathname}${query}`);
+  }, 500);
+
+  if (!isPending && error) {
     return (
-      <div className="container-grid">
-        <div className="col-span-1 lg:col-span-11">
-          <CustomLoading />
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div className="container-grid">
-      <div>
+      <div className="container-grid flex flex-col justify-center items-center h-[30rem]">
+        <Empty
+          description={
+            error?.response?.data?.errors
+              ? error?.response?.data?.errors[0]
+              : error?.response?.data?.message
+          }
+        />
         <BackButton />
       </div>
-      <h3 className="text-24 col-span-1 lg:col-span-11">
-        گزارش های {user?.data.user.name} {user?.data.user.surName}
-      </h3>
+    );
+  }
+
+  return (
+    <div className="container-grid">
+      <div className="flex flex-wrap items-center gap-5 col-span-1 lg:col-span-11">
+        <BackButton />
+        <h3 className="text-24">گزارش های {user?.data.user.name}</h3>
+      </div>
       <div className="col-span-1 lg:col-span-11">
         <div className="mb-4">
           <div>
@@ -100,40 +72,52 @@ const UserReports = () => {
                 <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
               }
               onChange={(e) => {
-                setValue("search", e.target.value);
+                setSearch(e.target.value.trim());
                 handelSearch(e);
               }}
-              className=" w-2/3 lg:w-1/3 p-2"
+              className=" py-2 lg:py-2.5 rounded-custom w-full lg:w-1/3 md:w-80 ml-auto"
+              value={search}
               placeholder={"جستجو"}
-              control={control}
               name="search"
+              type="search"
             />
           </div>
-          <div></div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {data?.data.reports.map((report, key) => {
-            return (
-              <ReportCard
-                description={report.description}
-                id={report._id}
-                date={report.date}
-                title={report.name}
-                key={key}
-              />
-            );
-          })}
+          {!isPending && !data?.data && (
+            <div className="col-span-full h-80 flex justify-center items-center">
+              <Empty description="گزارشی وجود ندارد" />
+            </div>
+          )}
+          {isPending ? (
+            <div className="col-span-full h-80">
+              <CustomLoading />
+            </div>
+          ) : (
+            data?.data?.reports.map((report, key) => {
+              return (
+                <ReportCard
+                  description={report.description}
+                  id={report._id}
+                  date={report.date}
+                  title={report.name}
+                  key={key}
+                />
+              );
+            })
+          )}
         </div>
-        <Pagination
-          current={data?.data.currentPage}
-          onChange={(e) => {
-            setPage(e);
-            setParams({ page: e });
-          }}
-          align="center"
-          style={{ direction: "ltr" }}
-          total={data?.data.totalReports}
-        />
+        {!isPending && data?.data && (
+          <CustomPagination
+            current={data?.data?.currentPage}
+            onChange={(e) => {
+              setPage(e);
+              setParams({ page: e });
+            }}
+            align="center"
+            total={data?.data?.totalReports}
+          />
+        )}
       </div>
     </div>
   );
