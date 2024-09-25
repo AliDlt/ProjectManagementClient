@@ -36,7 +36,7 @@ const ChangeData = ({ type, value, setShow, title, userId }) => {
   const {
     control,
     handleSubmit,
-    getValues,
+
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -50,7 +50,7 @@ const ChangeData = ({ type, value, setShow, title, userId }) => {
     const idCustom = id ? id : userId;
     mutate(
       { data: { ...data, id: `${idCustom}` }, id: idCustom },
-      { onSuccess: success,  },
+      { onSuccess: success,onError: (e)=>{toast(e.response.data.message),'error'}  },
     );
   };
 

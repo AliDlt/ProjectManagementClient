@@ -18,8 +18,9 @@ const AddUser = () => {
     control,
     watch,
     handleSubmit,
+    
     formState: { errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(addUserSchema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(addUserSchema),defaultValues : {isForeign:false} });
 
   const userRol = [
     { name: "مدیریت کل", id: 0 },

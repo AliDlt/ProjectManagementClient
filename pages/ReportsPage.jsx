@@ -66,8 +66,10 @@ function ReportsPage() {
       : undefined,
   );
   useEffect(() => {
-    setValue("date", undefined);
-    refetch();
+    if (!params.get("date")) {
+      setValue("date", undefined);
+      refetch();
+    }
   }, [params.get("date")]);
   useEffect(() => {
     params.get("search")
@@ -108,7 +110,7 @@ function ReportsPage() {
               className=" px-3 py-2 w-full lg:w-1/2"
               control={control}
               name="date"
-              placeholder={'تاریخ'}
+              placeholder={"تاریخ"}
               changeHandler={changeDate}
             />
           </div>

@@ -53,7 +53,9 @@ const ReportPage = () => {
       <div className="container-grid">
         <div className="flex items-center justify-center flex-col mt-52 col-span-1 lg:col-span-11 gap-3">
           <div>
-            <Empty description={error.response.data.errors[0]} />
+            <Empty
+              description={` ${error.response.data.errors ? error.response.data.errors[0] : error.response.data.message}  `}
+            />
           </div>
           <CustomButton
             onClick={() => {
@@ -75,16 +77,17 @@ const ReportPage = () => {
           <span className="lg:text-24 text-base font-bold line-clamp-1">
             {data?.name}
           </span>{" "}
-          {data?.isEditable && (
-            <CustomButton
-              onClick={() => showModalDelete(true)}
-              className="bg-white hover:text-white ml-1 w-10 h-10   text-custom-primary-color transition-all border-2 border-custom-primary-color border-solid rounded-full"
-            >
-              <span className="flex items-center justify-center   text-24">
-                <MdDelete size={24} />
-              </span>
-            </CustomButton>
-          )}
+          {data?.isEditable ||
+            (user?.userRole === 0 && (
+              <CustomButton
+                onClick={() => showModalDelete(true)}
+                className="bg-white hover:text-white ml-1 w-10 h-10   text-custom-primary-color transition-all border-2 border-custom-primary-color border-solid rounded-full"
+              >
+                <span className="flex items-center justify-center   text-24">
+                  <MdDelete size={24} />
+                </span>
+              </CustomButton>
+            ))}
         </h3>
         {!data?.isEditable && user.userRole !== 0 && (
           <p className="flex items-center gap-2 my-4 bg-custom-primary-color/10 p-2 text-custom-primary-color rounded-lg">

@@ -35,7 +35,6 @@ const ReportCard = (props) => {
         <p className="line-clamp-1 text-12 text-start border-t  pt-3 border-custom-primary-color">
           متن گزارش : {description}
         </p>
-        <p className="line-clamp-1 text-start">متن گزارش : {description}</p>
         <CustomButton
           className="text-14 mr-auto"
           onClick={() => navigate(`/reports/${id}`)}

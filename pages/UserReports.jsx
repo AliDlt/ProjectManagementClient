@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useUserReports from "../hooks/Report/useUserReports";
 import {
   useLocation,
@@ -15,6 +15,7 @@ import { useDebounce, useDebouncedCallback } from "use-debounce";
 import BackButton from "../components/modules/BackButton";
 import { GrSearch } from "react-icons/gr";
 import CustomPagination from "../components/modules/CustomPagination";
+import useUser from "../hooks/useUser";
 
 const UserReports = () => {
   const { id } = useParams();
@@ -24,8 +25,37 @@ const UserReports = () => {
   const { pathname } = useLocation();
   const [value] = useDebounce(search, 500);
   const [page, setPage] = useState(1);
-  const { data, isPending, error } = useUserReports(id, page, value);
-  const { data: user } = useUserName(id);
+  const { data, error, isPending } = useUserReports(id, page, value);
+
+  const { data: user, isLoading } = useUserName(id);
+  const { user: userInfo, isLoading: userLoading } = useUser();
+  if (error && !isPending) {
+    return (
+      <div className="container-grid">
+        <div className="flex items-center justify-center flex-col mt-52 col-span-1 lg:col-span-11 gap-3">
+          <div>
+            <Empty
+              description={error.response.data.errors[0]}
+              style={{ fontSize: "24px" }}
+            />
+          </div>
+          <CustomButton
+            onClick={() => {
+              navigate("/dashboard", { replace: true });
+            }}
+          >
+            بازگشت به داشبورد
+          </CustomButton>
+        </div>
+      </div>
+    );
+  }
+  useEffect(() => {
+    if (!userLoading && userInfo && userInfo.userRole === 2) {
+      navigate("/", { replace: true });
+      toast("شما به این صفحه دسترسی ندارید .", "error");
+    }
+  }, [userLoading, user]);
 
   // Search Param
   const handelSearch = useDebouncedCallback((e) => {
@@ -97,6 +127,7 @@ const UserReports = () => {
             data?.data?.reports.map((report, key) => {
               return (
                 <ReportCard
+                  createBy={user.data.user}
                   description={report.description}
                   id={report._id}
                   date={report.date}
