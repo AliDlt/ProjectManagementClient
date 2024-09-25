@@ -44,6 +44,7 @@ const UserReports = () => {
 
   const [page, setPage] = useState(1);
   const { data, error, isPending } = useUserReports(id, page, value);
+  console.log(error)
   console.log(data);
   const { data: user, isLoading } = useUserName(id);
   const { user: userInfo, isLoading: userLoading } = useUser();
