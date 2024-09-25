@@ -136,6 +136,7 @@ const UserPage = () => {
             error={error}
           />
           <Reports
+            user = {data?.data.user}
             reports={data?.data.reports}
             isPending={isPending}
             error={error}

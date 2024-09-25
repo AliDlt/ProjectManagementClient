@@ -4,9 +4,10 @@ import useReports from "../../../hooks/useReports";
 import CustomLoading from "../../modules/CustomLoading";
 import { useNavigate } from "react-router-dom";
 import { Empty } from "antd";
+import { convertToLocalDate } from "../../../utils/tools";
 
 function ReportsSection() {
-  const { reportsData, isLoading, error } = useReports(4, 1);
+  const { reportsData, isLoading, error } = useReports(2, 1);
   const navigate = useNavigate();
 
   // Handle Error
@@ -35,13 +36,7 @@ function ReportsSection() {
             <CustomLoading />
           </div>
         ) : (
-          reportsData?.reports?.map((report) => (
-            <ReportItem
-              key={report._id}
-              desc={report.description}
-              reportId={report._id}
-            />
-          ))
+          reportsData?.reports?.map((report) => <ReportItem report={report} />)
         )}
       </div>
       {!isLoading && !!reportsData?.reports?.length && (
@@ -59,18 +54,26 @@ function ReportsSection() {
 export default ReportsSection;
 
 // Reports Item
-const ReportItem = ({ desc, reportId }) => {
+const ReportItem = ({ report }) => {
   const navigate = useNavigate();
 
   return (
     <div className="flex justify-center items-center px-2.5 py-3 border-2 border-custom-primary-color rounded-custom gap-3 lg:px-3 lg:py-4 xl:gap-10">
-      <div className="flex items-center truncate">
-        <span className="font-bold ml-2 xl:ml-10">گزارش {reportId}</span>
-        <p className="text-sm truncate"> &nbsp; {desc}</p>
+      <div className="flex  truncate flex-col gap-2">
+        <div className="flex flex-col gap-2">
+          <span className="font-bold ml-2 xl:ml-10">گزارش {report.name}</span>
+
+          <p>
+            <span>تاریخ : </span>
+            <span>{convertToLocalDate(report.createdAt)}</span>
+          </p>
+        </div>
+        <p className="text-sm truncate text-gray-600 font-bold mb-2 "> نویسنده :  {report.createdBy.name} {report.createdBy.surName}</p>
+        <p className="text-sm truncate "> {report.description}</p>
       </div>
       <CustomButton
-        className="px-2 py-1 text-xs mr-auto mt-auto"
-        onClick={() => navigate(`/reports/${reportId}`)}
+        className="px-2 py-1 text-xs  mr-auto mt-auto"
+        onClick={() => navigate(`/reports/${report._id}`)}
       >
         مشاهده
       </CustomButton>

@@ -6,6 +6,8 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
+import { GrSearch } from "react-icons/gr";
+
 import CustomLoading from "../components/modules/CustomLoading";
 import ReportCard from "../components/ui/Reports/ReportCard";
 import { Empty, Pagination } from "antd";
@@ -42,7 +44,7 @@ const UserReports = () => {
 
   const [page, setPage] = useState(1);
   const { data, error, isPending } = useUserReports(id, page, value);
-  console.log(data)
+  console.log(data);
   const { data: user, isLoading } = useUserName(id);
   const { user: userInfo, isLoading: userLoading } = useUser();
   if (error && !isPending) {
@@ -94,6 +96,9 @@ const UserReports = () => {
         <div className="mb-4">
           <div>
             <CustomInput
+              icon={
+                <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
+              }
               onChange={(e) => {
                 setValue("search", e.target.value);
                 handelSearch(e);

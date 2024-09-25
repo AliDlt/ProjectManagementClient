@@ -4,9 +4,10 @@ import CustomButton from "../../modules/CustomButton";
 import CustomLoading from "../../modules/CustomLoading";
 import { Empty } from "antd";
 import { Link, useParams } from "react-router-dom";
+import ReportCard from "../Reports/ReportCard";
 
-const Reports = ({ reports, isPending, error }) => {
-  const {id} = useParams()
+const Reports = ({ reports, isPending, error,user }) => {
+  const { id } = useParams();
   return (
     <section className="h-full flex flex-col gap-4">
       <h3 className=" px-3">گزارش ها</h3>
@@ -15,16 +16,21 @@ const Reports = ({ reports, isPending, error }) => {
           <CustomLoading />
         ) : (
           <>
-            {reports?.length !==0 ? (
+            {reports?.length !== 0 ? (
               <>
-                {reports.map(({ description, name, _id }, key) => {
+                {reports.map((report, key) => {
                   return (
-                    <ReportItem
-                      title={name}
-                      report={description}
-                      id={_id}
-                      key={key}
-                    />
+                    key < 2 && (
+                      <ReportCard
+                        createBy={user}
+                        shadow={true}
+                        title={report.name}
+                        description={report.description}
+                        id={report._id}
+                        date={report.createdAt}
+                        key={key}
+                      />
+                    )
                   );
                 })}
                 <div className="justify-end">
