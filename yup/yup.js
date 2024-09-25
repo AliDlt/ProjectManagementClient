@@ -41,7 +41,7 @@ export const signupSchema = Yup.object({
 // Login Schema
 export const loginSchema = Yup.object({
   username: Yup.string().matches(
-    /^[a-zA-Z]{1,}\d*$/,
+    /^[a-zA-Z0-9\s]+$/,
     "نام کاربری باید انگلیسی باشد و با حروف آغاز شود",
   ),
   password: Yup.string().required("این فیلد اجباری است."),
@@ -83,13 +83,13 @@ export const projectInfoSchema = Yup.object({
 export const changeDataSchema = Yup.object({
   name: Yup.string()
     .required("این فیلد اجباری است.")
-    .min(3, "حد اقل 3 کاراکتر وارد کنید")
+    .min(3, "حداقل 3 کاراکتر وارد کنید")
     .max(25, "حد اکثر 25 کاراکتر وارد کنید")
     .matches(/[\u0600-\u06FF]/, "لطفا فارسی وارد کنید"),
 
   username: Yup.string()
     .required("این فیلد اجباری است.")
-    .min(3, "حد اقل 3 کاراکتر وارد کنید")
+    .min(3, "حداقل 3 کاراکتر وارد کنید")
     .max(25, "حد اکثر 25 کاراکتر وارد کنید")
 
     .matches(
@@ -98,7 +98,7 @@ export const changeDataSchema = Yup.object({
     ),
   password: Yup.string()
     .required("این فیلد اجباری است.")
-    .min(3, "حد اقل 3 کاراکتر وارد کنید")
+    .min(3, "حداقل 3 کاراکتر وارد کنید")
 
     .max(25, "حد اکثر 25 کاراکتر وارد کنید"),
 });
@@ -106,13 +106,13 @@ export const changeDataSchema = Yup.object({
 export const addUserSchema = Yup.object({
   name: Yup.string()
     .required("این فیلد اجباری است.")
-    .min(3, "حد اقل 3 کاراکتر وارد کنید")
+    .min(3, "حداقل 3 کاراکتر وارد کنید")
 
     .max(25, "حد اکثر 25 کاراکتر وارد کنید")
     .matches(/[\u0600-\u06FF]/, "لطفا فارسی وارد کنید"),
   surName: Yup.string()
     .required("این فیلد اجباری است.")
-    .min(3, "حد اقل 3 کاراکتر وارد کنید")
+    .min(3, "حداقل 3 کاراکتر وارد کنید")
 
     .max(25, "حد اکثر 25 کاراکتر وارد کنید")
     .matches(/[\u0600-\u06FF]/, "لطفا فارسی وارد کنید"),
@@ -121,7 +121,7 @@ export const addUserSchema = Yup.object({
     .matches(/^((\+98|0)9\d{9})$/, "لطفا شماره تلفن معتبر وارد کنید"),
   username: Yup.string()
     .required("این فیلد اجباری است.")
-    .min(3, "حد اقل 3 کاراکتر وارد کنید")
+    .min(3, "حداقل 3 کاراکتر وارد کنید")
 
     .max(25, "حداکثر 25 کاراکتر وارد کنید")
     .matches(
@@ -130,7 +130,7 @@ export const addUserSchema = Yup.object({
     ),
   password: Yup.string()
     .required("این فیلد اجباری است.")
-    .min(5, "حد اقل 5 کاراکتر وارد کنید")
+    .min(5, "حداقل 5 کاراکتر وارد کنید")
     .max(25, "حداکثر 25 کاراکتر وارد کنید"),
   isForeign: Yup.boolean(),
 
@@ -158,7 +158,7 @@ export const addReportSchema = Yup.object({
 
 export const addTicket = Yup.object({
   name: Yup.string()
-    .min(3, "حد اقل 3 کارکتر وارد کنید")
+    .min(3, "حداقل 3 کارکتر وارد کنید")
     .required("این فیلد اجباری است."),
   content: Yup.string().required("این فیلد اجباری است."),
   assignedTo: Yup.object().required("یک کاربر را انتخاب کنید"),
@@ -179,7 +179,7 @@ export const addNewProjectSchema = Yup.object({
 export const changePassword = Yup.object({
   password: Yup.string()
     .required("این فیلد اجباری است.")
-    .min(5, "حد اقل 5 کاراکتر لازم است")
+    .min(5, "حداقل 5 کاراکتر لازم است")
     .max(25, "حداکثر 25 کاراکتر میتوانید وارد کنید"),
   passwordConfirmation: Yup.string().oneOf(
     [Yup.ref("password"), null],

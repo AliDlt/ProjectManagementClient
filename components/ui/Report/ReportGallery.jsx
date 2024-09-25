@@ -70,7 +70,7 @@ const PreviewImage = memo(({ file, closeImage }) => {
     </div>
   );
 });
-const ReportGallery = ({ id, data, isEditable }) => {
+const ReportGallery = ({ id, data, isEditable,userRole }) => {
   const [show, setShow] = useState();
   const toast = useToast();
   const [selectedImage, selectImage] = useState();
@@ -179,7 +179,7 @@ const ReportGallery = ({ id, data, isEditable }) => {
         </div>
         <div className="flex items-center justify-center">
           <div className="flex justify-center items-center  ">
-            {isEditable && (
+            {isEditable || userRole===0 && (
               <CustomButton
                 onClick={() => setShow(true)}
                 className=" rounded-xl p-3 transition border-2 border-custom-primary-color !text-12 "

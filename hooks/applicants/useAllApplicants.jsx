@@ -1,5 +1,6 @@
 import { getAllApplicants } from "../../services/applicants";
 import { useQuery } from "@tanstack/react-query";
+import useHandleErrors from "../useHandleErrors";
 
 function useAllApplicants(page, count, category, search) {
   const {
@@ -10,6 +11,7 @@ function useAllApplicants(page, count, category, search) {
     queryKey: ["get-all-applicant", page, count, category, search],
     queryFn: () => getAllApplicants({ page, count, category, search }),
   });
+  useHandleErrors(allApplicantsLoading, allApplicantsError);
 
   return { allApplicants, allApplicantsLoading, allApplicantsError };
 }

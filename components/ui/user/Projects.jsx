@@ -9,9 +9,8 @@ const Projects = ({ projects, error, isPending }) => {
   const { id } = useParams();
   return (
     <div className="flex flex-col gap-4 order-1 h-full">
-      <h4 className="pr-4">پروژه ها</h4>
-
-      <div className="shadow-custom bg-white border-b-2 border-l-2 flex flex-col gap-3 border-custom-primary-color rounded-custom h-full py-3 px-2">
+      <h4 className="pr-4 text-20">پروژه ها</h4>
+      <div className="shadow-custom bg-white border-b-2 border-l-2 flex flex-col gap-3 border-custom-primary-color rounded-custom h-full p-7">
         {isPending ? (
           <CustomLoading />
         ) : (
@@ -55,7 +54,7 @@ const Projects = ({ projects, error, isPending }) => {
               )}
             </div>
             {projects.length !== 0 && (
-              <div className="justify-end">
+              <div className="flex justify-end">
                 <Link to={`/users/project/${id}`}>
                   <CustomButton>همه پروژه ها</CustomButton>
                 </Link>

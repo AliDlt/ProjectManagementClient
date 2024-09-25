@@ -16,6 +16,12 @@ function useDeleteProjectFile(projectId) {
     onSuccess: () => {
       queryClient.invalidateQueries("project", projectId);
     },
+    onError: (error) => {
+      if (error.response.data.errors?.length > 0)
+        return toast(error?.response?.data?.errors[0], "error");
+      if (error.response.data.message)
+        return toast(error?.response?.data?.message, "error");
+    },
   });
 
   return { deleteFile, isPending, isSuccess };

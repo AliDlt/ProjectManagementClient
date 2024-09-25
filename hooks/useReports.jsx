@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const useReports = (count, page, value, date) => {
   const toast = useToast();
-  const { data, isLoading, error, isPending,refetch } = useQuery({
+  const { data, isLoading, error, isPending,refetch,isFetching } = useQuery({
     queryKey: ["reports", page, value, date],
     queryFn: () => getReports(count, page, value, date),
   });
@@ -17,10 +17,10 @@ const useReports = (count, page, value, date) => {
         toast(error?.response?.data?.message, "error");
       }
     }
-  }, [isLoading, error]);
+  }, [isFetching, error]);
 
   const reportsData = data?.data;
-  return { reportsData, isLoading, error, isPending ,refetch};
+  return { reportsData, isLoading, error, isPending ,refetch,isFetching};
 };
 
 export default useReports;

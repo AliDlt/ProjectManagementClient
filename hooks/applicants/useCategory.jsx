@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCategoryById } from "../../services/applicants";
+import useHandleErrors from "../useHandleErrors";
 
 function useCategory(applicantId) {
   const {
@@ -10,6 +11,7 @@ function useCategory(applicantId) {
     queryKey: ["get-category", applicantId],
     queryFn: () => getCategoryById(applicantId),
   });
+  useHandleErrors(categoryLoading, categoryError);
 
   return {
     categoryData,

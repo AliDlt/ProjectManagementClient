@@ -15,6 +15,12 @@ function useAddProject() {
     onSuccess: () => {
       toast("پروژه افزودن شد", "success");
     },
+    onError: (error) => {
+      if (error.response.data.errors?.length > 0)
+        return toast(error?.response?.data?.errors[0], "error");
+      if (error.response.data.message)
+        return toast(error?.response?.data?.message, "error");
+    },
   });
 
   return { addProject, isPending, data: data?.data };

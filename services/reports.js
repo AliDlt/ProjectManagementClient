@@ -1,6 +1,14 @@
 import http from "./http";
 
-export const getReports = async (count, page, value = "", date = undefined) => {
+export const getReports = async (
+  count,
+  page = 1,
+  value = "",
+  date = undefined,
+) => {
+  console.log(date);
+  console.log(value);
+  console.log(page);
   const res = await http.post(`/report/getAllReportsSearchByToken/`, {
     count: count,
     page: page,

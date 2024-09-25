@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Logo from "../components/ui/dashboard/Logo";
 import CustomInput from "../components/modules/CustomInput";
 import CustomButton from "../components/modules/CustomButton";
@@ -29,8 +28,12 @@ const LoginPage = () => {
   });
 
   const submitLogin = async (values) => {
+    const { username, password } = values;
     try {
-      const { message } = await mutateAsync(values);
+      const { message } = await mutateAsync({
+        username: username.trim(),
+        password,
+      });
       toast(message, "success");
       navigate("/", { replace: true });
     } catch (err) {

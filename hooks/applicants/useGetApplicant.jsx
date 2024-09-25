@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getApplicantById } from "../../services/applicants";
 import { useToast } from "../../Context/ToastContext";
+import useHandleErrors from "../useHandleErrors";
 
 function useGetApplicant(categoryId) {
   const {
@@ -11,6 +12,7 @@ function useGetApplicant(categoryId) {
     queryKey: ["get-category-applicant", categoryId],
     queryFn: () => getApplicantById(categoryId),
   });
+  useHandleErrors(applicantsLoading, applicantsError);
 
   return { applicants, applicantsLoading, applicantsError };
 }

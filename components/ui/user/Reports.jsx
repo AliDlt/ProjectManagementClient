@@ -6,12 +6,12 @@ import { Empty } from "antd";
 import { Link, useParams } from "react-router-dom";
 import ReportCard from "../Reports/ReportCard";
 
-const Reports = ({ reports, isPending, error,user }) => {
+const Reports = ({ reports, isPending, error, user }) => {
   const { id } = useParams();
   return (
     <section className="h-full flex flex-col gap-4">
-      <h3 className=" px-3">گزارش ها</h3>
-      <div className="bg-white h-full p-4  rounded-custom border-l-2 border-b-2 border-custom-primary-color flex flex-col justify-between gap-5">
+      <h3 className=" px-3 text-20">گزارش ها</h3>
+      <div className="bg-white h-full p-7 rounded-custom border-b-2 border-custom-primary-color flex flex-col justify-between gap-5 shadow-custom">
         {isPending ? (
           <CustomLoading />
         ) : (
@@ -33,7 +33,7 @@ const Reports = ({ reports, isPending, error,user }) => {
                     )
                   );
                 })}
-                <div className="justify-end">
+                <div className="flex justify-end">
                   <Link to={`/userReports/${id}`}>
                     <CustomButton>همه گزارش ها</CustomButton>
                   </Link>

@@ -12,6 +12,12 @@ function useProjectsReports(projectId, search, count, page) {
   } = useMutation({
     mutationKey: ["get-project-reports"],
     mutationFn: () => getAllProjectsReports(projectId, search, count, page),
+    onError: (error) => {
+      if (error.response.data.errors?.length > 0)
+        return toast(error?.response?.data?.errors[0], "error");
+      if (error.response.data.message)
+        return toast(error?.response?.data?.message, "error");
+    },
   });
 
   // Fetch Projects Reports
