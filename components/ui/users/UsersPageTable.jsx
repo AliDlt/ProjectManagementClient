@@ -71,23 +71,23 @@ function UsersPageTable({ users, loading }) {
             <StatusBadge className="mx-auto" status={active} />
           )}
         />
-        <Column
-          responsive={["lg"]}
-          title="تغییرات"
-          dataIndex="edit"
-          key="edit"
-          width={100}
-          render={(_, record) => (
-            <div className="flex items-center justify-center gap-2">
-              <MdModeEdit
-                className="text-custom-primary-color cursor-pointer"
-                size={23}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  navigate(`/users/${record.key}`);
-                }}
-              />
-              {!isLoading && user && user.userRole === 0 && (
+        {!isLoading && user && user.userRole === 0 && (
+          <Column
+            responsive={["lg"]}
+            title="تغییرات"
+            dataIndex="edit"
+            key="edit"
+            width={100}
+            render={(_, record) => (
+              <div className="flex items-center justify-center gap-2">
+                <MdModeEdit
+                  className="text-custom-primary-color cursor-pointer"
+                  size={23}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/users/${record.key}`);
+                  }}
+                />
                 <FaTrash
                   className="text-custom-primary-color cursor-pointer"
                   size={20}
@@ -97,10 +97,10 @@ function UsersPageTable({ users, loading }) {
                     setOpen(true);
                   }}
                 />
-              )}
-            </div>
-          )}
-        />
+              </div>
+            )}
+          />
+        )}
         <Column
           title="تاریخ  آخرین ورود"
           dataIndex="lastLogin"
