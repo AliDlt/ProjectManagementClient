@@ -7,7 +7,7 @@ const Message = ({ title, description,  id }) => {
     <div className="border-custom-primary-color border-2 rounded-custom p-2  text-sm ">
       <h5 className=""> {title} </h5>
       <div className="flex gap-3 items-center justify-between ">
-        <p className="text-nowrap text-ellipsis overflow-hidden text-[10px]">
+        <p className=" line-clamp-1 text-[10px] ">
           {description}
         </p>
         <CustomButton className="text-10 py-0 h-[25px]">
