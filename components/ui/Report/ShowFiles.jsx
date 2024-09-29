@@ -103,17 +103,16 @@ const ShowFiles = ({ data, isEditable, userRole }) => {
             </span>
           </Popover>
         </div>
-        {isEditable ||
-          (userRole === 0 && (
-            <div className="flex justify-center items-center ">
-              <CustomButton
-                onClick={() => setShow(true)}
-                className=" rounded-xl  p-3  transition border-2 border-custom-primary-color "
-              >
-                افزودن فایل
-              </CustomButton>
-            </div>
-          ))}
+        {(isEditable || userRole === 0) && (
+          <div className="flex justify-center items-center ">
+            <CustomButton
+              onClick={() => setShow(true)}
+              className=" rounded-xl  p-3  transition border-2 border-custom-primary-color "
+            >
+              افزودن فایل
+            </CustomButton>
+          </div>
+        )}
       </div>
       {filterFile(data.file, "file")?.length !== 0 ? (
         <Files>
