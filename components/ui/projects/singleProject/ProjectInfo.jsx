@@ -64,9 +64,7 @@ function ProjectInfo({ projectInfoData }) {
       });
       toast("اطلاعات پروژه آپدیت شد", "success");
       setOpen();
-    } catch (error) {
-      toast(error?.response?.data?.message, "error");
-    }
+    } catch (error) {}
   };
 
   // Map Handler
@@ -202,14 +200,16 @@ function ProjectInfo({ projectInfoData }) {
           <div className="flex justify-center flex-wrap items-center gap-2 mt-5">
             <span>درصد پیشرفت پروژه</span>
             <CustomInput
-              containerClassName="flex-1"
               control={control}
               name="progress"
+              containerClassName="flex-1"
               className="px-2 py-1.5 w-16"
-              placeholder="100"
+              placeholder="0"
               icon={"%"}
               error={errors.progress}
-              noErrorMessage
+              type="number"
+              max={100}
+              min={0}
             />
           </div>
           <div className="flex flex-col justify-center flex-wrap gap-2 mt-5 ">

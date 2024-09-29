@@ -166,14 +166,14 @@ export const addTicket = Yup.object({
 
 // New Project Schema
 export const addNewProjectSchema = Yup.object({
-  name: Yup.string().required(""),
+  name: Yup.string().required("این فیلد اجباری است"),
   description: Yup.string().required("این فیلد اجباری است"),
-  startDate: Yup.string().required(""),
-  endDate: Yup.string().required(""),
-  address: Yup.string().required(""),
-  longitude: Yup.number().required(""),
-  latitude: Yup.number().required(""),
-  progress: Yup.string().matches(/^(?:100|[1-9][0-9]?|0)$/),
+  startDate: Yup.string().required("این فیلد اجباری است"),
+  endDate: Yup.string().required("این فیلد اجباری است"),
+  address: Yup.string().required("این فیلد اجباری است"),
+  longitude: Yup.number().required("این فیلد اجباری است"),
+  latitude: Yup.number().required("این فیلد اجباری است"),
+  progress: Yup.string().matches(/^(?:100|[1-9][0-9]?|0)$/, "مقدار نادرست است"),
 });
 
 export const changePassword = Yup.object({

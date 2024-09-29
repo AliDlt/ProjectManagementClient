@@ -107,9 +107,9 @@ const ApplicantsCategoryPage = () => {
         <div className="h-96 flex justify-center items-center">
           <Empty
             description={
-              categoriesDataError.response.data.errors
+              (categoriesDataError.response.data.errors
                 ? categoriesDataError.response.data.errors[0]
-                : categoriesDataError.response.data.message
+                : categoriesDataError.response.data.message) || ""
             }
           />
         </div>

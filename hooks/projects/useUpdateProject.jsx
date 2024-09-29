@@ -3,7 +3,7 @@ import { updateProject } from "../../services/projects";
 import { useToast } from "../../Context/ToastContext";
 
 function useUpdateProject(projectId) {
-  const toast = useToast()
+  const toast = useToast();
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending: updateProjectLoading } = useMutation({

@@ -16,6 +16,7 @@ import { useToast } from "../Context/ToastContext";
 import CustomModal from "../components/modules/CustomModal";
 import Map from "../components/ui/projects/Map";
 import BackButton from "../components/modules/BackButton";
+import cn from "../utils/cn";
 
 function AddNewProject() {
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -57,14 +58,6 @@ function AddNewProject() {
     } catch (error) {}
   };
 
-  // On Submit Error
-  const onSubmitError = () => {
-    toast(
-      "لطفا فیلد های خواسته شده رو پر کنید ( تاریخ شروع ، تاریخ پایان ، نام پروژه ، آدرس پروژه ، لوکیشن پروژه ، توضیحات پروژه )",
-      "error",
-    );
-  };
-
   // Map Handler
   const mapHandler = (position) => {
     setPosition(position);
@@ -77,7 +70,7 @@ function AddNewProject() {
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit, onSubmitError)}
+      onSubmit={handleSubmit(onSubmit)}
       className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 flex flex-col"
     >
       <div className="flex justify-between items-center">
@@ -93,9 +86,21 @@ function AddNewProject() {
         {/* Project Info */}
         <div className="bg-white p-5 border-2 border-custom-primary-color rounded-custom mt-5 xl:flex xl:gap-10 xl:justify-between">
           <div>
-            <div className="flex justify-between items-center md:justify-start xl:order-2 md:gap-5">
+            <div
+              className={cn([
+                "flex justify-between items-center md:justify-start xl:order-2 md:gap-5",
+                (errors.startDate || errors.endDate) && "items-start",
+              ])}
+            >
               <div className="flex justify-center items-center gap-2">
-                <span className="hidden md:block">شروع</span>
+                <span
+                  className="hidden md:block"
+                  style={{
+                    marginBottom: errors.startDate && "30px",
+                  }}
+                >
+                  شروع
+                </span>
                 <CustomDatePicker
                   className="px-3 py-1.5"
                   control={control}
@@ -108,9 +113,23 @@ function AddNewProject() {
                   }}
                 />
               </div>
-              <span className="mx-2 md:hidden">تا</span>
+              <span
+                className="mx-2 md:hidden"
+                style={{
+                  marginTop: (errors.startDate || errors.endDate) && "10px",
+                }}
+              >
+                تا
+              </span>
               <div className="flex justify-center items-center gap-2">
-                <span className="hidden md:block">پایان</span>
+                <span
+                  className="hidden md:block"
+                  style={{
+                    marginBottom: errors.endDate && "30px",
+                  }}
+                >
+                  پایان
+                </span>
                 <CustomDatePicker
                   className="px-3 py-1.5"
                   control={control}
@@ -124,14 +143,25 @@ function AddNewProject() {
                 />
               </div>
             </div>
-            <div className="flex items-center mt-7 flex-wrap gap-5 xl:order-1">
-              <div className="flex  justify-center items-center flex-wrap gap-2">
-                <span>نام پروژه </span>
+            <div
+              className={cn([
+                "flex items-center mt-7 flex-wrap gap-5 xl:order-1",
+                errors.name && "items-start",
+              ])}
+            >
+              <div className="flex justify-center items-center gap-2">
+                <span
+                  className="text-nowrap"
+                  style={{
+                    marginBottom: errors.name && "30px",
+                  }}
+                >
+                  نام پروژه
+                </span>
                 <CustomInput
                   control={control}
                   name="name"
-                  className="px-3 py-1.5 w-24 md:w-40"
-                  noErrorMessage
+                  className="px-3 py-1.5"
                   error={errors.name}
                 />
               </div>
@@ -144,17 +174,24 @@ function AddNewProject() {
                   placeholder="0"
                   icon={"%"}
                   error={errors.progress}
-                  noErrorMessage
+                  type="number"
+                  max={100}
+                  min={0}
                 />
               </div>
             </div>
             <div className="flex justify-center flex-wrap items-center gap-2 mt-7">
-              <span>آدرس پروژه</span>
+              <span
+                style={{
+                  marginBottom: errors.address && "30px",
+                }}
+              >
+                آدرس پروژه
+              </span>
               <CustomInput
                 control={control}
                 name="address"
                 className="px-3 py-1.5 md:max-w-96"
-                noErrorMessage
                 error={errors.address}
                 containerClassName="flex-1"
               />
@@ -190,7 +227,6 @@ function AddNewProject() {
               control={control}
               name="description"
               error={errors?.description}
-              noErrorMessage
             />
           </div>
         </div>
