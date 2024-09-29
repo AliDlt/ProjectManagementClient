@@ -54,6 +54,8 @@ export default function CustomInput({
               type="number"
               className={`border px-2 py-1  ${error ? "border-red-500" : "border-custom-primary-color"} ltr`}
               min={min}
+              pattern="[0-9]*"
+              inputMode="numeric"
               max={max}
               placeholder={placeholder}
             />
