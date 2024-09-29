@@ -70,7 +70,7 @@ const PreviewImage = memo(({ file, closeImage }) => {
     </div>
   );
 });
-const ReportGallery = ({ id, data, isEditable,userRole }) => {
+const ReportGallery = ({ id, data, isEditable, userRole }) => {
   const [show, setShow] = useState();
   const toast = useToast();
   const [selectedImage, selectImage] = useState();
@@ -115,7 +115,7 @@ const ReportGallery = ({ id, data, isEditable,userRole }) => {
       (info.file.type === "image/jpeg" ||
         info.file.type === "image/jpg" ||
         info.file.type === "image/png") &&
-      info.file.size > 5197152 // 
+      info.file.size > 5197152 //
     ) {
       return toast("حجم تصویر باید کمتر از 50 مگابایت باشد", "error");
     }
@@ -156,7 +156,7 @@ const ReportGallery = ({ id, data, isEditable,userRole }) => {
         id,
         fileName: e.fileName,
       },
-      { onSuccess: deleteMediaSuccess,  },
+      { onSuccess: deleteMediaSuccess },
     );
   };
   return (
@@ -179,7 +179,7 @@ const ReportGallery = ({ id, data, isEditable,userRole }) => {
         </div>
         <div className="flex items-center justify-center">
           <div className="flex justify-center items-center  ">
-            {isEditable || userRole===0 && (
+            {(isEditable || userRole === 0) && (
               <CustomButton
                 onClick={() => setShow(true)}
                 className=" rounded-xl p-3 transition border-2 border-custom-primary-color !text-12 "
