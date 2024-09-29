@@ -10,7 +10,7 @@ import { useToast } from "../Context/ToastContext";
 import { convertToInternational } from "../utils/tools";
 
 function SignupPage() {
-  const [step, setStep] = useState(1); 
+  const [step, setStep] = useState(2); 
   const [otpLoading, setOtpLoading] = useState(false);
   const toast = useToast();
   const otpCode = useRef("");

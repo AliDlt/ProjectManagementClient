@@ -67,6 +67,15 @@ input:focus-visible {
   background: #555;
 }
 
+/* Input Number */
+.ant-input-number {
+  @apply border-2 rounded-custom;
+}
+
+.ant-input-number-handler-wrap {
+  display: none;
+}
+
 /* Checkbox */
 .ant-checkbox {
   border: 1px solid rgb(var(--primary-color));
@@ -237,10 +246,9 @@ input:focus-visible {
   @apply hidden;
 }
 
-.swiper-pagination-bullets{
-
-  @apply !bottom-4
+.swiper-pagination-bullets {
+  @apply !bottom-4;
 }
-.ant-pagination-options{
+.ant-pagination-options {
   display: none;
 }

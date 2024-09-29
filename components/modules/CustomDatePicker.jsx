@@ -29,7 +29,7 @@ function CustomDatePicker({
             DatePicker: fa_IR.DatePicker,
           }}
         >
-          <>
+          <div className="flex flex-col gap-2">
             <DatePickerJalali
               className={cn([
                 "border-2 border-custom-primary-color rounded-custom px-2 py-0.5 [&_input]:text-black",
@@ -52,8 +52,9 @@ function CustomDatePicker({
               status={error && "error"}
               {...rest}
             />
+            {error && <p className="text-red-500 text-sm">{error.message}</p>}
             <JalaliLocaleListener />
-          </>
+          </div>
         </ConfigProvider>
       )}
     />
