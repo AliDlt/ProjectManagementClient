@@ -7,6 +7,7 @@ function CustomOTPInput({ changeOtp }) {
   useEffect(() => {
     Array.from(inputs.current?.nativeElement?.children).map((input) => {
       input.setAttribute("type", "number");
+      input.setAttribute('inputMode','numeric')
     });
   }, []);
 
@@ -16,7 +17,7 @@ function CustomOTPInput({ changeOtp }) {
       length={4}
       onChange={(e) => changeOtp(e)}
       autoFocus
-      inputMode="numeric"
+      type = 'number'
       dir="ltr"
     />
   );

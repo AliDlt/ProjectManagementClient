@@ -16,11 +16,7 @@ import useUser from "../hooks/useUser";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import CustomDatePicker from "../components/modules/CustomDatePicker";
-import dayjs from "dayjs";
-import {
-  CustomHourSelector,
-  CustomMinSelector,
-} from "../components/modules/CustomClockSelector";
+
 import { convertMillisecondsToDate } from "../utils/tools";
 import BackButton from "../components/modules/BackButton";
 
