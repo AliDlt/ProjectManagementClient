@@ -16,7 +16,8 @@ function ReportsSection() {
       <div className="shadow-custom p-6 flex flex-col gap-3 rounded-custom border-b-4 border-r-4 h-[95%] border-custom-primary-color/50 lg:p-7 bg-white">
         <h3 className="text-lg">گزارش ها</h3>
         <p className="flex justify-center items-center h-64">
-          {error?.response?.data?.message}
+          {error?.response?.data?.message ||
+            "خطایی در ارتباط با سرور به وجود آمد."}
         </p>
       </div>
     );

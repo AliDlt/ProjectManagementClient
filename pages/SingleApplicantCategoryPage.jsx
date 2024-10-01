@@ -66,9 +66,10 @@ function SingleApplicantCategoryPage() {
       <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-[30rem] flex flex-col gap-5 justify-center items-center">
         <Empty
           description={
-            categoryError.response.data.errors
+            (categoryError.response.data.errors
               ? categoryError.response.data.errors[0]
-              : categoryError.response.data.message
+              : categoryError.response.data.message) ||
+            "خطایی در ارتباط با سرور به وجود آمد."
           }
         />
         <BackButton title="صفحه دسته بندی متقاضیان" />

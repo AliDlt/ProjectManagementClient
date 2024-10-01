@@ -46,9 +46,10 @@ function SingleProjectPage() {
       <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-[30rem] flex flex-col justify-center items-center gap-5">
         <Empty
           description={
-            error?.response?.data?.errors
+            (error?.response?.data?.errors
               ? error?.response?.data?.errors[0]
-              : error?.response?.data?.message
+              : error?.response?.data?.message) ||
+            "خطایی در ارتباط با سرور به وجود آمد."
           }
         />
         <CustomButton onClick={() => navigate("/projects", { replace: true })}>

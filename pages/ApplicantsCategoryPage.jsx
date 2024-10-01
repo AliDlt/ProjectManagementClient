@@ -109,7 +109,8 @@ const ApplicantsCategoryPage = () => {
             description={
               (categoriesDataError.response.data.errors
                 ? categoriesDataError.response.data.errors[0]
-                : categoriesDataError.response.data.message) || ""
+                : categoriesDataError.response.data.message) ||
+              "خطایی در ارتباط با سرور به وجود آمد."
             }
           />
         </div>
