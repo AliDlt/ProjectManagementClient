@@ -143,17 +143,15 @@ const ApplicantsCategoryPage = () => {
       {/* Header */}
       <h1 className="text-2xl w-full py-4">دسته بندی متقاضیان</h1>
       <div className="flex justify-between items-center flex-wrap mt-5 gap-5">
-        {!categoriesDataLoading && categories && (
-          <CustomInput
-            className=" py-1 rounded-custom  sm:w-72  md:flex lg:py-2.5 "
-            placeholder="جستجو"
-            value={applicantSearchValue}
-            onChange={searchHandler}
-            icon={
-              <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
-            }
-          />
-        )}
+        <CustomInput
+          className=" py-1 rounded-custom  sm:w-72  md:flex lg:py-2.5 "
+          placeholder="جستجو"
+          value={applicantSearchValue}
+          onChange={searchHandler}
+          icon={
+            <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
+          }
+        />
         <CustomButton
           className="mr-auto"
           onClick={() => setOpenCategoryModal(true)}

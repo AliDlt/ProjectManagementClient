@@ -63,21 +63,19 @@ function ProjectsPage() {
         )}
       </div>
       <div className="mt-10">
-        {data && (
-          <CustomInput
-            className=" py-2 lg:py-2.5 rounded-custom w-full lg:w-1/3 md:w-80 ml-auto"
-            placeholder="جستجو"
-            onChange={(event) => {
-              setSearch(event.target.value.trim());
-              searchHandler(event);
-            }}
-            value={search}
-            icon={
-              <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
-            }
-            type="search"
-          />
-        )}
+        <CustomInput
+          className=" py-2 lg:py-2.5 rounded-custom w-full lg:w-1/3 md:w-80 ml-auto"
+          placeholder="جستجو"
+          onChange={(event) => {
+            setSearch(event.target.value.trim());
+            searchHandler(event);
+          }}
+          value={search}
+          icon={
+            <GrSearch className="-scale-x-100 text-custom-primary-color w-5 h-5 ml-2" />
+          }
+          type="search"
+        />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 mt-10">
         {!isLoading && !data && (

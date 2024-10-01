@@ -93,14 +93,12 @@ function SingleApplicantCategoryPage() {
       </div>
       <div className="flex justify-between items-center gap-3 mb-10 mt-2">
         <p className="line-clamp-1">{category?.description}</p>
-        {category?.description?.length > 150 && (
-          <CustomButton
-            className="px-10 py-0"
-            onClick={() => setOpenCategoryDescription(true)}
-          >
-            بیشتر
-          </CustomButton>
-        )}
+        <CustomButton
+          className="px-10 py-0"
+          onClick={() => setOpenCategoryDescription(true)}
+        >
+          بیشتر
+        </CustomButton>
       </div>
       <div className="flex justify-between items-center flex-wrap mt-5 gap-5">
         <CustomInput
@@ -126,7 +124,11 @@ function SingleApplicantCategoryPage() {
       </div>
       {/* Applicants Table */}
       <div className="mt-8 lg:bg-white lg:rounded-custom lg:py-8 lg:shadow-custom lg:border-b-4 lg:border-custom-primary-color-300 ">
-        <UsersTable loading={allApplicantsLoading} users={applicants}>
+        <UsersTable
+          loading={allApplicantsLoading}
+          users={applicants}
+          className="h-[27rem]"
+        >
           <Column
             title="نام و نام خانوادگی"
             dataIndex="fullName"
@@ -154,12 +156,15 @@ function SingleApplicantCategoryPage() {
             width={100}
           />
           <Column
+            className="flex justify-center items-center"
             responsive={["lg"]}
             title="آدرس کامل"
             dataIndex={["address", "addressDetail"]}
             key="addressDetail"
             width={100}
-            render={(value) => <p className="line-clamp-2">{value || "-"}</p>}
+            render={(value) => (
+              <p className="line-clamp-2 w-40 ">{value || "-"}</p>
+            )}
           />
           <Column
             title="تغییرات"
