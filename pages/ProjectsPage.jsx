@@ -46,9 +46,10 @@ function ProjectsPage() {
   if (!isLoading && error)
     return (
       <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-96 flex justify-center items-center">
-        {error.response.data.errors
+        {(error.response.data.errors
           ? error.response.data.errors[0]
-          : error.response.data.message}
+          : error.response.data.message) ||
+          "خطایی در ارتباط با سرور به وجود آمد."}
       </div>
     );
 
