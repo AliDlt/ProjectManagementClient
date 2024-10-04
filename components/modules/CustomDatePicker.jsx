@@ -29,7 +29,7 @@ function CustomDatePicker({
             DatePicker: fa_IR.DatePicker,
           }}
         >
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 w-full">
             <DatePickerJalali
               className={cn([
                 "border-2 border-custom-primary-color rounded-custom px-2 py-0.5 [&_input]:text-black",

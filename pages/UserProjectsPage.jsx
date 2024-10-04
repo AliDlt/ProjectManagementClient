@@ -60,7 +60,6 @@ function UserProjectsPage() {
         <BackButton />
       </div>
       <div className="flex flex-wrap items-center gap-5">
-        <BackButton />
         <h3 className="text-24">
           پروژه های {userData?.user?.name} {userData?.user?.surName}
         </h3>
