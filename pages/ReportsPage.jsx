@@ -195,18 +195,23 @@ function ReportsPage() {
           </section>
         )}
       </div>
-      {reportsData?.reports.length !== 0 && error?.response.status !== 404 && (
-        <div className="col-span-1 lg:col-span-11" style={{ direction: "ltr" }}>
-          <Pagination
-            align="center"
-            defaultCurrent={1}
-            onChange={changePage}
-            total={reportsData?.totalReports}
-            showLessItems={false}
-            defaultPageSize={reportsData?.totalPage}
-          />
-        </div>
-      )}
+      {console.log(reportsData?.reports.length)}
+      {reportsData?.reports.length !== (0 || undefined) &&
+        error?.response.status !== 404 && (
+          <div
+            className="col-span-1 lg:col-span-11"
+            style={{ direction: "ltr" }}
+          >
+            <Pagination
+              align="center"
+              defaultCurrent={1}
+              onChange={changePage}
+              total={reportsData?.totalReports}
+              showLessItems={false}
+              defaultPageSize={reportsData?.totalPage}
+            />
+          </div>
+        )}
       <MetaTag title="گزارش های شما" description="گزارش شما" />
     </div>
   );

@@ -60,7 +60,7 @@ const AddMessage = () => {
           <CustomButton onClick={() => showAddUser(true)}>
             <span>
               {getValues()?.assignedTo
-                ? getValues()?.assignedTo.name
+                ? `${getValues()?.assignedTo.name } ${getValues()?.assignedTo.surName }`
                 : "افزودن کاربر"}
             </span>
             <span>

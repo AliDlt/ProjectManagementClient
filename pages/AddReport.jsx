@@ -95,7 +95,7 @@ const AddReport = () => {
           </CustomButton>
 
           <CustomDatePicker
-            className="  px-4 py-2 "
+            className="  px-4 py-2  w-1/2"
             control={control}
             name={"createAt"}
             changeHandler={setDateReport}
