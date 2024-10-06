@@ -88,16 +88,13 @@ function AddNewProject() {
           <div>
             <div
               className={cn([
-                "flex justify-between items-center md:justify-start xl:order-2 md:gap-5",
+                "flex gap-5 items-center md:justify-start xl:order-2 md:gap-5",
                 (errors.startDate || errors.endDate) && "items-start",
               ])}
             >
-              <div className="flex justify-center items-center gap-2">
+              <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center gap-2">
                 <span
-                  className="hidden md:block"
-                  style={{
-                    marginBottom: errors.startDate && "30px",
-                  }}
+                  className={cn([errors.startDate && " sm:mb-[30px] 30px"])}
                 >
                   شروع
                 </span>
@@ -113,21 +110,8 @@ function AddNewProject() {
                   }}
                 />
               </div>
-              <span
-                className="mx-2 md:hidden"
-                style={{
-                  marginTop: (errors.startDate || errors.endDate) && "10px",
-                }}
-              >
-                تا
-              </span>
-              <div className="flex justify-center items-center gap-2">
-                <span
-                  className="hidden md:block"
-                  style={{
-                    marginBottom: errors.endDate && "30px",
-                  }}
-                >
+              <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center gap-2">
+                <span className={cn([errors.endDate && " sm:mb-[30px] 30px"])}>
                   پایان
                 </span>
                 <CustomDatePicker
