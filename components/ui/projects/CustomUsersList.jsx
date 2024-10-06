@@ -110,7 +110,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           emptyClassName="my-10"
           loading={false}
           users={searchedProjectUsers}
-          rowClassName="lg:border-t lg:border-black lg:last:border-b"
+          rowClassName="border-t border-black last:border-b"
           onRow={(record) => {
             return {
               onClick: () => {
@@ -170,7 +170,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
         }}
       >
         <CustomInput
-          className="hidden py-1 rounded-custom w-72 ml-auto md:flex"
+          className=" py-1 rounded-custom w-72 ml-auto md:flex"
           placeholder="جستجو"
           value={searchAllUsers}
           onChange={(e) => setSearchAllUsers(e.target.value)}
@@ -183,7 +183,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           loading={isLoading}
           users={allUsers}
           rowSelection={rowSelection}
-          rowClassName="lg:border-t lg:border-black lg:last:border-b"
+          rowClassName="border-t border-black last:border-b"
           pageSize={4}
         >
           <Column

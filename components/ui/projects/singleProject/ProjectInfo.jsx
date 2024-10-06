@@ -1,5 +1,5 @@
 import { Progress } from "antd";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,6 +15,7 @@ import CustomDatePicker from "../../../modules/CustomDatePicker";
 import cn from "../../../../utils/cn";
 import CustomTextAria from "../../../modules/CustomTextAria";
 import Map from "../Map";
+import useParagraphLine from "../../../../hooks/useParagraphLine";
 
 function ProjectInfo({ projectInfoData }) {
   const { user, isLoading } = useUser();
@@ -30,10 +31,12 @@ function ProjectInfo({ projectInfoData }) {
     latitude,
   } = projectInfoData;
   const [open, setOpen] = useState(false);
+  const [openDescriptionModal, setOpenDescriptionModal] = useState(false);
   const [isOpenMapModal, setIsOpenMapModal] = useState(false);
   const { mutateAsync, updateProjectLoading } = useUpdateProject(_id);
   const toast = useToast();
-
+  const descriptionRef = useRef();
+  const isMore = useParagraphLine(descriptionRef, 5, projectInfoData);
   const {
     control,
     watch,
@@ -64,7 +67,7 @@ function ProjectInfo({ projectInfoData }) {
       });
       toast("اطلاعات پروژه آپدیت شد", "success");
       setOpen();
-    } catch (error) {}
+    } catch {}
   };
 
   // Map Handler
@@ -77,10 +80,10 @@ function ProjectInfo({ projectInfoData }) {
 
   return (
     <div className="flex flex-col bg-white p-5 border-2 border-custom-primary-color rounded-custom mt-10 relative gap-2 lg:gap-5">
-      <div className="flex flex-col sm:flex-row w-full gap-5">
+      <div className="flex flex-col justify-between md:justify-normal sm:flex-row w-full gap-5">
         <Progress
           className={cn([
-            "[&_.ant-progress-inner]:!size-20 [&_.ant-progress-inner]:xl:!size-32 [&_.ant-progress-text]:text-custom-primary-color",
+            "[&_.ant-progress-inner]:!size-28 [&_.ant-progress-inner]:xl:!size-32 [&_.ant-progress-text]:text-custom-primary-color self-start",
           ])}
           strokeLinecap="butt"
           type="circle"
@@ -89,12 +92,13 @@ function ProjectInfo({ projectInfoData }) {
           strokeColor={"rgb(var(--primary-color))"}
           trailColor={"rgb(var(--primary-color) / 0.2)"}
         />
-        <div className=" grid grid-cols-1 min-[470px]:grid-cols-2 text-14 gap-3 sm:grid-cols-2 xl:grid-cols-3 items-center xl:text-16 2xl:gap-x-5 sm:ml-14">
-          <div className="flex text-nowrap ">
+
+        <div className="grid grid-cols-1 text-14 gap-3 lg:gap-5 sm:grid-cols-2 xl:grid-cols-3 xl:text-16 2xl:gap-x-5 sm:ml-14 w-full items-baseline">
+          <div className="flex text-nowrap">
             <span>تاریخ شروع پروژه : </span>&nbsp;
             <span>{dayjs(startDate).format("YYYY/MM/DD")}</span>
           </div>
-          <div className="flex text-nowrap ">
+          <div className="flex text-nowrap">
             <span>تاریخ پایان پروژه :</span>&nbsp;
             <span>{dayjs(endDate).format("YYYY/MM/DD")}</span>
           </div>
@@ -104,12 +108,15 @@ function ProjectInfo({ projectInfoData }) {
               {createdBy?.name} {createdBy?.surName}
             </span>
           </div>
-          <div>
+          <div className="col-span-full">
             <span>آدرس پروژه : </span>&nbsp;
             <span>{address}</span>
           </div>
-          <div className="flex flex-wrap  flex-1 col-span-full">
-            <CustomButton onClick={() => setIsOpenMapModal(true)}>
+          <div className="flex flex-wrap flex-1 col-span-full">
+            <CustomButton
+              onClick={() => setIsOpenMapModal(true)}
+              className="rounded-lg"
+            >
               لوکیشن پروژه روی نقشه
             </CustomButton>
             <CustomModal
@@ -128,9 +135,21 @@ function ProjectInfo({ projectInfoData }) {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap gap-2 lg:order-2 2xl:order-1">
-        <span> توضیحات پروژه : </span>&nbsp;
-        <span>{description}</span>
+      <div className="flex flex-wrap gap-2 lg:order-2 2xl:order-1 mt-5">
+        <div>
+          <span> توضیحات پروژه : </span>&nbsp;
+          {isMore && (
+            <CustomButton
+              className="text-xs px-5 py-0 h-7"
+              onClick={() => setOpenDescriptionModal(true)}
+            >
+              توضیحات بیشتر
+            </CustomButton>
+          )}
+        </div>
+        <p ref={descriptionRef} className={cn([isMore && "line-clamp-5"])}>
+          {description}
+        </p>
       </div>
       {!isLoading && user.userRole !== 2 && (
         <CustomButton
@@ -149,9 +168,9 @@ function ProjectInfo({ projectInfoData }) {
         onCancel={() => setOpen(false)}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex justify-between items-center">
-            <div className="flex justify-center items-center gap-2">
-              <span className="hidden md:block">شروع</span>
+          <div className="flex justify-between items-center gap-5">
+            <div className="flex flex-col sm:flex-row  sm:justify-center sm:items-center gap-2">
+              <span>شروع</span>
               <CustomDatePicker
                 className="px-3 py-1.5"
                 control={control}
@@ -163,9 +182,9 @@ function ProjectInfo({ projectInfoData }) {
                 }}
               />
             </div>
-            <span className="mx-2">تا</span>
-            <div className="flex justify-center items-center gap-2">
-              <span className="hidden md:block">پایان</span>
+            {/* <span className="mx-2">تا</span> */}
+            <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center gap-2">
+              <span>پایان</span>
               <CustomDatePicker
                 className="px-3 py-1.5"
                 control={control}
@@ -220,6 +239,7 @@ function ProjectInfo({ projectInfoData }) {
               name="description"
               error={errors.description}
               noErrorMessage
+              rows={7}
             />
           </div>
           <CustomModal
@@ -263,6 +283,15 @@ function ProjectInfo({ projectInfoData }) {
             ثبت تغییرات
           </CustomButton>
         </form>
+      </CustomModal>
+      <CustomModal
+        open={openDescriptionModal}
+        onCancel={() => setOpenDescriptionModal(false)}
+        title="توضیحات پروژه"
+        width={1000}
+        headerClassName="sticky top-0"
+      >
+        <p className="lg:text-base">{description}</p>
       </CustomModal>
     </div>
   );
