@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useGetReport from "../../../hooks/useGetReport";
 import { addReportSchema, messageSchema } from "../../../yup/yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CustomModal from "../../modules/CustomModal";
 import dayjs from "dayjs";
 import CustomDatePicker from "../../modules/CustomDatePicker";
@@ -16,8 +16,13 @@ import useUpdateReport from "../../../hooks/Report/useUpdateReport";
 
 import { useToast } from "../../../Context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
+import useUser from "../../../hooks/useUser";
+import useDeleteReport from "../../../hooks/Report/useDeleteReport";
 
 const ReportBox = ({ data, userRole }) => {
+  const [modalDelete, showModalDelete] = useState(false);
+  const { user } = useUser();
+
   const {
     control,
     handleSubmit,
@@ -40,8 +45,24 @@ const ReportBox = ({ data, userRole }) => {
 
     setValue("createAt", newDate);
   };
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const queryClient = useQueryClient();
   const { mutate, isPending } = useUpdateReport();
+  const deleteSuccess = (e) => {
+    toast(e.message, "success");
+    queryClient.invalidateQueries("reports");
+    navigate("/reports");
+  };
+  const { mutate: deleteReport, isPending: deletePending } = useDeleteReport();
+  const deleteReportFn = () => {
+    deleteReport(id, {
+      onSuccess: deleteSuccess,
+      onError: (e) => toast(e.response.data.message, "error"),
+    });
+  };
+
   const [editor, showEditor] = useState(false);
   const toast = useToast();
   const successUpdate = (e) => {
@@ -69,8 +90,9 @@ const ReportBox = ({ data, userRole }) => {
   };
   return (
     <div>
-      <section className="border-2  relative flex justify-between  bg-white rounded-custom  border-custom-primary-color p-4 md:px-6 md:py-4 ">
-        <div className="flex flex-col overflow-hidden w-full ">
+      <section className="border-2  relative flex justify-between  flex-col bg-white rounded-custom  border-custom-primary-color p-4 md:px-6 md:py-4 ">
+        <div className="flex justify-between  overflow-hidden w-full ">
+
           <div className="flex gap-2 flex-col ">
             {" "}
             <div className="flex  gap-3 flex-wrap mb-3 items-center  ">
@@ -80,7 +102,6 @@ const ReportBox = ({ data, userRole }) => {
                 <span>
                   {convertToLocalDate(data?.createdAt && data?.createdAt)}
                 </span>
-                
               </h4>
               <h4>
                 {" "}
@@ -93,34 +114,51 @@ const ReportBox = ({ data, userRole }) => {
               <span className="font-bold">ساعت شروع :</span>{" "}
               {data.startTime && data.startTime}
             </h4>
-          </div>
-          <div className="flex justify-between">
             <div className=" flex gap-2 items-center">
               <div className="text-14 md:text-16 mt-2 ">
                 <span className="font-semibold ">نویسنده : </span>
-                {data?.createdBy ? 
-                <span className="font-semibold">
-                  {data?.createdBy?.name} {data?.createdBy?.surName}{" "}
-                </span>
-                : <span className="font-semibold"> کاربر حذف شده </span>}
+                {data?.createdBy ? (
+                  <span className="font-semibold">
+                    {data?.createdBy?.name} {data?.createdBy?.surName}{" "}
+                  </span>
+                ) : (
+                  <span className="font-semibold"> کاربر حذف شده </span>
+                )}
               </div>
             </div>
           </div>
-
-          <div className="mt-6 border-t border-custom-primary-color pt-4 text-14 md:text-16 text-wrap w-full  ">
-            <p className="break-words ">{data?.description}</p>
+          
+          <div className="flex justify-between">
+          
           </div>
+          <div className="flex gap-2">
+          {(data?.isEditable || userRole === 0) && (
+            <div>
+              <CustomButton
+                onClick={() => showEditor(true)}
+                className="rounded-full h-10 w-10 p-2 !text-20"
+              >
+                <MdEdit />
+              </CustomButton>
+            </div>
+          )}
+          {data?.isEditable ||
+            (user?.userRole === 0 && (
+              <CustomButton
+                onClick={() => showModalDelete(true)}
+                className="bg-white hover:text-white ml-1 w-10 h-10   text-custom-primary-color transition-all border-2 border-custom-primary-color border-solid rounded-full"
+              >
+                <span className="flex items-center justify-center   text-24">
+                  <MdDelete size={24} />
+                </span>
+              </CustomButton>
+            ))}
         </div>
-        {(data?.isEditable || userRole === 0) && (
-          <div className="absolute left-4 top-4">
-            <CustomButton
-              onClick={() => showEditor(true)}
-              className="rounded-full h-10 w-10 p-2 !text-20"
-            >
-              <MdEdit />
-            </CustomButton>
-          </div>
-        )}
+        </div>
+        <div className="mt-6 border-t border-custom-primary-color pt-4 text-14 md:text-16 text-wrap w-full  ">
+          <p className="break-words ">{data?.description}</p>
+        </div>
+       
         <CustomModal
           onCancel={() => showEditor(false)}
           className="p-4 min-h-[480px]"
@@ -200,6 +238,30 @@ const ReportBox = ({ data, userRole }) => {
           </form>
         </CustomModal>
       </section>
+      <CustomModal
+        onCancel={showModalDelete}
+        open={modalDelete}
+        title={"حذف گزارش "}
+      >
+        <div className="mt-3">
+          <h4 className="font-bold">ایا میخواهید گزارش را حذف کنید ؟</h4>
+          <div className="flex justify-end gap-4 ">
+            <CustomButton
+              onClick={deleteReportFn}
+              loading={deletePending}
+              className="w-14 p-2 bg-red-500 hover:bg-red-400 border-red-500 border-2  transition-all"
+            >
+              بله
+            </CustomButton>
+            <CustomButton
+              onClick={() => showModalDelete(false)}
+              className="w-14 p-2 bg-custom-primary-color hover:bg-white hover:text-custom-primary-color  border-custom-primary-color border-2  transition-all"
+            >
+              خیر
+            </CustomButton>
+          </div>
+        </div>
+      </CustomModal>
     </div>
   );
 };

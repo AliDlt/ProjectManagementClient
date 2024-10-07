@@ -70,16 +70,16 @@ const AddReport = () => {
     setValue("createAt", e);
   };
   return (
-    <div className="container-grid">
+    <div className="container-grid gap-6">
       <div className="block col-span-1 lg:col-span-11">
         <BackButton />
       </div>
-      <h5 className="text-24 col-span-1 lg:col-span-9">گزارش جدید</h5>
+      <h5 className="text-24 col-span-1 lg:col-span-9 font-semibold">گزارش جدید</h5>
       <form
         onSubmit={handleSubmit(addReport)}
         className="col-span-1 lg:col-span-9 flex gap-4 flex-col"
       >
-        <div className="flex items-center gap-3">
+        <div className="flex lg:items-center gap-3 lg:flex-row flex-col">
           <CustomButton
             className={`bg-transparent border-2  ${errors?.project ? "border-red-500 text-red-500 hover:bg-red-500" : "border-custom-primary-color  bg-custom-primary-color text-white "}  hover:text-white transition-all !text-18`}
             onClick={() => setShow(true)}
@@ -95,7 +95,7 @@ const AddReport = () => {
           </CustomButton>
 
           <CustomDatePicker
-            className="  px-4 py-2  w-1/2"
+            className="  px-4 py-2 w-full  lg:w-1/2"
             control={control}
             name={"createAt"}
             changeHandler={setDateReport}

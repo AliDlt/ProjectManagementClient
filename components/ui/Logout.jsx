@@ -23,19 +23,21 @@ const Logout = ({ close }) => {
       <p className="text-18">ایا میخواهید از حساب خارج شوید ؟</p>
       <div className="mt-5 flex flex-row-reverse gap-3 items-center">
         <CustomButton
-          onClick={logoutAccount}
-          loading={isPending}
-          className="px-7 bg-red-500 h-10 hover:bg-red-400 !text-18 text-white"
-        >
-          بله
-        </CustomButton>
-        <CustomButton
           onClick={() => {
             close(false);
           }}
-          className="px-7  transition-all h-10 !text-18   border-custom-primary-color border-2 border-solid "
+          className="px-7 bg-transparent text-gray-500 border-gray-500 border-2 transition-all h-10 hover:bg-gray-100 !text-18 "
+
         >
-          خیر
+          انصراف
+        </CustomButton>
+        <CustomButton
+          onClick={logoutAccount}
+          loading={isPending}
+          className="px-7  transition-all h-10 !text-18   border-custom-primary-color border-2  border-solid "
+
+        >
+        خروج
         </CustomButton>
       </div>
     </div>

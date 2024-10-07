@@ -16,6 +16,8 @@ import IconFile from "../IconFile";
 import useUploadReportFile from "../../../hooks/Report/useUploadReportFile";
 import { useParams } from "react-router-dom";
 import { filterFile, imageTypes, videoFormats } from "../../../utils/tools";
+import { IoMdAdd } from "react-icons/io";
+
 import { useQueryClient } from "@tanstack/react-query";
 const popoverContent = (
   <div className="flex flex-col gap-2 text-12">
@@ -107,9 +109,9 @@ const ShowFiles = ({ data, isEditable, userRole }) => {
           <div className="flex justify-center items-center ">
             <CustomButton
               onClick={() => setShow(true)}
-              className=" rounded-xl  p-3  transition border-2 border-custom-primary-color "
+              className=" rounded-full w-10 h-10   p-3  transition border-2 border-custom-primary-color "
             >
-              افزودن فایل
+              <IoMdAdd />
             </CustomButton>
           </div>
         )}

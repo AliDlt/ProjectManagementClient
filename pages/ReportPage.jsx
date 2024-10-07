@@ -6,12 +6,8 @@ import useGetReport from "../hooks/useGetReport";
 import ShowFiles from "../components/ui/Report/ShowFiles";
 import ReportGallery from "../components/ui/Report/ReportGallery";
 import MetaTag from "../components/modules/MetaTag";
-import { MdDelete } from "react-icons/md";
-import CustomModal from "../components/modules/CustomModal";
-import useDeleteReport from "../hooks/Report/useDeleteReport";
 import { useToast } from "../Context/ToastContext";
 import CustomLoading from "../components/modules/CustomLoading";
-import { useQueryClient } from "@tanstack/react-query";
 
 import { AiOutlineInfo } from "react-icons/ai";
 import BackButton from "../components/modules/BackButton";
@@ -21,23 +17,11 @@ import useUser from "../hooks/useUser";
 const ReportPage = () => {
   const { id } = useParams();
   const { data, error, isLoading } = useGetReport(id);
-  const [modalDelete, showModalDelete] = useState(false);
-  const { mutate, isPending } = useDeleteReport();
-  const queryClient = useQueryClient();
   const { user } = useUser();
   const toast = useToast();
   const navigate = useNavigate();
-  const deleteSuccess = (e) => {
-    toast(e.message, "success");
-    queryClient.invalidateQueries("reports");
-    navigate("/reports");
-  };
-  const deleteReportFn = () => {
-    mutate(id, {
-      onSuccess: deleteSuccess,
-      onError: (e) => toast(e.response.data.message, "error"),
-    });
-  };
+
+
   if (isLoading) {
     return (
       <div className="container-grid">
@@ -77,17 +61,7 @@ const ReportPage = () => {
           <span className="lg:text-24 text-base font-bold line-clamp-1">
             {data?.name}
           </span>{" "}
-          {data?.isEditable ||
-            (user?.userRole === 0 && (
-              <CustomButton
-                onClick={() => showModalDelete(true)}
-                className="bg-white hover:text-white ml-1 w-10 h-10   text-custom-primary-color transition-all border-2 border-custom-primary-color border-solid rounded-full"
-              >
-                <span className="flex items-center justify-center   text-24">
-                  <MdDelete size={24} />
-                </span>
-              </CustomButton>
-            ))}
+          
         </h3>
         {!data?.isEditable && user.userRole !== 0 && (
           <p className="flex items-center gap-2 my-4 bg-custom-primary-color/10 p-2 text-custom-primary-color rounded-lg">
@@ -117,30 +91,7 @@ const ReportPage = () => {
           userRole={user.userRole}
         />
       </div>
-      <CustomModal
-        onCancel={showModalDelete}
-        open={modalDelete}
-        title={"حذف گزارش "}
-      >
-        <div className="mt-3">
-          <h4 className="font-bold">ایا میخواهید گزارش را حذف کنید ؟</h4>
-          <div className="flex justify-end gap-4 ">
-            <CustomButton
-              onClick={deleteReportFn}
-              loading={isPending}
-              className="w-14 p-2 bg-red-500 hover:bg-red-400 border-red-500 border-2  transition-all"
-            >
-              بله
-            </CustomButton>
-            <CustomButton
-              onClick={() => showModalDelete(false)}
-              className="w-14 p-2 bg-custom-primary-color hover:bg-white hover:text-custom-primary-color  border-custom-primary-color border-2  transition-all"
-            >
-              خیر
-            </CustomButton>
-          </div>
-        </div>
-      </CustomModal>
+    
 
       <MetaTag title={` گزارش : ${data?.name}`} description="گزارش شما" />
     </div>

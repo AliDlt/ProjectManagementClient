@@ -81,7 +81,7 @@ function ImageVideoSlide({ file, deleteFileMutate, deleteFilePending }) {
         onCancel={() => setOpenDeleteFileModal(false)}
         description="آیا از حذف این فایل اطمینان دارید ؟"
         okText="حذف"
-        cancelText="لغو"
+        cancelText="انصراف"
         okHandler={deleteFileHandler}
         loading={deleteFilePending}
       />
