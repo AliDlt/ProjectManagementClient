@@ -68,17 +68,17 @@ const CustomSlideFIle = ({ item, mutate, isPending }) => {
           <CustomButton
             loading={isPending}
             onClick={deleteFile}
-            className="w-14 p-2 bg-red-500 hover:bg-transparent hover:text-red-500 transition-all border-red-500 border-2"
+            className="   border-custom-primary-color border-2 transition-all"
           >
             {" "}
-            بله{" "}
+            حذف
           </CustomButton>
           <CustomButton
             onClick={() => showModal(false)}
-            className="w-14 p-2 hover:text-custom-primary-color hover:bg-transparent border-custom-primary-color border-2 transition-all"
+            className=" bg-transparent hover:bg-transparent  hover:bg-gray-100 text-gray-500 transition-all border-gray-500 border-2"
           >
             {" "}
-            خیر{" "}
+            انصراف
           </CustomButton>
         </div>
       </CustomModal>

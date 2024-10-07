@@ -21,7 +21,7 @@ function CustomConfirm({
         <div className="flex items-center gap-2 mr-auto">
           <CustomButton
             className={cn([
-              "bg-red-500 hover:bg-white hover:text-red-500 px-5 py-1 border-2 border-red-500 w-20 h-[33px] flex justify-center items-center",
+              "  px-5 py-1 border-2 border-custom-primary-color w-20 h-[33px] flex justify-center items-center",
               okClassName,
             ])}
             onClick={okHandler}
@@ -36,7 +36,7 @@ function CustomConfirm({
             )}
           </CustomButton>
           <CustomButton
-            className="bg-custom-primary-color hover:bg-white hover:text-custom-primary-color px-5 py-1 h-[33px] border-2 border-custom-primary-color w-20 "
+            className="bg-custom-primary-color hover:bg-gray-100 bg-transparent text-gray-500  px-5 py-1 h-[33px] border-2 border-gray-500 w-20 "
             onClick={onCancel}
           >
             {cancelText}

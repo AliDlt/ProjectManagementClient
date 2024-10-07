@@ -15,6 +15,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { filterFile, imageTypes, videoFormats } from "../../../utils/tools";
 import ImageVideoSlide from "../ImageVideoSlide";
 import { IoClose } from "react-icons/io5";
+import { IoMdAdd } from "react-icons/io";
 const popoverContent = (
   <div className="flex flex-col gap-2 text-12">
     <p>ویدئو ها با حجم 50 مگابایت</p>
@@ -182,9 +183,9 @@ const ReportGallery = ({ id, data, isEditable, userRole }) => {
             {(isEditable || userRole === 0) && (
               <CustomButton
                 onClick={() => setShow(true)}
-                className=" rounded-xl p-3 transition border-2 border-custom-primary-color !text-12 "
+                className=" rounded-full w-10 h-10 p-3 transition border-2 border-custom-primary-color  "
               >
-                افزودن عکس یا ویدیو
+                <IoMdAdd />
               </CustomButton>
             )}
             <CustomModal onCancel={setShow} open={show} title="بارگزاری فایل">

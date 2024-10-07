@@ -109,7 +109,7 @@ const AddMessage = () => {
       </div>
       <CustomModal
         onCancel={showAddUser}
-        title="کاربر مد نظر را انتخاب کنید"
+        title="کاربر  را انتخاب کنید"
         open={addUser}
       >
         <AddUsers setUser={setUser} />
