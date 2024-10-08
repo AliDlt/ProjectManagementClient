@@ -1,7 +1,7 @@
 import React from "react";
 import InformationBox from "./InformationBox";
 import CustomLoading from "../../modules/CustomLoading";
-import { convertFromInternational, userRol } from "../../../utils/tools";
+import { convertFromInternational, showUserRole } from "../../../utils/tools";
 
 const UserInformation = ({ error, isPending, user, userRole }) => {
   if (error) {
@@ -36,7 +36,7 @@ const UserInformation = ({ error, isPending, user, userRole }) => {
 
     {
       title: "نقش کاربری",
-      children: userRol(user?.userRole),
+      children: showUserRole(user?.userRole),
       type: "userRole",
     },
   ];
@@ -44,7 +44,7 @@ const UserInformation = ({ error, isPending, user, userRole }) => {
     customData.push({
       title: "کد ملی",
       children: user?.nationalCode,
-      type:"nationalCode",
+      type: "nationalCode",
     });
   }
 

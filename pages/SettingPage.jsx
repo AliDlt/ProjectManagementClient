@@ -3,7 +3,7 @@ import useUser from "../hooks/useUser";
 import { useQueryClient } from "@tanstack/react-query";
 import InformationBox from "../components/ui/user/InformationBox";
 import CustomLoading from "../components/modules/CustomLoading";
-import { userRol } from "../utils/tools";
+import { showUserRole } from "../utils/tools";
 import ChangePasswordForm from "../components/ui/setting/ChangePasswordForm";
 
 const SettingPage = () => {
@@ -63,13 +63,13 @@ const SettingPage = () => {
           </div>
 
           <div>
-            {!user?.userRol && (
+            {!user?.userRole && (
               <InformationBox
                 userId={user?._id}
                 title="نقش کاربری "
                 type="name"
               >
-                {userRol(user?.userRole)}
+                {showUserRole(user?.userRole)}
               </InformationBox>
             )}
           </div>

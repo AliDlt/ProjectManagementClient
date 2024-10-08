@@ -6,9 +6,6 @@ export const getReports = async (
   value = "",
   date = undefined,
 ) => {
-  console.log(date);
-  console.log(value);
-  console.log(page);
   const res = await http.post(`/report/getAllReportsSearchByToken/`, {
     count: count,
     page: page,

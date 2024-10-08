@@ -14,8 +14,8 @@ export const convertToInternational = (phone) => {
   return phone;
 };
 
-export const userRol = (rol) => {
-  switch (rol) {
+export const showUserRole = (role) => {
+  switch (role) {
     case 0:
       return "مدیر کل";
     case 1:

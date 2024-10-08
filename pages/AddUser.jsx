@@ -18,11 +18,15 @@ const AddUser = () => {
     control,
     watch,
     handleSubmit,
-    
-    formState: { errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(addUserSchema),defaultValues : {isForeign:false} });
 
-  const userRol = [
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(addUserSchema),
+    defaultValues: { isForeign: false },
+  });
+
+  const showUserRole = [
     { name: "مدیریت کل", id: 0 },
     { name: "سر پرست پروژه", id: 1 },
     { name: "ناظر پروژه", id: 2 },
@@ -41,7 +45,6 @@ const AddUser = () => {
   };
 
   const submitUser = (e) => {
-
     let copy = { ...e, phoneNumber: convertToInternational(e.phoneNumber) };
     if (!e.isForeign) {
       copy.isForeign = false;
@@ -105,7 +108,7 @@ const AddUser = () => {
               error={errors["password"]}
             />
             <CustomSelectInput
-              options={userRol}
+              options={showUserRole}
               control={control}
               placeholder={"نقش کاربری"}
               className="py-6"

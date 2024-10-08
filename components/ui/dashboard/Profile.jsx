@@ -1,6 +1,6 @@
 import React from "react";
 import useUser from "../../../hooks/useUser";
-import { userRol } from "../../../utils/tools";
+import { showUserRole } from "../../../utils/tools";
 const profile = {
   image: "/image/Ellipse 16.png",
   name: "امیر محمد زارعی",
@@ -16,7 +16,7 @@ const Profile = () => {
           <span> {user?.surName}</span>
         </p>
         <p className="text-sm lg:text-base font-medium">
-          {userRol(user?.userRole)}
+          {showUserRole(user?.userRole)}
         </p>
       </div>
     </div>
