@@ -7,8 +7,10 @@ import CustomConfirm from "../modules/CustomConfirm";
 import cn from "../../utils/cn";
 import { IoMdDownload } from "react-icons/io";
 import CustomLoading from "../modules/CustomLoading";
+import useUser from "../../hooks/useUser";
 
 function ImageVideoSlide({ file, deleteFileMutate, deleteFilePending }) {
+  const { user, isLoading } = useUser();
   const [openDeleteFileModal, setOpenDeleteFileModal] = useState(false);
   const [openFileInfoModal, setOpenFileInfoModal] = useState(false);
 
@@ -26,12 +28,14 @@ function ImageVideoSlide({ file, deleteFileMutate, deleteFilePending }) {
   return (
     <div className="relative">
       <div className="absolute top-2 right-2 z-20 flex gap-2 ">
-        <span
-          className="text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
-          onClick={() => setOpenDeleteFileModal(true)}
-        >
-          <FaTrash />
-        </span>
+        {!isLoading && user.userRole !== 2 && (
+          <span
+            className="text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
+            onClick={() => setOpenDeleteFileModal(true)}
+          >
+            <FaTrash />
+          </span>
+        )}
         <span
           className=" text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
           onClick={() => setOpenFileInfoModal(true)}

@@ -76,7 +76,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
   // Search Handler
   const searchHandler = (e) => {
     setSearchParams({
-      search: e.target.value,
+      ...(e.target.value ? { search: e.target.value } : {}),
     });
     setSearchUsers(e.target.value);
   };
@@ -170,7 +170,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
         }}
       >
         <CustomInput
-          className=" py-1 rounded-custom w-72 ml-auto md:flex"
+          className=" py-1 rounded-custom sm:w-72 ml-auto md:flex"
           placeholder="جستجو"
           value={searchAllUsers}
           onChange={(e) => setSearchAllUsers(e.target.value)}
@@ -179,7 +179,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           }
         />
         <UsersTable
-          className="mt-6 h-[438px]"
+          className="mt-6 h-[400px]"
           loading={isLoading}
           users={allUsers}
           rowSelection={rowSelection}

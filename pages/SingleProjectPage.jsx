@@ -99,10 +99,11 @@ function SingleProjectPage() {
     description,
     longitude,
     latitude,
+    bannerImage,
   } = project;
 
   // Separate Sections Datas
-  const projectBannerData = { files, _id };
+  const projectBannerData = { _id, bannerImage };
   const projectInfoData = {
     startDate,
     endDate,

@@ -44,7 +44,7 @@ function ProjectItem({
         </div>
       </div>
       <CustomButton
-        className="text-14 mr-auto"
+        className="text-14 mr-auto mt-2"
         onClick={() => navigate(`/projects/${id}`)}
       >
         <span className="text-white"> مشاهده</span>
