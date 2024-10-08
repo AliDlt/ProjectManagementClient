@@ -1,5 +1,5 @@
 import { Progress } from "antd";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,7 +15,6 @@ import CustomDatePicker from "../../../modules/CustomDatePicker";
 import cn from "../../../../utils/cn";
 import CustomTextAria from "../../../modules/CustomTextAria";
 import Map from "../Map";
-import useParagraphLine from "../../../../hooks/useParagraphLine";
 
 function ProjectInfo({ projectInfoData }) {
   const { user, isLoading } = useUser();
@@ -35,8 +34,6 @@ function ProjectInfo({ projectInfoData }) {
   const [isOpenMapModal, setIsOpenMapModal] = useState(false);
   const { mutateAsync, updateProjectLoading } = useUpdateProject(_id);
   const toast = useToast();
-  const descriptionRef = useRef();
-  const isMore = useParagraphLine(descriptionRef, 5, projectInfoData);
   const {
     control,
     watch,
@@ -138,18 +135,14 @@ function ProjectInfo({ projectInfoData }) {
       <div className="flex flex-wrap gap-2 lg:order-2 2xl:order-1 mt-5">
         <div>
           <span> توضیحات پروژه : </span>&nbsp;
-          {isMore && (
-            <CustomButton
-              className="text-xs px-5 py-0 h-7"
-              onClick={() => setOpenDescriptionModal(true)}
-            >
-              توضیحات بیشتر
-            </CustomButton>
-          )}
+          <CustomButton
+            className="text-xs px-5 py-0 h-7"
+            onClick={() => setOpenDescriptionModal(true)}
+          >
+            توضیحات بیشتر
+          </CustomButton>
         </div>
-        <p ref={descriptionRef} className={cn([isMore && "line-clamp-5"])}>
-          {description}
-        </p>
+        <p className="line-clamp-5">{description}</p>
       </div>
       {!isLoading && user.userRole !== 2 && (
         <CustomButton
@@ -291,7 +284,7 @@ function ProjectInfo({ projectInfoData }) {
         width={1000}
         headerClassName="sticky top-0"
       >
-        <p className="lg:text-base">{description}</p>
+        <p className="lg:text-base text-justify">{description}</p>
       </CustomModal>
     </div>
   );

@@ -5,6 +5,7 @@ import Column from "antd/es/table/Column";
 import {
   convertFromInternational,
   convertToLocalDate,
+  showUserRole,
 } from "../../../utils/tools";
 import StatusBadge from "../../modules/StatusBadge";
 import CustomModal from "../../modules/CustomModal";
@@ -132,6 +133,13 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             width={100}
           />
           <Column
+            title="نقش کاربری"
+            dataIndex="userRole"
+            key="userRole"
+            width={100}
+            render={(userRole) => showUserRole(userRole)}
+          />
+          <Column
             title="شماره تماس"
             dataIndex="phoneNumber"
             key="phoneNumber"
@@ -168,6 +176,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           setOpenAddUsersModal(false);
           setSearchAllUsers("");
         }}
+        width={1000}
       >
         <CustomInput
           className=" py-1 rounded-custom sm:w-72 ml-auto md:flex"
@@ -179,7 +188,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           }
         />
         <UsersTable
-          className="mt-6 h-[400px]"
+          className="mt-6 h-[420px] [&_.ant-table]:h-full "
           loading={isLoading}
           users={allUsers}
           rowSelection={rowSelection}
@@ -199,6 +208,13 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             dataIndex="username"
             key="username"
             width={100}
+          />
+          <Column
+            title="نقش کاربری"
+            dataIndex="userRole"
+            key="userRole"
+            width={100}
+            render={(userRole) => showUserRole(userRole)}
           />
           <Column
             title="شماره تماس"
