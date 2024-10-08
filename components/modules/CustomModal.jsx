@@ -37,7 +37,7 @@ const CustomModal = ({
         ])}
       >
         <div className="flex justify-between items-center text-xl">
-          <h3 className="text-24 font-semibold">{title}</h3>
+          <h3 className="text-20 font-semibold">{title}</h3>
           {!notClose && (
             <span
               className="text-custom-primary-color text-24 cursor-pointer"
