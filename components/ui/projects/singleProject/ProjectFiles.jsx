@@ -2,7 +2,7 @@ import CustomButton from "../../../modules/CustomButton";
 import CustomModal from "../../../modules/CustomModal";
 import CustomUpload from "../../../modules/CustomUpload";
 import CustomTextAria from "../../../modules/CustomTextAria";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaFile } from "react-icons/fa6";
 import useUploadProjectFile from "../../../../hooks/projects/useUploadProjectFile";
 import useDeleteProjectFile from "../../../../hooks/projects/useDeleteProjectFile";
@@ -15,6 +15,8 @@ import { Empty } from "antd";
 import CustomSlideFIle from "../../../modules/CustomSlideFIle";
 import useUser from "../../../../hooks/useUser";
 import { file, filesSize } from "../../../../utils/uploadFileInfo";
+import { IoMdAdd } from "react-icons/io";
+import { useLocation } from "react-router-dom";
 
 const Preview = (file) => {
   return (
@@ -36,6 +38,18 @@ function ProjectFiles({ projectId, files }) {
     useUploadProjectFile(projectId);
   const { deleteFile, isPending } = useDeleteProjectFile(projectId);
   const toast = useToast();
+  const { hash } = useLocation();
+  const fileSectionRef = useRef();
+
+
+  // Scroll To Upload Files
+  useEffect(() => {
+    if (hash === "#file-section") {
+      scrollTo({
+        top: fileSectionRef.current?.offsetTop - 110,
+      });
+    }
+  }, [hash]);
 
   //   Custom Upload File
   const customUploadFile = (file) => {
@@ -77,7 +91,10 @@ function ProjectFiles({ projectId, files }) {
 
   return (
     <>
-      <div className="flex justify-between items-center mt-10 mb-5">
+      <div
+        ref={fileSectionRef}
+        className="flex justify-between items-center mt-10 mb-5"
+      >
         <div className="flex justify-between w-full items-center gap-3 flex-wrap">
           <div className="flex items-center gap-3">
             <h3 className="text-20 font-extrabold">اسناد</h3>
@@ -85,9 +102,9 @@ function ProjectFiles({ projectId, files }) {
           {!isLoading && user.userRole !== 2 && (
             <CustomButton
               onClick={() => setOpenAddFileModal(true)}
-              className="mr-auto"
+              className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-9 p-0 hover:bg-custom-primary-color text-custom-primary-color hover:text-white"
             >
-              بارگزاری اسناد
+              <IoMdAdd size={23} />
             </CustomButton>
           )}
         </div>

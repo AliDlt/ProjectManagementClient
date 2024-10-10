@@ -6,7 +6,7 @@ import CustomButton from "../../modules/CustomButton";
 import useUserGeolocation from "../../../hooks/useUserGeolocation";
 
 const icon = new Icon({
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/7987/7987463.png",
+  iconUrl: "/images/currentMarker.png",
   iconSize: [25, 25],
 });
 
@@ -46,7 +46,7 @@ function Map({
           <div className="size-10 absolute top-[51.5%] left-[49%] -translate-x-1/2 -translate-y-1/2 z-[999]">
             <img
               className="size-[30px]"
-              src="https://cdn-icons-png.flaticon.com/512/2776/2776000.png"
+              src="/images/selectedMarker.png"
               alt="map-icon"
             />
           </div>

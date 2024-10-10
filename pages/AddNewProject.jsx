@@ -70,7 +70,11 @@ function AddNewProject() {
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, () =>
+        scrollTo({
+          top: 0,
+        }),
+      )}
       className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 flex flex-col"
     >
       <div className="flex justify-between items-center">
@@ -78,9 +82,6 @@ function AddNewProject() {
           <BackButton />
           <h1 className="text-24">پروژه جدید</h1>
         </div>
-        <CustomButton type="submit" loading={isPending}>
-          ثبت پروژه
-        </CustomButton>
       </div>
       <div>
         {/* Project Info */}
@@ -224,6 +225,9 @@ function AddNewProject() {
           emptyText="کاربری انتخاب نشده"
         />
       </div>
+      <CustomButton className="w-28 my-10" type="submit" loading={isPending}>
+        ثبت پروژه
+      </CustomButton>
       <CustomConfirm
         title="بارگزاری عکس ، فیلم و فایل"
         okText="بله"
@@ -235,7 +239,7 @@ function AddNewProject() {
           navigate("/projects");
         }}
         okHandler={() => {
-          navigate(`/projects/${data?._id}`);
+          navigate(`/projects/${data?._id}#file-section`);
         }}
         okClassName="bg-green-500 hover:bg-white hover:text-green-500 border-green-500"
       />

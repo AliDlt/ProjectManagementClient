@@ -15,6 +15,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import useUsers from "../../../hooks/useUsers";
 import { GrSearch } from "react-icons/gr";
 import { useDebounce } from "use-debounce";
+import { IoMdAdd } from "react-icons/io";
+import { MdModeEdit } from "react-icons/md";
 
 function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
   const { user, isLoading: userLoading } = useUser();
@@ -97,8 +99,11 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
         />
         <div className="flex justify-center items-center gap-5 mr-auto">
           {!userLoading && user.userRole !== 2 && (
-            <CustomButton onClick={() => setOpenAddUsersModal(true)}>
-              افزودن / ویرایش لیست کاربران
+            <CustomButton
+              onClick={() => setOpenAddUsersModal(true)}
+              className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-9 p-0 hover:bg-custom-primary-color text-custom-primary-color hover:text-white"
+            >
+              <MdModeEdit size={23} />
             </CustomButton>
           )}
         </div>
@@ -106,7 +111,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
       {/* Users List */}
       <div className=" mt-5 md:mt-10">
         <UsersTable
-          className="row-cursor-pointer"
+          className="row-cursor-pointer [&_.ant-table-placeholder_.ant-table-cell_.ant-empty]:mx-0"
           emptyText={emptyText}
           emptyClassName="my-10"
           loading={false}
@@ -170,7 +175,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
       </div>
       {/* Modal */}
       <CustomModal
-        title="افزودن کاربر به پروژه"
+        title="افزودن / ویرایش کاربر به پروژه"
         open={openAddUsersModal}
         onCancel={() => {
           setOpenAddUsersModal(false);

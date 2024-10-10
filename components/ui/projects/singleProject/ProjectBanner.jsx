@@ -1,5 +1,5 @@
 import { Empty, Image } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CiImageOff } from "react-icons/ci";
 import CustomLoading from "../../../modules/CustomLoading";
 import useUser from "../../../../hooks/useUser";
@@ -9,7 +9,6 @@ import { FaImage, FaTrash } from "react-icons/fa6";
 import CustomModal from "../../../modules/CustomModal";
 import CustomUpload from "../../../modules/CustomUpload";
 import { IoClose } from "react-icons/io5";
-import CustomTextAria from "../../../modules/CustomTextAria";
 import useUploadProjectFile from "../../../../hooks/projects/useUploadProjectFile";
 import { imageTypes } from "../../../../utils/tools";
 import { filesSize } from "../../../../utils/uploadFileInfo";
@@ -22,7 +21,6 @@ function ProjectBanner({ projectBannerData }) {
   const { user, isLoading } = useUser();
   const [openAddBannerModal, setOpenAddBannerModal] = useState(false);
   const [openDeleteBannerModal, setOpenDeleteBannerModal] = useState(false);
-  const [fileDescription, setFileDescription] = useState("");
   const [selectedImage, setSelectedImage] = useState(false);
   const { deleteFile, isPending } = useDeleteProjectFile(_id);
   const { uploadProjectFileFn, uploadProjectFilePending } =
@@ -46,25 +44,18 @@ function ProjectBanner({ projectBannerData }) {
     setSelectedImage(info.file);
   };
 
-  // Upload Image / Video
-  const uploadFile = async (file, fileFormat) => {
-    return uploadProjectFileFn({
-      id: _id,
-      description: fileDescription,
-      fileFormat,
-      file,
-      isBannerImage: true,
-    });
-  };
-
   // Upload Image / Video Handler
   const uploadFileHandler = async (e) => {
     e.preventDefault();
 
     try {
-      await uploadFile(selectedImage, "image");
+      await uploadProjectFileFn({
+        id: _id,
+        fileFormat: "image",
+        file: selectedImage,
+        isBannerImage: true,
+      });
       toast("فایل بارگزاری شد", "success");
-      setFileDescription("");
       setSelectedImage(false);
       setOpenAddBannerModal(false);
     } catch (error) {
@@ -89,20 +80,22 @@ function ProjectBanner({ projectBannerData }) {
       {!isLoading && user.userRole !== 2 && (
         <>
           <CustomButton
-            className="flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group absolute top-4 left-4 z-10"
+            className="flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-9 p-0 hover:bg-custom-primary-color group absolute top-4 left-4 z-10"
             onClick={() => setOpenAddBannerModal(true)}
           >
             <MdModeEdit
-              size={25}
+              size={23}
               className="text-custom-primary-color rounded-full group-hover:text-white"
             />
           </CustomButton>
-          <CustomButton
-            className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group absolute top-4 left-[4.2rem] z-10"
-            onClick={() => setOpenDeleteBannerModal(true)}
-          >
-            <FaTrash className="text-custom-primary-color  group-hover:text-white" />
-          </CustomButton>
+          {bannerImage && (
+            <CustomButton
+              className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-9 p-0 hover:bg-custom-primary-color group absolute top-4 left-[4.2rem] z-10"
+              onClick={() => setOpenDeleteBannerModal(true)}
+            >
+              <FaTrash className="text-custom-primary-color group-hover:text-white" />
+            </CustomButton>
+          )}
         </>
       )}
       {!bannerImage ? (
@@ -125,6 +118,7 @@ function ProjectBanner({ projectBannerData }) {
           fallback="/images/download.png"
           placeholder={<CustomLoading />}
           loading="lazy"
+          onLoad={() => console.log(5)}
         />
       )}
       <span className="absolute bg-white flex rounded-lg top-5 right-5 px-3 py-1 border-2 border-custom-primary-color text-12">
@@ -175,19 +169,10 @@ function ProjectBanner({ projectBannerData }) {
               />
             </div>
           </div>
-          <div>
-            <CustomTextAria
-              className="mt-5"
-              placeholder="توضیحات فایل ( اجباری )"
-              rows={3}
-              onChange={(e) => setFileDescription(e.target.value)}
-              value={fileDescription}
-            />
-          </div>
           <CustomButton
             className="mt-5"
             onClick={uploadFileHandler}
-            disabled={!selectedImage || !fileDescription}
+            disabled={!selectedImage}
             loading={uploadProjectFilePending}
             type="submit"
           >

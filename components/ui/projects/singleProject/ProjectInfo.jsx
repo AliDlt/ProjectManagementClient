@@ -132,7 +132,7 @@ function ProjectInfo({ projectInfoData }) {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap gap-2 lg:order-2 2xl:order-1 mt-5">
+      <div className="flex flex-col flex-wrap gap-2 lg:order-2 2xl:order-1 mt-5">
         <div>
           <span> توضیحات پروژه : </span>&nbsp;
           <CustomButton
@@ -144,13 +144,14 @@ function ProjectInfo({ projectInfoData }) {
         </div>
         <p className="line-clamp-5">{description}</p>
       </div>
+
       {!isLoading && user.userRole !== 2 && (
         <CustomButton
-          className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-10 p-0 hover:bg-custom-primary-color group absolute top-4 left-4 z-10"
+          className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-9 p-0 hover:bg-custom-primary-color group absolute top-4 left-4 z-10"
           onClick={() => setOpen(true)}
         >
           <MdModeEdit
-            size={25}
+            size={23}
             className="text-custom-primary-color rounded-full group-hover:text-white"
           />
         </CustomButton>
