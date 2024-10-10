@@ -84,6 +84,7 @@ function App() {
                   optionSelectedColor: "white",
                   colorPrimary: "rgb(var(--primary-color))",
                   colorPrimaryHover: "rgb(var(--primary-color))",
+                  optionActiveBg: "transparent",
                 },
                 Slider: {
                   trackBgDisabled: "rgba(var(--secondary-color))",

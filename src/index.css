@@ -115,7 +115,15 @@ input:focus-visible {
 }
 
 .ant-select-selection-placeholder {
-  @apply text-black/70;
+  @apply text-white ml-1.5;
+}
+
+.ant-select-selection-item {
+  @apply text-white ml-1.5;
+}
+
+.ant-select-dropdown {
+  @apply !absolute !top-2 rounded-br-custom rounded-bl-custom rounded-tl-none rounded-tr-none pt-7 pb-2 p-0 z-10;
 }
 
 /* Users Table */

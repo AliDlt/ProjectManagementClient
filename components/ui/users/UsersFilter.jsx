@@ -5,6 +5,7 @@ import CustomInput from "../../modules/CustomInput";
 import { GrSearch } from "react-icons/gr";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
+import CustomSelectInput from "../../modules/CustomSelectInput";
 
 const sortItems = [
   { value: "surName", label: <span>نام و نام خانوادگی </span> },
@@ -73,14 +74,11 @@ function UsersFilter() {
       />
       <div className="flex justify-between flex-wrap items-center gap-5 w-full lg:hidden">
         <span className="text-16">مرتب سازی بر اساس :</span>
-        <Select
+        <CustomSelectInput
           defaultValue={sort}
           placeholder="بر اساس"
-          className="flex-1 h-9 max-w-72 ml-auto"
+          containerClassName="w-40 ml-auto"
           options={sortItems}
-          suffixIcon={
-            <IoChevronDown size={15} className="text-custom-primary-color" />
-          }
           notFoundContent={
             <Empty
               description="داده ای وجود ندارد"
