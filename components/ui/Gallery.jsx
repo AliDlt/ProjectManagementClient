@@ -5,7 +5,6 @@ import { Empty } from "antd";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import { CiImageOff } from "react-icons/ci";
 
 function Gallery({ data, children }) {
   return (
@@ -14,10 +13,10 @@ function Gallery({ data, children }) {
         {data?.length === 0 ? (
           <Empty
             description="عکسی وجود ندارد"
-            className="my-20"
-            image={<CiImageOff className="size-12 lg:size-20 text-gray-400" />}
+            className="my-20 flex flex-col justify-center items-center"
             imageStyle={{
               height: "auto",
+              width: "120px",
             }}
           />
         ) : (

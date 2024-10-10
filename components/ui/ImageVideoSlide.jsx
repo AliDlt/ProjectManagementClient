@@ -30,24 +30,26 @@ function ImageVideoSlide({ file, deleteFileMutate, deleteFilePending }) {
       <div className="absolute top-2 right-2 z-20 flex gap-2 ">
         {!isLoading && user.userRole !== 2 && (
           <span
-            className="text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
+            className="text-custom-primary-color bg-white size-9 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
             onClick={() => setOpenDeleteFileModal(true)}
           >
             <FaTrash />
           </span>
         )}
-        <span
-          className=" text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
-          onClick={() => setOpenFileInfoModal(true)}
-        >
-          <IoEyeSharp size={25} />
-        </span>
+        {file.description && (
+          <span
+            className=" text-custom-primary-color bg-white size-9 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
+            onClick={() => setOpenFileInfoModal(true)}
+          >
+            <IoEyeSharp size={20} />
+          </span>
+        )}
         <a
           href={file.fileURL}
           download
-          className=" text-custom-primary-color bg-white size-10 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
+          className=" text-custom-primary-color bg-white size-9 rounded-full flex justify-center items-center border-2 border-custom-primary-color cursor-pointer z-10 hover:bg-custom-primary-color hover:text-white"
         >
-          <IoMdDownload size={25} />
+          <IoMdDownload size={23} />
         </a>
       </div>
       {file.fileFormat === "image" && (

@@ -56,10 +56,8 @@ function UserProjectsPage() {
 
   return (
     <section className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 mb-5">
-      <div className="my-4">
+      <div className="flex flex-wrap items-center gap-5 mt-4">
         <BackButton />
-      </div>
-      <div className="flex flex-wrap items-center gap-5">
         <h3 className="text-24">
           پروژه های {userData?.user?.name} {userData?.user?.surName}
         </h3>

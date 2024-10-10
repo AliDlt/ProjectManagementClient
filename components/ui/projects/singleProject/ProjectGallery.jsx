@@ -19,6 +19,7 @@ import useUser from "../../../../hooks/useUser";
 import { filesSize } from "../../../../utils/uploadFileInfo";
 import ImageVideoSlide from "../../ImageVideoSlide";
 import { imageTypes, videoFormats } from "../../../../utils/tools";
+import { IoMdAdd } from "react-icons/io";
 
 // Popover Content
 const popoverContent = (
@@ -65,9 +66,11 @@ function ProjectGallery({ projectGalleryData, projectId }) {
     useUploadProjectFile(projectId);
   const toast = useToast();
   const navigate = useNavigate();
-  const galleryData = projectGalleryData?.filter((file) => {
-    if (file.fileFormat === "image" || file.fileFormat === "video") return file;
-  });
+  const galleryData =
+    projectGalleryData?.filter((file) => {
+      if (file.fileFormat === "image" || file.fileFormat === "video")
+        return file;
+    }) || [];
 
   // Custom Uploader Request
   const customUploaderRequest = (info) => {
@@ -150,9 +153,9 @@ function ProjectGallery({ projectGalleryData, projectId }) {
           {!isLoading && user.userRole !== 2 && (
             <CustomButton
               onClick={() => setOpenAddFileModal(true)}
-              className="mr-auto"
+              className=" flex justify-center items-center ring-2 ring-custom-primary-color bg-white rounded-full size-9 p-0 hover:bg-custom-primary-color text-custom-primary-color hover:text-white"
             >
-              بارگزاری عکس / ویدئو
+              <IoMdAdd size={23} />
             </CustomButton>
           )}
         </div>
@@ -234,7 +237,7 @@ function ProjectGallery({ projectGalleryData, projectId }) {
             <CustomButton
               className="mt-5"
               onClick={uploadFileHandler}
-              disabled={(!selectedImage && !selectedVideo) || !fileDescription}
+              disabled={!selectedImage && !selectedVideo}
               loading={uploadProjectFilePending}
               type="submit"
             >
