@@ -10,12 +10,13 @@ import { Link } from "react-router-dom";
 import MetaTag from "../../modules/MetaTag";
 import { Checkbox } from "antd";
 import { Controller } from "react-hook-form";
+import { IoChevronDown } from "react-icons/io5";
 
 const userRoleOptions = [
-  { name: "مدیر کل", id: 0 },
-  { name: "سرپرست پروژه", id: 1 },
-  { name: "ناظر پروژه", id: 2 },
-  { name: "پذیرش", id: 3 },
+  { label: "مدیر کل", value: 0 },
+  { label: "سرپرست پروژه", value: 1 },
+  { label: "ناظر پروژه", value: 2 },
+  { label: "پذیرش", value: 3 },
 ];
 
 function SignupForm({ formData, setStep }) {
@@ -95,12 +96,16 @@ function SignupForm({ formData, setStep }) {
         )}
         <CustomSelectInput
           placeholder="نقش کاربری"
-          className="h-[60px] text-16 px-5 bg-transparent md:text-18 placeholder:text-black/50  [&_.ant-select-selection-placeholder]:text-black/50 [&_.ant-select-selection-placeholder]:md:!text-18 [&_.ant-select-selection-item]:md:!text-18"
+          className="h-[60px] text-16 px-2 bg-custom-body-color md:text-18 placeholder:text-black/50 [&_.ant-select-selection-item]:!text-16 [&_.ant-select-selection-placeholder]:!text-16  [&_.ant-select-selection-placeholder]:text-black/50 [&_.ant-select-selection-placeholder]:md:!text-18 [&_.ant-select-selection-item]:md:!text-18 [&_.ant-select-selection-item]:text-black/50 "
           control={control}
           name="userRole"
           options={userRoleOptions}
           iconSize={20}
           error={errors.userRole}
+          suffixIcon={
+            <IoChevronDown size={20} className="text-custom-primary-color" />
+          }
+          popupClassName="!pt-14"
         />
         <CustomPasswordInput
           error={errors.password}

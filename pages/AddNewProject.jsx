@@ -14,9 +14,18 @@ import { useNavigate } from "react-router-dom";
 import MetaTag from "../components/modules/MetaTag";
 import { useToast } from "../Context/ToastContext";
 import CustomModal from "../components/modules/CustomModal";
+import CustomSelectInput from "../components/modules/CustomSelectInput";
 import Map from "../components/ui/projects/Map";
 import BackButton from "../components/modules/BackButton";
 import cn from "../utils/cn";
+
+const projectStatus = [
+  { label: "در حال انجام ", value: 0 },
+  { label: "فعال ", value: 1 },
+  { label: "نیمه فعال", value: 2 },
+  { label: "غیر فعال", value: 3 },
+  { label: "به اتمام رسیده", value: 4 },
+];
 
 function AddNewProject() {
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -77,11 +86,16 @@ function AddNewProject() {
       )}
       className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 flex flex-col"
     >
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center flex-wrap gap-2">
         <div className=" flex items-center gap-5">
           <BackButton />
           <h1 className="text-24">پروژه جدید</h1>
         </div>
+        <CustomSelectInput
+          placeholder="وضعیت پروژه "
+          options={projectStatus}
+          containerClassName="w-32 mr-auto"
+        />
       </div>
       <div>
         {/* Project Info */}
@@ -225,7 +239,7 @@ function AddNewProject() {
           emptyText="کاربری انتخاب نشده"
         />
       </div>
-      <CustomButton className="w-28 my-10" type="submit" loading={isPending}>
+        <CustomButton className="w-28 my-10" type="submit" loading={isPending}>
         ثبت پروژه
       </CustomButton>
       <CustomConfirm
