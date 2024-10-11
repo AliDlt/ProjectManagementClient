@@ -6,16 +6,11 @@ const CustomLoading = ({ size, className }) => {
   return (
     <div
       className={cn([
-        "flex p-6 justify-center items-center h-full w-full",
+        "flex p-6 justify-center items-center h-full w-full [&_span_span]:!border-custom-primary-color",
         className,
       ])}
     >
-      <PuffLoader
-        loading={true}
-        color="#f1a25b"
-        size={size || 60}
-        data-testid="loader"
-      />
+      <PuffLoader loading={true} size={size || 60} data-testid="loader" />
     </div>
   );
 };

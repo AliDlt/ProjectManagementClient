@@ -2,7 +2,7 @@ import CustomButton from "../../../modules/CustomButton";
 import CustomModal from "../../../modules/CustomModal";
 import CustomUpload from "../../../modules/CustomUpload";
 import CustomTextAria from "../../../modules/CustomTextAria";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { FaFile } from "react-icons/fa6";
 import useUploadProjectFile from "../../../../hooks/projects/useUploadProjectFile";
 import useDeleteProjectFile from "../../../../hooks/projects/useDeleteProjectFile";
@@ -16,7 +16,6 @@ import CustomSlideFIle from "../../../modules/CustomSlideFIle";
 import useUser from "../../../../hooks/useUser";
 import { file, filesSize } from "../../../../utils/uploadFileInfo";
 import { IoMdAdd } from "react-icons/io";
-import { useLocation } from "react-router-dom";
 
 const Preview = (file) => {
   return (
@@ -38,18 +37,6 @@ function ProjectFiles({ projectId, files }) {
     useUploadProjectFile(projectId);
   const { deleteFile, isPending } = useDeleteProjectFile(projectId);
   const toast = useToast();
-  const { hash } = useLocation();
-  const fileSectionRef = useRef();
-
-
-  // Scroll To Upload Files
-  useEffect(() => {
-    if (hash === "#file-section") {
-      scrollTo({
-        top: fileSectionRef.current?.offsetTop - 110,
-      });
-    }
-  }, [hash]);
 
   //   Custom Upload File
   const customUploadFile = (file) => {
@@ -91,10 +78,7 @@ function ProjectFiles({ projectId, files }) {
 
   return (
     <>
-      <div
-        ref={fileSectionRef}
-        className="flex justify-between items-center mt-10 mb-5"
-      >
+      <div className="flex justify-between items-center mt-10 mb-5">
         <div className="flex justify-between w-full items-center gap-3 flex-wrap">
           <div className="flex items-center gap-3">
             <h3 className="text-20 font-extrabold">اسناد</h3>

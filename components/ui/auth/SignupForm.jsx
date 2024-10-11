@@ -96,7 +96,7 @@ function SignupForm({ formData, setStep }) {
         )}
         <CustomSelectInput
           placeholder="نقش کاربری"
-          className="h-[60px] text-16 px-2 bg-custom-body-color md:text-18 placeholder:text-black/50 [&_.ant-select-selection-item]:!text-16 [&_.ant-select-selection-placeholder]:!text-16  [&_.ant-select-selection-placeholder]:text-black/50 [&_.ant-select-selection-placeholder]:md:!text-18 [&_.ant-select-selection-item]:md:!text-18 [&_.ant-select-selection-item]:text-black/50 "
+          className="h-[60px] text-16 px-2 bg-custom-body-color md:text-18 placeholder:text-black/50 [&_.ant-select-selection-item]:!text-16 [&_.ant-select-selection-placeholder]:!text-16  [&_.ant-select-selection-placeholder]:text-black/50 [&_.ant-select-selection-placeholder]:md:!text-18 [&_.ant-select-selection-item]:md:!text-18 [&_.ant-select-selection-item]:text-black "
           control={control}
           name="userRole"
           options={userRoleOptions}
