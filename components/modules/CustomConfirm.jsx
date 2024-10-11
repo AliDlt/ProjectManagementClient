@@ -29,7 +29,9 @@ function CustomConfirm({
             {loading ? (
               <CustomLoading
                 size={20}
-                className="p-0 flex justify-center items-center size-5 "
+                className={cn([
+                  "p-0 flex justify-center items-center size-5 [&_span_span]:!border-white",
+                ])}
               />
             ) : (
               okText

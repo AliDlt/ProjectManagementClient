@@ -5,10 +5,8 @@ import useProjectFiles from "../hooks/projects/useProjectFiles";
 import { Image } from "antd";
 import CustomPagination from "../components/modules/CustomPagination";
 import useProject from "../hooks/projects/useProject";
-import { FaTrash } from "react-icons/fa6";
 import CustomConfirm from "../components/modules/CustomConfirm";
 import useDeleteProjectFile from "../hooks/projects/useDeleteProjectFile";
-import { IoEyeSharp } from "react-icons/io5";
 import CustomModal from "../components/modules/CustomModal";
 import BackButton from "../components/modules/BackButton";
 import cn from "../utils/cn";
@@ -107,6 +105,7 @@ function SingleProjectGallery() {
         cancelText="لغو"
         okHandler={deleteFileHandler}
         loading={deleteFileLoading}
+        loadingClassName="text-white"
       />
       {/* Modal Project Info */}
       <CustomModal
