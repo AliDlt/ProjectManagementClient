@@ -19,6 +19,7 @@ import CustomDatePicker from "../components/modules/CustomDatePicker";
 
 import { convertMillisecondsToDate } from "../utils/tools";
 import BackButton from "../components/modules/BackButton";
+import CustomVoiceUploader from "../components/modules/CustomVoiceUploader";
 
 const AddReport = () => {
   const [show, setShow] = useState(false);
@@ -147,12 +148,15 @@ const AddReport = () => {
             rows={3}
           />
         </div>
+      <CustomVoiceUploader />
+
         <div className="">
           <CustomButton loading={isPending} type="submit">
             ثبت گزارش
           </CustomButton>
         </div>
       </form>
+
       <CustomModal open={show} onCancel={setShow} title={"انتخاب پروژه"}>
         <SelectProject setProject={setProject} error={errors.project} />
       </CustomModal>
