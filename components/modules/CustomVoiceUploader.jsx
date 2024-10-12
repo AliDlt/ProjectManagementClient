@@ -36,7 +36,9 @@ const CustomVoiceUploader = () => {
   const stopRecording = () => {
     setRecording(false);
     mediaRecorderRef.current.stop();
-
+    if (mediaRecorderRef.current.stream) {
+      mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
+    }
     mediaRecorderRef.current.onstop = () => {
       const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
       const audioUrl = URL.createObjectURL(audioBlob);
@@ -54,7 +56,7 @@ const CustomVoiceUploader = () => {
       const arrayBuffer = fileReader.result;
       const audioContext = new (window.AudioContext || window.webkitAudioContext)();
       const audioData = await audioContext.decodeAudioData(arrayBuffer);
-      const data = audioData.getChannelData(0); 
+      const data = audioData.getChannelData(0);
       console.log(data)
       const width = canvas.width;
       const height = canvas.height;
@@ -62,7 +64,7 @@ const CustomVoiceUploader = () => {
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = '#F9F5F2';
       ctx.fillRect(0, 0, width, height);
-      ctx.strokeStyle = '#F1AA6A'; 
+      ctx.strokeStyle = '#F1AA6A';
       ctx.beginPath();
 
       for (let i = 0; i < width; i++) {
@@ -107,40 +109,49 @@ const CustomVoiceUploader = () => {
 
   return (
     <div className="flex justify-between items-center border-2 border-custom-primary-color rounded-lg shadow-md p-2">
-      <CustomButton
-        onClick={recording ? stopRecording : startRecording}
-        className={`text-24 rounded-md bg-transparent p-0 hover:text-gray-300 hover:bg-transparent transition-all ${recording ? 'text-red-500' : 'text-gray-400'}`}
-      >
-        <MdKeyboardVoice size={24} />
-        {!audioUrl && (
-          <span className='text-gray-400'>........</span>
-        )}
-      </CustomButton>
-      <canvas ref={canvasRef} height={30} className={` bg-gray-700 ${audioUrl ? 'block' : 'hidden'}`}></canvas>
+      <div className='relative'>
 
-      {audioUrl && (
-        <>
-          <audio
-            src={audioUrl}
-            ref={audioRef}
-            onLoadedMetadata={onLoadedMetadata}
-            onEnded={onEnded}
-            className="hidden" // پنهان کردن تگ audio
-          />
-          <div className="flex gap-2 ">
-            <CustomButton onClick={togglePlayback} className=" text-white p-2 rounded transition-all">
-              {isPlaying ? <IoPauseSharp />
-                : <FaPlay />
-              }
-            </CustomButton>
-            <CustomButton onClick={handleDelete} className="bg-red-500 text-white p-2 hover:bg-red-400 rounded transition-all">
-              <MdDelete />
+        <CustomButton
+          onClick={recording ? stopRecording : startRecording}
+          className={`text-24 rounded-md bg-transparent p-0 hover:bg-transparent transition-all ${recording ? 'text-red-500 a' : 'text-gray-400'}`}
+        >
+          <div className={`${recording ? 'animate-pulse' : 'hidden '}  border border-red-500 rounded-full absolute -right-1 top-0 w-8 h-8`}>
 
-            </CustomButton>
           </div>
-        </>
-      )}
-    </div>
+
+          <MdKeyboardVoice size={24} />
+          {!audioUrl && (
+            <span className='text-gray-400'>........</span>
+          )}
+        </CustomButton>
+      </div>
+      <canvas ref={canvasRef} height={20} className={`  w-[60%]  outline-none ${audioUrl ? 'block' : 'hidden'}`}></canvas>
+
+      {
+        audioUrl && (
+          <>
+            <audio
+              src={audioUrl}
+              ref={audioRef}
+              onLoadedMetadata={onLoadedMetadata}
+              onEnded={onEnded}
+              className="hidden" 
+            />
+            <div className="flex gap-2 ">
+              <CustomButton onClick={togglePlayback} className=" text-white p-2 rounded transition-all !text-16">
+                {isPlaying ? <IoPauseSharp />
+                  : <FaPlay />
+                }
+              </CustomButton>
+              <CustomButton onClick={handleDelete} className="bg-red-500 text-white p-2 !text-16 hover:bg-red-400 rounded transition-all">
+                <MdDelete />
+
+              </CustomButton>
+            </div>
+          </>
+        )
+      }
+    </div >
   );
 };
 
