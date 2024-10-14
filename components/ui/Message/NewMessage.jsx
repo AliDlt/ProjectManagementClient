@@ -41,25 +41,25 @@ const NewMessage = ({ addMessage }) => {
         onSubmit={handleSubmit(submitMessage)}
         className="flex w-full gap-2 border-t-2 px-2  border-b-2 bg-white border-custom-primary-color lg:border-4 lg:rounded-custom"
       >
+        <div className="flex items-center justify-center">
+          <CustomButton
+            loading={isPending}
+            type="submit"
+          >
+            <VscSend />
+          </CustomButton>
+        </div>
         <div className="w-full">
           <CustomTextAria
-            placeholder="پیام خود را بنوسید"
-            className="p-3 border-none outline-none "
+            placeholder="پیام خود را بنوسید ..."
+            className="border-none outline-none mt-6"
             control={control}
             rows={2}
             name="messageText"
             error={errors["messageText"]}
           />
         </div>
-        <div className="flex items-center justify-center">
-          <CustomButton
-            loading={isPending}
-            type="submit"
-            className="rotate-180"
-          >
-            <VscSend />
-          </CustomButton>
-        </div>
+        
       </form>
     </div>
   );
