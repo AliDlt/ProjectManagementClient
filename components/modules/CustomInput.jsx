@@ -20,7 +20,27 @@ export default function CustomInput({
   containerClassName,
   ...rest
 }) {
-  if (!control) {
+  if (!control && type === "number") {
+    return (
+      <div className={cn(["flex flex-col gap-2", containerClassName])}>
+        <InputNumber
+          onChange={(e) => onChange(e)}
+          value={value}
+          id={name}
+          type="number"
+          className={`border px-2 py-1  ${error ? "border-red-500" : "border-custom-primary-color"} ltr`}
+          min={min}
+          pattern="[0-9]*"
+          inputMode="numeric"
+          max={max}
+          placeholder={placeholder}
+          {...rest}
+        />
+      </div>
+    );
+  }
+
+  if (!control)
     return (
       <Input
         onChange={(e) => onChange(e)}
@@ -40,9 +60,8 @@ export default function CustomInput({
         {...rest}
       />
     );
-  }
 
-  if (type === "number") {
+  if (type === "number")
     return (
       <Controller
         control={control}
@@ -63,7 +82,6 @@ export default function CustomInput({
         )}
       />
     );
-  }
 
   return (
     <Controller
