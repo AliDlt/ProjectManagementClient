@@ -34,6 +34,10 @@ import SingleApplicantCategoryPage from "../pages/SingleApplicantCategoryPage";
 import ProtectApplicantsPage from "../pages/ProtectApplicantsPage";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorBoundaryComponent from "../layout/ErrorBoundaryComponnet";
+import AddNewCategory from "../pages/AddNewProjectCategory";
+import AddNewProjectCategory from "../pages/AddNewProjectCategory";
+import EditCategory from "../pages/EditProjectCategory";
+import EditProjectCategory from "../pages/EditProjectCategory";
 
 function App() {
   dayjs.calendar("jalali");
@@ -129,6 +133,14 @@ function App() {
                   <Route path="/add-ticket" element={<AddMessage />} />
                   <Route path="/message/:id" element={<Message />} />
                   <Route path="/projects" element={<ProjectsPage />} />
+                  <Route
+                    path="/projects/new-project/add-new-category"
+                    element={<AddNewProjectCategory />}
+                  />
+                  <Route
+                    path="/projects/new-project/edit-category"
+                    element={<EditProjectCategory />}
+                  />
                   <Route element={<ProtectApplicantsPage />}>
                     <Route
                       path="/applicants"

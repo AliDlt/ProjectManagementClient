@@ -17,6 +17,7 @@ import CustomSelectInput from "../components/modules/CustomSelectInput";
 import Map from "../components/ui/projects/Map";
 import BackButton from "../components/modules/BackButton";
 import cn from "../utils/cn";
+import Categories from "../components/ui/category/Categories";
 
 const projectStatus = [
   { label: "در حال انجام ", value: 0 },
@@ -28,7 +29,8 @@ const projectStatus = [
 
 function AddNewProject() {
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const [isOpenMapModal, setIsOpenMapModal] = useState(false);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+  const [isCategoriesModalOpen, setIsCategoriesModalOpen] = useState(false);
   const [position, setPosition] = useState([
     35.68942549867877, 51.39404296875001,
   ]);
@@ -72,7 +74,7 @@ function AddNewProject() {
     setValue("longitude", position?.lng);
     clearErrors(["latitude", "longitude"]);
     toast("محل پروژه ثبت شد", "success");
-    setIsOpenMapModal(false);
+    setIsMapModalOpen(false);
   };
 
   return (
@@ -89,11 +91,20 @@ function AddNewProject() {
           <BackButton />
           <h1 className="text-24">پروژه جدید</h1>
         </div>
-        <CustomSelectInput
-          placeholder="وضعیت پروژه "
-          options={projectStatus}
-          containerClassName="w-32 mr-auto"
-        />
+        <div className="flex w-full justify-between items-center gap-5 sm:w-auto">
+          <CustomButton
+            className="text-sm"
+            onClick={() => setIsCategoriesModalOpen(true)}
+          >
+            دسته بندی پروژه
+          </CustomButton>
+          <CustomSelectInput
+            placeholder="وضعیت پروژه "
+            options={projectStatus}
+            containerClassName="w-32 mr-auto"
+            className="h-9"
+          />
+        </div>
       </div>
       <div>
         {/* Project Info */}
@@ -195,8 +206,8 @@ function AddNewProject() {
             </div>
             <div>
               <CustomButton
-                onClick={() => setIsOpenMapModal(true)}
-                className="mt-7"
+                onClick={() => setIsMapModalOpen(true)}
+                className="mt-7 text-sm"
               >
                 لوکیشن پروژه روی نقشه
               </CustomButton>
@@ -206,8 +217,8 @@ function AddNewProject() {
                 </p>
               )}
               <CustomModal
-                open={isOpenMapModal}
-                onCancel={() => setIsOpenMapModal(false)}
+                open={isMapModalOpen}
+                onCancel={() => setIsMapModalOpen(false)}
               >
                 <Map
                   position={position}
@@ -244,6 +255,13 @@ function AddNewProject() {
       >
         ثبت پروژه
       </CustomButton>
+      <CustomModal
+        open={isCategoriesModalOpen}
+        onCancel={() => setIsCategoriesModalOpen(false)}
+        title="انتخاب دسته بندی"
+      >
+        <Categories />
+      </CustomModal>
       {/* Meta Tag */}
       <MetaTag title="ایجاد پروژه" description="ایجاد پروژه جدید" />
     </form>

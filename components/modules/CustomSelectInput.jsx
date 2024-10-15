@@ -18,7 +18,7 @@ const CustomSelectInput = ({
 }) => {
   if (!control)
     return (
-      <div className={cn(["relative", containerClassName])}>
+      <div className={cn(["relative custom-select", containerClassName])}>
         <Select
           placeholder={placeholder}
           className={cn([
@@ -79,7 +79,7 @@ const CustomSelectInput = ({
       control={control}
       render={({ field }) => {
         return (
-          <div className={cn(["relative", containerClassName])}>
+          <div className={cn(["relative custom-select", containerClassName])}>
             <Select
               {...field}
               placeholder={placeholder}
