@@ -134,15 +134,22 @@ function ProjectInfo({ projectInfoData }) {
       </div>
       <div className="flex flex-col flex-wrap gap-2 lg:order-2 2xl:order-1 mt-5">
         <div>
-          <span> توضیحات پروژه : </span>&nbsp;
-          <CustomButton
-            className="text-xs px-5 py-0 h-7"
-            onClick={() => setOpenDescriptionModal(true)}
-          >
-            توضیحات بیشتر
-          </CustomButton>
+          <span className="font-bold"> توضیحات پروژه : </span>&nbsp;
         </div>
-        <p className="line-clamp-5">{description}</p>
+        <div>
+          <p className="text-justify leading-8">
+            {description.substring(0, 750)}
+            {description.length > 750 && " . . ."}&nbsp;
+            {description.length > 750 && (
+              <span
+                className="font-extrabold text-16 cursor-pointer hover:font-normal"
+                onClick={() => setOpenDescriptionModal(true)}
+              >
+                توضیحات بیشتر
+              </span>
+            )}
+          </p>
+        </div>
       </div>
 
       {!isLoading && user.userRole !== 2 && (
@@ -285,7 +292,9 @@ function ProjectInfo({ projectInfoData }) {
         width={1000}
         headerClassName="sticky top-0"
       >
-        <p className="lg:text-base text-justify">{description}</p>
+        <p className="lg:text-base text-justify !leading-8 text-16">
+          {description}
+        </p>
       </CustomModal>
     </div>
   );

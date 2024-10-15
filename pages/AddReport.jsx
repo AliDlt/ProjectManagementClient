@@ -1,15 +1,15 @@
-import React, { Children, useState } from "react";
+import React, { useState } from "react";
 import CustomInput from "../components/modules/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addReportSchema } from "../yup/yup";
 import CustomTextAria from "../components/modules/CustomTextAria";
 import CustomButton from "../components/modules/CustomButton";
-import CustomSelectInput from "../components/modules/CustomSelectInput";
+
 import CustomModal from "../components/modules/CustomModal";
 import SelectProject from "../components/ui/AddReport/SelecetProject";
 import { MdAdd } from "react-icons/md";
-import Files from "../components/ui/Files";
+
 import useAddReport from "../hooks/Report/useAddReport";
 import { useToast } from "../Context/ToastContext";
 import useUser from "../hooks/useUser";
@@ -20,8 +20,11 @@ import CustomDatePicker from "../components/modules/CustomDatePicker";
 import { convertMillisecondsToDate } from "../utils/tools";
 import BackButton from "../components/modules/BackButton";
 import CustomVoiceUploader from "../components/modules/CustomVoiceUploader";
+import useUpload from "../hooks/Files/useUpload";
 
 const AddReport = () => {
+  const [audioUrl, setAudioUrl] = useState(null);
+  const [blobVoice, setBlobVoice] = useState(null)
   const [show, setShow] = useState(false);
   const {
     control,
@@ -40,12 +43,24 @@ const AddReport = () => {
     setShow(false);
     delete errors.project;
   };
+  const { mutate: upload, error } = useUpload()
   const navigate = useNavigate();
   const toast = useToast();
   const queryClient = useQueryClient();
   const successAdd = (e) => {
     toast(e.message, "success");
-    navigate(`/reports/${e.data._id}`);
+    console.log()
+    // navigate(`/reports/${e.data._id}`);
+    const formData = new FormData();
+    formData.append('file', blobVoice);
+    formData.append('sectionId', e.data._id);
+    formData.append('fileFormat', 'voice');
+    formData.append('sectionType', 'report');
+
+    upload(formData, {
+      onSuccess: (e) => console.log(e),
+      onError: (e) => { console.log(e) }
+    })
     queryClient.invalidateQueries("reports");
   };
 
@@ -60,11 +75,17 @@ const AddReport = () => {
         description: e.description,
         projectId: e.project.id,
         createdBy: user._id,
+        status: 'ongoing',
         date: convertMillisecondsToDate(Number(e.createAt)),
       },
-      { onSuccess: successAdd, onError: (e) =>toast(e.response.data.message,'error') },
+      {
+        onSuccess: successAdd, onError: (e) => {
+          toast(e.response.data.message, 'error')
+          console.log(e)
+        }
+      },
     );
- 
+
   };
 
   const setDateReport = (e) => {
@@ -148,7 +169,7 @@ const AddReport = () => {
             rows={3}
           />
         </div>
-      <CustomVoiceUploader />
+        <CustomVoiceUploader audioUrl={audioUrl} setAudioUrl={setAudioUrl} setBlobVoice={setBlobVoice} />
 
         <div className="">
           <CustomButton loading={isPending} type="submit">

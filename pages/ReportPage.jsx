@@ -30,6 +30,7 @@ const ReportPage = () => {
         </div>
       </div>
     );
+    
   }
   if (error) {
     toast(error.response.data.message, "error");

@@ -106,6 +106,6 @@ export const videoFormats = [
 export const getTime = (time) => {
   const newTime = new Date(time);
   const hour = newTime.getHours();
-  const min = newTime.getMinutes();
-  return `  ${hour}:${min} `;
+  const min = newTime.getMinutes().toString().padStart(2, '0');
+  return ` ${hour}:${min} `;
 };

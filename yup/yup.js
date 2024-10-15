@@ -208,3 +208,10 @@ export const applicant = Yup.object({
     "لطفا شماره تلفن معتبر وارد کنید",
   ),
 });
+
+export const searchReport = Yup.object({
+  search: Yup.mixed().test(
+    'باید یک رشته یا عدد باشد',
+    value => typeof value === 'string' || typeof value === 'number'
+  )
+})

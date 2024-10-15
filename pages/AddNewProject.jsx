@@ -9,7 +9,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import CustomUsersList from "../components/ui/projects/CustomUsersList";
 import { useState } from "react";
 import useAddProject from "../hooks/projects/useAddProject";
-import CustomConfirm from "../components/modules/CustomConfirm";
 import { useNavigate } from "react-router-dom";
 import MetaTag from "../components/modules/MetaTag";
 import { useToast } from "../Context/ToastContext";
@@ -33,8 +32,7 @@ function AddNewProject() {
   const [position, setPosition] = useState([
     35.68942549867877, 51.39404296875001,
   ]);
-  const { addProject, isPending, data } = useAddProject();
-  const [open, setOpen] = useState(false);
+  const { addProject, isPending } = useAddProject();
   const navigate = useNavigate();
   const toast = useToast();
   const {
@@ -60,10 +58,10 @@ function AddNewProject() {
   // On Submit
   const onSubmit = async (values) => {
     try {
-      await addProject(values);
+      const res = await addProject(values);
       reset();
       setSelectedUsers([]);
-      setOpen(true);
+      navigate(`/projects/${res?.data?._id}`);
     } catch (error) {}
   };
 
@@ -239,24 +237,13 @@ function AddNewProject() {
           emptyText="کاربری انتخاب نشده"
         />
       </div>
-        <CustomButton className="w-28 my-10" type="submit" loading={isPending}>
+      <CustomButton
+        className="w-40 py-5 my-10 mx-auto lg:ml-auto lg:mr-0"
+        type="submit"
+        loading={isPending}
+      >
         ثبت پروژه
       </CustomButton>
-      <CustomConfirm
-        title="بارگزاری عکس ، فیلم و فایل"
-        okText="بله"
-        cancelText="خیر"
-        description="آیا میخواهید به پروژه عکس ، فیلم و یا فایل افزودن کنید ؟"
-        open={open}
-        onCancel={() => {
-          setOpen(false);
-          navigate("/projects");
-        }}
-        okHandler={() => {
-          navigate(`/projects/${data?._id}#file-section`);
-        }}
-        okClassName="bg-green-500 hover:bg-white hover:text-green-500 border-green-500"
-      />
       {/* Meta Tag */}
       <MetaTag title="ایجاد پروژه" description="ایجاد پروژه جدید" />
     </form>
