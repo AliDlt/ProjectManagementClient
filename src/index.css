@@ -119,7 +119,7 @@ input:focus-visible {
 }
 
 .custom-select .ant-select-dropdown {
-  @apply !absolute !top-4 rounded-br-custom rounded-bl-custom rounded-tl-none rounded-tr-none pt-6 pb-2 p-0 !z-10;
+  @apply !absolute !top-full -mt-5 rounded-br-custom rounded-bl-custom rounded-tl-none rounded-tr-none pt-6 pb-2 p-0 !z-10;
 }
 
 /* Users Table */
@@ -286,4 +286,13 @@ input:focus-visible {
 
 .ant-switch[aria-checked="true"] {
   @apply bg-custom-primary-color;
+}
+
+/* Progress */
+.project-item-progress .ant-progress-layout-bottom {
+  @apply flex-col-reverse gap-1;
+}
+
+.project-item-progress .ant-progress-text {
+  @apply mr-auto text-16 font-bold;
 }

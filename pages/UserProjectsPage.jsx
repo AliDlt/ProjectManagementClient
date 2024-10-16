@@ -73,18 +73,17 @@ function UserProjectsPage() {
           </CustomButton>
         </div>
       ) : (
-        <div className=" grid grid-cols-1 md:grid-cols-2 mt-10 gap-5">
-          {userProjectsData?.projects.map((project, index) => (
+        <div className=" grid grid-cols-1 md:grid-cols-2 mt-10 gap-6">
+          {userProjectsData?.projects.map((project) => (
             <ProjectItem
+              address={project.address}
+              bannerImage={project.bannerImage}
               key={project._id}
               id={project._id}
-              projectIndex={index}
               progress={project.progress}
               projectName={project.name}
-              name={project.createdBy.name}
-              surName={project.createdBy.surName}
-              description={project.description}
-              seeProjectBtn
+              name={project?.createdBy?.name}
+              surName={project?.createdBy?.surName}
             />
           ))}
         </div>

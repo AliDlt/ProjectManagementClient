@@ -7,7 +7,6 @@ import {
   convertToLocalDate,
   showUserRole,
 } from "../../../utils/tools";
-import StatusBadge from "../../modules/StatusBadge";
 import CustomModal from "../../modules/CustomModal";
 import CustomInput from "../../modules/CustomInput";
 import useUser from "../../../hooks/useUser";
@@ -15,8 +14,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import useUsers from "../../../hooks/useUsers";
 import { GrSearch } from "react-icons/gr";
 import { useDebounce } from "use-debounce";
-import { IoMdAdd } from "react-icons/io";
 import { MdModeEdit } from "react-icons/md";
+import cn from "../../../utils/cn";
 
 function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
   const { user, isLoading: userLoading } = useUser();
@@ -130,6 +129,19 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             dataIndex="fullName"
             key="fullName"
             width={100}
+            render={(fullName, { active }) => (
+              <div className="relative text-center mx-auto max-w-[120px]">
+                <span
+                  className={cn([
+                    "size-3.5 border  rounded-full absolute flex right-0 -top-3.5",
+                    active
+                      ? "border-green-500 bg-green-300"
+                      : "border-gray-500 bg-gray-400",
+                  ])}
+                ></span>
+                {fullName}
+              </div>
+            )}
           />
           <Column
             title="نام کاربری"
@@ -150,15 +162,6 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             key="phoneNumber"
             width={100}
             render={(phoneNumber) => convertFromInternational(phoneNumber)}
-          />
-          <Column
-            title="وضعیت"
-            dataIndex="active"
-            key="active"
-            width={100}
-            render={(active) => (
-              <StatusBadge className="mx-auto" status={active} />
-            )}
           />
           <Column
             responsive={["lg"]}
@@ -206,6 +209,19 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             dataIndex="fullName"
             key="fullName"
             width={100}
+            render={(fullName, { active }) => (
+              <div className="relative text-center mx-auto">
+                <span
+                  className={cn([
+                    "size-3.5 border rounded-full absolute flex right-0 -top-3.5 max-w-[120px]",
+                    active
+                      ? "border-green-500 bg-green-300"
+                      : "border-gray-500 bg-gray-400",
+                  ])}
+                ></span>
+                {fullName}
+              </div>
+            )}
           />
           <Column
             title="نام کاربری"
@@ -227,15 +243,6 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             key="phoneNumber"
             width={100}
             render={(phoneNumber) => convertFromInternational(phoneNumber)}
-          />
-          <Column
-            title="وضعیت"
-            dataIndex="active"
-            key="active"
-            width={100}
-            render={(active) => (
-              <StatusBadge className="mx-auto" status={active} />
-            )}
           />
           <Column
             responsive={["lg"]}

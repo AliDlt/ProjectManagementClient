@@ -105,7 +105,6 @@ function SignupForm({ formData, setStep }) {
           suffixIcon={
             <IoChevronDown size={20} className="text-custom-primary-color" />
           }
-          popupClassName="!pt-14"
         />
         <CustomPasswordInput
           error={errors.password}
