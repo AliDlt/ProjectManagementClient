@@ -27,7 +27,6 @@ function EditCategory({ editHandler }) {
       color: "#3C81F5",
     },
   });
-
   const navigate = useNavigate();
 
   return (
@@ -45,7 +44,7 @@ function EditCategory({ editHandler }) {
         </CustomButton>
       </div>
       <CustomButton
-        className="mt-10 w-40 py-5"
+        className="mt-10 min-w-40 max-w-max py-5"
         style={{
           background: category.color.color || category.color.customColor,
         }}
@@ -62,20 +61,21 @@ function EditCategory({ editHandler }) {
       {/* Add Or Cancel Buttons */}
       <div className="my-10 flex justify-center items-center gap-3 sm:w-80">
         <CustomButton
-          className="flex-1 py-5 border border-custom-primary-color"
+          className="flex-1 py-5 border-2 border-custom-primary-color disabled:border-gray-400 disabled:text-black"
           type="submit"
           onClick={editHandler}
+          disabled={!category.name}
         >
           ثبت تغییرات
         </CustomButton>
         <CustomButton
-          className="flex-1 py-5 bg-transparent text-gray-500 border border-gray-500 hover:bg-gray-100"
+          className="flex-1 py-5 bg-transparent text-gray-500 border-2 border-gray-500 hover:bg-gray-100"
           onClick={() => navigate(-1)}
         >
           انصراف
         </CustomButton>
       </div>
-      {/* Edit Category Name & Color */}
+      {/* Edit Category Name & Color Modal */}
       <CustomModal
         title="تغییر دسته بندی"
         open={isEditCategoryNameModalOpen}

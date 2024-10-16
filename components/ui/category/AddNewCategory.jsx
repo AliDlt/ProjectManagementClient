@@ -81,13 +81,13 @@ function AddNewCategory({ addCategoryHandler }) {
         {/* Add Or Cancel Buttons */}
         <div className="my-10 flex justify-center items-center gap-3 sm:w-80">
           <CustomButton
-            className="flex-1 py-5 border border-custom-primary-color"
+            className="flex-1 py-5 border-2 border-custom-primary-color"
             type="submit"
           >
             ثبت دسته بندی
           </CustomButton>
           <CustomButton
-            className="flex-1 py-5 bg-transparent text-gray-500 border border-gray-500 hover:bg-gray-100"
+            className="flex-1 py-5 bg-transparent text-gray-500 border-2 border-gray-500 hover:bg-gray-100"
             onClick={() => navigate(-1)}
           >
             انصراف
