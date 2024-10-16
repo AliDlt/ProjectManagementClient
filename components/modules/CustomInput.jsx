@@ -34,6 +34,10 @@ export default function CustomInput({
           inputMode="numeric"
           max={max}
           placeholder={placeholder}
+          controls={{
+            downIcon: <span className="text-sm">-</span>,
+            upIcon: <span className="text-sm">+</span>,
+          }}
           {...rest}
         />
       </div>
@@ -76,6 +80,10 @@ export default function CustomInput({
               pattern="[0-9]*"
               inputMode="numeric"
               max={max}
+              controls={{
+                downIcon: <span className="text-sm">-</span>,
+                upIcon: <span className="text-sm">+</span>,
+              }}
               placeholder={placeholder}
             />
           </div>

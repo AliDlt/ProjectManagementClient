@@ -86,7 +86,7 @@ function AddNewProject() {
       )}
       className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 flex flex-col"
     >
-      <div className="flex justify-between items-center flex-wrap gap-2">
+      <div className="flex justify-between items-center flex-wrap gap-7">
         <div className=" flex items-center gap-5">
           <BackButton />
           <h1 className="text-24">پروژه جدید</h1>
