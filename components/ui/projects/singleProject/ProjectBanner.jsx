@@ -118,7 +118,6 @@ function ProjectBanner({ projectBannerData }) {
           fallback="/images/download.png"
           placeholder={<CustomLoading />}
           loading="lazy"
-          onLoad={() => console.log(5)}
         />
       )}
       <span className="absolute bg-white flex rounded-lg top-5 right-5 px-3 py-1 border-2 border-custom-primary-color text-12">

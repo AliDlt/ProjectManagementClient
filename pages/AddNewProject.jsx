@@ -99,7 +99,7 @@ function AddNewProject() {
             دسته بندی پروژه
           </CustomButton>
           <CustomSelectInput
-            placeholder="وضعیت پروژه "
+            placeholder="وضعیت پروژه"
             options={projectStatus}
             containerClassName="w-32 mr-auto"
             className="h-9"

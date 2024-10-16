@@ -8,9 +8,11 @@ import { useState } from "react";
 import MetaTag from "../components/modules/MetaTag";
 import CustomPagination from "../components/modules/CustomPagination";
 import CustomInput from "../components/modules/CustomInput";
+import CustomSelectInput from "../components/modules/CustomSelectInput";
 import useUser from "../hooks/useUser";
 import { GrSearch } from "react-icons/gr";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
+import { PiFoldersFill } from "react-icons/pi";
 
 function ProjectsPage() {
   const navigate = useNavigate();
@@ -56,14 +58,32 @@ function ProjectsPage() {
   return (
     <section className="px-5 lg:px-0 lg:col-span-9 2xl:col-span-10 ">
       <div className="flex justify-between items-center">
-        <h1 className=" text-24">پروژه ها</h1>
-        {!userLoading && user.userRole === 0 && (
-          <CustomButton onClick={() => navigate("new-project")}>
-            ایجاد پروژه جدید
-          </CustomButton>
-        )}
+        <div className="flex items-center relative">
+          <h1 className=" text-24">پروژه ها</h1>
+          <span className="absolute -top-3 -left-4 size-7 bg-custom-primary-color flex justify-center items-center rounded-full text-white pt-1">
+            {isLoading ? (
+              <CustomLoading
+                size={12}
+                className="[&_span_span]:!border-white p-0"
+              />
+            ) : (
+              data?.projects?.length
+            )}
+          </span>
+        </div>
+        <div className="flex items-center gap-3">
+          <PiFoldersFill
+            size={35}
+            className="text-custom-primary-color cursor-pointer"
+          />
+          {!userLoading && user.userRole === 0 && (
+            <CustomButton onClick={() => navigate("new-project")}>
+              ایجاد پروژه جدید
+            </CustomButton>
+          )}
+        </div>
       </div>
-      <div className="mt-10">
+      <div className="mt-10 flex items-center gap-3">
         <CustomInput
           className=" py-2 lg:py-2.5 rounded-custom w-full lg:w-1/3 md:w-80 ml-auto"
           placeholder="جستجو"
@@ -77,6 +97,17 @@ function ProjectsPage() {
           }
           type="search"
         />
+        <CustomSelectInput
+          containerClassName="min-w-28 w-28"
+          className="h-10"
+          placeholder="فیلتر"
+          options={[
+            { label: "asd", value: 1 },
+            { label: "asdasdasdasdasd", value: 2 },
+            { label: "asasdasdd", value: 3 },
+            { label: "asasdasdd", value: 4 },
+          ]}
+        />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 mt-10">
         {!isLoading && !data && (
@@ -86,23 +117,22 @@ function ProjectsPage() {
           />
         )}
       </div>
-      <div className=" grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className=" grid grid-cols-1 md:grid-cols-2 gap-6">
         {isLoading ? (
           <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-96">
             <CustomLoading />
           </div>
         ) : (
-          data?.projects?.map((project, index) => (
+          data?.projects?.map((project) => (
             <ProjectItem
+              address={project.address}
+              bannerImage={project.bannerImage}
               key={project._id}
               id={project._id}
-              projectIndex={index}
               progress={project.progress}
               projectName={project.name}
               name={project?.createdBy?.name}
               surName={project?.createdBy?.surName}
-              description={project.description}
-              seeProjectBtn
             />
           ))
         )}
