@@ -6,12 +6,12 @@ import {
   convertFromInternational,
   convertToLocalDate,
 } from "../../../utils/tools";
-import StatusBadge from "../../modules/StatusBadge";
 import { MdModeEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa6";
 import CustomConfirm from "../../modules/CustomConfirm";
 import useDeleteUser from "../../../hooks/user/useDeleteUser";
 import useUser from "../../../hooks/useUser";
+import cn from "../../../utils/cn";
 
 function UsersPageTable({ users, loading }) {
   const { user, isLoading } = useUser();
@@ -48,6 +48,19 @@ function UsersPageTable({ users, loading }) {
           dataIndex="fullName"
           key="fullName"
           width={100}
+          render={(fullName, { active }) => (
+            <div className="relative text-center mx-auto ">
+              <span
+                className={cn([
+                  "size-3.5 border  rounded-full absolute flex right-0 -top-3.5",
+                  active
+                    ? "border-green-500 bg-green-300"
+                    : "border-gray-500 bg-gray-400",
+                ])}
+              ></span>
+              {fullName}
+            </div>
+          )}
         />
         <Column
           title="نام کاربری"
@@ -61,15 +74,6 @@ function UsersPageTable({ users, loading }) {
           key="phoneNumber"
           width={100}
           render={(phoneNumber) => convertFromInternational(phoneNumber)}
-        />
-        <Column
-          title="وضعیت"
-          dataIndex="active"
-          key="active"
-          width={100}
-          render={(active) => (
-            <StatusBadge className="mx-auto" status={active} />
-          )}
         />
         {!isLoading && user && user.userRole === 0 && (
           <Column

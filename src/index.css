@@ -70,11 +70,7 @@ input:focus-visible {
 
 /* Input Number */
 .ant-input-number {
-  @apply border-2 rounded-custom;
-}
-
-.ant-input-number-handler-wrap {
-  display: none;
+  @apply border-2 rounded-custom overflow-hidden;
 }
 
 /* Checkbox */
@@ -105,25 +101,25 @@ input:focus-visible {
 }
 
 /* Button Loading Icon */
-.ant-btn-loading-icon {
+.custom-select .ant-btn-loading-icon {
   @apply scale-150 text-white;
 }
 
 /* Select */
-.ant-select {
+.custom-select .ant-select {
   @apply border-2 border-custom-primary-color rounded-lg;
 }
 
-.ant-select-selection-placeholder {
+.custom-select .ant-select-selection-placeholder {
   @apply text-white ml-1.5;
 }
 
-.ant-select-selection-item {
+.custom-select .ant-select-selection-item {
   @apply text-white ml-1.5;
 }
 
-.ant-select-dropdown {
-  @apply !absolute !top-2 rounded-br-custom rounded-bl-custom rounded-tl-none rounded-tr-none pt-7 pb-2 p-0 z-10;
+.custom-select .ant-select-dropdown {
+  @apply !absolute !top-full -mt-5 rounded-br-custom rounded-bl-custom rounded-tl-none rounded-tr-none pt-6 pb-2 p-0 !z-10;
 }
 
 /* Users Table */
@@ -277,4 +273,42 @@ input:focus-visible {
 
 .animate-pulse {
   animation: pulse 1s infinite;
+/* Color Picker */
+.ant-color-picker-trigger .ant-color-picker-color-block-inner {
+  @apply scale-150;
+}
+
+.ant-color-picker-trigger .ant-color-picker-trigger-text {
+  @apply scale-150 p-0 m-0;
+}
+
+.ant-color-picker-trigger .ant-color-picker-clear {
+  @apply hidden;
+}
+
+.ant-color-picker-inner .ant-input-number-input-wrap {
+  @apply px-1.5;
+}
+
+.ant-color-picker-inner .ant-color-picker-clear {
+  @apply border;
+}
+
+/* Switch */
+.ant-switch {
+  @apply w-10 bg-custom-primary-color/30;
+}
+
+.ant-switch[aria-checked="true"] {
+  @apply bg-custom-primary-color;
+}
+
+/* Progress */
+.project-item-progress .ant-progress-layout-bottom {
+  @apply flex-col-reverse gap-1;
+}
+
+.project-item-progress .ant-progress-text {
+  @apply mr-auto text-16 font-bold;
+}
 }

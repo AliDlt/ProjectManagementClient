@@ -15,7 +15,7 @@ const ListAside = () => {
         icon: "/icons/آیکون-پروژه ها.svg",
         path: "/projects",
       },
-      { name: "گزارش ها", icon: "/icons/آیکون-گزارش ها.svg", path: "/reports" },
+      { name: "گزارش ها", icon: "/icons/آیکون-گزارش ها.svg", path: "/reports-categories" },
       { name: "پیام ها", icon: "/icons/آیکون-پیام ها.svg", path: "/messages" },
     ];
     if (!isLoading && user && user?.userRole !== 2) {

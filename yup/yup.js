@@ -152,8 +152,6 @@ export const addReportSchema = Yup.object({
   description: Yup.string().required("این فیلد اجباری است."),
   project: Yup.object().required("یک پروژه برای گزارش انتخاب کنید"),
   createAt: Yup.string().required(""),
-  hour: Yup.string().required(""),
-  min: Yup.string().required(""),
 });
 
 export const addTicket = Yup.object({

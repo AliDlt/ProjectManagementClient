@@ -8,44 +8,15 @@ import { searchReport } from '../yup/yup'
 import { GrSearch } from 'react-icons/gr'
 import { FaFilter } from 'react-icons/fa6'
 import { IoIosArrowDown } from 'react-icons/io'
-import useCategories from '../hooks/useCategories'
-const arr = [
-    {
-        name: 'ماشین ها',
-        count: 10,
-        id: 12,
-        color: '#F1A25B',
-        description: 'لورم ایپسوم متن ساختگی با تولید سادگی  لورم ایپسوم متن....'
-    },
-    {
-        name: 'ماشین ها',
-        count: 4,
-        id: 10,
-        color: '#007AFF',
-        description: 'لورم ایپسوم متن ساختگی با تولید سادگی  لورم ایپسوم متن....'
-    },
-    {
-        name: 'ماشین ها',
-        count: 8,
-        id: 15,
-        color: '#0D7113',
-        description: 'لورم ایپسوم متن ساختگی با تولید سادگی  لورم ایپسوم متن لورم ایپسوم متن ساختگی با تولید سادگی  لورم ایپسوم متن لورم ایپسوم متن ساختگی با تولید سادگی  لورم ایپسوم متن لورم ایپسوم متن ساختگی با تولید سادگی  لورم ایپسوم متن....'
-    },
-    {
-        name: 'ماشین ها',
-        count: 4,
-        id: 13,
-        color: '#601367',
-        description: 'لورم ایپسوم متن ساختگی با تولید سادگی  لورم ایپسوم متن....'
-    },
-]
+import useCategories from '../hooks/Categories/useCategories'
+import { Link } from 'react-router-dom'
+
 const ReportCategories = () => {
     const { control, handleSubmit, formState: { errors } } = useForm({
         mode: 'onChange',
         resolver: yupResolver(searchReport)
     })
-    const { data,error} = useCategories('report')
-    console.log(data)
+    const { data, error } = useCategories('report')
     console.log(error)
     return (
         <div className=' container-grid flex flex-col'>
@@ -54,7 +25,9 @@ const ReportCategories = () => {
                     گزارش ها
                 </h2>
                 <CustomButton>
-                    افزارش گزارش
+                    <Link to={'/add-report'}>
+                    اضافه کردن گزارش
+                    </Link>
                 </CustomButton>
             </div>
             <div className='flex gap-3 items-center w-full lg:w-[60%] xl:w-[50%] '>
@@ -82,7 +55,7 @@ const ReportCategories = () => {
 
             </div>
             <div className='grid grid-cols-2 gap-3'>
-                {arr.map(({ name, color, count, description, id }, key) => {
+                {data?.data.data.categories.map(({ name, color, count, description, id }, key) => {
                     return <CategoriesBox name={name} description={description} key={key} color={color} count={count} id={id} />
                 })}
             </div>
