@@ -130,16 +130,16 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             key="fullName"
             width={100}
             render={(fullName, { active }) => (
-              <div className="relative text-center mx-auto max-w-[120px]">
+              <div className=" flex items-center relative gap-2 w-max">
                 <span
                   className={cn([
-                    "size-3.5 border  rounded-full absolute flex right-0 -top-3.5",
+                    "size-3.5 border rounded-full flex ml-1",
                     active
                       ? "border-green-500 bg-green-300"
                       : "border-gray-500 bg-gray-400",
                   ])}
                 ></span>
-                {fullName}
+                <span className="mx-auto text-nowrap">{fullName}</span>
               </div>
             )}
           />
@@ -154,7 +154,9 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             dataIndex="userRole"
             key="userRole"
             width={100}
-            render={(userRole) => showUserRole(userRole)}
+            render={(userRole) => (
+              <span className=" text-nowrap">{showUserRole(userRole)}</span>
+            )}
           />
           <Column
             title="شماره تماس"
@@ -210,16 +212,16 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             key="fullName"
             width={100}
             render={(fullName, { active }) => (
-              <div className="relative text-center mx-auto">
+              <div className=" flex items-center justify-between relative">
                 <span
                   className={cn([
-                    "size-3.5 border rounded-full absolute flex right-0 -top-3.5 max-w-[120px]",
+                    "size-3.5 border rounded-full flex ml-1",
                     active
                       ? "border-green-500 bg-green-300"
                       : "border-gray-500 bg-gray-400",
                   ])}
                 ></span>
-                {fullName}
+                <span className="mx-auto">{fullName}</span>
               </div>
             )}
           />
@@ -235,7 +237,9 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
             dataIndex="userRole"
             key="userRole"
             width={100}
-            render={(userRole) => showUserRole(userRole)}
+            render={(userRole) => (
+              <span className=" text-nowrap">{showUserRole(userRole)}</span>
+            )}
           />
           <Column
             title="شماره تماس"

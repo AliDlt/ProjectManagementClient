@@ -49,16 +49,16 @@ function UsersPageTable({ users, loading }) {
           key="fullName"
           width={100}
           render={(fullName, { active }) => (
-            <div className="relative text-center mx-auto ">
+            <div className=" flex items-center justify-between relative">
               <span
                 className={cn([
-                  "size-3.5 border  rounded-full absolute flex right-0 -top-3.5",
+                  "size-3.5 border rounded-full flex ml-1",
                   active
                     ? "border-green-500 bg-green-300"
                     : "border-gray-500 bg-gray-400",
                 ])}
               ></span>
-              {fullName}
+              <span className="mx-auto text-nowrap">{fullName}</span>
             </div>
           )}
         />
