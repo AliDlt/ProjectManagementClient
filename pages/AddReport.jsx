@@ -1,15 +1,15 @@
-import React, { Children, useState } from "react";
+import React, { useState } from "react";
 import CustomInput from "../components/modules/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addReportSchema } from "../yup/yup";
 import CustomTextAria from "../components/modules/CustomTextAria";
 import CustomButton from "../components/modules/CustomButton";
-import CustomSelectInput from "../components/modules/CustomSelectInput";
+
 import CustomModal from "../components/modules/CustomModal";
 import SelectProject from "../components/ui/AddReport/SelecetProject";
 import { MdAdd } from "react-icons/md";
-import Files from "../components/ui/Files";
+
 import useAddReport from "../hooks/Report/useAddReport";
 import { useToast } from "../Context/ToastContext";
 import useUser from "../hooks/useUser";
@@ -20,15 +20,26 @@ import CustomDatePicker from "../components/modules/CustomDatePicker";
 import { convertMillisecondsToDate } from "../utils/tools";
 import BackButton from "../components/modules/BackButton";
 import CustomVoiceUploader from "../components/modules/CustomVoiceUploader";
+import useUpload from "../hooks/Files/useUpload";
+import Categories from "../components/ui/category/Categories";
+import useCategories from "../hooks/Categories/useCategories";
+import CustomLoading from "../components/modules/CustomLoading";
 
 const AddReport = () => {
+  const [audioUrl, setAudioUrl] = useState(null);
+  const [blobVoice, setBlobVoice] = useState(null)
+  // show project 
   const [show, setShow] = useState(false);
+  // show categories
+  const [category, selectCategory] = useState(null)
+  const [categories, showCategories] = useState(false)
+
+
   const {
     control,
     handleSubmit,
     setValue,
     getValues,
-
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -40,36 +51,60 @@ const AddReport = () => {
     setShow(false);
     delete errors.project;
   };
+  const { mutate: upload, error } = useUpload()
   const navigate = useNavigate();
   const toast = useToast();
   const queryClient = useQueryClient();
   const successAdd = (e) => {
     toast(e.message, "success");
-    navigate(`/reports/${e.data._id}`);
+    console.log('ddddd')
+    // navigate(`/reports/${e.data._id}`);
+    const formData = new FormData();
+    formData.append('file', blobVoice);
+    formData.append('sectionId', e.data._id);
+    formData.append('fileFormat', 'voice');
+    formData.append('sectionType', 'report');
+
+    upload(formData, {
+      onSuccess: (e) => console.log(e),
+      onError: (e) => { console.log(e) }
+    })
     queryClient.invalidateQueries("reports");
   };
 
   const { mutate, isPending } = useAddReport();
 
   const addReport = (e) => {
-    const startTime = `${e.min.toString().padStart(2, "0")} : ${e.hour.toString().padStart(2, "0")}`;
     mutate(
       {
         name: e.name,
-        startTime,
         description: e.description,
+        categoryId: category && category._id,
         projectId: e.project.id,
         createdBy: user._id,
+        status: 'ongoing',
+        _id: 3,
         date: convertMillisecondsToDate(Number(e.createAt)),
       },
-      { onSuccess: successAdd, onError: (e) =>toast(e.response.data.message,'error') },
+      {
+        onSuccess: successAdd, onError: (e) => {
+          console.log(e)
+          toast(e.response.data.message, 'error')
+        }
+      },
     );
- 
-  };
 
+  };
   const setDateReport = (e) => {
     setValue("createAt", e);
   };
+  const { data, error: getCategoriesError, isPending: loading } = useCategories('report')
+
+  const setCategory = (item) => {
+    selectCategory(item)
+    showCategories(false)
+  }
+
   return (
     <div className="container-grid gap-6">
       <div className="block col-span-1 lg:col-span-11">
@@ -94,7 +129,13 @@ const AddReport = () => {
               <MdAdd />
             </span>
           </CustomButton>
+          {console.log(category)}
+          <CustomButton className='!text-18' onClick={() => showCategories(true)}>
+            {category ? category.name : 'انتخاب دسته بندی'}
+          </CustomButton>
 
+        </div>
+        <div>
           <CustomDatePicker
             className="  px-4 py-2 w-full  lg:w-1/2"
             control={control}
@@ -102,27 +143,6 @@ const AddReport = () => {
             changeHandler={setDateReport}
             error={errors.createAt}
             placeholder={"تاریخ گزارش "}
-          />
-        </div>
-        <div className="flex items-center gap-3 ">
-          <p>ساعت شروع کار :</p>
-          <CustomInput
-            control={control}
-            error={errors.hour}
-            min={0}
-            max={23}
-            name="hour"
-            placeholder={"ساعت"}
-            type={"number"}
-          />
-          <CustomInput
-            control={control}
-            error={errors.min}
-            name="min"
-            min={0}
-            max={59}
-            placeholder={"دقیقه"}
-            type={"number"}
           />
         </div>
         {errors?.project && (
@@ -148,7 +168,7 @@ const AddReport = () => {
             rows={3}
           />
         </div>
-      <CustomVoiceUploader />
+        <CustomVoiceUploader audioUrl={audioUrl} setAudioUrl={setAudioUrl} setBlobVoice={setBlobVoice} />
 
         <div className="">
           <CustomButton loading={isPending} type="submit">
@@ -156,10 +176,19 @@ const AddReport = () => {
           </CustomButton>
         </div>
       </form>
+      {/* modals */}
 
+      {/* select project */}
       <CustomModal open={show} onCancel={setShow} title={"انتخاب پروژه"}>
         <SelectProject setProject={setProject} error={errors.project} />
       </CustomModal>
+
+      {/* select categories */}
+      <CustomModal open={categories} onCancel={showCategories} title={"انتخاب دسته بندی"}>
+        {loading ? <CustomLoading /> :
+          <Categories selectHandler={setCategory} categories={data?.data?.data.categories} />
+        } </CustomModal>
+
     </div>
   );
 };

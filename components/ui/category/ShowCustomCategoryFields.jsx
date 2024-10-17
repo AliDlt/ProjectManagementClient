@@ -6,11 +6,12 @@ import { Switch } from "antd";
 import { FaTrash } from "react-icons/fa6";
 
 function ShowCustomCategoryFields({ fields, deleteField }) {
+  console.log(fields)
   return (
     <div className="grid grid-cols-1 gap-5 mt-5">
       {fields.map((field) => {
         switch (field.fieldType) {
-          case "text":
+          case "Text":
             return (
               <div className="flex items-center gap-3">
                 <FaTrash
@@ -24,7 +25,7 @@ function ShowCustomCategoryFields({ fields, deleteField }) {
                 />
               </div>
             );
-          case "number":
+          case "Number":
             return (
               <div className="flex items-center gap-3">
                 <FaTrash
@@ -39,7 +40,7 @@ function ShowCustomCategoryFields({ fields, deleteField }) {
                 />
               </div>
             );
-          case "bool":
+          case "Boolean":
             return (
               <div className="flex items-center gap-3">
                 <FaTrash
@@ -50,7 +51,7 @@ function ShowCustomCategoryFields({ fields, deleteField }) {
                 <Switch />
               </div>
             );
-          case "textArea":
+          case "TextArea":
             return (
               <div className="flex items-center gap-3">
                 <FaTrash
@@ -64,7 +65,7 @@ function ShowCustomCategoryFields({ fields, deleteField }) {
                 />
               </div>
             );
-          case "date":
+          case "Date":
             return (
               <div className="flex items-center gap-3">
                 <FaTrash

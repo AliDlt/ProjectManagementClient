@@ -25,12 +25,11 @@ function AddNewCategory({ addCategoryHandler }) {
   const addCategoryHandlerFn = (e) => {
     e.preventDefault();
     addCategoryHandler({
-      categoryName: category.name,
-      fields: category.fields,
+      name: category.name,
+      customFields: category.fields,
       color: category.color.color || category.color.customColor,
     });
   };
-
   // Remove Field
   const removeFieldHandler = (fieldName) => {
     const cloneCategoryFields = [...category.fields];
@@ -72,6 +71,8 @@ function AddNewCategory({ addCategoryHandler }) {
             <IoMdAdd size={18} />
           </CustomButton>
         </div>
+
+
         <div>
           <ShowCustomCategoryFields
             fields={category.fields}

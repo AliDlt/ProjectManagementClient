@@ -34,10 +34,12 @@ import SingleApplicantCategoryPage from "../pages/SingleApplicantCategoryPage";
 import ProtectApplicantsPage from "../pages/ProtectApplicantsPage";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorBoundaryComponent from "../layout/ErrorBoundaryComponnet";
+import ReportCategories from "../pages/ReportCategories";
 import AddNewCategory from "../pages/AddNewProjectCategory";
 import AddNewProjectCategory from "../pages/AddNewProjectCategory";
 import EditCategory from "../pages/EditProjectCategory";
 import EditProjectCategory from "../pages/EditProjectCategory";
+import AddNewReportCategory from "../pages/AddNewReportCategory";
 
 function App() {
   dayjs.calendar("jalali");
@@ -125,10 +127,12 @@ function App() {
 
                   <Route path="/setting" element={<SettingPage />} />
                   <Route path="/reports" element={<ReportsPage />} />
+                  <Route path="/reports-categories" element={<ReportCategories />} />
                   <Route path="/userReports/:id" element={<UserReports />} />
                   <Route path="/add-user" element={<AddUser />} />
                   <Route path="/reports/:id" element={<ReportPage />} />
                   <Route path="/add-report" element={<AddReport />} />
+                  <Route path="/add-report/add-new-category" element={<AddNewReportCategory />} />
                   <Route path="/messages" element={<Messages />} />
                   <Route path="/add-ticket" element={<AddMessage />} />
                   <Route path="/message/:id" element={<Message />} />

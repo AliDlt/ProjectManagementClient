@@ -6,42 +6,26 @@ import { IoMdAdd } from "react-icons/io";
 
 function Categories({ selectHandler, categories }) {
   const navigate = useNavigate();
+  console.log(categories)
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex justify-between items-center">
-        <CustomButton className="bg-blue-700 hover:bg-blue-700/90">
-          پروژه های تعمیر خودرو
-        </CustomButton>
-        <Link
-          className="text-custom-primary-color flex justify-center items-center"
-          to="edit-category"
-        >
-          <MdModeEdit size={25} />
-        </Link>
-      </div>
-      <div className="flex justify-between items-center">
-        <CustomButton className="bg-blue-900 hover:bg-blue-900/90">
-          پروژه های معماری
-        </CustomButton>
-        <Link
-          className="text-custom-primary-color flex justify-center items-center"
-          to="edit-category"
-        >
-          <MdModeEdit size={25} />
-        </Link>
-      </div>
-      <div className="flex justify-between items-center">
-        <CustomButton className="bg-red-700 hover:bg-red-700/90">
-          پروژه های کوتاه مدت
-        </CustomButton>
-        <Link
-          className="text-custom-primary-color flex justify-center items-center"
-          to="edit-category"
-        >
-          <MdModeEdit size={25} />
-        </Link>
-      </div>
+      {categories?.map(category => {
+        return <div className="flex justify-between items-center">
+          <CustomButton onClick={()=>selectHandler(category)} style={{ backgroundColor: category.color ? category.color : 'rgb(var(--primary-color))', }}>
+            {category?.name}
+          </CustomButton>
+          <Link
+            className="text-custom-primary-color flex justify-center items-center"
+            to="edit-category"
+          >
+            <MdModeEdit size={25} />
+          </Link>
+        </div>
+      })}
+
+
+
       <CustomButton
         className="mr-auto mt-5"
         onClick={() => navigate("add-new-category")}

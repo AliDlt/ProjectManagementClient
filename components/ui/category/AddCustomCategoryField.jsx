@@ -5,19 +5,19 @@ import CustomButton from "../../modules/CustomButton";
 
 const fieldsType = [
   {
-    value: "text",
+    value: "Text",
     label: "متن",
   },
   {
-    value: "number",
+    value: "Number",
     label: "عدد",
   },
   {
-    value: "date",
+    value: "Date",
     label: "تاریخ",
   },
   {
-    value: "bool",
+    value: "Boolean",
     label: "شرط",
   },
   {
@@ -28,16 +28,16 @@ const fieldsType = [
 
 function AddCustomCategoryField({ setFields }) {
   const [fieldType, setFieldType] = useState(null);
-  const [fieldName, setFieldName] = useState("");
+  const [fieldSlug, setFieldSlug] = useState("");
 
   // Add Field Handler
   const addFieldHandlerFn = (e) => {
     e.preventDefault();
     setFields({
-      fieldName,
+      fieldName: fieldSlug,
       fieldType,
     });
-    setFieldName("");
+    setFieldSlug("");
     setFieldType(null);
   };
 
@@ -46,8 +46,8 @@ function AddCustomCategoryField({ setFields }) {
       <CustomInput
         placeholder="عنوان فیلد"
         className="px-3.5 py-1.5"
-        value={fieldName}
-        onChange={(e) => setFieldName(e.target.value)}
+        value={fieldSlug}
+        onChange={(e) => setFieldSlug(e.target.value)}
       />
       <CustomSelectInput
         options={fieldsType}
@@ -59,7 +59,7 @@ function AddCustomCategoryField({ setFields }) {
       <CustomButton
         type="submit"
         className="mr-auto mt-10"
-        disabled={!fieldType || !fieldName}
+        disabled={!fieldType || !fieldSlug}
       >
         افزودن فیلد
       </CustomButton>
