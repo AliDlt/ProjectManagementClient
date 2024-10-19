@@ -133,6 +133,7 @@ function ProjectsPage() {
               projectName={project.name}
               name={project?.createdBy?.name}
               surName={project?.createdBy?.surName}
+              description={project?.description}
             />
           ))
         )}

@@ -20,6 +20,7 @@ function ProjectItem({
   name,
   address,
   bannerImage,
+  description,
 }) {
   const navigate = useNavigate();
 
@@ -64,36 +65,39 @@ function ProjectItem({
         </div>
       </div>
       {/* Project Info */}
-      <div className="mt-5 flex gap-10">
+      <div className="mt-5 flex flex-col gap-10">
         <div className="flex flex-col gap-2 flex-1 truncate">
-          <h3 className="font-bold truncate text-14">پروژه {id} </h3>
-          <div className="flex items-center gap-1 text-nowrap truncate text-12">
-            <span className="font-bold">عنوان پروژه : </span>
-            <span className="truncate">{projectName}</span>
-          </div>
-          <div className="flex items-center gap-1 truncate text-12">
+          <h3 className="font-bold truncate">{projectName}</h3>
+          <div className="flex items-center gap-1 truncate text-14">
             <span className="font-bold">مدیر پروژه : </span>
             <span className="truncate">
               {name} {surName}
             </span>
           </div>
-          <div className="flex items-center gap-1  truncate text-12">
+          <div className="flex items-center gap-1  truncate text-14">
             <span className="font-bold">آدرس پروژه : </span>
             <span className="truncate">{address}</span>
           </div>
+          <div className="flex items-center gap-1 text-nowrap truncate text-14">
+            <span className="font-bold">توضیحات پروژه : </span>
+            <span className="truncate">{description}</span>
+          </div>
         </div>
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-row-reverse justify-between items-center">
           {/* Price */}
           <div>
-            <div className="flex items-center gap-1.5 text-[10px]">
+            <div className="flex items-center gap-1.5 text-12">
               <FaMoneyCheck className="text-custom-primary-color text-20" />
               هزینه ها
             </div>
-            <span className="text-[8px]">25.000.000 میلیون تومان</span>
+            <div className="flex gap-1 mt-1 text-10">
+              <span>TM</span>
+              <span>25.000.000</span>
+            </div>
           </div>
           {/* See Button */}
           <CustomButton
-            className="text-14 mr-auto mt-2 px-7 w-[86px] h-[34px] py-0"
+            className="text-14 mt-2 px-7 w-[86px] h-[34px] py-0"
             onClick={() => navigate(`/projects/${id}`)}
           >
             <span className="text-white text-12"> مشاهده</span>
