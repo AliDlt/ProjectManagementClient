@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import CustomButton from "../../modules/CustomButton";
 import UsersTable from "../users/UsersTable";
-import Column from "antd/es/table/Column";
 import {
   convertFromInternational,
   convertToLocalDate,
@@ -83,6 +82,82 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
     setSearchUsers(e.target.value);
   };
 
+  // Columns
+  const ProjectUsersColumns = useMemo(() => {
+    return [
+      {
+        dataIndex: "fullName",
+        title: "نام و نام خانوادگی",
+        render: (fullName, { active }) => (
+          <div className=" flex items-center relative gap-2 w-max">
+            <span
+              className={cn([
+                "size-3.5 border rounded-full flex ml-1",
+                active
+                  ? "border-green-500 bg-green-300"
+                  : "border-gray-500 bg-gray-400",
+              ])}
+            ></span>
+            <span className="mx-auto text-nowrap">{fullName}</span>
+          </div>
+        ),
+        className: " !text-right",
+        width: 250,
+      },
+      { dataIndex: "username", title: "نام کاربری", className: " !text-right" },
+      {
+        dataIndex: "userRole",
+        title: "نقش کاربری",
+        className: " !text-right",
+        render: (userRole) => (
+          <span className=" text-nowrap">{showUserRole(userRole)}</span>
+        ),
+      },
+      {
+        dataIndex: "phoneNumber",
+        title: "شماره تماس",
+        render: (phoneNumber) => convertFromInternational(phoneNumber),
+        className: " !text-right",
+      },
+      {
+        dataIndex: "lastLogin",
+        title: "تاریخ  آخرین ورود",
+        render: (lastLogin) => {
+          if (!lastLogin) return "-";
+          return convertToLocalDate(lastLogin);
+        },
+        className: " !text-right",
+      },
+    ];
+  }, []);
+
+  const usersColumns = useMemo(() => {
+    let newColumns = ProjectUsersColumns.map((col) => {
+      if (col.dataIndex === "fullName") {
+        const { width, ...rest } = col;
+        return {
+          width: 210,
+          ...rest,
+        };
+      }
+      return col;
+    });
+
+    return [
+      ...newColumns,
+      {
+        title: "",
+        dataIndex: "",
+        className: " !text-right",
+        render: (_, record) => (
+          <CustomButton onClick={() => navigate(`/users/${record.key}`)}>
+            مشاهده اطلاعات کاربر
+          </CustomButton>
+        ),
+      },
+    ];
+  }, []);
+
   return (
     <div>
       <div className="flex justify-between items-center mt-10 flex-wrap gap-2">
@@ -110,6 +185,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
       {/* Users List */}
       <div className=" mt-5 md:mt-10">
         <UsersTable
+          columns={ProjectUsersColumns}
           className="row-cursor-pointer [&_.ant-table-placeholder_.ant-table-cell_.ant-empty]:mx-0"
           emptyText={emptyText}
           emptyClassName="my-10"
@@ -123,60 +199,7 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
               },
             };
           }}
-        >
-          <Column
-            title="نام و نام خانوادگی"
-            dataIndex="fullName"
-            key="fullName"
-            width={100}
-            render={(fullName, { active }) => (
-              <div className=" flex items-center relative gap-2 w-max">
-                <span
-                  className={cn([
-                    "size-3.5 border rounded-full flex ml-1",
-                    active
-                      ? "border-green-500 bg-green-300"
-                      : "border-gray-500 bg-gray-400",
-                  ])}
-                ></span>
-                <span className="mx-auto text-nowrap">{fullName}</span>
-              </div>
-            )}
-          />
-          <Column
-            title="نام کاربری"
-            dataIndex="username"
-            key="username"
-            width={100}
-          />
-          <Column
-            title="نقش کاربری"
-            dataIndex="userRole"
-            key="userRole"
-            width={100}
-            render={(userRole) => (
-              <span className=" text-nowrap">{showUserRole(userRole)}</span>
-            )}
-          />
-          <Column
-            title="شماره تماس"
-            dataIndex="phoneNumber"
-            key="phoneNumber"
-            width={100}
-            render={(phoneNumber) => convertFromInternational(phoneNumber)}
-          />
-          <Column
-            responsive={["lg"]}
-            title="تاریخ  آخرین ورود"
-            dataIndex="lastLogin"
-            key="lastLogin"
-            width={100}
-            render={(lastLogin) => {
-              if (!lastLogin) return "-";
-              return convertToLocalDate(lastLogin);
-            }}
-          />
-        </UsersTable>
+        />
       </div>
       {/* Modal */}
       <CustomModal
@@ -198,79 +221,14 @@ function CustomUsersList({ projectUsers, modalHandler, emptyText }) {
           }
         />
         <UsersTable
+          columns={usersColumns}
           className="mt-6 h-[420px] [&_.ant-table]:h-full "
           loading={isLoading}
           users={allUsers}
           rowSelection={rowSelection}
           rowClassName="border-t border-black last:border-b"
           pageSize={4}
-        >
-          <Column
-            title="نام و نام خانوادگی"
-            className="text-nowrap"
-            dataIndex="fullName"
-            key="fullName"
-            width={100}
-            render={(fullName, { active }) => (
-              <div className=" flex items-center justify-between relative">
-                <span
-                  className={cn([
-                    "size-3.5 border rounded-full flex ml-1",
-                    active
-                      ? "border-green-500 bg-green-300"
-                      : "border-gray-500 bg-gray-400",
-                  ])}
-                ></span>
-                <span className="mx-auto">{fullName}</span>
-              </div>
-            )}
-          />
-          <Column
-            title="نام کاربری"
-            className="text-nowrap"
-            dataIndex="username"
-            key="username"
-            width={100}
-          />
-          <Column
-            title="نقش کاربری"
-            dataIndex="userRole"
-            key="userRole"
-            width={100}
-            render={(userRole) => (
-              <span className=" text-nowrap">{showUserRole(userRole)}</span>
-            )}
-          />
-          <Column
-            title="شماره تماس"
-            dataIndex="phoneNumber"
-            key="phoneNumber"
-            width={100}
-            render={(phoneNumber) => convertFromInternational(phoneNumber)}
-          />
-          <Column
-            responsive={["lg"]}
-            title="تاریخ  آخرین ورود"
-            dataIndex="lastLogin"
-            key="lastLogin"
-            width={100}
-            render={(lastLogin) => {
-              if (!lastLogin) return "-";
-              return convertToLocalDate(lastLogin);
-            }}
-          />
-          <Column
-            title=""
-            dataIndex=""
-            key=""
-            width={100}
-            render={(_, record) => (
-              <CustomButton onClick={() => navigate(`/users/${record.key}`)}>
-                مشاهده اطلاعات کاربر
-              </CustomButton>
-            )}
-          />
-        </UsersTable>
+        />
         <CustomButton
           className="mt-5"
           onClick={() => {

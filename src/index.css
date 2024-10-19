@@ -258,7 +258,6 @@ input:focus-visible {
   display: none;
 }
 
-
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -273,7 +272,10 @@ input:focus-visible {
 
 .animate-pulse {
   animation: pulse 1s infinite;
+}
+
 /* Color Picker */
+
 .ant-color-picker-trigger .ant-color-picker-color-block-inner {
   @apply scale-150;
 }
@@ -310,5 +312,4 @@ input:focus-visible {
 
 .project-item-progress .ant-progress-text {
   @apply mr-auto text-16 font-bold;
-}
 }

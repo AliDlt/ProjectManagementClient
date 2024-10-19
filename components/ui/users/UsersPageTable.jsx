@@ -1,6 +1,5 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import UsersTable from "./UsersTable";
-import Column from "antd/es/table/Column";
 import { useNavigate } from "react-router-dom";
 import {
   convertFromInternational,
@@ -28,6 +27,68 @@ function UsersPageTable({ users, loading }) {
     } catch (error) {}
   };
 
+  const usersColumns = useMemo(() => {
+    return [
+      {
+        dataIndex: "fullName",
+        title: "نام و نام خانوادگی",
+        render: (fullName, { active }) => (
+          <div className=" flex items-center justify-between relative">
+            <span
+              className={cn([
+                "size-3.5 border rounded-full flex ml-1",
+                active
+                  ? "border-green-500 bg-green-300"
+                  : "border-gray-500 bg-gray-400",
+              ])}
+            ></span>
+            <span className="mx-auto text-nowrap">{fullName}</span>
+          </div>
+        ),
+        width: 250,
+      },
+      { dataIndex: "username", title: "نام کاربری" },
+      {
+        dataIndex: "phoneNumber",
+        title: "شماره تماس",
+        render: (phoneNumber) => convertFromInternational(phoneNumber),
+      },
+      {
+        title: "تغییرات",
+        dataIndex: "edit",
+        render: (_, record) => (
+          <div className="flex items-center justify-center gap-2">
+            <MdModeEdit
+              className="text-custom-primary-color cursor-pointer"
+              size={23}
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/users/${record.key}`);
+              }}
+            />
+            <FaTrash
+              className="text-custom-primary-color cursor-pointer"
+              size={20}
+              onClick={(e) => {
+                e.stopPropagation();
+                userId.current = record.key;
+                setOpen(true);
+              }}
+            />
+          </div>
+        ),
+      },
+      {
+        dataIndex: "lastLogin",
+        title: "تاریخ  آخرین ورود",
+        render: (lastLogin) => {
+          if (!lastLogin) return "-";
+          return convertToLocalDate(lastLogin);
+        },
+      },
+    ];
+  }, []);
+
   return (
     <>
       <UsersTable
@@ -42,80 +103,8 @@ function UsersPageTable({ users, loading }) {
             },
           };
         }}
-      >
-        <Column
-          title="نام و نام خانوادگی"
-          dataIndex="fullName"
-          key="fullName"
-          width={100}
-          render={(fullName, { active }) => (
-            <div className=" flex items-center justify-between relative">
-              <span
-                className={cn([
-                  "size-3.5 border rounded-full flex ml-1",
-                  active
-                    ? "border-green-500 bg-green-300"
-                    : "border-gray-500 bg-gray-400",
-                ])}
-              ></span>
-              <span className="mx-auto text-nowrap">{fullName}</span>
-            </div>
-          )}
-        />
-        <Column
-          title="نام کاربری"
-          dataIndex="username"
-          key="username"
-          width={100}
-        />
-        <Column
-          title="شماره تماس "
-          dataIndex="phoneNumber"
-          key="phoneNumber"
-          width={100}
-          render={(phoneNumber) => convertFromInternational(phoneNumber)}
-        />
-        {!isLoading && user && user.userRole === 0 && (
-          <Column
-            responsive={["lg"]}
-            title="تغییرات"
-            dataIndex="edit"
-            key="edit"
-            width={100}
-            render={(_, record) => (
-              <div className="flex items-center justify-center gap-2">
-                <MdModeEdit
-                  className="text-custom-primary-color cursor-pointer"
-                  size={23}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/users/${record.key}`);
-                  }}
-                />
-                <FaTrash
-                  className="text-custom-primary-color cursor-pointer"
-                  size={20}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    userId.current = record.key;
-                    setOpen(true);
-                  }}
-                />
-              </div>
-            )}
-          />
-        )}
-        <Column
-          title="تاریخ  آخرین ورود"
-          dataIndex="lastLogin"
-          key="lastLogin"
-          width={100}
-          render={(lastLogin) => {
-            if (!lastLogin) return "-";
-            return convertToLocalDate(lastLogin);
-          }}
-        />
-      </UsersTable>
+        columns={usersColumns}
+      />
       <CustomConfirm
         title="حذف کاربر"
         open={open}
