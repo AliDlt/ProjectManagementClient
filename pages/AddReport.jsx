@@ -5,35 +5,31 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { addReportSchema } from "../yup/yup";
 import CustomTextAria from "../components/modules/CustomTextAria";
 import CustomButton from "../components/modules/CustomButton";
-
 import CustomModal from "../components/modules/CustomModal";
 import SelectProject from "../components/ui/AddReport/SelecetProject";
 import { MdAdd } from "react-icons/md";
-
 import useAddReport from "../hooks/Report/useAddReport";
 import { useToast } from "../Context/ToastContext";
 import useUser from "../hooks/useUser";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import CustomDatePicker from "../components/modules/CustomDatePicker";
-
 import { convertMillisecondsToDate } from "../utils/tools";
 import BackButton from "../components/modules/BackButton";
 import CustomVoiceUploader from "../components/modules/CustomVoiceUploader";
-import useUpload from "../hooks/Files/useUpload";
 import Categories from "../components/ui/category/Categories";
 import useCategories from "../hooks/Categories/useCategories";
 import CustomLoading from "../components/modules/CustomLoading";
+import useUploadFiles from "../hooks/Files/useUploadFiles";
 
 const AddReport = () => {
   const [audioUrl, setAudioUrl] = useState(null);
-  const [blobVoice, setBlobVoice] = useState(null)
-  // show project 
+  const [blobVoice, setBlobVoice] = useState(null);
+  // show project
   const [show, setShow] = useState(false);
   // show categories
-  const [category, selectCategory] = useState(null)
-  const [categories, showCategories] = useState(false)
-
+  const [category, selectCategory] = useState(null);
+  const [categories, showCategories] = useState(false);
 
   const {
     control,
@@ -51,25 +47,18 @@ const AddReport = () => {
     setShow(false);
     delete errors.project;
   };
-  const { mutate: upload, error } = useUpload()
+  const { uploadFileFn } = useUploadFiles();
   const navigate = useNavigate();
   const toast = useToast();
-  const queryClient = useQueryClient();
   const successAdd = (e) => {
     toast(e.message, "success");
-    console.log('ddddd')
     // navigate(`/reports/${e.data._id}`);
-    const formData = new FormData();
-    formData.append('file', blobVoice);
-    formData.append('sectionId', e.data._id);
-    formData.append('fileFormat', 'voice');
-    formData.append('sectionType', 'report');
-
-    upload(formData, {
-      onSuccess: (e) => console.log(e),
-      onError: (e) => { console.log(e) }
-    })
-    queryClient.invalidateQueries("reports");
+    uploadFileFn({
+      file: blobVoice,
+      sectionId: e.data._id,
+      fileFormat: "voice",
+      sectionType: "report",
+    });
   };
 
   const { mutate, isPending } = useAddReport();
@@ -82,35 +71,37 @@ const AddReport = () => {
         categoryId: category && category._id,
         projectId: e.project.id,
         createdBy: user._id,
-        status: 'ongoing',
+        status: "ongoing",
         _id: 3,
         date: convertMillisecondsToDate(Number(e.createAt)),
       },
       {
-        onSuccess: successAdd, onError: (e) => {
-          console.log(e)
-          toast(e.response.data.message, 'error')
-        }
+        onSuccess: successAdd,
+        onError: (e) => {
+          console.log(e);
+          toast(e.response.data.message, "error");
+        },
       },
     );
-
   };
   const setDateReport = (e) => {
     setValue("createAt", e);
   };
-  const { data, error: getCategoriesError, isPending: loading } = useCategories('report')
+  const { data, isPending: loading } = useCategories("report");
 
   const setCategory = (item) => {
-    selectCategory(item)
-    showCategories(false)
-  }
+    selectCategory(item);
+    showCategories(false);
+  };
 
   return (
     <div className="container-grid gap-6">
       <div className="block col-span-1 lg:col-span-11">
         <BackButton />
       </div>
-      <h5 className="text-24 col-span-1 lg:col-span-9 font-semibold">گزارش جدید</h5>
+      <h5 className="text-24 col-span-1 lg:col-span-9 font-semibold">
+        گزارش جدید
+      </h5>
       <form
         onSubmit={handleSubmit(addReport)}
         className="col-span-1 lg:col-span-9 flex gap-4 flex-col"
@@ -130,10 +121,12 @@ const AddReport = () => {
             </span>
           </CustomButton>
           {console.log(category)}
-          <CustomButton className='!text-18' onClick={() => showCategories(true)}>
-            {category ? category.name : 'انتخاب دسته بندی'}
+          <CustomButton
+            className="!text-18"
+            onClick={() => showCategories(true)}
+          >
+            {category ? category.name : "انتخاب دسته بندی"}
           </CustomButton>
-
         </div>
         <div>
           <CustomDatePicker
@@ -168,7 +161,11 @@ const AddReport = () => {
             rows={3}
           />
         </div>
-        <CustomVoiceUploader audioUrl={audioUrl} setAudioUrl={setAudioUrl} setBlobVoice={setBlobVoice} />
+        <CustomVoiceUploader
+          audioUrl={audioUrl}
+          setAudioUrl={setAudioUrl}
+          setBlobVoice={setBlobVoice}
+        />
 
         <div className="">
           <CustomButton loading={isPending} type="submit">
@@ -184,11 +181,20 @@ const AddReport = () => {
       </CustomModal>
 
       {/* select categories */}
-      <CustomModal open={categories} onCancel={showCategories} title={"انتخاب دسته بندی"}>
-        {loading ? <CustomLoading /> :
-          <Categories selectHandler={setCategory} categories={data?.data?.data.categories} />
-        } </CustomModal>
-
+      <CustomModal
+        open={categories}
+        onCancel={showCategories}
+        title={"انتخاب دسته بندی"}
+      >
+        {loading ? (
+          <CustomLoading />
+        ) : (
+          <Categories
+            selectHandler={setCategory}
+            categories={data?.data?.data.categories}
+          />
+        )}{" "}
+      </CustomModal>
     </div>
   );
 };

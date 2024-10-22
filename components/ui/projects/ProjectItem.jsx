@@ -86,7 +86,7 @@ function ProjectItem({
         <div className="flex flex-row-reverse justify-between items-center">
           {/* Price */}
           <div>
-            <div className="flex items-center gap-1.5 text-12">
+            <div className="flex items-center gap-1.5 text-14">
               <FaMoneyCheck className="text-custom-primary-color text-20" />
               هزینه ها
             </div>
@@ -97,10 +97,10 @@ function ProjectItem({
           </div>
           {/* See Button */}
           <CustomButton
-            className="text-14 mt-2 px-7 w-[86px] h-[34px] py-0"
+            className="mt-2 px-7 w-[86px] h-[34px] py-0"
             onClick={() => navigate(`/projects/${id}`)}
           >
-            <span className="text-white text-12"> مشاهده</span>
+            <span className="text-white text-14"> مشاهده</span>
           </CustomButton>
         </div>
       </div>

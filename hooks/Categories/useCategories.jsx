@@ -1,14 +1,22 @@
-import { useQuery } from '@tanstack/react-query'
-import React from 'react'
-import { getCategories } from '../../services/categories'
+import { useQuery } from "@tanstack/react-query";
+import { getCategories } from "../../services/categories";
+import useHandleErrors from "../useHandleErrors";
 
 const useCategories = (type) => {
-    return useQuery({
-        queryFn: () => getCategories(type),
-        queryKey: ['get-categories', type],
-        staleTime: 1000 * 60 * 5,
+  const {
+    data,
+    isLoading: categoriesLoading,
+    error: categoriesError,
+  } = useQuery({
+    queryFn: () => getCategories(type),
+    queryKey: ["get-categories", type],
+    staleTime: 1000 * 60 * 5,
+  });
+  useHandleErrors(categoriesLoading, categoriesError);
 
-    })
-}
+  const categoriesData = data?.data;
 
-export default useCategories
+  return { categoriesData, categoriesLoading, categoriesError };
+};
+
+export default useCategories;

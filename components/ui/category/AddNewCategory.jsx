@@ -8,8 +8,9 @@ import AddCustomCategoryField from "./AddCustomCategoryField";
 import { useNavigate } from "react-router-dom";
 import ShowCustomCategoryFields from "./ShowCustomCategoryFields";
 import CategoryColor from "./CategoryColor";
+import CustomTextAria from "../../modules/CustomTextAria";
 
-function AddNewCategory({ addCategoryHandler }) {
+function AddNewCategory({ addCategoryHandler, loading }) {
   const [isCustomFieldModalOpen, setIsCustomFieldModalOpen] = useState(false);
   const [category, setCategory] = useState({
     fields: [],
@@ -18,6 +19,7 @@ function AddNewCategory({ addCategoryHandler }) {
       customColor: "",
       color: "",
     },
+    description: "",
   });
   const navigate = useNavigate();
 
@@ -28,6 +30,7 @@ function AddNewCategory({ addCategoryHandler }) {
       name: category.name,
       customFields: category.fields,
       color: category.color.color || category.color.customColor,
+      description: category.description,
     });
   };
   // Remove Field
@@ -53,6 +56,15 @@ function AddNewCategory({ addCategoryHandler }) {
           onChange={(e) => setCategory({ ...category, name: e.target.value })}
           value={category.name}
         />
+        <CustomTextAria
+          placeholder="توضیحات دسته بندی"
+          className="px-3.5 py-1.5 mt-7"
+          onChange={(e) =>
+            setCategory({ ...category, description: e.target.value })
+          }
+          value={category.description}
+          rows={5}
+        />
         {/* Category Color */}
         <div className="mt-10">
           <CategoryColor
@@ -72,7 +84,6 @@ function AddNewCategory({ addCategoryHandler }) {
           </CustomButton>
         </div>
 
-
         <div>
           <ShowCustomCategoryFields
             fields={category.fields}
@@ -84,6 +95,7 @@ function AddNewCategory({ addCategoryHandler }) {
           <CustomButton
             className="flex-1 py-5 border-2 border-custom-primary-color"
             type="submit"
+            loading={loading}
           >
             ثبت دسته بندی
           </CustomButton>

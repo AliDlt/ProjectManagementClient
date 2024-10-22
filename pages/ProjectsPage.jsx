@@ -109,7 +109,7 @@ function ProjectsPage() {
           ]}
         />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mt-10">
         {!isLoading && !data && (
           <Empty
             className="w-full col-span-full h-80 flex flex-col justify-center items-center"
@@ -117,7 +117,7 @@ function ProjectsPage() {
           />
         )}
       </div>
-      <div className=" grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {isLoading ? (
           <div className="container lg:col-span-9 lg:p-0 2xl:col-span-10 h-96">
             <CustomLoading />
