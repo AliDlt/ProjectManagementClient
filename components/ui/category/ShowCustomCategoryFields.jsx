@@ -6,7 +6,7 @@ import { Switch } from "antd";
 import { FaTrash } from "react-icons/fa6";
 
 function ShowCustomCategoryFields({ fields, deleteField }) {
-  console.log(fields)
+  console.log(fields);
   return (
     <div className="grid grid-cols-1 gap-5 mt-5">
       {fields.map((field) => {
@@ -20,6 +20,7 @@ function ShowCustomCategoryFields({ fields, deleteField }) {
                   className="text-custom-primary-color cursor-pointer"
                 />
                 <CustomInput
+                  disabled
                   placeholder={field.fieldName}
                   className="px-3.5 py-1.5"
                 />
@@ -34,6 +35,7 @@ function ShowCustomCategoryFields({ fields, deleteField }) {
                   className="text-custom-primary-color cursor-pointer"
                 />
                 <CustomInput
+                  disabled
                   placeholder={field.fieldName}
                   className="px-3.5 py-1.5"
                   type="number"
@@ -48,10 +50,10 @@ function ShowCustomCategoryFields({ fields, deleteField }) {
                   size={18}
                   className="text-custom-primary-color cursor-pointer"
                 />
-                <Switch />
+                <Switch disabled />
               </div>
             );
-          case "TextArea":
+          case "textArea":
             return (
               <div className="flex items-center gap-3">
                 <FaTrash
@@ -60,6 +62,7 @@ function ShowCustomCategoryFields({ fields, deleteField }) {
                   className="text-custom-primary-color cursor-pointer"
                 />
                 <CustomTextAria
+                  disabled
                   placeholder={field.fieldName}
                   className="px-3.5 py-1.5"
                 />
@@ -74,6 +77,7 @@ function ShowCustomCategoryFields({ fields, deleteField }) {
                   className="text-custom-primary-color cursor-pointer"
                 />
                 <CustomDatePicker
+                  disabled
                   placeholder={field.fieldName}
                   className="px-3.5 py-1.5"
                 />

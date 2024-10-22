@@ -20,15 +20,13 @@ const CustomTextAria = ({
     return (
       <div className="flex flex-col gap-2 w-full resize-none ">
         <TextArea
-      
-
           id={name}
           value={value}
           onBlurCapture={() => {
             onBlur && onBlur();
           }}
           className={cn([
-            "rounded-md border-2 border-custom-primary-color p-2.5",
+            "rounded-custom border-2 border-custom-primary-color p-2.5",
             className,
             error && "border-red-500",
           ])}

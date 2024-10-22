@@ -73,7 +73,7 @@ function UserProjectsPage() {
           </CustomButton>
         </div>
       ) : (
-        <div className=" grid grid-cols-1 md:grid-cols-2 mt-10 gap-6">
+        <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mt-10 gap-6">
           {userProjectsData?.projects.map((project) => (
             <ProjectItem
               address={project.address}

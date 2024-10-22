@@ -11,7 +11,6 @@ import Gallery from "../../Gallery";
 import useDeleteProjectFile from "../../../../hooks/projects/useDeleteProjectFile";
 import CustomTextAria from "../../../modules/CustomTextAria";
 import { useToast } from "../../../../Context/ToastContext";
-import useUploadProjectFile from "../../../../hooks/projects/useUploadProjectFile";
 import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -20,6 +19,8 @@ import { filesSize } from "../../../../utils/uploadFileInfo";
 import ImageVideoSlide from "../../ImageVideoSlide";
 import { imageTypes, videoFormats } from "../../../../utils/tools";
 import { IoMdAdd } from "react-icons/io";
+import useUploadFiles from "../../../../hooks/Files/useUploadFiles";
+import useFiles from "../../../../hooks/Files/useFiles";
 
 // Popover Content
 const popoverContent = (
@@ -62,8 +63,12 @@ function ProjectGallery({ projectGalleryData, projectId }) {
   const [selectedImage, setSelectedImage] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(false);
   const { deleteFile, isPending } = useDeleteProjectFile(projectId);
-  const { uploadProjectFileFn, uploadProjectFilePending } =
-    useUploadProjectFile(projectId);
+  const { uploadFileFn, uploadFileLoading } = useUploadFiles(
+    "project",
+    projectId,
+  );
+  const { files, filesLoading } = useFiles("project", projectId);
+  console.log(files);
   const toast = useToast();
   const navigate = useNavigate();
   const galleryData =
@@ -102,8 +107,9 @@ function ProjectGallery({ projectGalleryData, projectId }) {
 
   // Upload Image / Video
   const uploadFile = async (file, fileFormat) => {
-    return uploadProjectFileFn({
-      id: projectId,
+    return uploadFileFn({
+      sectionId: projectId,
+      sectionType: "project",
       description: fileDescription,
       fileFormat,
       file,
@@ -119,13 +125,12 @@ function ProjectGallery({ projectGalleryData, projectId }) {
 
     try {
       await Promise.all(promises);
-      toast("فایل بارگزاری شد", "success");
       setFileDescription("");
       setSelectedImage(false);
       setSelectedVideo(false);
       setOpenAddFileModal(false);
     } catch (error) {
-      toast(error.response.data.message, "error");
+      toast(error?.response?.data?.message, "error");
     }
   };
 
@@ -237,8 +242,8 @@ function ProjectGallery({ projectGalleryData, projectId }) {
             <CustomButton
               className="mt-5"
               onClick={uploadFileHandler}
-              disabled={!selectedImage && !selectedVideo}
-              loading={uploadProjectFilePending}
+              disabled={(!selectedImage && !selectedVideo) || !fileDescription}
+              loading={uploadFileLoading}
               type="submit"
             >
               بارگزاری

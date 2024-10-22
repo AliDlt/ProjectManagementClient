@@ -1,18 +1,17 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../../Context/ToastContext";
-import { deleteFile } from "../../services/files";
 
-function useDeleteProjectFile(projectId) {
+function useDeleteFile() {
   const toast = useToast();
   const queryClient = useQueryClient();
 
   const {
-    mutateAsync: deleteFileFn,
-    isPending: deleteFileLoading,
-    isSuccess: deleteFileError,
+    mutateAsync: deleteFile,
+    isPending,
+    isSuccess,
   } = useMutation({
-    mutationKey: ["delete-file"],
-    mutationFn: deleteFile,
+    mutationKey: ["delete-project-file"],
+    mutationFn: deleteProjectFile,
     onSuccess: () => {
       queryClient.invalidateQueries("project", projectId);
     },
@@ -24,7 +23,7 @@ function useDeleteProjectFile(projectId) {
     },
   });
 
-  return { deleteFileFn, deleteFileLoading, deleteFileError };
+  return { deleteFile, isPending, isSuccess };
 }
 
-export default useDeleteProjectFile;
+export default useDeleteFile;

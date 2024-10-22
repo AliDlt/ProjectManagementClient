@@ -18,6 +18,7 @@ import Map from "../components/ui/projects/Map";
 import BackButton from "../components/modules/BackButton";
 import cn from "../utils/cn";
 import Categories from "../components/ui/category/Categories";
+import ProjectsCategories from "../components/ui/projects/ProjectsCategories";
 
 const projectStatus = [
   { label: "در حال انجام ", value: 0 },
@@ -255,13 +256,11 @@ function AddNewProject() {
       >
         ثبت پروژه
       </CustomButton>
-      <CustomModal
-        open={isCategoriesModalOpen}
-        onCancel={() => setIsCategoriesModalOpen(false)}
-        title="انتخاب دسته بندی"
-      >
-        <Categories />
-      </CustomModal>
+      {/* Project Category Modal */}
+      <ProjectsCategories
+        isCategoriesModalOpen={isCategoriesModalOpen}
+        setIsCategoriesModalOpen={setIsCategoriesModalOpen}
+      />
       {/* Meta Tag */}
       <MetaTag title="ایجاد پروژه" description="ایجاد پروژه جدید" />
     </form>
